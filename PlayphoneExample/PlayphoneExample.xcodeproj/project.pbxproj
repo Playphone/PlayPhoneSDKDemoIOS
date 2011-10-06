@@ -1,0 +1,294 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F57C0D69143CB74D00A43EEF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F57C0D68143CB74D00A43EEF /* UIKit.framework */; };
+		F57C0D6B143CB74D00A43EEF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F57C0D6A143CB74D00A43EEF /* Foundation.framework */; };
+		F57C0D6D143CB74D00A43EEF /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F57C0D6C143CB74D00A43EEF /* CoreGraphics.framework */; };
+		F57C0D73143CB74D00A43EEF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F57C0D71143CB74D00A43EEF /* InfoPlist.strings */; };
+		F57C0D75143CB74D00A43EEF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F57C0D74143CB74D00A43EEF /* main.m */; };
+		F57C0D79143CB74D00A43EEF /* PlayphoneExampleAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F57C0D78143CB74D00A43EEF /* PlayphoneExampleAppDelegate.m */; };
+		F57C0D7C143CB74E00A43EEF /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = F57C0D7A143CB74E00A43EEF /* MainWindow.xib */; };
+		F57C0D7F143CB74E00A43EEF /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F57C0D7E143CB74E00A43EEF /* RootViewController.m */; };
+		F57C0D82143CB74E00A43EEF /* RootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F57C0D80143CB74E00A43EEF /* RootViewController.xib */; };
+		F57C0D98143DCD2D00A43EEF /* PPSExBasicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F57C0D97143DCD2D00A43EEF /* PPSExBasicViewController.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		F57C0D64143CB74D00A43EEF /* PlayphoneExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlayphoneExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F57C0D68143CB74D00A43EEF /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		F57C0D6A143CB74D00A43EEF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		F57C0D6C143CB74D00A43EEF /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		F57C0D70143CB74D00A43EEF /* PlayphoneExample-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PlayphoneExample-Info.plist"; sourceTree = "<group>"; };
+		F57C0D72143CB74D00A43EEF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		F57C0D74143CB74D00A43EEF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		F57C0D76143CB74D00A43EEF /* PlayphoneExample-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PlayphoneExample-Prefix.pch"; sourceTree = "<group>"; };
+		F57C0D77143CB74D00A43EEF /* PlayphoneExampleAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlayphoneExampleAppDelegate.h; sourceTree = "<group>"; };
+		F57C0D78143CB74D00A43EEF /* PlayphoneExampleAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlayphoneExampleAppDelegate.m; sourceTree = "<group>"; };
+		F57C0D7B143CB74E00A43EEF /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
+		F57C0D7D143CB74E00A43EEF /* RootViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
+		F57C0D7E143CB74E00A43EEF /* RootViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
+		F57C0D81143CB74E00A43EEF /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/RootViewController.xib; sourceTree = "<group>"; };
+		F57C0D96143DCD2D00A43EEF /* PPSExBasicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPSExBasicViewController.h; sourceTree = "<group>"; };
+		F57C0D97143DCD2D00A43EEF /* PPSExBasicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPSExBasicViewController.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F57C0D61143CB74D00A43EEF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F57C0D69143CB74D00A43EEF /* UIKit.framework in Frameworks */,
+				F57C0D6B143CB74D00A43EEF /* Foundation.framework in Frameworks */,
+				F57C0D6D143CB74D00A43EEF /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F57C0D59143CB74D00A43EEF = {
+			isa = PBXGroup;
+			children = (
+				F57C0D6E143CB74D00A43EEF /* PlayphoneExample */,
+				F57C0D67143CB74D00A43EEF /* Frameworks */,
+				F57C0D65143CB74D00A43EEF /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F57C0D65143CB74D00A43EEF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F57C0D64143CB74D00A43EEF /* PlayphoneExample.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F57C0D67143CB74D00A43EEF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F57C0D68143CB74D00A43EEF /* UIKit.framework */,
+				F57C0D6A143CB74D00A43EEF /* Foundation.framework */,
+				F57C0D6C143CB74D00A43EEF /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F57C0D6E143CB74D00A43EEF /* PlayphoneExample */ = {
+			isa = PBXGroup;
+			children = (
+				F57C0D77143CB74D00A43EEF /* PlayphoneExampleAppDelegate.h */,
+				F57C0D78143CB74D00A43EEF /* PlayphoneExampleAppDelegate.m */,
+				F57C0D7A143CB74E00A43EEF /* MainWindow.xib */,
+				F57C0D7D143CB74E00A43EEF /* RootViewController.h */,
+				F57C0D7E143CB74E00A43EEF /* RootViewController.m */,
+				F57C0D80143CB74E00A43EEF /* RootViewController.xib */,
+				F57C0D6F143CB74D00A43EEF /* Supporting Files */,
+				F57C0D96143DCD2D00A43EEF /* PPSExBasicViewController.h */,
+				F57C0D97143DCD2D00A43EEF /* PPSExBasicViewController.m */,
+			);
+			path = PlayphoneExample;
+			sourceTree = "<group>";
+		};
+		F57C0D6F143CB74D00A43EEF /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F57C0D70143CB74D00A43EEF /* PlayphoneExample-Info.plist */,
+				F57C0D71143CB74D00A43EEF /* InfoPlist.strings */,
+				F57C0D74143CB74D00A43EEF /* main.m */,
+				F57C0D76143CB74D00A43EEF /* PlayphoneExample-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F57C0D63143CB74D00A43EEF /* PlayphoneExample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F57C0D85143CB74E00A43EEF /* Build configuration list for PBXNativeTarget "PlayphoneExample" */;
+			buildPhases = (
+				F57C0D60143CB74D00A43EEF /* Sources */,
+				F57C0D61143CB74D00A43EEF /* Frameworks */,
+				F57C0D62143CB74D00A43EEF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PlayphoneExample;
+			productName = PlayphoneExample;
+			productReference = F57C0D64143CB74D00A43EEF /* PlayphoneExample.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F57C0D5B143CB74D00A43EEF /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = F57C0D5E143CB74D00A43EEF /* Build configuration list for PBXProject "PlayphoneExample" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = F57C0D59143CB74D00A43EEF;
+			productRefGroup = F57C0D65143CB74D00A43EEF /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F57C0D63143CB74D00A43EEF /* PlayphoneExample */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F57C0D62143CB74D00A43EEF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F57C0D73143CB74D00A43EEF /* InfoPlist.strings in Resources */,
+				F57C0D7C143CB74E00A43EEF /* MainWindow.xib in Resources */,
+				F57C0D82143CB74E00A43EEF /* RootViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F57C0D60143CB74D00A43EEF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F57C0D75143CB74D00A43EEF /* main.m in Sources */,
+				F57C0D79143CB74D00A43EEF /* PlayphoneExampleAppDelegate.m in Sources */,
+				F57C0D7F143CB74E00A43EEF /* RootViewController.m in Sources */,
+				F57C0D98143DCD2D00A43EEF /* PPSExBasicViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		F57C0D71143CB74D00A43EEF /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F57C0D72143CB74D00A43EEF /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		F57C0D7A143CB74E00A43EEF /* MainWindow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F57C0D7B143CB74E00A43EEF /* en */,
+			);
+			name = MainWindow.xib;
+			sourceTree = "<group>";
+		};
+		F57C0D80143CB74E00A43EEF /* RootViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F57C0D81143CB74E00A43EEF /* en */,
+			);
+			name = RootViewController.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		F57C0D83143CB74E00A43EEF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		F57C0D84143CB74E00A43EEF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F57C0D86143CB74E00A43EEF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PlayphoneExample/PlayphoneExample-Prefix.pch";
+				INFOPLIST_FILE = "PlayphoneExample/PlayphoneExample-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		F57C0D87143CB74E00A43EEF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PlayphoneExample/PlayphoneExample-Prefix.pch";
+				INFOPLIST_FILE = "PlayphoneExample/PlayphoneExample-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F57C0D5E143CB74D00A43EEF /* Build configuration list for PBXProject "PlayphoneExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F57C0D83143CB74E00A43EEF /* Debug */,
+				F57C0D84143CB74E00A43EEF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F57C0D85143CB74E00A43EEF /* Build configuration list for PBXNativeTarget "PlayphoneExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F57C0D86143CB74E00A43EEF /* Debug */,
+				F57C0D87143CB74E00A43EEF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F57C0D5B143CB74D00A43EEF /* Project object */;
+}
