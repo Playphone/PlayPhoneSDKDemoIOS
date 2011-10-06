@@ -1,0 +1,111 @@
+This directory contains external (3rd-party) packages/libraries/frameworks.
+
+Content:
+
+FBConnect - contains files from "src" directory FBConnect library
+(Facebook SDK for iPhone) as it was on 15.03.11
+(git revision: 479f2844ec49875542dacb299fc5307ad75a332b).
+The following patch is applied (it allows to control authorize mode from
+outside):
+========================================================================
+--- Facebook.h.orig	2011-03-17 13:38:36.000000000 +0200
++++ Facebook.h	2011-03-17 13:43:49.000000000 +0200
+@@ -47,6 +47,11 @@
+ - (void)authorize:(NSArray *)permissions
+          delegate:(id<FBSessionDelegate>)delegate;
+ 
++- (void)authorizeWithFBAppAuth:(BOOL)tryFBAppAuth
++                    safariAuth:(BOOL)trySafariAuth
++                   permissions:(NSArray*)permissions
++                      delegate:(id<FBSessionDelegate>)delegate;
++
+ - (BOOL)handleOpenURL:(NSURL *)url;
+ 
+ - (void)logout:(id<FBSessionDelegate>)delegate;
+--- Facebook.m.orig	2011-03-17 13:38:36.000000000 +0200
++++ Facebook.m	2011-03-17 13:44:44.000000000 +0200
+@@ -212,13 +212,19 @@
+  */
+ - (void)authorize:(NSArray *)permissions
+          delegate:(id<FBSessionDelegate>)delegate {
++    [self authorizeWithFBAppAuth: YES safariAuth: YES permissions: permissions delegate: delegate];
++}
+ 
+-  [_permissions release];
+-  _permissions = [permissions retain];
++- (void)authorizeWithFBAppAuth:(BOOL)tryFBAppAuth
++                    safariAuth:(BOOL)trySafariAuth
++                   permissions:(NSArray*)permissions
++                      delegate:(id<FBSessionDelegate>)delegate {
++    [_permissions release];
++    _permissions = [permissions retain];
+ 
+   _sessionDelegate = delegate;
+ 
+-  [self authorizeWithFBAppAuth:YES safariAuth:YES];
++  [self authorizeWithFBAppAuth:tryFBAppAuth safariAuth:trySafariAuth];
+ }
+ 
+ /**
+========================================================================
+
+SmartFox - contains files from "INFSmartFoxiPhoneClientAPI/INFSmartFoxiPhoneClient/Classes"
+directory of SmartFox iPhone client (version RC1). JSON library is removed
+from SmartFox SDK, because it is already present in FBConnect library.
+
+zlib-1.2.5.f - contains subset of files from zlib library, version 1.2.5. zlib
+is available from http://www.zlib.net/ .
+Following changes have been applied to zlib sources (in short - unistd.h
+header was included in several source files):
+Index: zlib-1.2.5.f/gzlib.c
+===================================================================
+--- zlib-1.2.5.f/gzlib.c	(revision 6514)
++++ zlib-1.2.5.f/gzlib.c	(working copy)
+@@ -3,6 +3,7 @@
+  * For conditions of distribution and use, see copyright notice in zlib.h
+  */
+ 
++#include <unistd.h>
+ #include "gzguts.h"
+ 
+ #if defined(_LARGEFILE64_SOURCE) && _LFS64_LARGEFILE-0
+Index: zlib-1.2.5.f/gzread.c
+===================================================================
+--- zlib-1.2.5.f/gzread.c	(revision 6514)
++++ zlib-1.2.5.f/gzread.c	(working copy)
+@@ -3,6 +3,7 @@
+  * For conditions of distribution and use, see copyright notice in zlib.h
+  */
+ 
++#include <unistd.h>
+ #include "gzguts.h"
+ 
+ /* Local functions */
+Index: zlib-1.2.5.f/gzwrite.c
+===================================================================
+--- zlib-1.2.5.f/gzwrite.c	(revision 6514)
++++ zlib-1.2.5.f/gzwrite.c	(working copy)
+@@ -3,6 +3,7 @@
+  * For conditions of distribution and use, see copyright notice in zlib.h
+  */
+ 
++#include <unistd.h>
+ #include "gzguts.h"
+ 
+ /* Local functions */
+
+minizip-1.2.5.f - contains subset of files from minizip library/application
+from contrib directory of zlib distribution. Following changes have been applied
+to minizip sources:
+
+--- minizip-1.2.5.f/ioapi.h	2010-05-07 13:33:35.000000000 +0300
++++ zlib-1.2.5.orig/contrib/minizip/ioapi.h	2010-02-15 13:59:40.000000000 +0200
+@@ -44,7 +44,7 @@
+ #include <stdlib.h>
+ #include "zlib.h"
+ 
+-#if defined(USE_FILE32API) || defined(__APPLE__)
++#if defined(USE_FILE32API)
+ #define fopen64 fopen
+ #define ftello64 ftell
+ #define fseeko64 fseek

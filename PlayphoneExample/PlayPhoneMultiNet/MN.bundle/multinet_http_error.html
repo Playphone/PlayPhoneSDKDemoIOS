@@ -1,0 +1,4283 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<!-- [Not a regular web page: Offline HTML file Used by MultiNet framework] -->
+<!--
+// CHECKME ON UPDATE!
+// For Android replace body of 'callAppHostIsOnAndroid' as:
+function callAppHostIsOnAndroid()
+ {
+  return(true);
+ }
+-->
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta id="viewport" name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
+<!-- [Styles] -->
+
+<style type="text/css">
+/* [[Imported.CSS(css/cover.css)]] */
+
+.cover_Area
+ {
+  background-color:rgba(100,100,100,0.8);
+  color:white;
+  z-index: 1500;
+ }
+.cover_Area .cover_Title
+ {
+  font: normal 24px Helvetica;
+ }
+.cover_Area .cover_Body
+ {
+  padding-top: 10px;
+  font: normal 20px Helvetica;
+ }
+.cover_Area .cover_Btn
+ {
+  background-color: #0089F4;
+  font: bold 15px Helvetica;
+  color:white;
+  text-align:center;
+  padding:8px;
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  height:20px;
+ }
+
+/* [[/Imported.CSS(css/cover.css)]] */
+</style>
+
+
+<style type="text/css">
+/* [[Imported.CSS(css-pp/popup.css)]] */
+
+.popup_Area
+ {
+  -webkit-box-shadow: rgba(20, 20, 30, 0.792969) 1px 3px 3px;
+  background: rgb(20, 35, 43);/* Fallback for web browsers that doesn't support RGBa */
+  background: rgba(20, 35, 43, 0.9);/* RGBa with 0.6 opacity */
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#14232B9A, endColorstr=#14232B9A);/* For IE 5.5 - 7*/
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#14232B9A, endColorstr=#14232B9A)";/* For IE 8*/
+
+  border: 3px solid #DEDFE1;
+  -moz-border-radius:8px; -khtml-border-radius:8px; -webkit-border-radius:8px; border-radius:8px;
+  color: #FFFFFF;
+  max-width: 300px;
+  min-width: 200px;
+  padding-left: 5px;
+  padding-right: 5px;
+  width: 263px;
+  z-index: 30000;
+ }
+.popup_Header
+ {
+  color: #FFFFFF;
+  font: normal normal bold 18px/normal Helvetica;
+  padding: 3px 0px 3px 3px;
+  padding-right: 0px;
+  text-align: center;
+ }
+.popup_wait_title
+{
+  background-color: Transparent;
+}
+.popup_Area .popup_Body
+ {
+  padding: 8px 8px 8px 8px;
+  font: normal normal normal 13px/normal Helvetica;
+  text-align: center;
+  font-size: 14px;
+ }
+.popup_Area .popup_Btn_left, .popup_Btn_right
+ {
+  background: -moz-linear-gradient(top, rgba(166,169,171,0.55) 0%, rgba(165,168,170,0.55) 1%, rgba(95,100,105,0.55) 48%, rgba(63,67,71,0.55) 53%, rgba(84,88,92,0.55) 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(166,169,171,0.55)), color-stop(1%,rgba(165,168,170,0.55)), color-stop(48%,rgba(95,100,105,0.55)), color-stop(53%,rgba(63,67,71,0.55)), color-stop(100%,rgba(84,88,92,0.55))); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, rgba(166,169,171,0.55) 0%,rgba(165,168,170,0.55) 1%,rgba(95,100,105,0.55) 48%,rgba(63,67,71,0.55) 53%,rgba(84,88,92,0.55) 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, rgba(166,169,171,0.55) 0%,rgba(165,168,170,0.55) 1%,rgba(95,100,105,0.55) 48%,rgba(63,67,71,0.55) 53%,rgba(84,88,92,0.55) 100%); /* Opera11.10+ */
+  background: -ms-linear-gradient(top, rgba(166,169,171,0.55) 0%,rgba(165,168,170,0.55) 1%,rgba(95,100,105,0.55) 48%,rgba(63,67,71,0.55) 53%,rgba(84,88,92,0.55) 100%); /* IE10+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d9a6a9ab', endColorstr='#d954585c',GradientType=0 ); /* IE6-9 */
+  background: linear-gradient(top, rgba(166,169,171,0.55) 0%,rgba(165,168,170,0.55) 1%,rgba(95,100,105,0.55) 48%,rgba(63,67,71,0.55) 53%,rgba(84,88,92,0.55) 100%); /* W3C */
+  border: 1px solid #131E39;
+  -moz-border-radius:5px; -khtml-border-radius:5px; -webkit-border-radius:5px; border-radius:5px;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-block;
+  font: normal normal bold 17px/normal Helvetica;
+  font-size: 12px;
+  font-weight: bold;
+  height: 31px;
+  line-height: 31px;
+  margin-bottom: 7px;
+  margin-left: 9px;
+  margin-right: 0px;
+  margin-top: 10px;
+  padding: 0px 9px;
+  text-align: center;
+  text-shadow: 0px -0.4px 1px black;
+  width: 99px;
+  -webkit-tap-highlight-color: rgba(233, 232, 232, 0.45);
+  }
+.popup_Area .popup_Btn_yellow_left, .popup_Btn_yellow_right
+ {
+  background: #FACD9A; /* old browsers */
+  background: -moz-linear-gradient(top, #FACD9A 15%, #F4BB1B 36%, #F7CE55 77%); /* firefox */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(15%,#FACD9A), color-stop(36%,#F4BB1B), color-stop(77%,#F7CE55)); /* webkit */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FACD9A', endColorstr='#F7CE55',GradientType=0 ); /* ie */
+  border: 1px solid #DB8100;
+  -moz-border-radius:10px; -khtml-border-radius:10px; -webkit-border-radius:10px; border-radius:10px;
+  color: #4A4A4A;
+  cursor: pointer;
+  display: inline-block;
+  font: normal normal bold 17px/normal Helvetica;
+  font-size: 12px;
+  font-weight: bold;
+  height: 31px;
+  line-height: 31px;
+  margin-bottom: 7px;
+  margin-left: 9px;
+  margin-right: 0px;
+  margin-top: 10px;
+  padding: 0px 9px;
+  text-align: center;
+  text-shadow: white 0px -1px 0px;
+  width: 99px;
+  -webkit-tap-highlight-color: rgba(233, 232, 232, 0.45);
+  }
+
+ .popup_BigBtn div
+ {
+  display: table-cell;
+  vertical-align: middle;
+  height: 40px;
+  min-width: 100px;
+  }
+ .popup_BigBtn
+ {
+  display: block;
+  float: left;
+  height: 40px !important;
+  line-height: 20px !important;
+  }
+.popup_Area .popup_Btn
+ {
+  display: inline-block;
+  font: bold 17px Helvetica;
+  margin-top:5px;
+  margin-bottom:7px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  padding: 0px 9px;
+  height:31px;
+  line-height:31px;
+  font-size:12px;
+  font-weight: bold;
+  margin-top: 10px;
+  text-align: center;
+  cursor:pointer;
+  background: -moz-linear-gradient(top, rgba(166,169,171,0.55) 0%, rgba(165,168,170,0.55) 1%, rgba(95,100,105,0.55) 48%, rgba(63,67,71,0.55) 53%, rgba(84,88,92,0.55) 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(166,169,171,0.55)), color-stop(1%,rgba(165,168,170,0.55)), color-stop(48%,rgba(95,100,105,0.55)), color-stop(53%,rgba(63,67,71,0.55)), color-stop(100%,rgba(84,88,92,0.55))); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, rgba(166,169,171,0.55) 0%,rgba(165,168,170,0.55) 1%,rgba(95,100,105,0.55) 48%,rgba(63,67,71,0.55) 53%,rgba(84,88,92,0.55) 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, rgba(166,169,171,0.55) 0%,rgba(165,168,170,0.55) 1%,rgba(95,100,105,0.55) 48%,rgba(63,67,71,0.55) 53%,rgba(84,88,92,0.55) 100%); /* Opera11.10+ */
+  background: -ms-linear-gradient(top, rgba(166,169,171,0.55) 0%,rgba(165,168,170,0.55) 1%,rgba(95,100,105,0.55) 48%,rgba(63,67,71,0.55) 53%,rgba(84,88,92,0.55) 100%); /* IE10+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d9a6a9ab', endColorstr='#d954585c',GradientType=0 ); /* IE6-9 */
+  background: linear-gradient(top, rgba(166,169,171,0.55) 0%,rgba(165,168,170,0.55) 1%,rgba(95,100,105,0.55) 48%,rgba(63,67,71,0.55) 53%,rgba(84,88,92,0.55) 100%); /* W3C */
+  border: 1px solid #131E39;
+  -moz-border-radius:5px; -khtml-border-radius:5px; -webkit-border-radius:5px; border-radius:5px;
+  color: #FFFFFF;
+  text-shadow: 0px -0.4px 1px black;
+  -webkit-tap-highlight-color: rgba(233, 232, 232, 0.45);
+  }
+.popup_BtnText
+ {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  position:relative;
+  font-size: 15px;
+ }
+/* Cover for popup */
+.popup_Aux_Cover
+ {
+  background-color:rgba(20,20,30,0.8);
+  opacity: 0;
+ }
+
+/* [[/Imported.CSS(css-pp/popup.css)]] */
+</style>
+
+<!-- [/Styles] -->
+<!-- [Scripts] -->
+
+<script language="JavaScript">
+/* [[Imported.JS(js/tools.js)]] */
+
+// Main application tools functions namespace
+// ----------------------------------------------
+try { if (typeof AppTools == 'undefined') { AppTools = {}; } } catch(ex) { AppTools = {}; }
+AppTools.Page = new function()
+ {
+  function setStyle(oElement,sStyle)
+   {
+    var aStyle = sStyle.split(";");
+    if (isArray(aStyle))
+     {
+      for(var i in aStyle)
+       {
+        sItemStyle = aStyle[i];
+        aStyleParam = sItemStyle.split(":");
+        oElement.style[aStyleParam[0]] = aStyleParam[1];
+       }
+     }
+   }
+  function appendEventHandler(oElement,eventName,func) // Used
+   {
+    if (!(window.attachEvent))
+     {
+      oElement.addEventListener(eventName, func, false);
+     }
+    else
+     {
+      oElement.attachEvent("on"+eventName,func);
+     }
+   }
+  function deleteEventHandler(oElement,eventName,func) // Used
+   {
+    if (!(window.attachEvent))
+     {
+      oElement.removeEventListener(eventName, func, false);
+     }
+    else
+     {
+      oElement.detachEvent("on"+eventName,func);
+     }
+   }
+  function setAttributeExt(oElement,sAttrName,mAttr) // Used
+   {
+    if (sAttrName.match(/^on.*/ig))
+     {
+      if (!(window.attachEvent)) oElement.addEventListener(sAttrName.substr(2), mAttr, false);
+      else oElement.attachEvent(sAttrName,mAttr);
+     }
+    else if (sAttrName.toLowerCase() == "style") setStyle(oElement,mAttr);
+    else if (sAttrName.toLowerCase() == "class") oElement.className = mAttr;
+    else oElement.setAttribute(sAttrName,mAttr);
+   }
+  function getPos(el)
+   {
+    var r = {x : el.offsetLeft, y : el.offsetTop};
+    if (el.offsetParent)
+     {
+      var tmp = getPos(el.offsetParent);
+      r.x += tmp.x;
+      r.y += tmp.y;
+     }
+    return r;
+   }
+  function isNumber(obj)
+   {
+    if (typeof(obj) == "number") return true;
+    return false;
+   }
+  function isString(obj)
+   {
+    if (typeof(obj) == "string") return true;
+    return false;
+   }
+  function isObject(obj)
+   {
+    if ((obj instanceof Object) || (typeof(obj) == "object")) return true;
+    return false;
+   }
+  function isArray(obj) // Used
+   {
+    if (obj instanceof Array) return true;
+    return false;
+   }
+  function isUndefined(property)
+   {
+    return (typeof property == 'undefined');
+   }
+  function isEmpty(obj)
+   {
+    if ((isString(obj) || isArray(obj)) && obj.length > 0) return false;
+    else if (isObject(obj) && obj.count() > 0) return false;
+    else return true;
+   }
+  function isEven(iVal)
+   {
+    return !(iVal%2);
+   }
+  function isClientSFMobile()
+   {
+    var client = navigator.userAgent;
+    if (client.indexOf("AppleWebKit") >= 0 && client.indexOf("Mobile") >= 0)
+     {
+      return(true);
+     }
+    else
+     {
+      return(false);
+     }
+   }
+  function isClientSF()
+   {
+    var client = navigator.userAgent;
+    if (client.indexOf("AppleWebKit") >= 0)
+     {
+      return(true);
+     }
+    else
+     {
+      return(false);
+     }
+   }
+  function isClientIE()
+   {
+    var client = navigator.userAgent;
+    if (client.indexOf("MSIE") >= 0)
+     {
+      return(true);
+     }
+    else
+     {
+      return(false);
+     }
+   }
+  function isClientFF()
+   {
+    var client = navigator.userAgent;
+    if (client.indexOf("Gecko") >= 0)
+     {
+      return(true);
+     }
+    else
+     {
+      return(false);
+     }
+   }
+  function getNodeChildren(oNode)
+   {
+    var result = null;
+    if (oNode != null)
+     {
+      try
+       {
+        result = oNode.children;
+       }
+      catch(e)
+       {
+        result = null;
+       }
+      if (result == null)
+       {
+        // children property not supported - simulate
+        var resultLength = 0;
+        result = new Array();
+        var aNodes       = oNode.childNodes;
+        var aNodesLength = aNodes.length;
+        var i;
+        for (i = 0; i < aNodesLength; i++)
+         {
+          var oNode = aNodes[i];
+          if (oNode.nodeType == 1)
+           {
+            result[resultLength] = oNode;
+            resultLength++;
+           }
+         }
+        // add simulated "item" function
+        result.item = function(i) { return(this[i]); }
+       }
+     }
+    return(result);
+   }
+  // Public functions:
+  // - - - - - - - - - - - - - - - - - - - - - -
+  // Published in AppTools.Page.*
+  this.getNodeChildren    = getNodeChildren;
+  this.appendEventHandler = appendEventHandler
+  this.deleteEventHandler = deleteEventHandler
+  this.isArray            = isArray;         // [Deprecated] // Used:popup
+  this.setAttributeExt    = setAttributeExt; // [Deprecated] // Used:TabView
+  // Published in AppTools.*
+  AppTools.getNodeChildren    = getNodeChildren;
+  AppTools.appendEventHandler = appendEventHandler
+  AppTools.deleteEventHandler = deleteEventHandler
+  AppTools.isArray            = isArray;         // [Deprecated] // Used:popup
+  AppTools.setAttributeExt    = setAttributeExt; // [Deprecated] // Used:TabView
+ }();
+// [Deprecated] Shortcuts (temporary)
+// ----------------------------------------------
+// Note: These will be deprecated soon
+var getNodeChildren    = AppTools.getNodeChildren;    // [Deprecated]
+var appendEventHandler = AppTools.appendEventHandler; // [Deprecated]
+var deleteEventHandler = AppTools.deleteEventHandler; // [Deprecated]
+var isArray            = AppTools.isArray;            // [Deprecated]
+var setAttributeExt    = AppTools.setAttributeExt;    // [Deprecated]
+// Image store + preloader
+// ----------------------------------------------
+AppTools.ImgStore = new function()
+ {
+  var that = this;
+  var storeArray = [];
+  var STORE_URL_PREFIX = '#'; // Prefix URl with this to fore store by a true HashMap
+  var STORE_IMG_STATUS_LOADING = 0;
+  var STORE_IMG_STATUS_DONE    = 1;
+  var STORE_IMG_STATUS_FAILED  = -1;
+  function startLoad(img_url)
+   {
+    if ((img_url == null) || (img_url == ''))
+     {
+      // Skip
+      return(null);
+     }
+    else
+     {
+      var img_key = STORE_URL_PREFIX + img_url;
+      if ((storeArray[img_key] != null) && (storeArray[img_key].getLoadStatus() != STORE_IMG_STATUS_FAILED))
+       {
+        // Allready in proccess or already loaded
+        return(storeArray[img_key]);
+       }
+      else
+       {
+        var img = new Image();
+        img.x_load_status = STORE_IMG_STATUS_LOADING;
+        img.onerror = function()
+         {
+          img.x_load_status = STORE_IMG_STATUS_FAILED;
+         };
+        img.onload = function()
+         {
+          img.x_load_status = STORE_IMG_STATUS_DONE;
+         };
+        img.getRealURL = function()
+         {
+          return(img_url);
+         };
+        img.getLoadStatus = function()
+         {
+          return(img.x_load_status);
+         };
+        img.src = img_url;
+        storeArray[img_key] = img;
+        return(img);
+       }
+     }
+   }
+  function getImage(img_url)
+   {
+    if ((img_url == null) || (img_url == ''))
+     {
+      return(null);
+     }
+    else
+     {
+      var img_key = STORE_URL_PREFIX + img_url;
+      if (storeArray[img_key] != null)
+       {
+        return(storeArray[img_key]);
+       }
+      else
+       {
+        return(null);
+       }
+     }
+   }
+  // Public methods
+  that.startLoad = startLoad;
+  that.getImage  = getImage;
+  // Public constants
+  that.STORE_IMG_STATUS_LOADING = STORE_IMG_STATUS_LOADING;
+  that.STORE_IMG_STATUS_DONE    = STORE_IMG_STATUS_DONE;
+  that.STORE_IMG_STATUS_FAILED  = STORE_IMG_STATUS_FAILED;
+ }();
+// Image store + preloader
+// ----------------------------------------------
+AppTools.DocLoader = new function()
+ {
+  var that = this;
+  var documentOnLoadEventHandlers = new Array();
+  function addOnLoadEventHandler(handlerFunc)
+   {
+    documentOnLoadEventHandlers.push(handlerFunc);
+   }
+  function proccessOnLoadEventHandlers()
+   {
+    var i;
+    for (i = 0;i < documentOnLoadEventHandlers.length; i++)
+     {
+      if (documentOnLoadEventHandlers[i] != null)
+       {
+        if (typeof(documentOnLoadEventHandlers[i]) == "function")
+         {
+          documentOnLoadEventHandlers[i](); // Call
+         }
+       }
+     }
+   }
+  // Init global load handler
+  window.onload = proccessOnLoadEventHandlers;
+  // Public methods
+  that.addOnLoadEventHandler = addOnLoadEventHandler;
+ }();
+// [Deprecated] Shortcuts (temporary)
+// ----------------------------------------------
+// Note: These will be deprecated soon
+addOnLoadEventHandler = AppTools.DocLoader.addOnLoadEventHandler; // [Deprecated]
+// Navigator detection functions
+// ----------------------------------------------
+AppTools.Nav = new function()
+ {
+  // Browser types
+  this.Engine = {};
+  this.Engine.isWebKit = function()
+   {
+    var client = navigator.userAgent;
+    if (client.indexOf("AppleWebKit") >= 0)
+     {
+      return(true);
+     }
+    else
+     {
+      return(false);
+     }
+   }
+  this.Engine.isMSIE = function()
+   {
+    var client = navigator.userAgent;
+    if (client.indexOf("MSIE") >= 0)
+     {
+      return(true);
+     }
+    else
+     {
+      return(false);
+     }
+   }
+  this.Engine.isGecko = function()
+   {
+    var client = navigator.userAgent;
+    if (client.indexOf("Gecko") >= 0)
+     {
+      return(true);
+     }
+    else
+     {
+      return(false);
+     }
+   }
+  // OS flags
+  this.OS = {};
+  this.OS.isMobile = function()
+   {
+    var client = navigator.userAgent;
+    if (client.toLowerCase().indexOf('mobile') >= 0)
+     {
+      return(true);
+     }
+    else
+     {
+      return(false);
+     }
+   }
+  this.OS.isAndroid = function()
+   {
+    var client = navigator.userAgent;
+    if (client.toLowerCase().indexOf('android') >= 0)
+     {
+      return(true);
+     }
+    else
+     {
+      return(false);
+     }
+   }
+ }();
+// Subset of VSPageAJAXCall.js
+// ----------------------------------------------
+function AJAXMakeXMLHttpRequestObject()
+ {
+  var req = null;
+  if (window.XMLHttpRequest)            // normal browser
+   {
+    req = new XMLHttpRequest();
+   }
+  else if (window.ActiveXObject) //IE
+   {
+    try { req = new ActiveXObject("Msxml2.XMLHTTP"); }
+    catch (e)
+     {
+      try { req = new ActiveXObject("Microsoft.XMLHTTP"); }
+      catch (e2) { req = null; }
+     }
+   }
+  return(req);
+ }
+var AJAXRequestHooks = {}; // Hooks to show busy indicator
+//Network availability AJAX hooks
+AJAXRequestHooks.isNetworkActive = null; // Put null here if no checks need
+//Other hooks
+AJAXRequestHooks.onStart = function(req) {};
+AJAXRequestHooks.onDone  = function(req) {};
+AJAXRequestHooks.onError = function(req) {};
+AJAXRequestHooks.onPing  = function(req) {}; // Optional: On other state change
+var AJAXRequestProcDelay = 0; // CHECKME: Must me "0" on production. // Debug only: Delay in ms to simulate slow connection (Must be 0 in production)
+var AJAXRequestSimpleLow = function(locationURL,postData,onLoadHandler,onErrorHandler,isAsync)
+ {
+  if (AJAXRequestHooks.isNetworkActive != null)
+   {
+    var isNetworkActive = function()
+     {
+      try
+       {
+        return(AJAXRequestHooks.isNetworkActive());
+       }
+      catch(ex)
+       {
+        // Since we are here as web application, assume by default that network is active
+        return(true);
+       }
+      return(true);
+     }
+    if (!isNetworkActive())
+     {
+      // No network support here - force error immidiately
+      if (onErrorHandler)
+       {
+        var failed_req = {};
+        onErrorHandler(failed_req);
+        return;
+       }
+     }
+   }
+  if (isAsync == null)
+   {
+    isAsync = true;
+   }
+  var req = AJAXMakeXMLHttpRequestObject();
+  if (req == null)
+   {
+    return(null);
+   }
+  req.onreadystatechange = function()
+   {
+    if (req.readyState == 4 && req.status == 200)
+     {
+      AJAXRequestHooks.onDone(req);
+      if (onLoadHandler)
+       {
+        onLoadHandler(req);
+       }
+     }
+    else if (req.readyState == 4)
+     {
+      AJAXRequestHooks.onError(req);
+      if (onErrorHandler)
+       {
+        onErrorHandler(req);
+       }
+     }
+    else
+     {
+      AJAXRequestHooks.onPing(req);
+     }
+   };
+  AJAXRequestHooks.onStart(req);
+  if (postData != null)
+   {
+    req.open("POST", locationURL, isAsync);
+    req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+    if (AJAXRequestProcDelay > 0)
+     {
+      setTimeout(function() { req.send(postData) } , AJAXRequestProcDelay);
+     }
+    else
+     {
+      req.send(postData);
+     }
+   }
+  else
+   {
+    req.open("GET", locationURL, isAsync);
+    if (AJAXRequestProcDelay > 0)
+     {
+      setTimeout(function() { req.send(null) } , AJAXRequestProcDelay);
+     }
+    else
+     {
+      req.send(null);
+     }
+   }
+  return(req);
+ }
+var AJAXXMLGetJSONRootByRequest = function(req)
+ {
+  if (req == null)
+   {
+    return(null);
+   }
+  if (req.responseText == null)
+   {
+    return(null);
+   }
+  try
+   {
+    eval('var result = '+req.responseText+';');
+    return(result);
+   }
+  catch(e)
+   {
+    return(null);
+   }
+ }
+// Safari innerHTML assign fix
+// -------------------------------------------------------------------------
+// Trick to workaround Safari problem with innerHTML assign
+// Sometimes, Safari will ignore attempts to assign new value to innerHTML
+// during brief period after window.location is changed (even if hash portion is changed)
+// (just '' will be assigned instead of actual value)
+// Solution is based on code found at
+// http://blog.johnmckerrell.com/2007/03/07/problems-with-safari-and-innerhtml/
+AppTools.setInnerHTML = function(element, html, callbackWhenDone)
+ {
+  var RETRY_COUNT = 10;
+  var TIMEOUT_INITIAL = 10; // in ms
+  var TIMEOUT_STEP    = 25; // in ms
+  element.innerHTML = html;
+  if (html == '')
+   {
+    if (callbackWhenDone != null) { callbackWhenDone(element); }
+    return;
+   }
+  if ((html != '') && (element.innerHTML != ''))
+   {
+    if (callbackWhenDone != null) { callbackWhenDone(element); }
+    return;
+   }
+  var retrys  = RETRY_COUNT;
+  var timeout = TIMEOUT_INITIAL;
+  function retryAssign()
+   {
+    element.innerHTML = html;
+    if (element.innerHTML != '')
+     {
+      if (callbackWhenDone != null) { callbackWhenDone(element); }
+     }
+    else if (retrys > 0)
+     {
+      retrys--;
+      timeout += TIMEOUT_STEP;
+      setTimeout(retryAssign, timeout);
+     }
+    else
+     {
+      // Giveup
+     }
+   }
+  setTimeout(retryAssign, timeout);
+ }
+// Shortcuts (temporary) [2]
+// ----------------------------------------------
+// Note: These will be deprecated in future
+var setInnerHTML = AppTools.setInnerHTML; // [Deprecated]
+
+/* [[//Imported.JS(js/tools.js)]] */
+</script>
+
+
+<script language="JavaScript">
+/* [[Imported.JS(js/device_tools.js)]] */
+
+// Device orienation tools
+// ----------------------------------------------
+// AppTools.DevOrient.*
+// AppTools.DevOrient.initBodyAttr() : init func
+try { if (typeof AppTools == 'undefined') { AppTools = {}; } } catch(ex) { AppTools = {}; }
+AppTools.DevOrient = new function()
+ {
+  function device_is_portrait()
+   {
+    if (window.orientation != null)
+     {
+      switch(Math.abs(window.orientation))
+       {
+        case (0):
+        case (180):
+        case (360): // bug trap
+         {
+          return(true);
+         } break;
+        case (90):
+        case (270):
+         {
+          return(false);
+         } break;
+       }
+     }
+    return(true);
+   }
+  function device_is_landscape()
+   {
+    return(!device_is_portrait());
+   }
+  function device_append_event_handler(oElement,eventName,func)
+   {
+    if (!(window.attachEvent))
+     {
+      oElement.addEventListener(eventName, func, false);
+     }
+    else
+     {
+      oElement.attachEvent("on"+eventName,func);
+     }
+   }
+  var BODY_ORIENT_ATTR_NAME  = "orient";
+  var BODY_ORIENT_LANDSCAPE  = "landscape";
+  var BODY_ORIENT_PORTRAIT   = "";
+  function device_on_orientationchange()
+   {
+    if (window.orientation != null)
+     {
+      switch(Math.abs(window.orientation))
+       {
+        case (0):
+        case (180):
+        case (360): // bug trap
+         {
+          // Portrait
+          document.body.setAttribute(BODY_ORIENT_ATTR_NAME, BODY_ORIENT_PORTRAIT);
+         } break;
+        case (90):
+        case (270):
+         {
+          // Landscape
+          document.body.setAttribute(BODY_ORIENT_ATTR_NAME, BODY_ORIENT_LANDSCAPE);
+         } break;
+       }
+     }
+   }
+  function device_info_init()
+   {
+    if (window.orientation)
+     {
+      // window.orientation propety exist: add orientation change handler and issue initial call
+      device_append_event_handler(document.body,"orientationchange",device_on_orientationchange);
+      device_on_orientationchange(); // Initial call
+     }
+   }
+  // Public
+  // - - - - - - - - - - - - - - -
+  this.isPortrait   = device_is_portrait;
+  this.isLandscape  = device_is_landscape;
+  this.BODY_ORIENT_ATTR_NAME  = BODY_ORIENT_ATTR_NAME;
+  this.BODY_ORIENT_LANDSCAPE  = BODY_ORIENT_LANDSCAPE;
+  this.BODY_ORIENT_PORTRAIT   = BODY_ORIENT_PORTRAIT ;
+  this.initBodyAttr = device_info_init;
+ }();
+var device_info_init = AppTools.DevOrient.initBodyAttr; // [Deprecated]
+
+/* [[//Imported.JS(js/device_tools.js)]] */
+</script>
+
+
+<script language="JavaScript">
+/* [[Imported.JS(js/json_encode.js)]] */
+
+/**
+ * JSON Encoder for JavaScript
+ *
+ * Modified : 2009.11.01 to work with MooTools Enhanced Arrays
+ * Modified : 2010.09.28 internal worker function _json_encode made local [SA]
+ *
+ * Modification consists of addition of the tests :
+ *   if (inVal.hasOwnProperty(key)) {}
+ *   if (inVal.hasOwnProperty(i)) {}
+ *
+ * These are the tests that make the encoder ignore the MooTools array extensions.
+ *
+ * Original code found at :
+ *   http://www.perkiset.org/forum/javascript/json_encoder_for_javascript-t1094.0.html
+ *
+ */
+function json_encode(inVal)
+{
+  function _json_encode(inVal, out)
+  {
+    out = out || new Array();
+    var undef; // undefined
+    switch (typeof inVal)
+      {
+        case 'object':
+          if (!inVal)
+            {
+              out.push('null');
+            }
+          else
+            {
+              if (inVal.constructor == Array)
+                {
+                  // Need to make a decision... if theres any associative
+                  // elements of the array then I will block the whole
+                  // thing as an object {} otherwise, I'll block it
+                  // as a  normal array []
+                  var testVal = inVal.length;
+                  var compVal = 0;
+                  for (var key in inVal)
+                    {
+                      if (inVal.hasOwnProperty(key))
+                        {
+                          compVal++;
+                        }
+                    }
+                  if (testVal != compVal)
+                    {
+                      // Associative
+                      out.push('{');
+                      i = 0;
+                      for (var key in inVal)
+                        {
+                          if (inVal.hasOwnProperty(key))
+                            {
+                              if (i++ > 0) out.push(',\n');
+                              out.push('"');
+                              out.push(key);
+                              out.push('":');
+                              _json_encode(inVal[key], out);
+                            }
+                        }
+                      out.push('}');
+                    }
+                  else
+                    {
+                      // Standard array...
+                      out.push('[');
+                      for (var i = 0; i < inVal.length; ++i)
+                        {
+                          if (inVal.hasOwnProperty(i))
+                            {
+                              if (i > 0) out.push(',\n');
+                              _json_encode(inVal[i], out);
+                            }
+                        }
+                      out.push(']');
+                    }
+                }
+              else
+                {
+                  if (typeof inVal.toString != 'undefined')
+                    {
+                      out.push('{');
+                      var first = true;
+                      for (var i in inVal)
+                        {
+                          if (inVal.hasOwnProperty(i))
+                            {
+                              var curr = out.length; // Record position to allow undo when arg[i] is undefined.
+                              if (!first) out.push(',\n');
+                              _json_encode(i, out);
+                              out.push(':');
+                              _json_encode(inVal[i], out);
+                              if (out[out.length - 1] == undef)
+                                {
+                                  out.splice(curr, out.length - curr);
+                                }
+                              else
+                                {
+                                  first = false;
+                                }
+                            }
+                        }
+                      out.push('}');
+                    }
+                }
+            }
+          return out;
+        case 'unknown':
+        case 'undefined':
+        case 'function':
+          out.push(undef);
+          return out;
+        case 'string':
+          out.push('"');
+          out.push(inVal.replace(/(["\\])/g, '\$1').replace(/\r/g, '').replace(/\n/g, '\n'));
+          out.push('"');
+          return out;
+
+        default:
+          out.push(String(inVal));
+          return out;
+      }
+  }
+  return _json_encode(inVal).join('');
+}
+
+/* [[//Imported.JS(js/json_encode.js)]] */
+</script>
+
+
+<script language="JavaScript">
+/* [[Imported.JS(js/cover.js)]] */
+
+function CoverClass
+          (
+           titleInnerHTML,
+           messInnerHTML
+       /*, coverBtn */         // [ innerHTML, actionFunction ]
+       /*, coverClassName */   // if null supplied, default will be used
+          )
+ {
+  function _close()
+   {
+    document.body.removeChild(oCover);
+   }
+  this.update = function(mess)
+   {
+    oMess.innerHTML = mess;
+   }
+  this.show = function()
+   {
+    oCover.style.display = "";
+   }
+  this.hide = function()
+   {
+    oCover.style.display = "none";
+   }
+  this.close = function()
+   {
+    _close();
+   }
+  function _positioningTilte()
+   {
+    oTitle.style.left = (document.body.scrollWidth/2)-(oTitle.offsetWidth/2)+"px";
+    oTitle.style.top  = ((window.scrollY?window.scrollY:document.body.scrollTop)+50)+"px";
+    if (oBtn)
+     {
+      oBtn.style.left = (document.body.scrollWidth/2)-(oBtn.offsetWidth/2)+"px";
+      oBtn.style.top  = ((window.scrollY?window.scrollY:document.body.scrollTop)+150)+"px";
+     }
+   }
+  function _resize()
+   {
+    oCover.style.display = "none";
+    var width  = document.body.scrollWidth;
+    var height = document.body.scrollHeight;
+    oCover.style.width  = width+"px";
+    oCover.style.height = height+"px";
+    oCover.style.display = "";
+    _positioningTilte();
+   }
+  function addBtn(btn_param)
+   {
+    if (btn_param != null)
+     {
+      oBtn = document.createElement("DIV");
+      oBtn.className        = "cover_Btn";
+      oBtn.style.position   = "absolute";
+      oBtn.innerHTML        = btn_param[0];
+      if (btn_param[1] && typeof(btn_param[1]) == "function")
+       {
+        appendEventHandler(oBtn,"click",btn_param[1]);
+       }
+      else
+       {
+        appendEventHandler(oBtn,"click",function() { _close(); });
+       }
+      oCover.appendChild(oBtn);
+     }
+   }
+  var oCover = document.createElement("DIV");
+  var oTitle = document.createElement("DIV");
+  var oMess  = document.createElement("DIV");
+  var cName  = "cover_Area";
+  var oBtn   = null;
+  if ((arguments.length > 3) && (arguments[3] != null))
+   {
+    cName = arguments[3];
+   }
+  if ((arguments.length > 2) && (arguments[2] != null))
+   {
+    addBtn(arguments[2]);
+   }
+  oTitle.className      = "cover_Title";
+  oTitle.innerHTML      = titleInnerHTML;
+  oTitle.style.position = "absolute";
+  oMess.innerHTML       = messInnerHTML;
+  oMess.className       = "cover_Body";
+  oCover.className      = cName;
+  oCover.style.position = "absolute";
+  oCover.style.top      = "0px";
+  oCover.style.left     = "0px";
+  oCover.style.zIndex   = "1450";
+  appendEventHandler(window,"resize",_resize);
+  oCover.appendChild(oTitle);
+  oTitle.appendChild(oMess);
+  document.body.appendChild(oCover);
+  _resize();
+ }
+
+/* [[//Imported.JS(js/cover.js)]] */
+</script>
+
+
+<script language="JavaScript">
+/* [[Imported.JS(page_view-pp/js-pp/popup.js)]] */
+
+function PopupClass
+          (
+           titleInnerHTML,
+           messInnerHTML
+       /*, popupBtnArray */    // [[ innerHTML, actionFunction ] .. ]
+       /*, popupClassName */   // if null supplied, default will be used
+       /*, popupUseCover */   // if null supplied, default cover not used
+          )
+ {
+  function _close()
+   {
+    document.body.removeChild(oPopupArea);
+    if (oCover)
+     {
+      document.body.removeChild(oCover);
+     }
+   }
+  function _positioning()
+   {
+    var windowWidth  = window.innerWidth  ? window.innerWidth  : document.body.clientWidth ;
+    var windowHeight = window.innerHeight ? window.innerHeight : document.body.clientHeight;
+    var left = ((windowWidth/2)-(oPopupArea.offsetWidth/2)-0);
+    if (left < 10) { left = 10; }
+    oPopupArea.style.left = left+"px";
+    var top = ((windowHeight/2)-(oPopupArea.offsetHeight/2)-0);
+    if ((window.pageYOffset) && (window.pageYOffset > 0))
+     {
+      top += window.pageYOffset;
+     }
+    if (top < 10) { top = 10; }
+    oPopupArea.style.top = top+"px";
+   }
+  function _update(titleInnerHTML,messInnerHTML)
+   {
+    oPopupHeader.innerHTML = titleInnerHTML;
+    oPopupBody.innerHTML   = messInnerHTML;
+    _positioning();
+   }
+  function _getTitle()
+   {
+    return(oPopupHeader.innerHTML);
+   }
+  function _getMess()
+   {
+    return(oPopupBody.innerHTML);
+   }
+  function _createBtn(params, width)
+   {
+    if (params == null)
+     {
+      return; // FIXME: Hack for bugtrap on score popup
+     }
+    var oPopupBtn       = document.createElement("DIV");
+    if (params[2] && params[2] != '')
+    {
+        oPopupBtn.className = params[2];
+    }
+    else
+    {
+        oPopupBtn.className = "popup_Btn";
+    }
+    //oPopupBtn.style.width = width + '%';
+    //oPopupBtn.style.marginLeft = 5 + '%';
+    //oPopupBtn.style.marginRight = 5 +  '%';
+    if (params[1] && typeof(params[1]) == "function")
+     {
+      appendEventHandler(oPopupBtn,"click",params[1]);
+     }
+    else
+     {
+      appendEventHandler(oPopupBtn,"click",function() { _close(); });
+     }
+    //var oPopupBtnBottom = document.createElement("DIV");
+    var oPopupBtnText   = document.createElement("DIV");
+
+    //oPopupBtnBottom.innerHTML = '&nbsp;';
+    oPopupBtnText.innerHTML   = params[0];
+
+    //oPopupBtnBottom.className = 'popup_BtnBottomPart';
+    oPopupBtnText.className   = 'popup_BtnText';
+    //oPopupBtn.appendChild(oPopupBtnBottom);
+    oPopupBtn.appendChild(oPopupBtnText);
+    oPopupArea.appendChild(oPopupBtn);
+   }
+  this.close = function()
+   {
+    _close();
+   }
+  this.redraw = function()
+   {
+    _positioning();
+   }
+  this.update = function(title,mess)
+   {
+    _update(title,mess);
+   }
+  this.getTitle = function()
+   {
+    return(_getTitle());
+   }
+  this.getMess  = function()
+   {
+    return(_getMess());
+   }
+  function _resize()
+   {
+    oCover.style.display = "none";
+    var width  = document.body.scrollWidth;
+    var height = document.body.scrollHeight;
+    oCover.style.width  = width+"px";
+    oCover.style.height = height+"px";
+    oCover.style.display = "";
+   }
+  function createCover()
+   {
+    oCover = document.createElement("DIV");
+    oCover.className = "popup_Aux_Cover";
+    oCover.style.position = "absolute";
+    oCover.style.top      = "0px";
+    oCover.style.left     = "0px";
+    oCover.style.zIndex   = "65520";
+    document.body.appendChild(oCover);
+   appendEventHandler(window,"resize",_resize);
+   _resize();
+  }
+  var cName = "popup_Area";
+  if ((arguments.length > 3) && (arguments[3]))
+   {
+    cName = arguments[3];
+   }
+  if ((arguments.length > 6) && (arguments[6]))
+   {
+  var oCover = null;
+    createCover();
+   }
+  var oPopupArea   = document.createElement("DIV");
+  var oPopupHeader = document.createElement("DIV");
+  var oPopupBody   = document.createElement("DIV");
+  oPopupArea.className   = cName;
+  oPopupHeader.className = (arguments.length > 4 && arguments[4] != null && arguments[4] != '' ? arguments[4] : "popup_Header");
+  oPopupBody.className = (arguments.length > 5 && arguments[5] != null && arguments[5] != '' ? arguments[5] : "popup_Body");
+  oPopupArea.style.position  = "absolute";
+  oPopupArea.style.zIndex    = "65540";
+  oPopupArea.style.display   = "";
+  oPopupArea.appendChild(oPopupHeader);
+  oPopupArea.appendChild(oPopupBody);
+  document.body.appendChild(oPopupArea);
+  if ((arguments.length > 2) && (arguments[2] != null))
+   {
+    listBtn = PopupClass.arguments[2];
+    if(isArray(listBtn) && listBtn.length > 0)
+     {
+      var btnWidth = (99 - 3 * (listBtn.length + 1)) / listBtn.length;
+      for(var i=0;i<listBtn.length;i++)
+       {
+        _createBtn(listBtn[i], btnWidth);
+       }
+     }
+   }
+  _update(titleInnerHTML,messInnerHTML);
+ }
+
+/* [[//Imported.JS(page_view-pp/js-pp/popup.js)]] */
+</script>
+
+
+<script language="JavaScript">
+/* [[Imported.JS(sys_js/VSPageTools.js)]] */
+
+// VSPageTools.js general toolkit file
+// ------------------------------------------------------------
+// namespace Viasoft
+// Written by Viasoft Ltd. (viasoft.com.ua)
+// Free permission to use granted under BSD licence
+// *** Browser detection ***
+function isNavigatorIE()
+ {
+  var ver = navigator.appVersion;
+
+  if (window.opera != null)
+   {
+    return(false); // Opera found
+   }
+  else if (ver.indexOf("MSIE") >= 0)
+   {
+    return(true); // Found
+   }
+  else
+   {
+    return(false); // Not found
+   }
+ }
+
+function isNavigatorFF()
+ {
+  var ver = navigator.userAgent;
+
+  if (ver.indexOf("Firefox") >= 0)
+   {
+    return(true); // Found
+   }
+  else
+   {
+    return(false); // Not found
+   }
+ }
+
+function isNavigatorOpera()
+ {
+  if (window.opera != null)
+   {
+    return(true); // Found
+   }
+  else
+   {
+    return(false); // Not found
+   }
+ }
+function isNavigatorEngineGecko()
+ {
+  var client = navigator.userAgent;
+  if (client.indexOf("Gecko") >= 0)
+   {
+    return(true);
+   }
+  else
+   {
+    return(false);
+   }
+ }
+function isNavigatorEngineAppleWebKit()
+ {
+  var client = navigator.userAgent;
+  if (client.indexOf("AppleWebKit") >= 0)
+   {
+    return(true);
+   }
+  else
+   {
+    return(false);
+   }
+ }
+
+function getNavigatorVersionIE()
+ {
+  // Based in code from MSDN
+  // Returns the version of Internet Explorer (as floating point number) or a -1
+  // (indicating the use of another browser).
+
+  var rv = -1; // Return value assumes failure.
+  if (navigator.appName == 'Microsoft Internet Explorer')
+   {
+    var ua = navigator.userAgent;
+    var re  = new RegExp("MSIE ([0-9]{1,}[\.0-9]{0,})");
+    if (re.exec(ua) != null)
+     {
+      rv = parseFloat( RegExp.$1 );
+     }
+   }
+
+  return rv;
+ }
+// *** General String Toolkit ***
+function StrReplace(InputStr,FromStr,ToStr)
+ {
+  var FromPos;
+  var FoundPos;
+  var ResultStr;
+  FromPos   = 0;
+  FoundPos  = InputStr.indexOf(FromStr);
+  ResultStr = "";
+  if (FoundPos < 0)
+   {
+    ResultStr = InputStr; // NotFound
+   }
+  else
+   {
+    while(FoundPos >= 0)
+     {
+      ResultStr += InputStr.substring(FromPos,FoundPos);
+      ResultStr += ToStr;
+      FoundPos  += FromStr.length;
+      FromPos    = FoundPos;
+      FoundPos   = InputStr.indexOf(FromStr,FoundPos);
+     }
+    ResultStr += InputStr.substring(FromPos,InputStr.length);
+   }
+  return(ResultStr);
+ }
+function StrInsert(InputStr,FragmentStr,FragmentPos)
+ {
+  var Result = "";
+  var InputLength = InputStr.length;
+
+  if (FragmentPos < 0)
+   {
+    Result += FragmentStr;
+    Result += InputStr;
+   }
+  else if (FragmentPos < InputLength)
+   {
+    Result += InputStr.substring(0,FragmentPos);
+    Result += FragmentStr;
+    Result += InputStr.substring(FragmentPos,InputLength);
+   }
+  else
+   {
+    Result += InputStr;
+    Result += FragmentStr;
+   }
+
+  return(Result);
+ }
+
+function StrLTrim(value)
+ {
+  return value.replace( /(^\s*)/g, '' );
+ }
+function StrRTrim(value)
+ {
+  return value.replace( /(\s*$)/g, '' );
+ }
+function StrTrim(value)
+ {
+  return value.replace( /(^\s*)|(\s*$)/g, '' );
+//return StrRTrim(StrLTrim(value));
+ }
+function StrNormalizeSpace(value)
+ {
+  return StrTrim(value.replace( /(\s{2,})/g, ' ' ));
+ }
+
+function StrControlToSpace(value)
+ {
+  return (value.replace( /([\0-\31])/g, ' ' ));
+ }
+
+function StrIsInteger(InputStr)
+ {
+  if (InputStr == null)
+   {
+    return(false);
+   }
+
+  InputStr = InputStr.toString();
+
+  var value = parseInt(InputStr,10);
+
+  if (isNaN(value))
+   {
+    return(false); // Non a number
+   }
+  else if ((value.toString()) != (InputStr))
+   {
+    return(false); // Not exactly match source representation
+   }
+  else if ((InputStr.indexOf('.') >= 0) || (InputStr.indexOf('e') >= 0) || (InputStr.indexOf('E') >= 0))
+   {
+    return(false); // Float
+   }
+  else
+   {
+    return(true); // Integer
+   }
+ }
+
+function StrIsStartsWith(InputStr,CheckStr)
+ {
+  if ((InputStr == null) || (CheckStr == null))
+   {
+    return(false);
+   }
+
+  InputStr = ''+InputStr;
+  CheckStr = ''+CheckStr;
+
+  if (InputStr.length < CheckStr.length)
+   {
+    return(false);
+   }
+
+  if (InputStr.substring(0,CheckStr.length) == CheckStr)
+   {
+    return(true);
+   }
+  else
+   {
+    return(false);
+   }
+ }
+function StrIsEndsWith(InputStr,CheckStr)
+ {
+  if ((InputStr == null) || (CheckStr == null))
+   {
+    return(false);
+   }
+
+  InputStr = ''+InputStr;
+  CheckStr = ''+CheckStr;
+
+  if (InputStr.length < CheckStr.length)
+   {
+    return(false);
+   }
+
+  if (InputStr.substring(InputStr.length - CheckStr.length,InputStr.length) == CheckStr)
+   {
+    return(true);
+   }
+  else
+   {
+    return(false);
+   }
+ }
+// *** String Toolkit ***
+function StrText2HTML(Str)
+ {
+  if (Str == undefined)
+   {
+    return(undefined); // Bug trap
+   }
+
+  if (Str == null)
+   {
+    return(null); // Bug trap
+   }
+
+  var ResultStr = Str+""; // Force string type
+
+  ResultStr = ResultStr.replace(/&/gi   ,"&amp;");
+  ResultStr = ResultStr.replace(/>/gi   ,"&gt;");
+  ResultStr = ResultStr.replace(/</gi   ,"&lt;");
+//ResultStr = ResultStr.replace(/"/gi   ,"&quot;"); // Will confuse syntax parsers and comment strippers
+  ResultStr = ResultStr.replace(/\u0022/gi,"&quot;");
+//ResultStr = ResultStr.replace(/'/gi   ,"&apos;"); // Do not work under IE
+//ResultStr = ResultStr.replace(/'/gi   ,"&#39;"); // Will confuse syntax parsers and comment strippers
+  ResultStr = ResultStr.replace(/\u0027/gi,"&#39;");
+
+  return ResultStr;
+ }
+
+function StrText2HTMLWithLn(Str)
+ {
+  if (Str == undefined)
+   {
+    return(undefined); // Bug trap
+   }
+
+  if (Str == null)
+   {
+    return(null); // Bug trap
+   }
+
+  var ResultStr = StrText2HTML(Str);
+
+  ResultStr = ResultStr.replace(/\n/gi,"<br/>\n");
+
+  return(ResultStr);
+ }
+
+function StrText2JsText(Str)
+ {
+  // Subset. Only entities parsed
+
+  if (Str == undefined)
+   {
+    return(undefined); // Bug trap
+   }
+
+  if (Str == null)
+   {
+    return(null); // Bug trap
+   }
+
+  var ResultStr = Str+""; // Force string type
+
+  ResultStr = StrReplace(ResultStr,"\\", "\\\\"); // plain slashes to slashes
+  ResultStr = StrReplace(ResultStr,"\r", "\\r");  // 0x0a to \r
+  ResultStr = StrReplace(ResultStr,"\n", "\\n");  // 0x0d to \n
+  ResultStr = StrReplace(ResultStr,"\t", "\\t");  // TAB to \t
+  //This is simple solution, but requires that programmer do things right
+//ResultStr = StrReplace(ResultStr,"\"", "\\\""); // " to \"
+//ResultStr = StrReplace(ResultStr,"\'", "\\\'"); // ' to \'
+  //More robust to programmer errors version:
+  //This can be safely put in <a href="javascript:">
+  //Even if someone will fogot to pass HTML encode over it
+  ResultStr = StrReplace(ResultStr,"\"", "\\x22"); // " to \x22
+  ResultStr = StrReplace(ResultStr,"\'", "\\x27"); // ' to \x27
+  ResultStr = StrReplace(ResultStr,"&" , "\\x26"); // & to \x26
+  ResultStr = StrReplace(ResultStr,"<" , "\\x3C"); // < to \x3C
+  ResultStr = StrReplace(ResultStr,">" , "\\x3E"); // < to \x3E
+
+  return ResultStr;
+ }
+
+function StrFormat(FormatStr)
+ {
+  // Very simplfied version of .NET string.Format
+  // (Note if some replace string will contains "{n}" it will be substituted also)
+  // Generaly, intended to use with numeric args only
+  var result = FormatStr;
+  var startIndex = 1; // Args are start from 1 (first arg is FormatStr)
+  var i;
+
+  //i.up(); // Force debug
+
+  for (i = startIndex; i < arguments.length; i++)
+   {
+    result = StrReplace(result,"{"+(i-startIndex)+"}",arguments[i] + "");
+   }
+
+  return(result);
+ }
+
+// *** Some obsolete aliases: ***
+var StringLTrim          = StrLTrim;
+var StringRTrim          = StrRTrim;
+var StringTrim           = StrTrim;
+var StringNormalizeSpace = StrNormalizeSpace;
+var StringFormat         = StrFormat;
+
+// *** Event proccessing toolkit ***
+function CancelEvent(e)
+ {
+  if (e == null)
+   {
+    return; // Bug trap
+   }
+
+  //IE only
+  //window.event.cancelBubble = true;
+  //window.event.returnValue  = false;
+  if (e.cancelBubble != null)
+   {
+    //IE
+    e.cancelBubble = true;
+   }
+  if (e.stopPropagation != null)
+   {
+    //Another DOM compilant browser
+    e.stopPropagation();
+   }
+  if (e.preventDefault != null)
+   {
+    //Another DOM compilant browser
+    e.preventDefault();
+   }
+  else
+   {
+    //IE
+    e.returnValue = false;
+   }
+ }
+function StopEventBubble(e)
+ {
+  if (e == null)
+   {
+    return; // Bug trap
+   }
+
+  //IE only
+  //window.event.cancelBubble = true;
+  //window.event.returnValue  = false;
+  if (e.cancelBubble != null)
+   {
+    //IE
+    e.cancelBubble = true;
+   }
+  if (e.stopPropagation != null)
+   {
+    //Another DOM compilant browser
+    e.stopPropagation();
+   }
+ }
+function GetEventTarget(e)
+ {
+  if (e == null)
+   {
+    return null;
+   }
+  var result = null;
+
+  if (e.srcElement)
+   {
+    result = e.srcElement; // IE
+   }
+  else
+   {
+    result = e.target;
+    if (result != null)
+     {
+      if (result.nodeType == 3) // defeat Safari bug
+       {
+        result = result.parentNode;
+       }
+     }
+   }
+  return(result);
+ }
+// *** Page url arg toolkit ***
+function QueryStringItem(name,value)
+ {
+  this.name  = name;
+  this.value = value;
+ }
+
+function QueryStringParseToItemsArray(queryString)
+ {
+  var args = new Array(  );
+
+  if ((queryString == null) || (queryString == ''))
+   {
+    return(args); // Return empty array if no query
+   }
+  var query = queryString;
+  if (query.charAt(0) == '?')
+   {
+    query = query.substring(1); // Get query string body
+   }
+  var pairs = query.split("&");              // Break at "&"
+
+  for(var i = 0; i < pairs.length; i++)
+   {
+    var pos = pairs[i].indexOf('=');          // Look for "name=value"
+
+    var argname  = null;
+    var argvalue = null;
+
+    if (pos == -1)
+     {
+      // If not found, use null as value
+      argname  = pairs[i];
+      argvalue = null;
+     }
+    else
+     {
+      argname  = pairs[i].substring(0,pos); // Extract the name
+      argvalue = pairs[i].substring(pos+1); // Extract the value
+      // In JavaScript 1.5, use decodeURIComponent(  ) instead of unescape(  )
+      argvalue = unescape(argvalue);
+     }
+
+    args[args.length] = new QueryStringItem(argname,argvalue);
+   }
+
+  return args;                                  // Return the object
+ }
+
+function QueryStringArrayCreate()
+ {
+  return(new Array());
+ }
+
+function QueryStringMakeByItemsArray(args)
+ {
+  if ((args == null) || (args.length <= 0))
+   {
+    return('');
+   }
+
+  var query = '?';
+
+  for(var i = 0; i < args.length; i++)
+   {
+    if (args[i].value != null)
+     {
+      if (i > 0)
+       {
+        query += '&';
+       }
+
+      query += args[i].name;
+
+      query += '=';
+      query += StrUrlEscape(args[i].value);
+     }
+   }
+
+  return query;                                  // Return the object
+ }
+
+function QueryItemsArraySetParam(args,paramName,paramValue)
+ {
+  var found = false;
+  for(var i = 0; i < args.length; i++)
+   {
+    if (args[i].name == paramName)
+     {
+      args[i].value = paramValue;
+      found = true;
+     }
+   }
+
+  if (!found)
+   {
+    args[args.length] = new QueryStringItem(paramName,paramValue);
+   }
+ }
+
+function QueryItemsArrayGetParam(args,paramName)
+ {
+  for(var i = 0; i < args.length; i++)
+   {
+    if (args[i].name == paramName)
+     {
+      return(args[i].value);
+     }
+   }
+
+  return(null);
+ }
+
+function StrUrlEscape(paramValue)
+ {
+  // Use this as safe version of escape()
+  // There are some missinterpretation between browser and ASP.NET
+  // For expample, Many browsers encode "+" as "+" (at least with some DOCTYPE is set), but
+  // that is interpret by ASP.NET as space
+
+  var valueStr = paramValue+'';
+  // This is bit back (replace '+' as 01h and ' ' as 02h
+  // Afre translation we will replace transalted values
+  valueStr = StrReplace(valueStr, "+", "\x01");
+  valueStr = StrReplace(valueStr, " ", "\x02");
+  valueStr = escape(valueStr);
+  valueStr = StrReplace(valueStr, "%02", "%20");
+  valueStr = StrReplace(valueStr, "%01", "%2B");
+  return (valueStr);
+ }
+
+function addArgToUrl(url,paramName,paramValue)
+ {
+  if (url.indexOf('?') < 0)
+   {
+    url += '?';
+   }
+  else
+   {
+    url += '&';
+   }
+
+  url += paramName;
+  url += '=';
+  url += StrUrlEscape(paramValue);
+
+  return(url);
+ }
+
+// *** Focus toolkit ***
+function FocusJumpToFirstInputInsideHolderByTagName(holderItemId,tagName)
+ {
+  //x.up(); // Force debug popup
+
+  var holderItem = document.getElementById(holderItemId);
+
+  if (holderItem == null)
+   {
+    return(false);
+   }
+
+  var holderInputList = holderItem.getElementsByTagName(tagName);
+
+  if ((holderInputList != null) && (holderInputList.length != null) && (holderInputList.length > 0))
+   {
+    if (!holderInputList[0].disabled)
+     {
+      holderInputList[0].focus();
+      return(true);
+     }
+   }
+
+  return(false);
+ }
+
+function FocusJumpToFirstInputInsideHolder(holderItemId)
+ {
+  if (FocusJumpToFirstInputInsideHolderByTagName(holderItemId,"INPUT"))
+   {
+    return(true);
+   }
+  else if (FocusJumpToFirstInputInsideHolderByTagName(holderItemId,"SELECT"))
+   {
+    return(true);
+   }
+  else if (FocusJumpToFirstInputInsideHolderByTagName(holderItemId,"TEXTAREA"))
+   {
+    return(true);
+   }
+  else if (FocusJumpToFirstInputInsideHolderByTagName(holderItemId,"BUTTON"))
+   {
+    return(true);
+   }
+  else
+   {
+    return(false);
+   }
+ }
+function FocusJumpToAndSelect(control)
+ {
+  if (control == null)
+   {
+    return;
+   }
+
+  if (control.focus == null)
+   {
+    return;
+   }
+
+  control.focus();
+
+  if (isNavigatorIE())
+   {
+    DocumentControlSelectAllText(control);
+   }
+ }
+function DocumentResetSelection()
+ {
+  // Call this in "onblur" handler for input type="password" element,
+  // if you are using DocumentControlSelectAllText for it,
+  // to fix IE6 bug.
+  if (document.selection == null)
+   {
+    return;
+   }
+
+  if (document.selection.empty == null)
+   {
+    return;
+   }
+  try
+   {
+    document.selection.empty();
+   }
+  catch(e)
+   {
+    // ignore
+   }
+ }
+
+function DocumentControlSelectAllText(control)
+ {
+  if (control == null)
+   {
+    return;
+   }
+
+  if (control.focus == null)
+   {
+    return;
+   }
+
+  if (control.select == null)
+   {
+    return;
+   }
+
+  try
+   {
+    control.select();
+   }
+  catch(e)
+   {
+    // ignore
+   }
+ }
+
+// CssClassName toolkit
+function elementClassNameAdd(item,classNameToAdd,addAsFirst)
+ {
+  var className  = item.className;
+  var classNames = className.split(" ");
+  var i;
+
+  for (i = 0; i < classNames.length; i++)
+   {
+    if (classNames[i] == classNameToAdd)
+     {
+      return; // already exist
+     }
+   }
+  if (addAsFirst)
+   {
+    item.className = classNameToAdd + " " + className;
+   }
+  else
+   {
+    item.className = className + " " + classNameToAdd;
+   }
+ }
+
+function elementClassNameRemove(item,classNameToRemove)
+ {
+  var classNamesOut = new Array();
+  var classNames = item.className.split(" ");
+  var i;
+
+  for (i = 0; i < classNames.length; i++)
+   {
+    if (classNames[i] == classNameToRemove)
+     {
+      // skip
+     }
+    else if (classNames[i] == "")
+     {
+      // trim two spaces in source
+     }
+    else
+     {
+      classNamesOut[classNamesOut.length] = classNames[i];
+     }
+   }
+
+  item.className = classNamesOut.join(" ");
+ }
+function elementClassNameIsExists(item,classNameToCheck)
+ {
+  var className = item.className;
+
+  if (className == null)
+   {
+    return(false);
+   }
+
+  var classNames = className.split(" ");
+  var i;
+
+  for (i = 0; i < classNames.length; i++)
+   {
+    if (classNames[i] == classNameToCheck)
+     {
+      return(true); // exist
+     }
+   }
+
+  return(false);
+ }
+
+// Element search by className
+function elementFindFirstChildByTagNameAndClassName(item,tagName,classNameToCheck)
+ {
+  if (item == null)
+   {
+    return(null);
+   }
+  if (tagName == null)
+   {
+    return(null);
+   }
+  if (classNameToCheck == null)
+   {
+    return(null);
+   }
+
+  var tagItems = item.getElementsByTagName(tagName);
+
+  if (tagItems == null)
+   {
+    return(null);
+   }
+  var tagCount = tagItems.length;
+
+  for (var i = 0; i < tagCount; i++)
+   {
+    if (elementClassNameIsExists(tagItems[i],classNameToCheck))
+     {
+      return(tagItems[i]);
+     }
+   }
+
+  return(null);
+ }
+
+// Expandable textarea tools
+var elementTextAreaAjustHeightStyleOverflowValue = "visible";
+var elementTextAreaAjustHeightDefStepSize        = 50;
+function elementTextAreaAjustHeight(TextArea,stepSize)
+ {
+  if ((stepSize == null) || (stepSize <= 0))
+   {
+    stepSize = elementTextAreaAjustHeightDefStepSize;
+   }
+
+  if (false && isNavigatorIE() && (getNavigatorVersionIE() < 7))
+   {
+    if (TextArea.style.overflow == elementTextAreaAjustHeightStyleOverflowValue)
+     {
+      // Will be auto-adjusted
+     }
+    else if (TextArea.currentStyle.overflow == elementTextAreaAjustHeightStyleOverflowValue)
+     {
+      // Will be auto-adjusted
+     }
+    else
+     {
+      TextArea.style.overflow = elementTextAreaAjustHeightStyleOverflowValue;
+     }
+   }
+  else
+   {
+    var currHeight = TextArea.style.height;
+
+    if (currHeight.indexOf("px") > 0)
+     {
+      currHeight = currHeight.substring(0,currHeight.indexOf("px"));
+      currHeight = parseInt(currHeight+"",10);
+     }
+    if (!isNavigatorIE())
+     {
+      currHeight = currHeight + 4; // Fix FF [2] & Chrome 2.2 [4=2+2] issues
+     }
+    else // (isNavigatorIE())
+     {
+      currHeight = currHeight + 6; // Fix IE issues
+     }
+    if ((TextArea.scrollHeight != null) && (TextArea.scrollHeight > 0))
+     {
+      if (currHeight < TextArea.scrollHeight)
+       {
+        var newHeight = TextArea.scrollHeight + stepSize;
+        //alert(currHeight+":"+TextArea.scrollHeight+":"+newHeight);
+        TextArea.style.height = newHeight+"px";
+       }
+     }
+   }
+ }
+function elementTextAreaSetAsAutoAjustHeight(TextArea,stepSize)
+ {
+  if ((stepSize == null) || (stepSize <= 0))
+   {
+    stepSize = elementTextAreaAjustHeightDefStepSize;
+   }
+  elementTextAreaAjustHeight(TextArea,stepSize);
+
+  var heightAjusterFunc = function() // Closure
+   {
+    return(elementTextAreaAjustHeight(TextArea,stepSize));
+   }
+
+  TextArea.onkeydown  = heightAjusterFunc;
+  TextArea.onkeyup    = heightAjusterFunc;
+  TextArea.onkeypress = heightAjusterFunc;
+  TextArea.onchange   = heightAjusterFunc;
+  TextArea.AutoHeightKeepHeight = TextArea.style.height;
+  TextArea.AutoHeightStepSize   = stepSize;
+ }
+function elementTextAreaResetAutoAjustedHeight(TextArea)
+ {
+  if (TextArea.AutoHeightKeepHeight != null)
+   {
+    TextArea.style.height = TextArea.AutoHeightKeepHeight;
+    elementTextAreaAjustHeight(TextArea,TextArea.AutoHeightStepSize);
+   }
+ }
+// URL hash functions
+function pageURLGetHash(url)
+ {
+  var urlParts = url.split('#');
+  var urlHash  = null;
+
+  if (urlParts.length > 1)
+   {
+    urlHash = urlParts[urlParts.length-1];
+   }
+
+  return(urlHash);
+ }
+function pageURLStripHash(url)
+ {
+  var pos = url.indexOf('#');
+
+  if (pos < 0)
+   {
+    return(url); // No hash found
+   }
+  else
+   {
+    return(url.substring(0,pos));
+   }
+ }
+
+function pageURLStripQuery(url)
+ {
+  url = pageURLStripHash(url);
+  var pos = url.indexOf('?');
+
+  if (pos < 0)
+   {
+    return(url); // No query found
+   }
+  else
+   {
+    return(url.substring(0,pos));
+   }
+ }
+
+function pageURLGetQuery(url)
+ {
+  url = pageURLStripHash(url);
+
+  var urlParts = url.split('?');
+  var urlQuery = null;
+
+  if (urlParts.length > 1)
+   {
+    urlQuery = '?'+urlParts[urlParts.length-1]; // By convention, this must start with '?'
+   }
+
+  return(urlQuery);
+ }
+function pageURLGetQueryParam(query,paramName)
+ {
+  var params = QueryStringParseToItemsArray(query);
+  return(QueryItemsArrayGetParam(params,paramName));
+ }
+function pageURLSetHash(url,newHash)
+ {
+  var url = pageURLStripHash(url);
+  if ((newHash != null) && (newHash != ""))
+   {
+    return(url+'#'+newHash);
+   }
+  else
+   {
+    return(url);
+   }
+ }
+function pageURLIsFromThisHost(url)
+ {
+  var thisHostUrlPrefix = '';
+
+  thisHostUrlPrefix += window.location.protocol;
+  thisHostUrlPrefix += "//";
+  thisHostUrlPrefix += window.location.hostname;
+
+  if (window.location.port != "")
+   {
+    thisHostUrlPrefix += ":";
+    thisHostUrlPrefix += window.location.port;
+   }
+
+  thisHostUrlPrefix += "/";
+
+  if (StrIsStartsWith(url,thisHostUrlPrefix))
+   {
+    return(true); // Link to this host
+   }
+  else
+   {
+    return(false); // Link to other host
+   }
+ }
+// Some more constants
+var pageElementDisplayStyleShow = '';
+var pageElementDisplayStyleHide = 'none';
+function pageElementIsDisplayed(pageElement)
+ {
+  if ((pageElement != null) && (pageElement.style != null))
+   {
+    if (pageElement.style.display == pageElementDisplayStyleHide)
+     {
+      return(false);
+     }
+    else
+     {
+      return(true);
+     }
+   }
+  else
+   {
+    return(true); // Styling to supported for this element, so hiding not suppoted
+   }
+ }
+
+function pageElementSetDisplay(pageElement,isShow)
+ {
+  if (isShow == null) { isShow = true; } // Default param value
+
+  if ((pageElement != null) && (pageElement.style != null))
+   {
+    if (isShow)
+     {
+      pageElement.style.display = pageElementDisplayStyleShow;
+     }
+    else
+     {
+      pageElement.style.display = pageElementDisplayStyleHide;
+     }
+   }
+ }
+function pageElementDisplayShow(pageElement)
+ {
+  pageElementSetDisplay(pageElement,true);
+ }
+function pageElementDisplayHide(pageElement)
+ {
+  pageElementSetDisplay(pageElement,false);
+ }
+
+function pageElementSetDisplayById(pageElementId,isShow)
+ {
+  pageElementSetDisplay(document.getElementById(pageElementId),isShow);
+ }
+// Other functions
+function pageElementSetEnabled(pageElement,isEnabled)
+ {
+  if (isEnabled == null) { isEnabled = true; } // Default param value
+  if (pageElement != null)
+   {
+    pageElement.disabled = !isEnabled;
+   }
+ }
+
+function pageElementSetDisabled(pageElement,isDisabled)
+ {
+  if (isDisabled == null) { isDisabled = true; } // Default param value
+  if (pageElement != null)
+   {
+    pageElement.disabled = isDisabled;
+   }
+ }
+
+function pageElementIsEnabled(pageElement)
+ {
+  if (pageElement != null)
+   {
+    if (pageElement.disabled == null)
+     {
+      return(true); // For FF default is to threat elements as enabled
+     }
+    else
+     {
+      return(!pageElement.disabled);
+     }
+   }
+  else
+   {
+    return(false);
+   }
+ }
+
+function pageElementIsDisabled(pageElement)
+ {
+  return(!pageElementIsEnabled(pageElement));
+ }
+function pageElementSetEnabledById(pageElementId,isEnabled)
+ {
+  pageElementSetEnabled(document.getElementById(pageElementId),isEnabled);
+ }
+
+function pageElementSetDisabledById(pageElementId,isDisabled)
+ {
+  pageElementSetDisabled(document.getElementById(pageElementId),isDisabled);
+ }
+
+function pageElementSetFocus(pageElement)
+ {
+  if (pageElement != null)
+   {
+    if (pageElement.style.display == pageElementDisplayStyleHide)
+     {
+     }
+    else
+     {
+      pageElement.focus();
+     }
+   }
+ }
+function pageElementSetFocusById(pageElementId)
+ {
+  pageElementSetFocus(document.getElementById(pageElementId));
+ }
+
+// Event functions
+function pageElementAttachEventFunction(pageElement, eventName, eventHandlerFunction)
+ {
+  if (document.addEventListener != null)
+   {
+    eventName = eventName.substr(2); // strip "on" prefix
+    pageElement.addEventListener(eventName, eventHandlerFunction, false);
+   }
+  else
+   {
+    pageElement.attachEvent(eventName, eventHandlerFunction);
+   }
+ }
+function pageElementAttrGetInitValue(item,attrName)
+ {
+  return(item.getAttribute(attrName,2));
+ }
+// [Misc functions]
+function formInputResetAndClearAllHidden(formElement)
+ {
+  // Reset all elements, and clear all hidden ones
+  formElement.reset();
+
+  var formItems = formElement.getElementsByTagName('input');
+
+  for (var i = 0; i < formItems.length; i++)
+   {
+    if (formItems[i].type.toLowerCase() == 'hidden')
+     {
+      formItems[i].value = '';
+     }
+   }
+ }
+// [/Misc functions]
+// [DateTimeParseFixedDate]
+//Parses ASP.NET "value.ToString(CultureInfo.InvariantCulture.DateTimeFormat)" output
+//MM/DD/YYYY HH:MM:SS (03/07/2008 19:46:44 is a 07-Mar-2008)
+var DateTimeParseFixedStringRegExpStr = "^(\\d{2})/(\\d{2})/(\\d{4}) (\\d{2}):(\\d{2}):(\\d{2})$";
+var DateTimeParseFixedStringRegExp = new RegExp(DateTimeParseFixedStringRegExpStr,"");
+function DateTimeParseFixedString(FixedDateTimeString)
+ {
+  if (FixedDateTimeString == null)
+   {
+    return(null);
+   }
+
+  if (FixedDateTimeString == "")
+   {
+    return(null);
+   }
+
+  var Matches = (""+FixedDateTimeString).match(DateTimeParseFixedStringRegExp);
+
+  if (Matches == null)
+   {
+    return(null);
+   }
+  try
+   {
+    var result
+         = new Date
+            (
+             parseInt(Matches[3],10),
+             parseInt(Matches[1],10)-1,
+             parseInt(Matches[2],10),
+             parseInt(Matches[4],10),
+             parseInt(Matches[5],10),
+             parseInt(Matches[6],10)
+            );
+
+    if (isNaN(result))
+     {
+      return(null);
+     }
+    else
+     {
+      return(result);
+     }
+   }
+  catch(e)
+   {
+    return(null);
+   }
+ }
+function DateToFixedString(date)
+ {
+  var DayStr   = date.getDate();      if (DayStr < 10) { DayStr = "0"+""+DayStr }
+  var MonthStr = (date.getMonth()+1); if (MonthStr < 10) { MonthStr = "0"+""+MonthStr }
+  return(""+MonthStr+"/"+DayStr+"/"+date.getFullYear());
+ }
+// [/DateTimeParseFixedDate]
+
+/* [[//Imported.JS(sys_js/VSPageTools.js)]] */
+</script>
+
+
+<script language="JavaScript">
+/* [[Imported.JS(sys_js/VSCookieTools.js)]] */
+
+// VSCookieTools.js general toolkit file
+// ------------------------------------------------------------
+// namespace Viasoft
+// Written by Viasoft Ltd. (viasoft.com.ua)
+// Free permission to use granted under BSD licence
+var COOKIE_EXPIRY_REMOVE  = -999; // Set this value to remove cookie
+var COOKIE_EXPIRY_SESSION = null; // Cookie stored utils session end only
+var COOKIE_EXPIRY_DEFAULT = COOKIE_EXPIRY_SESSION;
+var COOKIE_DAYS_REMOVE    = -999; // Set this number of days to remove cookie
+var COOKIE_DAYS_SESSION   = 0;    // Cookie stored utils session end only
+var COOKIE_DAYS_DEFAULT   = COOKIE_DAYS_SESSION;
+var COOKIE_PATH_FROMROOT  = "/";  // Cookie will be visible anywhere from root of site
+var COOKIE_PATH_DEFAULT   = COOKIE_PATH_FROMROOT;
+var cookieGetExpiryByDays = function(days)
+ {
+  if ((days == null) || (days == 0))
+   {
+    return(null);
+   }
+  else
+   {
+    var date = new Date();
+    date.setTime(date.getTime()+(days*24*60*60*1000));
+    return(date);
+   }
+ }
+var cookieSetValueExt = function(name,value,expiryDate,path)
+ {
+  var expires = "";
+  var pathval = COOKIE_PATH_FROMROOT;
+  if (value == null)
+   {
+    expiryDate = cookieGetExpiryByDays(COOKIE_DAYS_REMOVE); // null value will remove cookie
+   }
+  else if ((expiryDate != null) && (expiryDate === COOKIE_EXPIRY_REMOVE))
+   {
+    expiryDate = cookieGetExpiryByDays(COOKIE_DAYS_REMOVE);
+   }
+  if (expiryDate != null)
+   {
+    expires = "; expires="+expiryDate.toGMTString();
+   }
+  if (path != null)
+   {
+    pathval = path;
+   }
+  if (value == null)
+   {
+    value = "";
+   }
+  if (StrUrlEscape != null)
+   {
+    value = StrUrlEscape(value); // StrUrlEscape function exists
+   }
+  else
+   {
+    value = escape(value);
+   }
+  document.cookie = name+"="+value+expires+"; path="+pathval;
+ }
+var cookieSetValue = function(name,value)
+ {
+  cookieSetValueExt(name,value,null,null);
+ }
+var cookieClear = function(name)
+ {
+  cookieSetValueExt(name,"",COOKIE_DAYS_REMOVE,null);
+ }
+var cookieGetValue = function(name)
+ {
+  var cPairArray = document.cookie.split(';');
+  var namePfx    = name + "=";
+  var i;
+  for(i=0; i < cPairArray.length; i++)
+   {
+    var cPairText = cPairArray[i];
+    while (cPairText.charAt(0)==' ')
+     {
+      cPairText = cPairText.substring(1,cPairText.length);
+     }
+    if (cPairText.indexOf(namePfx) == 0)
+     {
+      return(unescape(cPairText.substring(namePfx.length,cPairText.length)));
+     }
+   }
+  return null;
+ }
+
+/* [[//Imported.JS(sys_js/VSCookieTools.js)]] */
+</script>
+
+
+<script language="JavaScript">
+/* [[Imported.JS(inc_js/mnc_const.js.php)]] */
+
+var MN_OFFLINE          = 0; // System does not connected to MultiNet
+var MN_CONNECTING       = 1; // System trying to connect and login to MultiNet
+var MN_LOGGEDIN         = 50; // User logged in
+var MN_IN_GAME_WAIT     = 100; // User is in game room, waiting for other players
+var MN_IN_GAME_START    = 110; // User is in game room, game is starting (short temporary status during delegates processed)
+var MN_IN_GAME_PLAY     = 120; // User is in game room, game is playing now
+var MN_IN_GAME_END      = 180; // User is in game room, viewing result score
+
+var ITEM_ID_VOID        = 0;
+
+var GAMESET_ID_DEFAULT  = 0;
+
+
+var GAME_PARAM_SCORE_ORDER_DESC = 0; // Standard: Most on top
+var GAME_PARAM_SCORE_ORDER_ASC  = 1; // Reverced: Less on top
+
+var GAME_PARAM_SCORE_ORDER_NORMAL   = GAME_PARAM_SCORE_ORDER_DESC; // Normal:   [DESC] Most on top
+var GAME_PARAM_SCORE_ORDER_REVERCED = GAME_PARAM_SCORE_ORDER_ASC;  // Reverced: [ASC]  Less on top
+
+var GAME_PARAM_SCORE_ORDER_DEFAULT  = GAME_PARAM_SCORE_ORDER_NORMAL; // Default sort order
+
+
+var GAME_SCORE_FORMAT_MODEL_NUMERIC   = 0; // Standard: Numeric separed by ','
+var GAME_SCORE_FORMAT_MODEL_TIME_SEC  = 1; // Time in hh:mm:ss
+var GAME_SCORE_FORMAT_MODEL_TIME_MSEC = 2; // Time in hh:mm:ss.xxx
+
+var GAME_SCORE_FORMAT_MODEL_DEFAULT  = GAME_SCORE_FORMAT_MODEL_NUMERIC; // Default score format
+
+// System context cookie var names
+//-------------------------------------------------------------
+// (must match mnc_const.php)
+
+var MN_CURR_STATUS_COOKIE_NAME        = 'MN_CURR_STATUS';
+var MN_CURR_GAME_ID_COOKIE_NAME       = 'MN_CURR_GAME_ID';
+var MN_CURR_GAMESET_ID_COOKIE_NAME    = 'MN_CURR_GAMESET_ID';
+var MN_CURR_USER_ID_COOKIE_NAME       = 'MN_CURR_USER_ID';
+var MN_CURR_USER_SID_COOKIE_NAME      = 'MN_CURR_USER_SID';
+var MN_CURR_DEV_ID_COOKIE_NAME        = 'MN_CURR_DEV_ID';
+var MN_CURR_DEV_TYPE_COOKIE_NAME      = 'MN_CURR_DEV_TYPE';
+var MN_CURR_CLIENT_VER_COOKIE_NAME    = 'MN_CURR_CVER';
+var MN_CURR_CLIENT_LOCALE_COOKIE_NAME = 'MN_CURR_LOCALE';
+
+// Client-side cookie vars
+// - - - - - - - - - - - -
+
+var MN_VAR_AFTER_LOGIN_PAGE_URL    = 'MN_VAR_ALP_URL'; // Deprecated
+var MN_VAR_AFTER_LOGIN_PAGE_ARG    = 'MN_VAR_ALP_ARG'; // Raw source value of arg is used
+var MN_VAR_LAST_GAME_SCORE         = 'MN_VAR_LGS'; // saved as array gameset_id:score[;gameset_id:score]
+
+// User-in-room status
+//-------------------------------------------------------------
+
+var MN_USER_PLAYER                 = 1;
+var MN_USER_CHATER                 = 100;
+
+//User status constants
+//-----------------------------------------------------
+
+var USER_STATUS_GUEST       = 0;
+var USER_STATUS_PROVISIONAL = 10;
+var USER_STATUS_NORMAL      = 100;
+
+// Social network IDs constants
+//-------------------------------------------------------------
+
+var SN_ID_VOID             = -9999; // Special case - for SN alternate value used as VOID
+var SN_ID_PVT_EMAIL_INVITE = -2; // User private network (user invited/challenged contacts)
+var SN_ID_PVT_EMAIL        = -1; // User private network (address book import)
+
+// Self-reference
+var SN_ID_HOST             = 0;
+
+// Social networks
+var SN_ID_FACEBOOK         = 1;
+var SN_ID_TWITTER          = 2;
+var SN_ID_MYSPACE          = 3;
+var SN_ID_PLAYPHONE        = 4;
+var SN_ID_ORKUT            = 5;
+var SN_ID_VKONTAKTE        = 6;
+var SN_ID_HI5              = 7;
+var SN_ID_YAHOO            = 8;
+var SN_ID_LINKEDIN         = 9;
+var SN_ID_GAMECENTER       = 10;
+
+function isSNPrivate($sn_id)
+ {
+  if ($sn_id < 0)
+   {
+    return(true);
+   }
+  else
+   {
+    return(false);
+   }
+ }
+
+function getSNExternalList()
+ {
+  return(new Array(1,2,3,4,5,6,7,8,9,10));
+ }
+
+// Challenge InfoItem constants
+//-------------------------------------------------------------
+
+var CHALLENGE_INFO_ITEM_CODE_TO_EMAIL = 300; // Send-to Email (for sn_id = SN_ID_PVT_EMAIL_INVITE = -2)
+var CHALLENGE_INFO_ITEM_CODE_TO_NAME  = 350; // Send-to User Name (optional)
+
+// Player friend link status
+//-------------------------------------------------------------
+
+var MN_FRIEND_LINK_STATUS_MUTUAL      = 3;
+var MN_FRIEND_LINK_STATUS_INVITE_RECV = 2;
+var MN_FRIEND_LINK_STATUS_INVITE_SENT = 1;
+var MN_FRIEND_LINK_STATUS_NONE        = 0;
+
+// Compatibility issues
+//-------------------------------------------------------------
+// Key API version constants
+
+var API_VER_4_ADVERT_SHOW    = '1_0_0'; // Allow to proccess advert show (hook in page url load, hook proccessing etc)
+var API_VER_4_PLUGIN_EVENTS  = '1_0_1'; // Allow to plugin events subscribe
+var API_VER_4_FB_WALL_POST   = '1_2_0'; // Allow to show Facebook wall post dialog
+var API_VER_4_JS_FORCE_EVAL  = '1_0_8'; // Allow to force script eval in main window (no matter what url is)
+var API_VER_4_OFFLINE_LOGIN  = '1_2_7'; // Allow to usage offline login operations
+var API_VER_4_EXEC_UI_CMD    = '1_2_7'; // Allow to call apphost_exec_ui_command.php
+var API_VER_4_SET_DOMAIN     = '1_3_0'; // Allow to call apphost_add_source_domain.php / apphost_remove_source_domain.php
+var API_VER_4_EXEC_APP       = '1_3_0'; // Allow to call apphost_app_*.php launcher calls
+var API_VER_4_AB_IMPORT_DATA = '1_3_0'; // Allow to call apphost_get_user_ab_data.php
+
+// JBOX default height
+//-------------------------------------------------------------
+
+var MN_JBOX_HEIGHT_DEFAULT  = 49; // Hardcoded in SDK
+
+// Other constants (from configuration files)
+//-------------------------------------------------------------
+
+var MULTINET_NAME = 'PlayPhone';
+
+/* [[//Imported.JS(inc_js/mnc_const.js.php)]] */
+</script>
+
+
+<script language="JavaScript">
+/* [[Imported.JS(inc_js/mnc_tools.js)]] */
+
+// MultiNet tools
+//=====================================================
+// ListData items sub menu support
+//-------------------------------------------------------------
+function doDisplayToggleForFirstChildWithClass(parentItem,childClassName)
+ {
+  var nodeList = getNodeChildren(parentItem);
+  for(var i=0;i<nodeList.length;i++)
+   {
+    if ((nodeList.item(i).className == childClassName) && (getNodeChildren(nodeList.item(i)).length > 0))
+     {
+      if (nodeList.item(i).style.display == "none")
+       {
+        nodeList.item(i).style.display = "";
+       }
+      else
+       {
+        nodeList.item(i).style.display = "none";
+       }
+      break;
+      return(true);
+     }
+   }
+  return(false);
+ }
+function doDisplayToggleForListDataItemSubMenu(ListItem)
+ {
+  doDisplayToggleForFirstChildWithClass(ListItem,'mn_list_item_submenu');
+ }
+// PageWaitSign support
+//-------------------------------------------------------------
+function PageWaitSign(wait_sign_id,wait_sign_holder_id)
+ {
+  var wait_second           = 1;
+  var wait_timer            = null;
+  function doWaitToggle()
+   {
+    var wait_sign_item = document.getElementById(wait_sign_id);
+    wait_second++;
+    var isHide = ((wait_second % 2) == 0);
+    if (wait_sign_item != null)
+     {
+      wait_sign_item.style.visibility = isHide ? "hidden" : "visible";
+     }
+    if (wait_timer != null)
+     {
+      wait_timer = setTimeout(doWaitToggle,500);
+     }
+   }
+  function doWaitShow()
+   {
+    var wait_sign_item        = document.getElementById(wait_sign_id);
+    var wait_sign_holder_item = document.getElementById(wait_sign_holder_id);
+    if (wait_sign_holder_item != null)
+     {
+      wait_sign_holder_item.style.display = "";
+     }
+    wait_second = 1;
+    if (wait_sign_item != null)
+     {
+      wait_sign_item.style.visibility = "visible";
+     }
+    if (wait_timer == null)
+     {
+      wait_timer = setTimeout(doWaitToggle,500);
+     }
+   }
+  function doWaitHide()
+   {
+    var wait_sign_item        = document.getElementById(wait_sign_id);
+    var wait_sign_holder_item = document.getElementById(wait_sign_holder_id);
+    if (wait_sign_holder_item != null)
+     {
+      wait_sign_holder_item.style.display = "none";
+     }
+    if (wait_sign_item != null)
+     {
+      wait_sign_item.style.visibility = "hidden";
+     }
+    if (wait_timer != null)
+     {
+      clearTimeout(wait_timer);
+      wait_timer = null;
+     }
+   }
+  this.waitShow = function () { doWaitShow(); }
+  this.waitHide = function () { doWaitHide(); }
+ }
+// PHP functions emulation
+//-------------------------------------------------------------
+// Separate nemespace 'php' is used
+var php =
+ {
+  intval : function intval(value)
+   {
+    var result = parseInt(value);
+    if (isNaN(result))
+     {
+      result = 0;
+     }
+    return(result);
+   }
+ }
+// field validate
+//-------------------------------------------------------------
+var fieldValidEmailRegExp = new RegExp("^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$","i");
+function fieldIsValidEmail(email)
+ {
+  return(fieldValidEmailRegExp.test(email));
+ }
+// Misc tools
+//-------------------------------------------------------------
+function getGameSettingName($gameset_item)
+ {
+  var $gameset_name = $gameset_item.gameset_name;
+  if (($gameset_name == null) || ($gameset_name == ''))
+   {
+    if ($gameset_item.gameset_id == GAMESET_ID_DEFAULT)
+     {
+      $gameset_name = 'Default';
+     }
+    else
+     {
+      $gameset_name = 'Mode '+$gameset_item.gameset_id;
+     }
+   }
+  return($gameset_name);
+ }
+// Game score format
+//-------------------------------------------------------------
+function formatGameScoreAsNumeric(score)
+ {
+  var int_score = parseInt(score);
+  if (isNaN(int_score))
+   {
+    return(score);
+   }
+  var is_negative = false;
+  if (int_score < 0)
+   {
+    is_negative = true;
+    int_score = -int_score;
+   }
+  score = int_score.toString();
+  var e = score.split("").reverse();
+  var return_str = "";
+  var count = 0;
+  for(var i=0;i<e.length;i++)
+   {
+    count++;
+    return_str = e[i]+return_str;
+    if (count == 3 && i<e.length-1)
+     {
+      return_str = ","+return_str;
+      count = 0;
+     }
+   }
+  if (is_negative)
+   {
+    return '-' + return_str;
+   }
+  else
+   {
+    return return_str;
+   }
+ }
+function formatGameScoreAsTimeSec($score)
+ {
+  var $int_score = parseInt($score);
+  if (isNaN($int_score))
+   {
+    return($score);
+   }
+  var $result = '';
+  // Time will be treated as ms
+  var $score_sec = Math.floor(Math.round($int_score/1000));
+  var $sec = $score_sec % 60;
+  var $min = Math.floor($score_sec / 60);
+  var $hours = Math.floor($score_sec / (60*60));
+  if ($hours > 0)
+   {
+    $min = $min % 60;
+    $result += ''+$hours+':';
+    $result += ''+(($min < 10) ? '0' : '')+$min+':';
+    $result += ''+(($sec < 10) ? '0' : '')+$sec;
+   }
+  else if ($min > 0)
+   {
+    $result += ''+$min+':';
+    $result += ''+(($sec < 10) ? '0' : '')+$sec;
+   }
+  else
+   {
+    $result += '0'+':'+(($sec < 10) ? '0' : '')+$sec;
+   }
+  return($result);
+ }
+function formatGameScoreAsTimeMilliSec($score)
+ {
+  var $int_score = parseInt($score);
+  if (isNaN($int_score))
+   {
+    return($score);
+   }
+  var $result = '';
+  // Time will be treated as ms
+  var $score_sec = Math.floor($int_score/1000);
+  var $sec = $score_sec % 60;
+  var $min = Math.floor($score_sec / 60);
+  var $hours = Math.floor($score_sec / (60*60));
+  if ($hours > 0)
+   {
+    $min = $min % 60;
+    $result += ''+$hours+':';
+    $result += ''+(($min < 10) ? '0' : '')+$min+':';
+    $result += ''+(($sec < 10) ? '0' : '')+$sec;
+   }
+  else if ($min > 0)
+   {
+    $result += ''+$min+':';
+    $result += ''+(($sec < 10) ? '0' : '')+$sec;
+   }
+  else
+   {
+    $result += '0'+':'+(($sec < 10) ? '0' : '')+$sec;
+   }
+  $score_ms = ($int_score % 1000);
+  $result = $result+'.'+(($score_ms < 100) ? '0' : '')+(($score_ms < 10) ? '0' : '')+$score_ms;
+  return($result);
+ }
+function formatGameScoreByModel($score, $score_format_model)
+ {
+  if ($score_format_model == GAME_SCORE_FORMAT_MODEL_TIME_SEC)
+   {
+    return(formatGameScoreAsTimeSec($score));
+   }
+  else if ($score_format_model == GAME_SCORE_FORMAT_MODEL_TIME_MSEC)
+   {
+    return(formatGameScoreAsTimeMilliSec($score));
+   }
+  else
+   {
+    return(formatGameScoreAsNumeric($score));
+   }
+ }
+function formatGameScore($score)
+ {
+  //Version independent of mnc_const.js.php
+  //return(formatGameScoreByModel($score, GAME_SCORE_FORMAT_MODEL_DEFAULT));
+  //NOTE: Expects that
+  //GAME_SCORE_FORMAT_MODEL_DEFAULT = GAME_SCORE_FORMAT_MODEL_NUMERIC
+  //in mnc_const.php
+  return(formatGameScoreAsNumeric($score));
+ }
+var CMP_LESS    = -1;
+var CMP_EQUAL   = 0;
+var CMP_GREATER = 1;
+// CMP_LESS: first lost, CMP_EQUAL: draw, CMP_GREATER: first won
+function coreGameScoreCompareByOrder($first_score, $second_score, $game_param_score_order)
+ {
+  $first_score  = parseInt($first_score,10);
+  $second_score = parseInt($second_score,10);
+  if ($first_score == $second_score)
+   {
+    return(CMP_EQUAL);
+   }
+  if ($game_param_score_order == GAME_PARAM_SCORE_ORDER_REVERCED) // ASC
+   {
+    if ($first_score > $second_score)
+     {
+      return(CMP_LESS);
+     }
+    else
+     {
+      return(CMP_GREATER);
+     }
+   }
+  else
+   {
+    if ($first_score < $second_score)
+     {
+      return(CMP_LESS);
+     }
+    else
+     {
+      return(CMP_GREATER);
+     }
+   }
+ }
+// Date time difference (in seconds) format
+//-------------------------------------------------------------
+function formatDateTimeDiffInSec($datetime_diff_in_sec)
+ {
+  if ($datetime_diff_in_sec == null)
+   {
+    return(null);
+   }
+  $datetime_diff_in_sec = 0+$datetime_diff_in_sec;
+  var $result = '';
+  if ($datetime_diff_in_sec < 0)
+   {
+    $result += '{-}';
+   }
+  /*
+  $result += 'sec:'+$datetime_diff_in_sec.' ';
+  $result += 'min:'+($datetime_diff_in_sec/60).' ';
+  $result += 'hours:'+($datetime_diff_in_sec/(60*60)).' ';
+  $result += 'days:'+($datetime_diff_in_sec/(60*60*24)).' ';
+  */
+  if ($datetime_diff_in_sec < (60))
+   {
+    $result += ('few seconds ago');
+   }
+  else if ($datetime_diff_in_sec < (60*5))
+   {
+    $result += ('few minutes ago');
+   }
+  else if ($datetime_diff_in_sec < (60*60))
+   {
+    $result += ('about '+Math.round($datetime_diff_in_sec/(60))+' minutes ago');
+   }
+  else if ($datetime_diff_in_sec < (60*60*2))
+   {
+    $result += ('about 1 hour ago');
+   }
+  else if ($datetime_diff_in_sec < (60*60*24))
+   {
+    $result += ('about '+Math.round($datetime_diff_in_sec/(60*60))+' hours ago');
+   }
+  else if ($datetime_diff_in_sec < (60*60*24*1.75))
+   {
+    $result += ('about 1 day ago');
+   }
+  else if ($datetime_diff_in_sec < (60*60*24*30))
+   {
+    $result += ('about '+Math.round($datetime_diff_in_sec/(60*60*24))+' days ago');
+   }
+  else if ($datetime_diff_in_sec < (60*60*24*30*1.75))
+   {
+    $result += ('about 1 month ago');
+   }
+  else if ($datetime_diff_in_sec < (60*60*24*30*12))
+   {
+    $result += ('about '+Math.round($datetime_diff_in_sec/(60*60*24*30))+' months ago');
+   }
+  else if ($datetime_diff_in_sec < (60*60*24*30*12*1.65))
+   {
+    $result += ('about 1 year ago');
+   }
+  else
+   {
+    $result += ('about '+Math.round($datetime_diff_in_sec/(60*60*24*30*12))+' years ago');
+   }
+  return($result);
+ }
+// Challenge score post link format
+//-------------------------------------------------------------
+// MUST be consistent between JS/PHP version
+var GAME_POST_SCORE_LINK_CHALLENGE_SEND     = 'CHn:';
+var GAME_POST_SCORE_LINK_CHALLENGE_SEND_EXT = 'CHnx:';
+var GAME_POST_SCORE_LINK_CHALLENGE_PASS     = 'CHp:';
+function makeChallengePassScoreLinkId($challenge_id)
+ {
+  function intval(x) { return parseInt(x); }
+  return(GAME_POST_SCORE_LINK_CHALLENGE_PASS + intval($challenge_id));
+ }
+function makeChallengeSendScoreLinkId($to_user_id,$game_seed)
+ {
+  function intval(x) { return parseInt(x); }
+  //Simple link: For local users
+  return(GAME_POST_SCORE_LINK_CHALLENGE_SEND + intval($to_user_id) + ',' + intval($game_seed));
+ }
+function makeChallengeSendScoreLinkIdForSNUser($to_sn_id, $to_sn_user_asnid, $game_seed)
+ {
+  function intval(x) { return parseInt(x); }
+  function isset(x)  { return (x != null); }
+  //Extended link: For extenal social network
+  var $link = '';
+  var $to_user_id       = null;
+  var $to_sn_id         = intval($to_sn_id);
+  var $to_sn_user_asnid = intval($to_sn_user_asnid);
+  if ($to_sn_id == SN_ID_HOST)
+   {
+    throw('Host social network challenges must use direct link');
+   }
+  $link += GAME_POST_SCORE_LINK_CHALLENGE_SEND_EXT;
+  $link += (isset($to_user_id) ? intval($to_user_id) : '') + ',';
+  $link += (isset($to_sn_id) ? intval($to_sn_id) : '') + ',';
+  $link += (isset($to_sn_user_asnid) ? intval($to_sn_user_asnid) : '') + ',';
+  $link += intval($game_seed);
+  return($link);
+ }
+function makeChallengeSendScoreLinkIdForEmail($to_user_email, $to_user_name, $game_seed)
+ {
+  function intval(x) { return parseInt(x); }
+  function isset(x)  { return (x != null); }
+  function empty(x)  { return ((x == null) || (x == '')); }
+  var trim = StrTrim;
+  var TextControlToSpace = StrControlToSpace
+  //Extended link: For email
+  //NOTE: This model actualy not used yet
+  var $link = '';
+  var $to_user_id       = null;
+  var $to_sn_id         = SN_ID_PVT_EMAIL_INVITE;
+  var $to_sn_user_asnid = null;
+  $link += GAME_POST_SCORE_LINK_CHALLENGE_SEND_EXT;
+  $link += (isset($to_user_id) ? intval($to_user_id) : '') + ',';
+  $link += (isset($to_sn_id) ? intval($to_sn_id) : '') + ',';
+  $link += (isset($to_sn_user_asnid) ? intval($to_sn_user_asnid) : '') + ',';
+  $link += intval($game_seed);
+  if (!empty($to_user_email))
+   {
+    $link += "\n";
+    $link += intval(CHALLENGE_INFO_ITEM_CODE_TO_EMAIL) + "\t" + trim(TextControlToSpace($to_user_email));
+   }
+  if (!empty($to_user_name))
+   {
+    $link += "\n";
+    $link += intval(CHALLENGE_INFO_ITEM_CODE_TO_NAME) + "\t" + trim(TextControlToSpace($to_user_name));
+   }
+  return($link);
+ }
+
+/* [[//Imported.JS(inc_js/mnc_tools.js)]] */
+</script>
+
+
+<script language="JavaScript">
+/* [[Imported.JS(inc_js/mnc_apphost.js)]] */
+
+// MultiNet apphost call tools
+//=====================================================
+// Note: this file must be kept as mostly autonomous one
+// (it may be included without many of main scripts)
+// References: VSCookieTools.js
+// General tools
+// ----------------------------------------------------
+function makeRedirectUrlToNewSubPage(newPage)
+ {
+  var currUrl = location.href;
+  var qPos    = currUrl.indexOf('?');
+  if (qPos >= 0)
+   {
+    currUrl = currUrl.substring(0,qPos);
+   }
+  var sPos    = currUrl.lastIndexOf('/');
+  if (sPos >= 0)
+   {
+    currUrl = currUrl.substring(0,sPos);
+   }
+  else
+   {
+   }
+  return(currUrl + '/' + newPage);
+ }
+function getUrlPageExtension(url)
+ {
+  var pos;
+  pos = url.indexOf('#');
+  if (pos < 0)
+   {
+    // No hash found
+   }
+  else
+   {
+    url = url.substring(0,pos);
+   }
+  pos = url.indexOf('?');
+  if (pos < 0)
+   {
+    // No query found
+   }
+  else
+   {
+    url = url.substring(0,pos);
+   }
+  pos = url.lastIndexOf('.');
+  if (pos < 0)
+   {
+    return(''); // No extension found
+   }
+  else
+   {
+    return(url.substring(pos,url.length));
+   }
+ }
+function callAppHostFormMakeGetFormBodyQuery(form)
+ {
+  var query  = '';
+  var fields = form.elements;
+  //debug_log_write('form_url_post:'+'[in]');
+  if (fields != null)
+   {
+    for (var i = 0; i < fields.length; i++)
+     {
+      var field_name  = fields[i].name;
+      var field_value = fields[i].value;
+      var field_type  = fields[i].type;
+      field_type = field_type.toLowerCase();
+      if (field_type == 'checkbox')
+       {
+        if (!fields[i].checked)
+         {
+          field_value = null;
+         }
+       }
+      if (field_type == 'radio')
+       {
+        if (!fields[i].checked)
+         {
+          field_value = null;
+         }
+       }
+      if ((field_name != null) && (field_value != null) && (field_value != ''))
+       {
+        if (query != '')
+         {
+          query += '&';
+         }
+        query += field_name;
+        query += '=';
+        query += encodeURIComponent(field_value);
+       }
+     }
+   }
+  //debug_log_write('form_url_post:'+query);
+  return(query);
+ }
+function callAppHostFormMakeGetUrlQuery(form)
+ {
+  var result = form.action;
+  // [form.action absolute url back to relative]
+  function isProtocolPresent(href)
+   {
+    if (href.split(':').length > 1)
+     {
+      return(true);
+     }
+    else
+     {
+      return(false);
+     }
+   }
+  function getBasePath(href)
+   {
+    var full_path = href.split('?')[0];
+    var full_path_parts = full_path.split('/');
+    full_path_parts.pop();
+    var base_path = full_path_parts.join('/');
+    if (base_path.charAt(base_path.length-1) != '/')
+     {
+      base_path += '/';
+     }
+    return(base_path);
+   }
+  if (isProtocolPresent(result))
+   {
+    var base_path = getBasePath(location.href);
+    if ((result.length >= base_path.length) && (result.substring(0,base_path.length) == base_path))
+     {
+      result = result.substring(base_path.length);
+     }
+   }
+  // [/form.action absolute url back to relative]
+  //debug_log_write('form_url:'+'[in]');
+  var query = callAppHostFormMakeGetFormBodyQuery(form);
+  if (query != '')
+   {
+    if (result.indexOf('?') >= 0)
+     {
+      result += '&'+query;
+     }
+    else
+     {
+      result += '?'+query;
+     }
+   }
+  //debug_log_write('form_url:'+result);
+  return(result);
+ }
+// Mode detection tools
+// ----------------------------------------------------
+// (Multable functions)
+var isAppEmulActive = function()
+ {
+  try
+   {
+    if ((window != top) && (window.parent != null) && (window.parent.App != null) && (window.parent.callAppHostEmulGate != null))
+     {
+      return(true); // I am loaded in Emulator IFRAME (App emul)
+     }
+    else
+     {
+      return(false); // I am loaded not in emulator IFRAME (Real App)
+     }
+   }
+  catch(e)
+   {
+    return false;
+   }
+ }
+var isAppFlashActive = function()
+ {
+  try
+   {
+    if ((window != top) && (window.parent != null) && (window.parent.App != null) && (window.parent.webFrontHostCommand != null))
+     {
+      return(true); // I am loaded via Flash host IFRAME
+     }
+    else
+     {
+      return(false);
+     }
+   }
+  catch(ex)
+   {
+    return(false);
+   }
+ }
+var isAppMNSAPIActive = function()
+ {
+  try
+   {
+    if ((window != top) && (window.parent.frames['appHostProcFrame'] != null) && (window.parent.frames['appHostProcFrame'].callAppHostWebMNSAPIGate != null))
+     {
+      return(true); // I am loaded with a proc sub-contaier
+     }
+    else
+     {
+      return(false);
+     }
+   }
+  catch(e) {};
+  return false;
+ }
+var callAppHostIsOnAndroid = function()
+ {
+  if (isAppEmulActive())
+   {
+    return(false);
+   }
+  // This function must be replaced to callAppHostIsOnAndroidForceAndroid on Android
+  return(false);
+ }
+var isAppOffline = function()
+ {
+  var protocol = window.location.protocol;
+  if ((protocol == 'http:') || (protocol == 'https:'))
+   {
+    return(false);
+   }
+  else
+   {
+    return(true);
+   }
+ }
+function callAppHostIsOnAndroidForceAndroid()
+ {
+  // Ready-to use function that assumes that we are under Android
+  // If you are sure that you under Android, you can use it in a manner of:
+  // callAppHostIsOnAndroid = callAppHostIsOnAndroidForceAndroid;
+  if (isAppEmulActive())
+   {
+    return(false);
+   }
+  return(true);
+ }
+// Call tools -- direct call
+// ----------------------------------------------------
+var callAppHostCallLocationIsChanging = false;
+function callAppHostCallViaLocationRequest(callUrl)
+ {
+  if (callAppHostCallLocationIsChanging)
+   {
+    // Location is cahnginh to another page
+    // No more location changes for call
+    // Since we want location change to be completed
+    if (debug_log_active)
+     {
+      debug_log_alert('URLC:' + '[skipped]' + ' = '+callUrl);
+     }
+   }
+  else
+   {
+    if (debug_log_active)
+     {
+      debug_log_alert('URLC:' + '[self]' + ' = '+callUrl);
+     }
+    location.assign(callUrl);
+   }
+ }
+function callLocationReplace(newUrl)
+ {
+  if (isAppOffline() && (getUrlPageExtension(newUrl) == '.php'))
+   {
+    // FIXME: CRITICAL: This will work only if no parameters here
+    newUrl += '.html';
+   }
+  callAppHostCallLocationIsChanging = true;
+  if (debug_log_active)
+   {
+    debug_log_alert('location.replace:'+newUrl);
+   }
+  location.replace(newUrl);
+ }
+function callLocationAssign(newUrl)
+ {
+  if (isAppOffline() && (getUrlPageExtension(newUrl) == '.php'))
+   {
+    // FIXME: CRITICAL: This will work only if no parameters here
+    newUrl += '.html';
+   }
+  callAppHostCallLocationIsChanging = true;
+  if (debug_log_active)
+   {
+    debug_log_alert('location.assign:'+newUrl);
+   }
+  location.assign(newUrl);
+ }
+// AppHost proc
+// ----------------------------------------------------
+function callAppHostProcDirectMake()
+ {
+  // Direct calls
+  var that = new Object();
+  that.callAppHost = function(callUrl)
+   {
+    callAppHostCallViaLocationRequest(callUrl);
+   }
+  that.callAppHostOnFormSubmit = function(form,e)
+   {
+    form.target = '';
+    return(true);
+   }
+  that.callAppHostFormSubmit = function(form)
+   {
+    form.target = '';
+    form.submit();
+   }
+  return(that);
+ }
+function callAppHostProcEmulMake()
+ {
+  // Emulator
+  // Must use Get simulation
+  var that = new Object();
+  that.callAppHost = function(callUrl)
+   {
+    if ((window.parent != null) && (window.parent.callAppHostEmulGate != null))
+     {
+      window.parent.callAppHostEmulGate(callUrl);
+     }
+    else
+     {
+      debug_log_alert('AppHostEmul:'+'FATAL: No handler installed');
+     }
+   }
+  return(that);
+ }
+function callAppHostProcFlashMake()
+ {
+  // Emulator
+  // Must use Get simulation
+  var that = new Object();
+  that.callAppHost = function(callUrl)
+   {
+    if ((window.parent != null) && (window.parent.webFrontHostCommand != null))
+     {
+      window.parent.webFrontHostCommand(callUrl);
+     }
+    else
+     {
+      debug_log_alert('AppHostFlash:'+'FATAL: No handler installed');
+     }
+   }
+  return(that);
+ }
+function callAppHostProcMNSAPIMake()
+ {
+  var MNSAPI_HOST_PROC_FRAME_NAME = 'appHostProcFrame'; // Must be consistent with MNSAPIHost.js
+  // Call gate ror MNSAPI API
+  // Must use Get simulation
+  var that = new Object();
+  // [JBoxModelSupport]
+  that.isJumpBoxMode = false;
+  that.getJumpBoxWebViewFrameNameInParentApp = function()
+   {
+    var MNSAPI_WEB_VIEW_FRAME_NAME  = 'MNSAPIDashboard';  // Must be consistent with MNSAPIHost.js
+    return(MNSAPI_WEB_VIEW_FRAME_NAME);
+   };
+  // [/JBoxModelSupport]
+  that.callAppHost = function(callUrl)
+   {
+    var WebViewFrameName = that.getJumpBoxWebViewFrameNameInParentApp();
+    if
+     (
+      (WebViewFrameName != null) && (WebViewFrameName != '') &&
+      (window.parent != null) &&
+      (window.parent.frames[WebViewFrameName] != null) &&
+      (window.parent.frames[MNSAPI_HOST_PROC_FRAME_NAME] != null) &&
+      (window.parent.frames[MNSAPI_HOST_PROC_FRAME_NAME].callAppHostWebMNSAPIGate != null)
+     )
+     {
+      window.parent.frames[MNSAPI_HOST_PROC_FRAME_NAME].callAppHostWebMNSAPIGate(callUrl);
+     }
+    else
+     {
+      debug_log_alert('AppHostMNSAPI:'+'FATAL: No handler installed');
+     }
+   };
+  return(that);
+ }
+function callAppHostProcAndroidMake()
+ {
+  // Android
+  // Must use Get simulation
+  var that = new Object();
+  // Must use Get simulation
+  that.callAppHost = function(callUrl)
+   {
+    if ((typeof MNWebViewAppHost) == "undefined")
+     {
+      debug_log_alert('MNWebViewAppHost:ERROR:(is null):' + callUrl);
+     }
+    else
+     {
+      debug_log_write('MNWebViewAppHost:' + callUrl);
+      MNWebViewAppHost.callAppHost(callUrl);
+     }
+   }
+  return(that);
+ }
+function callAppHostProcIFrameMake()
+ {
+  // Direct submit via IFrame
+  // NOTE: You need the following DOM node somewhere for use of this proc
+  // <div style="display:none" id="callAppHostIFrameProcHolder"></div>
+  var that = new Object();
+  var callAppHostIFrameProcHolderId       = 'callAppHostIFrameProcHolder';
+  var callAppHostIFrameProcSubmitActive   = true;
+  var callAppHostIFrameProcSubmitIdPfx    = 'callAppHostIFrame';
+  var callAppHostIFrameProcSubmitIndex    = 0;
+  var callAppHostIFrameProcSubmitArray    = new Array();
+  var callAppHostIFrameProcSubmitMaxCount = 4;
+  function callAppHostIFrameProcMakeIFrame(iFrameHolder,fill_src)
+   {
+    var iFrameItem = document.createElement('IFRAME');
+    if (fill_src != null)
+     {
+      iFrameItem.src = fill_src;
+     }
+    else
+     {
+      iFrameItem.src = 'page_blank.php' // 'apphost_void.php'; // 'about:blank';
+     }
+    iFrameHolder.appendChild(iFrameItem);
+    return(iFrameItem);
+   }
+  var callAppHostIFrameProcHolder = null;
+  var callAppHostIFrameProcHolderDefined = false;
+  function callAppHostIFrameProcGetIFrame(fill_src)
+   {
+    if (!callAppHostIFrameProcSubmitActive)
+     {
+      return(null);
+     }
+    debug_log_alert('GIF:[IN]' + ((fill_src != null) ? (':FOR:'+fill_src) : ('')) );
+    if (!callAppHostIFrameProcHolderDefined)
+     {
+      callAppHostIFrameProcHolder = document.getElementById(callAppHostIFrameProcHolderId);
+      callAppHostIFrameProcHolderDefined = true;
+     }
+    if (callAppHostIFrameProcHolder == null)
+     {
+      debug_log_alert('GIF:[OUT.Void]');
+      return(null);
+     }
+    if (callAppHostIFrameProcSubmitArray.length < callAppHostIFrameProcSubmitMaxCount)
+     {
+      var newIFrame = callAppHostIFrameProcMakeIFrame(callAppHostIFrameProcHolder,fill_src);
+      callAppHostIFrameProcSubmitArray.push(newIFrame);
+      newIFrame.id = callAppHostIFrameProcSubmitIdPfx+(callAppHostIFrameProcSubmitArray.length-1);
+      //debug_log_alert('GIF:[out.CURR.HTML]:'+'\n'+callAppHostIFrameProcHolder.innerHTML);
+      debug_log_alert('GIF:[OUT.NEW]:'+newIFrame.id);
+      return(newIFrame);
+     }
+    else
+     {
+      var outIFrame = callAppHostIFrameProcSubmitArray[(callAppHostIFrameProcSubmitIndex++) % callAppHostIFrameProcSubmitArray.length];
+      if (fill_src != null)
+       {
+        outIFrame.src = fill_src;
+       }
+      debug_log_alert('GIF:[OUT]:'+outIFrame.id);
+      return(outIFrame);
+     }
+   }
+  function callAppHostIFrameProcGetFreeIFrameId()
+   {
+    debug_log_alert('*.GID:[in]');
+    var IFrame = callAppHostIFrameProcGetIFrame();
+    if (IFrame != null)
+     {
+      debug_log_alert('*.GID:[out]:'+IFrame.id);
+      return(IFrame.id);
+     }
+    else
+     {
+      debug_log_alert('*.GID:[out]:'+'[none]');
+      return('');
+     }
+   }
+  // Call gates
+  that.callAppHost = function(callUrl)
+   {
+    var callAppHostIFrameItem = callAppHostIFrameProcGetIFrame(callUrl);
+    if (callAppHostIFrameItem != null)
+     {
+      debug_log_alert('URLC:' + callAppHostIFrameItem.id + ' = '+callUrl);
+     }
+    else
+     {
+      callAppHostCallViaLocationRequest(callUrl);
+     }
+   }
+  that.callAppHostOnFormSubmit = function(form,e)
+   {
+    form.target = callAppHostIFrameProcGetFreeIFrameId();
+    return(true);
+   }
+  that.callAppHostFormSubmit = function(form)
+   {
+    form.target = callAppHostIFrameProcGetFreeIFrameId();
+    form.submit();
+   }
+  return(that);
+ }
+function callAppHostProcPipeMake()
+ {
+  // By Get PipeCalls
+  // Must use Get simulation
+  var that = new Object();
+  var callAppHostPipeProcArray     = new Array();
+  var callAppHostPipeProcTimer     = null;
+  var callAppHostPipeProcTimerTime = 200; // 200ms gaps between calls
+  function callAppHostPipeProcOnTimer()
+   {
+    callAppHostPipeProcTimer = null;
+    var callUrl = callAppHostPipeProcArray.shift();
+    if (callUrl != null)
+     {
+      debug_log_alert('CallFromPipeline:' + ' = '+callUrl);
+      callAppHostCallViaLocationRequest(callUrl);
+      if (callAppHostPipeProcTimer == null)
+       {
+        callAppHostPipeProcTimer = setTimeout(callAppHostPipeProcOnTimer,callAppHostPipeProcTimerTime);
+       }
+     }
+   }
+  function callAppHostPipeProc(callUrl)
+   {
+    if (callAppHostPipeProcTimer != null)
+     {
+      callAppHostPipeProcArray.push(callUrl);
+     }
+    else
+     {
+      callAppHostPipeProcTimer = setTimeout(callAppHostPipeProcOnTimer,callAppHostPipeProcTimerTime);
+      callAppHostCallViaLocationRequest(callUrl);
+     }
+   }
+  // Call gates
+  that.callAppHost = function(callUrl)
+   {
+    callAppHostPipeProc(callUrl);
+   }
+  return(that);
+ }
+// Core app host support
+// ---------------------------------------
+var callAppHostProc = null;
+var callAppHostModeFormSimulateGet = false;
+function callAppHost(callUrl)
+ {
+  // Call this function to make url call to host application instead of direct call via anchor
+  // Note: anchors will not work on some platforms
+  // Hint: You can use [a href="javascript:callAppHost('apphost....');"] construction
+  if (debug_log_active)
+   {
+    debug_log_alert('callAppHost:' + callUrl);
+   }
+  callAppHostProc.callAppHost(callUrl);
+ }
+function callAppHostOnFormSubmit(form,e)
+ {
+  // Params:
+  // form = form to be submited
+  // e    = window.event to proccess (submit event expected)
+  // Any form that submits to AppHost must:
+  // Have onsubmit handler that MUST return value of this func if submit allowed
+  // Note: On some platforms submit is not proccessed at all
+  // Hint: you can use:
+  // [form onsumbmit="if (!mySubmitCheck()) { return(false); }; return callAppHostSubmitForm(this,event);"]
+  if (debug_log_active)
+   {
+    debug_log_alert('callAppHostOnFormSubmit[event]:'+callAppHostFormMakeGetUrlQuery(form));
+   }
+  if (callAppHostModeFormSimulateGet)
+   {
+    callAppHostProc.callAppHost(callAppHostFormMakeGetUrlQuery(form));
+    return(false);
+   }
+  else
+   {
+    return(callAppHostProc.callAppHostOnFormSubmit(form,e));
+   }
+ }
+function callAppHostFormSubmit(form)
+ {
+  // Params:
+  // form = form to be submited
+  // Any form that submits to AppHost must:
+  // Note: On some platforms form.submit will not work
+  if (debug_log_active)
+   {
+    debug_log_alert('callAppHostFormSubmit:'+callAppHostFormMakeGetUrlQuery(form));
+   }
+  if (callAppHostModeFormSimulateGet)
+   {
+    callAppHostProc.callAppHost(callAppHostFormMakeGetUrlQuery(form));
+   }
+  else
+   {
+    callAppHostProc.callAppHostFormSubmit(form);
+   }
+ }
+// General init rotine
+// ----------------------------------------------------
+function callAppHostModeInit()
+ {
+  if (isAppEmulActive())
+   {
+    callAppHostProc = callAppHostProcEmulMake();
+    callAppHostModeFormSimulateGet = true;
+   }
+  else if (isAppFlashActive())
+   {
+    callAppHostProc = callAppHostProcFlashMake();
+    callAppHostModeFormSimulateGet = true;
+   }
+  else if (isAppMNSAPIActive())
+   {
+    callAppHostProc = callAppHostProcMNSAPIMake();
+    callAppHostModeFormSimulateGet = true;
+   }
+  else
+   {
+    if (callAppHostIsOnAndroid())
+     {
+      // Android
+      callAppHostProc = callAppHostProcAndroidMake();
+      callAppHostModeFormSimulateGet = true;
+     }
+    else
+     {
+      // IPhone
+      //callAppHostProc = callAppHostProcDirectMake();
+      //callAppHostModeFormSimulateGet = false;
+      callAppHostProc = callAppHostProcPipeMake();
+      callAppHostModeFormSimulateGet = true;
+      //callAppHostProc = callAppHostProcIFrameMake();
+      //callAppHostModeFormSimulateGet = false;
+     }
+   }
+ }
+//Call when your code is ready to make AppHost calls
+//callAppHostModeInit(); // Boot
+
+/* [[//Imported.JS(inc_js/mnc_apphost.js)]] */
+</script>
+
+<script type="text/javascript">
+ // Inits apphost for Android and iOS SDK
+ callAppHostModeInit();
+</script>
+
+<!-- [/Scripts] -->
+<title>Network error</title>
+<style type="text/css">
+.popup_error_title,.popup_wait_title   { color:white; }
+.popup_error_detsign {  }
+.popup_error_details {  }
+.popup_error_text,.popup_wait_text    { color:white; text-align: center; font-size:14px; }
+</style>
+<style type="text/css">
+body { margin:0px;padding:0px; }
+.ui-wait-sign-cover-splash-screen {
+      background: #0785b1; /* Old browsers */
+      background: -moz-linear-gradient(top, #0785b1 0%, #005184 54%, #004a7e 100%); /* FF3.6+ */
+      background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#0785b1), color-stop(54%,#005184), color-stop(100%,#004a7e)); /* Chrome,Safari4+ */
+      background: -webkit-linear-gradient(top, #0785b1 0%,#005184 54%,#004a7e 100%); /* Chrome10+,Safari5.1+ */
+      background: -o-linear-gradient(top, #0785b1 0%,#005184 54%,#004a7e 100%); /* Opera11.10+ */
+      background: -ms-linear-gradient(top, #0785b1 0%,#005184 54%,#004a7e 100%); /* IE10+ */
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0785b1', endColorstr='#004a7e',GradientType=0 ); /* IE6-9 */
+      background: linear-gradient(top, #0785b1 0%,#005184 54%,#004a7e 100%); /* W3C */
+      position:absolute; left:0px; top:0px; width:100%; height:100%;  z-index: 15000;
+    }
+.ui-wait-sign-splash-screen {
+      color: #FFFFFF;
+      font-size: 12px;
+      font-family: Helvetica,Arial;
+      height: 125px;
+      left: 50%;
+      margin: -65px -132px;
+      /*overflow: hidden;*/
+      padding: 12px;
+      position: absolute;
+      text-align: center;
+      top: 45%;
+      width: 240px;
+    }
+.ui-wait-sign-splash-screen-logo {display:block; height:57px; width:230px; margin:0 auto; background: url('images-pp/orbit/playphone_logo_loading.png') no-repeat;}
+.ui-wait-sign-splash-screen-animation {background: url('images-pp/orbit/loader.gif') no-repeat center; height: 48px; margin: 8px auto;}
+.ui-wait-sign-splash-screen-text {	margin: 12px auto; white-space: nowrap; width: 230px; overflow: hidden; font-weight: bold; text-overflow: ellipsis;}
+</style>
+<script>
+var MN_HTTP_ERROR_VER = '1.2';
+</script>
+</head>
+
+<script language="JavaScript">
+/* [[Imported.JS(inc_js/mnc_const.js.php)]] */
+
+var MN_OFFLINE          = 0; // System does not connected to MultiNet
+var MN_CONNECTING       = 1; // System trying to connect and login to MultiNet
+var MN_LOGGEDIN         = 50; // User logged in
+var MN_IN_GAME_WAIT     = 100; // User is in game room, waiting for other players
+var MN_IN_GAME_START    = 110; // User is in game room, game is starting (short temporary status during delegates processed)
+var MN_IN_GAME_PLAY     = 120; // User is in game room, game is playing now
+var MN_IN_GAME_END      = 180; // User is in game room, viewing result score
+
+var ITEM_ID_VOID        = 0;
+
+var GAMESET_ID_DEFAULT  = 0;
+
+
+var GAME_PARAM_SCORE_ORDER_DESC = 0; // Standard: Most on top
+var GAME_PARAM_SCORE_ORDER_ASC  = 1; // Reverced: Less on top
+
+var GAME_PARAM_SCORE_ORDER_NORMAL   = GAME_PARAM_SCORE_ORDER_DESC; // Normal:   [DESC] Most on top
+var GAME_PARAM_SCORE_ORDER_REVERCED = GAME_PARAM_SCORE_ORDER_ASC;  // Reverced: [ASC]  Less on top
+
+var GAME_PARAM_SCORE_ORDER_DEFAULT  = GAME_PARAM_SCORE_ORDER_NORMAL; // Default sort order
+
+
+var GAME_SCORE_FORMAT_MODEL_NUMERIC   = 0; // Standard: Numeric separed by ','
+var GAME_SCORE_FORMAT_MODEL_TIME_SEC  = 1; // Time in hh:mm:ss
+var GAME_SCORE_FORMAT_MODEL_TIME_MSEC = 2; // Time in hh:mm:ss.xxx
+
+var GAME_SCORE_FORMAT_MODEL_DEFAULT  = GAME_SCORE_FORMAT_MODEL_NUMERIC; // Default score format
+
+// System context cookie var names
+//-------------------------------------------------------------
+// (must match mnc_const.php)
+
+var MN_CURR_STATUS_COOKIE_NAME        = 'MN_CURR_STATUS';
+var MN_CURR_GAME_ID_COOKIE_NAME       = 'MN_CURR_GAME_ID';
+var MN_CURR_GAMESET_ID_COOKIE_NAME    = 'MN_CURR_GAMESET_ID';
+var MN_CURR_USER_ID_COOKIE_NAME       = 'MN_CURR_USER_ID';
+var MN_CURR_USER_SID_COOKIE_NAME      = 'MN_CURR_USER_SID';
+var MN_CURR_DEV_ID_COOKIE_NAME        = 'MN_CURR_DEV_ID';
+var MN_CURR_DEV_TYPE_COOKIE_NAME      = 'MN_CURR_DEV_TYPE';
+var MN_CURR_CLIENT_VER_COOKIE_NAME    = 'MN_CURR_CVER';
+var MN_CURR_CLIENT_LOCALE_COOKIE_NAME = 'MN_CURR_LOCALE';
+
+// Client-side cookie vars
+// - - - - - - - - - - - -
+
+var MN_VAR_AFTER_LOGIN_PAGE_URL    = 'MN_VAR_ALP_URL'; // Deprecated
+var MN_VAR_AFTER_LOGIN_PAGE_ARG    = 'MN_VAR_ALP_ARG'; // Raw source value of arg is used
+var MN_VAR_LAST_GAME_SCORE         = 'MN_VAR_LGS'; // saved as array gameset_id:score[;gameset_id:score]
+
+// User-in-room status
+//-------------------------------------------------------------
+
+var MN_USER_PLAYER                 = 1;
+var MN_USER_CHATER                 = 100;
+
+//User status constants
+//-----------------------------------------------------
+
+var USER_STATUS_GUEST       = 0;
+var USER_STATUS_PROVISIONAL = 10;
+var USER_STATUS_NORMAL      = 100;
+
+// Social network IDs constants
+//-------------------------------------------------------------
+
+var SN_ID_VOID             = -9999; // Special case - for SN alternate value used as VOID
+var SN_ID_PVT_EMAIL_INVITE = -2; // User private network (user invited/challenged contacts)
+var SN_ID_PVT_EMAIL        = -1; // User private network (address book import)
+
+// Self-reference
+var SN_ID_HOST             = 0;
+
+// Social networks
+var SN_ID_FACEBOOK         = 1;
+var SN_ID_TWITTER          = 2;
+var SN_ID_MYSPACE          = 3;
+var SN_ID_PLAYPHONE        = 4;
+var SN_ID_ORKUT            = 5;
+var SN_ID_VKONTAKTE        = 6;
+var SN_ID_HI5              = 7;
+var SN_ID_YAHOO            = 8;
+var SN_ID_LINKEDIN         = 9;
+var SN_ID_GAMECENTER       = 10;
+
+function isSNPrivate($sn_id)
+ {
+  if ($sn_id < 0)
+   {
+    return(true);
+   }
+  else
+   {
+    return(false);
+   }
+ }
+
+function getSNExternalList()
+ {
+  return(new Array(1,2,3,4,5,6,7,8,9,10));
+ }
+
+// Challenge InfoItem constants
+//-------------------------------------------------------------
+
+var CHALLENGE_INFO_ITEM_CODE_TO_EMAIL = 300; // Send-to Email (for sn_id = SN_ID_PVT_EMAIL_INVITE = -2)
+var CHALLENGE_INFO_ITEM_CODE_TO_NAME  = 350; // Send-to User Name (optional)
+
+// Player friend link status
+//-------------------------------------------------------------
+
+var MN_FRIEND_LINK_STATUS_MUTUAL      = 3;
+var MN_FRIEND_LINK_STATUS_INVITE_RECV = 2;
+var MN_FRIEND_LINK_STATUS_INVITE_SENT = 1;
+var MN_FRIEND_LINK_STATUS_NONE        = 0;
+
+// Compatibility issues
+//-------------------------------------------------------------
+// Key API version constants
+
+var API_VER_4_ADVERT_SHOW    = '1_0_0'; // Allow to proccess advert show (hook in page url load, hook proccessing etc)
+var API_VER_4_PLUGIN_EVENTS  = '1_0_1'; // Allow to plugin events subscribe
+var API_VER_4_FB_WALL_POST   = '1_2_0'; // Allow to show Facebook wall post dialog
+var API_VER_4_JS_FORCE_EVAL  = '1_0_8'; // Allow to force script eval in main window (no matter what url is)
+var API_VER_4_OFFLINE_LOGIN  = '1_2_7'; // Allow to usage offline login operations
+var API_VER_4_EXEC_UI_CMD    = '1_2_7'; // Allow to call apphost_exec_ui_command.php
+var API_VER_4_SET_DOMAIN     = '1_3_0'; // Allow to call apphost_add_source_domain.php / apphost_remove_source_domain.php
+var API_VER_4_EXEC_APP       = '1_3_0'; // Allow to call apphost_app_*.php launcher calls
+var API_VER_4_AB_IMPORT_DATA = '1_3_0'; // Allow to call apphost_get_user_ab_data.php
+
+// JBOX default height
+//-------------------------------------------------------------
+
+var MN_JBOX_HEIGHT_DEFAULT  = 49; // Hardcoded in SDK
+
+// Other constants (from configuration files)
+//-------------------------------------------------------------
+
+var MULTINET_NAME = 'PlayPhone';
+
+/* [[//Imported.JS(inc_js/mnc_const.js.php)]] */
+</script>
+
+
+<script language="JavaScript">
+/* [[Imported.JS(page_core/page_item_debug_log_void.js.php)]] */
+
+var debug_log_active = false;
+function debug_log_write(text)     { }
+function debug_log_alert(text)     { }
+function debug_log_confirm(text)   { return(true); }
+
+/* [[//Imported.JS(page_core/page_item_debug_log_void.js.php)]] */
+</script>
+
+<script language="JavaScript">
+function MN_HostVar(var_name, var_value)
+ {
+  this.var_name  = var_name;
+  this.var_value = var_value;
+ }
+var MN_HostVarRead = function(var_values_array, var_name)
+ {
+  if (var_values_array == null)
+   {
+    return(null);
+   }
+  for(var i in var_values_array)
+   {
+    if (var_values_array[i].var_name == var_name)
+     {
+      return(var_values_array[i].var_value);
+     }
+   }
+  return(null);
+ };
+var MN_HostVarNameEval       = 'sys.multinet_http_error.boot_script';
+var MN_HostVarNameMask       = 'sys.multinet_http_error.*';
+var MN_HostVarValues         = null;
+var MN_HostVarUpdateCallBack = function(var_values_array)
+ {
+  var var_boot_script = MN_HostVarRead(var_values_array, MN_HostVarNameEval);
+  if ((var_boot_script != null) && (var_boot_script != ""))
+   {
+    try
+     {
+      eval(var_boot_script);
+     }
+    catch(e)
+     {
+     }
+   }
+ };
+var MN_HostVarUpdate = function(var_values_array)
+ {
+  MN_HostVarValues = var_values_array;
+  MN_HostVarUpdateCallBack(var_values_array);
+ }
+</script>
+<script language="JavaScript">
+var getErrorMessageBodyForPopup = function(error_message)
+ {
+  var marker_pos = error_message.lastIndexOf('[');
+  if (marker_pos >= 0)
+   {
+    error_message = error_message.substring(0,marker_pos);
+   }
+  error_message = StringTrim(error_message);
+  return(error_message);
+ }
+</script>
+<body>
+ <div id="bodyHolder">
+  <div class="ui-wait-sign-cover-splash-screen" id="Splash_cover">
+    <div class="ui-wait-sign-splash-screen" id="Splash_holder">
+      <div class="ui-wait-sign-splash-screen-logo"></div>
+      <div class="ui-wait-sign-splash-screen-animation" ></div>
+      <div class="ui-wait-sign-splash-screen-text" id="Splash_text" >Connecting to network...</div>
+    </div>
+  </div>
+ <script language="JavaScript">
+ var setOnResizeHandler = function (newHandler)
+  {
+   window.onresize = newHandler;
+  }
+ </script>
+ <script language="JavaScript">
+ var doReconnectCallProdTimeoutValue = 100;
+ var doReconnectCall = function()
+  {
+   if (isAppEmulActive())
+    {
+     setTimeout(function() { location.reload(); },2000);
+    }
+   else
+    {
+     if (callAppHostIsOnAndroid())
+      {
+       setTimeout(function() { callAppHost('apphost_reconnect.php'); }, doReconnectCallProdTimeoutValue);
+      }
+     else
+      {
+       setTimeout(function() { location.replace('apphost_reconnect.php'); }, doReconnectCallProdTimeoutValue);
+      }
+    }
+  }
+ var doReconnect = function()
+  {
+   doReconnectCall();
+   MN_ReconnectWaitPopup();
+  }
+ var doGoBackCall = function()
+  {
+   if (callAppHostIsOnAndroid())
+    {
+     callAppHost('apphost_goback.php');
+    }
+   else
+    {
+     location.replace('apphost_goback.php');
+    }
+  }
+ </script>
+ <script>
+ var CoverClassRealMake = function()
+  {
+   var that = new CoverClass('','',null,'popup_Aux_Cover');
+   return(that);
+  }
+ var CoverClassVoidMake = function()
+  {
+   var that = new Object();
+   that.close = function()
+    {
+     // Dummy call
+    }
+   return(that);
+  }
+ var CoverClassMake = function()
+  {
+   return(CoverClassVoidMake());
+ //return(CoverClassRealMake());
+  };
+ </script>
+ <script>
+ //Change setupAllowBackButton to false if your aplication has no main menu
+ var setupAllowBackButton = true;
+ var MN_SetErrorMessageCoverMake = CoverClassMake;
+ var MN_SetErrorMessage_default = function (error_message)
+  {
+   error_message = getErrorMessageBodyForPopup(error_message);
+   var p = null;
+   var onResizeHandler = function()
+    {
+     if (p != null)
+      {
+       p.redraw();
+      }
+    }
+   var titleHTML = 'Internet Connection Required';
+   var textHTML  = '';
+       textHTML += '<div class="popup_error_headline">'+''+'</div>';
+       textHTML += '<div class="popup_error_detsign" >'+'PlayPhone Social requires an internet connection over WIFI, 3G or EDGE networks.'+'</div>';
+       textHTML += '<div class="popup_error_details" >'+StrReplace(StrText2HTML(error_message),'\n','<br/>\n')+'</div>';
+   var buttonBack =
+       [
+         "Back to Game",
+         function()
+          {
+            //p.close(); c.close(); setOnResizeHandler(null);
+            doGoBackCall();
+          },
+          "popup_Btn_right"
+        ];
+   var buttonTry =
+       [
+        "Try Again",
+         function()
+          {
+            p.close(); c.close(); setOnResizeHandler(null);
+            doReconnect();
+          },
+          "popup_Btn_left"
+        ];
+   var PopupButtons = new Array();
+   if(setupAllowBackButton)
+   {
+     PopupButtons.push(buttonTry);
+     PopupButtons.push(buttonBack);
+   }
+   else
+   {
+     buttonTry.splice(2,1);
+     PopupButtons.push(buttonTry);
+   }
+   var c = MN_SetErrorMessageCoverMake();
+       p = new PopupClass
+            ('<div class="popup_error_title">'+titleHTML+'</div>',
+             '<div class="popup_error_text">' +textHTML+ '</div>',
+             PopupButtons);
+   setOnResizeHandler(onResizeHandler);
+  }
+ var MN_SetErrorMessage = MN_SetErrorMessage_default;
+ </script>
+ <script>
+ var MN_ReconnectWaitPopupCoverMake = CoverClassMake;
+ var MN_ReconnectWaitPopup_default = function ()
+  {
+   var titleHTML = 'Reconnect';
+   var textHTML  = '<div>'+'Reconnecting to server...'+'</div>';
+   var p = null;
+   var onResizeHandler = function()
+    {
+     if (p != null)
+      {
+       p.redraw();
+      }
+    }
+   var buttonBack =
+              [
+               "Back to main menu",
+               function()
+                {
+                  //p.close(); c.close(); setOnResizeHandler(null);
+                  doGoBackCall();
+                }
+              ];
+   var PopupButtons = new Array();
+   if(setupAllowBackButton)
+   {
+     PopupButtons.push(buttonBack);
+   }
+   var c = MN_ReconnectWaitPopupCoverMake();
+       p = new PopupClass
+            ('<div class="popup_wait_title">'+titleHTML+'</div>',
+             '<div class="popup_wait_text">' +textHTML+ '</div>',
+             PopupButtons);
+   setOnResizeHandler(onResizeHandler);
+  }
+ var MN_ReconnectWaitPopup = MN_ReconnectWaitPopup_default;
+ </script>
+ <script language="JavaScript">
+  // Boot!
+  // Error message to show
+//var MN_SetErrorPopupMessage = 'request timeout [999]'; // CHECKME: Must be commented   in production
+  var MN_SetErrorPopupMessage = {0};                     // CHECKME: Must be uncommented in production
+  // Get updated evaluation change to work
+  var MN_SetErrorPopupTimeout = setTimeout(function() { MN_SetErrorPopupTimeout = null; MN_SetErrorMessage(MN_SetErrorPopupMessage); }, 200);
+  if (isAppEmulActive())
+   {
+    //MN_HostVarUpdate(new Array(new MN_HostVar(MN_HostVarNameEval,
+    //'clearTimeout(MN_SetErrorPopupTimeout); alert(getErrorMessageBodyForPopup(MN_SetErrorPopupMessage));'
+    //)));
+   }
+  else
+   {
+    if (callAppHostIsOnAndroid())
+     {
+      callAppHost('apphost_vars_get.php?var_name_list=' + escape(MN_HostVarNameMask));
+     }
+    else
+     {
+      var callUrl = 'apphost_vars_get.php'+'?'+'var_name_list'+'='+escape(MN_HostVarNameMask);
+      location.replace(callUrl); // call to get boot vars
+     }
+   }
+ </script>
+ </div>
+</body>
+</html>

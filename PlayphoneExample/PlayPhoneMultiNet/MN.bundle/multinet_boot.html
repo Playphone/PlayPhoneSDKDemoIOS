@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <!-- [Not a regular web page: BootLogo HTML file Used by MultiNet framework] -->
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>Loading MultiNet</title>
+    <style type="text/css">
+    .ui-wait-sign-cover-splash-screen {
+      background: #0785b1; /* Old browsers */
+      background: -moz-linear-gradient(top, #0785b1 0%, #005184 54%, #004a7e 100%); /* FF3.6+ */
+      background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#0785b1), color-stop(54%,#005184), color-stop(100%,#004a7e)); /* Chrome,Safari4+ */
+      background: -webkit-linear-gradient(top, #0785b1 0%,#005184 54%,#004a7e 100%); /* Chrome10+,Safari5.1+ */
+      background: -o-linear-gradient(top, #0785b1 0%,#005184 54%,#004a7e 100%); /* Opera11.10+ */
+      background: -ms-linear-gradient(top, #0785b1 0%,#005184 54%,#004a7e 100%); /* IE10+ */
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0785b1', endColorstr='#004a7e',GradientType=0 ); /* IE6-9 */
+      background: linear-gradient(top, #0785b1 0%,#005184 54%,#004a7e 100%); /* W3C */
+      position:absolute; left:0px; top:0px; width:100%; height:100%;  z-index: 15000;
+    }
+    .ui-wait-sign-splash-screen {
+      color: #FFFFFF;
+      font-size: 12px;
+      font-family: Helvetica,Arial;
+      height: 125px;
+      left: 50%;
+      margin: -65px -132px;
+      /*overflow: hidden;*/
+      padding: 12px;
+      position: absolute;
+      text-align: center;
+      top: 45%;
+      width: 240px;
+    }
+    .ui-wait-sign-splash-screen-logo {display:block; height:57px; width:230px; margin:0 auto; background: url('images-pp/orbit/playphone_logo_loading.png') no-repeat;}
+    .ui-wait-sign-splash-screen-animation {background: url('images-pp/orbit/loader.gif') no-repeat center; height: 48px; margin: 8px auto;}
+    .ui-wait-sign-splash-screen-text {	margin: 12px auto; white-space: nowrap; width: 230px; overflow: hidden; font-weight: bold; text-overflow: ellipsis;}
+    </style>
+
+   <script>
+   var MN_HTTP_BOOT_VER = '1.1';
+   </script>
+
+  </head>
+
+  <body>
+   <div id="bodyHolder">
+    <div class="ui-wait-sign-cover-splash-screen" id="Splash_cover">
+      <div class="ui-wait-sign-splash-screen" id="Splash_holder">
+        <div class="ui-wait-sign-splash-screen-logo"></div>
+        <div class="ui-wait-sign-splash-screen-animation" ></div>
+        <div class="ui-wait-sign-splash-screen-text" id="Splash_text" >Connecting to network...</div>
+      </div>
+    </div>
+   </div>
+  </body>
+
+
+</html>

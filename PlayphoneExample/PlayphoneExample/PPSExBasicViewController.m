@@ -57,4 +57,18 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [self updateState];
+}
+
+- (void)playerLoggedIn {
+    //Empty implementation
+}
+- (void)playerLoggedOut {
+    //Empty implementation
+}
+- (void)updateState  {
+    //Empty implementation
+}
+
 @end

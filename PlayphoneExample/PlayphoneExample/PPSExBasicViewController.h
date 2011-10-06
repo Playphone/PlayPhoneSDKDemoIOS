@@ -8,6 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PPSExBasicViewController : UIViewController
+@protocol PPSExBasicNotificationProtocol <NSObject>
+
+- (void)playerLoggedIn;
+- (void)playerLoggedOut;
+
+@end
+
+@interface PPSExBasicViewController : UIViewController <PPSExBasicNotificationProtocol>
+
+- (void)updateState;
+
+- (void)playerLoggedIn;
+- (void)playerLoggedOut;
 
 @end

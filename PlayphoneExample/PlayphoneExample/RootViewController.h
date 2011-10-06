@@ -8,6 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RootViewController : UITableViewController
+#import "MNDirect.h"
+
+@protocol PPSExBasicNotificationProtocol;
+
+@interface RootViewController : UITableViewController <MNDirectDelegate>
+{
+    NSUInteger mnDirectCurStatus;
+    
+    id<PPSExBasicNotificationProtocol> basicNotificationDelegate;
+}
+
 
 @end

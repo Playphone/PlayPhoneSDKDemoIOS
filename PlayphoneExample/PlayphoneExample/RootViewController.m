@@ -6,7 +6,13 @@
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
+#import "MNDirectButton.h"
+
+#import "PPSExBasicViewController.h"
+
 #import "RootViewController.h"
+
+#pragma mark - Defines
 
 #define DeclaredArraySize(Array) ((int)(sizeof(Array) / sizeof(Array[0])))
 
@@ -25,7 +31,7 @@ typedef struct
 
 static PPSExMainScreenRowType PPSExMainScreenSection1Rows[] = 
 {
-    { @"Login User"           , @"PPSExLoginUserViewController"         , @""},
+    { @"Login User"           , @"PPSExLoginUserViewController"         , @"PPSExLoginUserView"},
     { @"Dashboard"            , @"PPSExDashboardViewController"         , @""},
     { @"Virtual Economy"      , @"PPSExVirtualEconomyViewController"    , @""}
 };
@@ -41,14 +47,39 @@ static PPSExMainScreenRowType PPSExMainScreenSection2Rows[] =
     { @"Multiplayer Basics"   , @"PPSExMultiplayerBasicsViewController" , @""}
 };
 
+
+#define PPSExGameId      (10900)
+#define PPSExGameSecret1 (0xae2b10f2)
+#define PPSExGameSecret2 (0x248f58d9)
+#define PPSExGameSecret3 (0xc9654f24)
+#define PPSExGameSecret4 (0x37960337)
+
+@interface RootViewController()
+
+@property (nonatomic,retain) id<PPSExBasicNotificationProtocol> basicNotificationDelegate;
+
+@end
+
 @implementation RootViewController
 
-#pragma mark -
-#pragma mark UIViewController
+@synthesize basicNotificationDelegate;
+
+#pragma mark - UIViewController
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [MNDirect prepareSessionWithGameId:10900
+                            gameSecret:[MNDirect makeGameSecretByComponents:PPSExGameSecret1
+                                                                    secret2:PPSExGameSecret2
+                                                                    secret3:PPSExGameSecret3
+                                                                    secret4:PPSExGameSecret4]
+                           andDelegate:self];
+    
+    
+    [MNDirectButton initWithLocation:MNDIRECTBUTTON_TOPRIGHT];
+    [MNDirectButton show];
     
     self.title = @"PlayPhone SDK Demo";
 }
@@ -99,8 +130,7 @@ static PPSExMainScreenRowType PPSExMainScreenSection2Rows[] =
     [super dealloc];
 }
 
-#pragma mark -
-#pragma mark UITableViewDataSource
+#pragma mark - UITableViewDataSource
 
 // Customize the number of sections in the table view.
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -194,8 +224,7 @@ static PPSExMainScreenRowType PPSExMainScreenSection2Rows[] =
     return YES;
 }
 */
-#pragma mark -
-#pragma mark UITableViewDelegate
+#pragma mark - UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -220,7 +249,7 @@ static PPSExMainScreenRowType PPSExMainScreenSection2Rows[] =
     }
 
     if (viewControllerName != nil) {
-        UIViewController *viewController = [[NSClassFromString(viewControllerName) alloc] initWithNibName:nibName
+        PPSExBasicViewController *viewController = [[NSClassFromString(viewControllerName) alloc] initWithNibName:nibName
                                                                                                    bundle:[NSBundle mainBundle]];
         
         if (viewController == nil) {
@@ -228,18 +257,31 @@ static PPSExMainScreenRowType PPSExMainScreenSection2Rows[] =
         }
         else {
             [self.navigationController pushViewController:viewController animated:YES];
+            
+            self.basicNotificationDelegate = viewController;
+            
             [viewController release];
         }
     }
+}
+
+#pragma mark - MNDirectDelegate
+
+-(void) mnDirectSessionStatusChangedTo:(NSUInteger) newStatus {
     
+    if (((mnDirectCurStatus == MN_OFFLINE) || (mnDirectCurStatus == MN_CONNECTING)) && 
+        (newStatus == MN_LOGGEDIN)) {
+        //Player just logged in
+        [basicNotificationDelegate playerLoggedIn];
+    }
     
-    /*
-    <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-    // ...
-    // Pass the selected object to the new view controller.
-    [self.navigationController pushViewController:detailViewController animated:YES];
-    [detailViewController release];
-	*/
+    if (((mnDirectCurStatus != MN_OFFLINE) && (mnDirectCurStatus != MN_CONNECTING)) && 
+        ((newStatus == MN_OFFLINE) || (newStatus == MN_CONNECTING))) {
+        //Player just logged out
+        [basicNotificationDelegate playerLoggedOut];
+    }
+    
+    mnDirectCurStatus = newStatus;
 }
 
 @end

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>image-offset-x</key>
+	<integer>4</integer>
+	<key>image-offset-y</key>
+	<integer>3</integer>
+	<key>label-offset-x</key>
+	<integer>46</integer>
+	<key>label-offset-y</key>
+	<integer>9</integer>
+	<key>label-back-offset-x</key>
+	<integer>15</integer>
+	<key>label-back-offset-y</key>
+	<integer>31</integer>
+	<key>label-color-r</key>
+	<integer>99</integer>
+	<key>label-color-g</key>
+	<integer>99</integer>
+	<key>label-color-b</key>
+	<integer>99</integer>
+	<key>label-font-name</key>
+	<string>Arial</string>
+	<key>label-font-size</key>
+	<integer>15</integer>
+	<key>label-shadow-offset-x</key>
+	<integer>1</integer>
+	<key>label-shadow-offset-y</key>
+	<integer>1</integer>
+	<key>label-shadow-color-r</key>
+	<integer>255</integer>
+	<key>label-shadow-color-g</key>
+	<integer>255</integer>
+	<key>label-shadow-color-b</key>
+	<integer>255</integer>
+</dict>
+</plist>
