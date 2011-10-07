@@ -60,12 +60,6 @@
     // e.g. self.myOutlet = nil;
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-
 - (IBAction)doLogin:(id)sender {
     [MNDirect execAppCommand:@"jumpToUserHome" withParam:nil];
     [MNDirectUIHelper showDashboard];

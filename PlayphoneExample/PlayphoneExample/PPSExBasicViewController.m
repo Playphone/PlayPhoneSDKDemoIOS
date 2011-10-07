@@ -6,6 +6,8 @@
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
+#import "PPSExCommon.h"
+
 #import "PPSExBasicViewController.h"
 
 @implementation PPSExBasicViewController
@@ -21,45 +23,154 @@
 
 - (void)didReceiveMemoryWarning
 {
-    // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc that aren't in use.
 }
 
 #pragma mark - View lifecycle
 
-/*
-// Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView
-{
-}
-*/
-
-/*
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-}
-*/
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-}
-
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+	return (YES);
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+
     [self updateState];
 }
+
+#pragma mark - PPSExBasicNotificationProtocol
+
+- (void)playerLoggedIn {
+    //Empty implementation
+}
+- (void)playerLoggedOut {
+    //Empty implementation
+}
+- (void)updateState  {
+    //Empty implementation
+}
+
+@end
+
+@implementation PPSExBasicTableViewController
+
+@synthesize sectionNames = _sectionNames;
+@synthesize sectionRows  = _sectionRows;
+
+- (void)dealloc {
+    self.sectionNames = nil;
+    self.sectionRows  = nil;
+    
+    [super dealloc];
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+}
+
+#pragma mark - View lifecycle
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+	return (YES);
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+
+    [self updateState];
+}
+
+#pragma mark - UITableViewDataSource
+
+// Customize the number of sections in the table view.
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    int sections = [self.sectionNames count];
+    return sections;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    NSArray *rows = [self.sectionRows objectAtIndex:section];
+    
+    if (rows != nil) {
+        return [rows count];
+    }
+    
+    return 0;
+}
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *CellIdentifier = @"VEconomyCell";
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
+    if (cell == nil) {
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
+    }
+    
+    int sectionIndex = [indexPath indexAtPosition:0];
+    int rowIndex     = [indexPath indexAtPosition:1];
+    
+    NSArray                      *rows = [self.sectionRows objectAtIndex:sectionIndex];
+    PPSExMainScreenRowTypeObject *row  = [rows objectAtIndex:rowIndex];
+    
+    cell.textLabel      .text = row.rowTitle;
+    cell.detailTextLabel.text = row.rowSubTitle;
+    
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    
+    return cell;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    return [self.sectionNames objectAtIndex:section];
+}
+
+#pragma mark - UITableViewDelegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    int sectionIndex = [indexPath indexAtPosition:0];
+    int rowIndex     = [indexPath indexAtPosition:1];
+    
+    NSString *viewControllerName = nil;
+    NSString *nibName            = nil;
+    
+    NSArray                      *rows = [self.sectionRows objectAtIndex:sectionIndex];
+    PPSExMainScreenRowTypeObject *row  = [rows objectAtIndex:rowIndex];
+    
+    if      (sectionIndex == 0) {
+        viewControllerName = row.viewControllerName;
+        nibName            = row.nibName;
+    }
+    else {
+    }
+    
+    if (viewControllerName != nil) {
+        PPSExBasicViewController *viewController = [[NSClassFromString(viewControllerName) alloc] initWithNibName:nibName
+                                                                                                           bundle:[NSBundle mainBundle]];
+        
+        if (viewController == nil) {
+            NSLog(@"Can not create view controller with name: [%@] and nibName: [%@]",viewControllerName,nibName);
+        }
+        else {
+            viewController.title = [tableView cellForRowAtIndexPath:indexPath].textLabel.text;
+            
+            [self.navigationController pushViewController:viewController animated:YES];
+            
+            [viewController release];
+        }
+    }
+}
+
+#pragma mark - PPSExBasicNotificationProtocol
 
 - (void)playerLoggedIn {
     //Empty implementation

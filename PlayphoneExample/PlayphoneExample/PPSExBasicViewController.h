@@ -23,3 +23,20 @@
 - (void)playerLoggedOut;
 
 @end
+
+
+@interface PPSExBasicTableViewController : UITableViewController <UITableViewDataSource,UITableViewDelegate,PPSExBasicNotificationProtocol>
+{
+    NSArray *_sectionNames;
+    NSArray *_sectionRows;
+}
+
+@property (nonatomic,retain) NSArray *sectionNames;
+@property (nonatomic,retain) NSArray *sectionRows;
+
+- (void)updateState;
+
+- (void)playerLoggedIn;
+- (void)playerLoggedOut;
+
+@end
