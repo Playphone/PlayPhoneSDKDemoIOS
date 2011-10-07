@@ -32,7 +32,7 @@ typedef struct
 static PPSExMainScreenRowType PPSExMainScreenSection1Rows[] = 
 {
     { @"Login User"           , @"PPSExLoginUserViewController"         , @"PPSExLoginUserView"},
-    { @"Dashboard"            , @"PPSExDashboardViewController"         , @""},
+    { @"Dashboard"            , @"PPSExDashboardViewController"         , @"PPSExDashboardView"},
     { @"Virtual Economy"      , @"PPSExVirtualEconomyViewController"    , @""}
 };
 
@@ -228,14 +228,11 @@ static PPSExMainScreenRowType PPSExMainScreenSection2Rows[] =
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath");
-
     int sectionIndex = [indexPath indexAtPosition:0];
     int rowIndex     = [indexPath indexAtPosition:1];
     
     NSString *viewControllerName = nil;
     NSString *nibName            = nil;
-    
     
     if      (sectionIndex == 0) {
         viewControllerName = PPSExMainScreenSection1Rows[rowIndex].viewControllerName;
@@ -256,6 +253,8 @@ static PPSExMainScreenRowType PPSExMainScreenSection2Rows[] =
             NSLog(@"Can not create view controller with name: [%@] and nibName: [%@]",viewControllerName,nibName);
         }
         else {
+            viewController.title = [tableView cellForRowAtIndexPath:indexPath].textLabel.text;
+            
             [self.navigationController pushViewController:viewController animated:YES];
             
             self.basicNotificationDelegate = viewController;

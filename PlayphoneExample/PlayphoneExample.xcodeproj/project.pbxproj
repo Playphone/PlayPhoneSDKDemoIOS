@@ -144,6 +144,8 @@
 		F57C0F27143DEFFD00A43EEF /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F57C0F26143DEFFD00A43EEF /* CFNetwork.framework */; };
 		F57C0F29143DF02600A43EEF /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F57C0F28143DF02600A43EEF /* StoreKit.framework */; };
 		F57C0F2C143DF06000A43EEF /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F57C0F2B143DF06000A43EEF /* SystemConfiguration.framework */; };
+		F58D4381143F095D00859861 /* PPSExDashboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F58D437F143F095D00859861 /* PPSExDashboardViewController.m */; };
+		F58D4382143F095D00859861 /* PPSExDashboardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F58D4380143F095D00859861 /* PPSExDashboardView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -411,6 +413,9 @@
 		F57C0F28143DF02600A43EEF /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		F57C0F2A143DF03900A43EEF /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		F57C0F2B143DF06000A43EEF /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		F58D437E143F095D00859861 /* PPSExDashboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPSExDashboardViewController.h; sourceTree = "<group>"; };
+		F58D437F143F095D00859861 /* PPSExDashboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPSExDashboardViewController.m; sourceTree = "<group>"; };
+		F58D4380143F095D00859861 /* PPSExDashboardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PPSExDashboardView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -434,11 +439,6 @@
 		F57C0D59143CB74D00A43EEF = {
 			isa = PBXGroup;
 			children = (
-				F57C0F2B143DF06000A43EEF /* SystemConfiguration.framework */,
-				F57C0F2A143DF03900A43EEF /* CFNetwork.framework */,
-				F57C0F28143DF02600A43EEF /* StoreKit.framework */,
-				F57C0F26143DEFFD00A43EEF /* CFNetwork.framework */,
-				F57C0F24143DEFF900A43EEF /* AddressBook.framework */,
 				F57C0D9E143DE96300A43EEF /* PlayPhoneMultiNet */,
 				F57C0D6E143CB74D00A43EEF /* PlayphoneExample */,
 				F57C0D67143CB74D00A43EEF /* Frameworks */,
@@ -457,6 +457,11 @@
 		F57C0D67143CB74D00A43EEF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F57C0F2B143DF06000A43EEF /* SystemConfiguration.framework */,
+				F57C0F2A143DF03900A43EEF /* CFNetwork.framework */,
+				F57C0F28143DF02600A43EEF /* StoreKit.framework */,
+				F57C0F26143DEFFD00A43EEF /* CFNetwork.framework */,
+				F57C0F24143DEFF900A43EEF /* AddressBook.framework */,
 				F57C0D68143CB74D00A43EEF /* UIKit.framework */,
 				F57C0D6A143CB74D00A43EEF /* Foundation.framework */,
 				F57C0D6C143CB74D00A43EEF /* CoreGraphics.framework */,
@@ -479,6 +484,9 @@
 				F57C0D99143DD70400A43EEF /* PPSExLoginUserViewController.h */,
 				F57C0D9A143DD70400A43EEF /* PPSExLoginUserViewController.m */,
 				F57C0D9B143DD70400A43EEF /* PPSExLoginUserView.xib */,
+				F58D437E143F095D00859861 /* PPSExDashboardViewController.h */,
+				F58D437F143F095D00859861 /* PPSExDashboardViewController.m */,
+				F58D4380143F095D00859861 /* PPSExDashboardView.xib */,
 			);
 			path = PlayphoneExample;
 			sourceTree = "<group>";
@@ -993,6 +1001,7 @@
 				F57C0F0E143DE96400A43EEF /* MNDirectButton.bundle in Resources */,
 				F57C0F10143DE96400A43EEF /* MNDirectPopup.bundle in Resources */,
 				F57C0F14143DE96400A43EEF /* MNScoreProgressView.bundle in Resources */,
+				F58D4382143F095D00859861 /* PPSExDashboardView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1120,6 +1129,7 @@
 				F57C0F1D143DE96400A43EEF /* MNVShopInAppPurchase.m in Sources */,
 				F57C0F1E143DE96400A43EEF /* MNVShopProvider.m in Sources */,
 				F57C0F1F143DE96400A43EEF /* MNVShopWSRequest.m in Sources */,
+				F58D4381143F095D00859861 /* PPSExDashboardViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1247,6 +1257,7 @@
 				F57C0D87143CB74E00A43EEF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
