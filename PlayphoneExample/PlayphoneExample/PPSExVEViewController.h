@@ -1,5 +1,5 @@
 //
-//  PPSExVirtualEconomyViewController.h
+//  PPSExVEViewController.h
 //  PlayphoneExample
 //
 //  Created by Vladislav Ogol on 07.10.11.
@@ -8,7 +8,7 @@
 
 #import "PPSExBasicViewController.h"
 
-@interface PPSExVirtualEconomyViewController : PPSExBasicTableViewController {
+@interface PPSExVEViewController : PPSExBasicTableViewController {
 }
 
 @end

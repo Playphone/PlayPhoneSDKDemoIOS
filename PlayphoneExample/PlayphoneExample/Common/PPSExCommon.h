@@ -9,6 +9,8 @@
 #ifndef PlayphoneExample_PPSExCommon_h
 #define PlayphoneExample_PPSExCommon_h
 
+#import <UIKit/UIKit.h>
+
 #define PPSExGameId      (10900)
 #define PPSExGameSecret1 (0xae2b10f2)
 #define PPSExGameSecret2 (0x248f58d9)
@@ -40,6 +42,8 @@ typedef struct
 @property (nonatomic,readonly) NSString *nibName;
 
 - (id)initWithNativeRow:(PPSExMainScreenRowType)row;
+- (id)initWithTitle:(NSString*)title subTitle:(NSString*) subTitle;
+
 - (void)dealloc;
 
 + (NSArray*)getArrayOfNativeRows:(PPSExMainScreenRowType*)rowsArray count:(NSUInteger)rowsCount;

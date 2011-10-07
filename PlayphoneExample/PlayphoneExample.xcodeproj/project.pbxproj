@@ -15,9 +15,7 @@
 		F57C0D79143CB74D00A43EEF /* PlayphoneExampleAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F57C0D78143CB74D00A43EEF /* PlayphoneExampleAppDelegate.m */; };
 		F57C0D7C143CB74E00A43EEF /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = F57C0D7A143CB74E00A43EEF /* MainWindow.xib */; };
 		F57C0D7F143CB74E00A43EEF /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F57C0D7E143CB74E00A43EEF /* RootViewController.m */; };
-		F57C0D98143DCD2D00A43EEF /* PPSExBasicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F57C0D97143DCD2D00A43EEF /* PPSExBasicViewController.m */; };
 		F57C0D9C143DD70400A43EEF /* PPSExLoginUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F57C0D9A143DD70400A43EEF /* PPSExLoginUserViewController.m */; };
-		F57C0D9D143DD70400A43EEF /* PPSExLoginUserView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F57C0D9B143DD70400A43EEF /* PPSExLoginUserView.xib */; };
 		F57C0EA7143DE96400A43EEF /* SmartFoxClient-license.txt in Resources */ = {isa = PBXBuildFile; fileRef = F57C0DA2143DE96300A43EEF /* SmartFoxClient-license.txt */; };
 		F57C0EA8143DE96400A43EEF /* Facebook.m in Sources */ = {isa = PBXBuildFile; fileRef = F57C0DA5143DE96300A43EEF /* Facebook.m */; };
 		F57C0EA9143DE96400A43EEF /* FBDialog.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F57C0DA7143DE96300A43EEF /* FBDialog.bundle */; };
@@ -144,10 +142,14 @@
 		F57C0F29143DF02600A43EEF /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F57C0F28143DF02600A43EEF /* StoreKit.framework */; };
 		F57C0F2C143DF06000A43EEF /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F57C0F2B143DF06000A43EEF /* SystemConfiguration.framework */; };
 		F58D4381143F095D00859861 /* PPSExDashboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F58D437F143F095D00859861 /* PPSExDashboardViewController.m */; };
-		F58D4382143F095D00859861 /* PPSExDashboardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F58D4380143F095D00859861 /* PPSExDashboardView.xib */; };
-		F58D4386143F0F8C00859861 /* PPSExVirtualEconomyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F58D4384143F0F8C00859861 /* PPSExVirtualEconomyViewController.m */; };
-		F58D4390143F3C1100859861 /* PPSExCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = F58D438F143F3C1100859861 /* PPSExCommon.m */; };
+		F58D4386143F0F8C00859861 /* PPSExVEViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F58D4384143F0F8C00859861 /* PPSExVEViewController.m */; };
 		F5B1F1D7143F578A00911ED4 /* PPSExBasicTableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5B1F1D5143F578900911ED4 /* PPSExBasicTableView.xib */; };
+		F5E93B44143F5AF7001CBE7B /* PPSExBasicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5E93B3E143F5AF7001CBE7B /* PPSExBasicViewController.m */; };
+		F5E93B45143F5AF7001CBE7B /* PPSExCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = F5E93B40143F5AF7001CBE7B /* PPSExCommon.m */; };
+		F5E93B46143F5AF7001CBE7B /* PPSExDashboardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5E93B42143F5AF7001CBE7B /* PPSExDashboardView.xib */; };
+		F5E93B47143F5AF7001CBE7B /* PPSExLoginUserView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5E93B43143F5AF7001CBE7B /* PPSExLoginUserView.xib */; };
+		F5E93B4A143F5C65001CBE7B /* PPSExVEVItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5E93B49143F5C65001CBE7B /* PPSExVEVItemViewController.m */; };
+		F5E93B4D143F62D9001CBE7B /* PPSExVEVItemListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5E93B4C143F62D9001CBE7B /* PPSExVEVItemListViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -164,11 +166,8 @@
 		F57C0D7B143CB74E00A43EEF /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
 		F57C0D7D143CB74E00A43EEF /* RootViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
 		F57C0D7E143CB74E00A43EEF /* RootViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
-		F57C0D96143DCD2D00A43EEF /* PPSExBasicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPSExBasicViewController.h; sourceTree = "<group>"; };
-		F57C0D97143DCD2D00A43EEF /* PPSExBasicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPSExBasicViewController.m; sourceTree = "<group>"; };
 		F57C0D99143DD70400A43EEF /* PPSExLoginUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPSExLoginUserViewController.h; sourceTree = "<group>"; };
 		F57C0D9A143DD70400A43EEF /* PPSExLoginUserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPSExLoginUserViewController.m; sourceTree = "<group>"; };
-		F57C0D9B143DD70400A43EEF /* PPSExLoginUserView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PPSExLoginUserView.xib; sourceTree = "<group>"; };
 		F57C0DA2143DE96300A43EEF /* SmartFoxClient-license.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "SmartFoxClient-license.txt"; sourceTree = "<group>"; };
 		F57C0DA4143DE96300A43EEF /* Facebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Facebook.h; sourceTree = "<group>"; };
 		F57C0DA5143DE96300A43EEF /* Facebook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Facebook.m; sourceTree = "<group>"; };
@@ -416,12 +415,19 @@
 		F57C0F2B143DF06000A43EEF /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		F58D437E143F095D00859861 /* PPSExDashboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPSExDashboardViewController.h; sourceTree = "<group>"; };
 		F58D437F143F095D00859861 /* PPSExDashboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPSExDashboardViewController.m; sourceTree = "<group>"; };
-		F58D4380143F095D00859861 /* PPSExDashboardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PPSExDashboardView.xib; sourceTree = "<group>"; };
-		F58D4383143F0F8C00859861 /* PPSExVirtualEconomyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPSExVirtualEconomyViewController.h; sourceTree = "<group>"; };
-		F58D4384143F0F8C00859861 /* PPSExVirtualEconomyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPSExVirtualEconomyViewController.m; sourceTree = "<group>"; };
-		F58D4388143F21B600859861 /* PPSExCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPSExCommon.h; sourceTree = "<group>"; };
-		F58D438F143F3C1100859861 /* PPSExCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPSExCommon.m; sourceTree = "<group>"; };
+		F58D4383143F0F8C00859861 /* PPSExVEViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPSExVEViewController.h; sourceTree = "<group>"; };
+		F58D4384143F0F8C00859861 /* PPSExVEViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPSExVEViewController.m; sourceTree = "<group>"; };
 		F5B1F1D6143F578A00911ED4 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/PPSExBasicTableView.xib; sourceTree = "<group>"; };
+		F5E93B3D143F5AF7001CBE7B /* PPSExBasicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPSExBasicViewController.h; sourceTree = "<group>"; };
+		F5E93B3E143F5AF7001CBE7B /* PPSExBasicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPSExBasicViewController.m; sourceTree = "<group>"; };
+		F5E93B3F143F5AF7001CBE7B /* PPSExCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPSExCommon.h; sourceTree = "<group>"; };
+		F5E93B40143F5AF7001CBE7B /* PPSExCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPSExCommon.m; sourceTree = "<group>"; };
+		F5E93B42143F5AF7001CBE7B /* PPSExDashboardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PPSExDashboardView.xib; sourceTree = "<group>"; };
+		F5E93B43143F5AF7001CBE7B /* PPSExLoginUserView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PPSExLoginUserView.xib; sourceTree = "<group>"; };
+		F5E93B48143F5C65001CBE7B /* PPSExVEVItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPSExVEVItemViewController.h; sourceTree = "<group>"; };
+		F5E93B49143F5C65001CBE7B /* PPSExVEVItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPSExVEVItemViewController.m; sourceTree = "<group>"; };
+		F5E93B4B143F62D9001CBE7B /* PPSExVEVItemListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPSExVEVItemListViewController.h; sourceTree = "<group>"; };
+		F5E93B4C143F62D9001CBE7B /* PPSExVEVItemListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPSExVEVItemListViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -479,24 +485,22 @@
 			isa = PBXGroup;
 			children = (
 				F57C0D6F143CB74D00A43EEF /* Supporting Files */,
+				F5E93B3C143F5AF7001CBE7B /* Common */,
+				F5E93B41143F5AF7001CBE7B /* Resources */,
 				F57C0D77143CB74D00A43EEF /* PlayphoneExampleAppDelegate.h */,
 				F57C0D78143CB74D00A43EEF /* PlayphoneExampleAppDelegate.m */,
-				F57C0D7A143CB74E00A43EEF /* MainWindow.xib */,
 				F57C0D7D143CB74E00A43EEF /* RootViewController.h */,
 				F57C0D7E143CB74E00A43EEF /* RootViewController.m */,
-				F5B1F1D5143F578900911ED4 /* PPSExBasicTableView.xib */,
-				F57C0D96143DCD2D00A43EEF /* PPSExBasicViewController.h */,
-				F57C0D97143DCD2D00A43EEF /* PPSExBasicViewController.m */,
 				F57C0D99143DD70400A43EEF /* PPSExLoginUserViewController.h */,
 				F57C0D9A143DD70400A43EEF /* PPSExLoginUserViewController.m */,
-				F57C0D9B143DD70400A43EEF /* PPSExLoginUserView.xib */,
 				F58D437E143F095D00859861 /* PPSExDashboardViewController.h */,
 				F58D437F143F095D00859861 /* PPSExDashboardViewController.m */,
-				F58D4380143F095D00859861 /* PPSExDashboardView.xib */,
-				F58D4383143F0F8C00859861 /* PPSExVirtualEconomyViewController.h */,
-				F58D4384143F0F8C00859861 /* PPSExVirtualEconomyViewController.m */,
-				F58D4388143F21B600859861 /* PPSExCommon.h */,
-				F58D438F143F3C1100859861 /* PPSExCommon.m */,
+				F58D4383143F0F8C00859861 /* PPSExVEViewController.h */,
+				F58D4384143F0F8C00859861 /* PPSExVEViewController.m */,
+				F5E93B48143F5C65001CBE7B /* PPSExVEVItemViewController.h */,
+				F5E93B49143F5C65001CBE7B /* PPSExVEVItemViewController.m */,
+				F5E93B4B143F62D9001CBE7B /* PPSExVEVItemListViewController.h */,
+				F5E93B4C143F62D9001CBE7B /* PPSExVEVItemListViewController.m */,
 			);
 			path = PlayphoneExample;
 			sourceTree = "<group>";
@@ -951,6 +955,28 @@
 			path = providers;
 			sourceTree = "<group>";
 		};
+		F5E93B3C143F5AF7001CBE7B /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				F5E93B3D143F5AF7001CBE7B /* PPSExBasicViewController.h */,
+				F5E93B3E143F5AF7001CBE7B /* PPSExBasicViewController.m */,
+				F5E93B3F143F5AF7001CBE7B /* PPSExCommon.h */,
+				F5E93B40143F5AF7001CBE7B /* PPSExCommon.m */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		F5E93B41143F5AF7001CBE7B /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				F57C0D7A143CB74E00A43EEF /* MainWindow.xib */,
+				F5B1F1D5143F578900911ED4 /* PPSExBasicTableView.xib */,
+				F5E93B42143F5AF7001CBE7B /* PPSExDashboardView.xib */,
+				F5E93B43143F5AF7001CBE7B /* PPSExLoginUserView.xib */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1000,7 +1026,6 @@
 			files = (
 				F57C0D73143CB74D00A43EEF /* InfoPlist.strings in Resources */,
 				F57C0D7C143CB74E00A43EEF /* MainWindow.xib in Resources */,
-				F57C0D9D143DD70400A43EEF /* PPSExLoginUserView.xib in Resources */,
 				F57C0EA7143DE96400A43EEF /* SmartFoxClient-license.txt in Resources */,
 				F57C0EA9143DE96400A43EEF /* FBDialog.bundle in Resources */,
 				F57C0EB4143DE96400A43EEF /* MiniZip64_Changes.txt in Resources */,
@@ -1010,8 +1035,9 @@
 				F57C0F0E143DE96400A43EEF /* MNDirectButton.bundle in Resources */,
 				F57C0F10143DE96400A43EEF /* MNDirectPopup.bundle in Resources */,
 				F57C0F14143DE96400A43EEF /* MNScoreProgressView.bundle in Resources */,
-				F58D4382143F095D00859861 /* PPSExDashboardView.xib in Resources */,
 				F5B1F1D7143F578A00911ED4 /* PPSExBasicTableView.xib in Resources */,
+				F5E93B46143F5AF7001CBE7B /* PPSExDashboardView.xib in Resources */,
+				F5E93B47143F5AF7001CBE7B /* PPSExLoginUserView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1025,7 +1051,6 @@
 				F57C0D75143CB74D00A43EEF /* main.m in Sources */,
 				F57C0D79143CB74D00A43EEF /* PlayphoneExampleAppDelegate.m in Sources */,
 				F57C0D7F143CB74E00A43EEF /* RootViewController.m in Sources */,
-				F57C0D98143DCD2D00A43EEF /* PPSExBasicViewController.m in Sources */,
 				F57C0D9C143DD70400A43EEF /* PPSExLoginUserViewController.m in Sources */,
 				F57C0EA8143DE96400A43EEF /* Facebook.m in Sources */,
 				F57C0EAA143DE96400A43EEF /* FBDialog.m in Sources */,
@@ -1140,8 +1165,11 @@
 				F57C0F1E143DE96400A43EEF /* MNVShopProvider.m in Sources */,
 				F57C0F1F143DE96400A43EEF /* MNVShopWSRequest.m in Sources */,
 				F58D4381143F095D00859861 /* PPSExDashboardViewController.m in Sources */,
-				F58D4386143F0F8C00859861 /* PPSExVirtualEconomyViewController.m in Sources */,
-				F58D4390143F3C1100859861 /* PPSExCommon.m in Sources */,
+				F58D4386143F0F8C00859861 /* PPSExVEViewController.m in Sources */,
+				F5E93B44143F5AF7001CBE7B /* PPSExBasicViewController.m in Sources */,
+				F5E93B45143F5AF7001CBE7B /* PPSExCommon.m in Sources */,
+				F5E93B4A143F5C65001CBE7B /* PPSExVEVItemViewController.m in Sources */,
+				F5E93B4D143F62D9001CBE7B /* PPSExVEVItemListViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1162,6 +1190,7 @@
 				F57C0D7B143CB74E00A43EEF /* en */,
 			);
 			name = MainWindow.xib;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		F5B1F1D5143F578900911ED4 /* PPSExBasicTableView.xib */ = {
@@ -1170,6 +1199,7 @@
 				F5B1F1D6143F578A00911ED4 /* en */,
 			);
 			name = PPSExBasicTableView.xib;
+			path = ..;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

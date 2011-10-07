@@ -25,7 +25,7 @@ static PPSExMainScreenRowType PPSExMainScreenSection1Rows[] =
 {
     { @"Login User"           , @"", @"PPSExLoginUserViewController"         , @"PPSExLoginUserView"  },
     { @"Dashboard"            , @"", @"PPSExDashboardViewController"         , @"PPSExDashboardView"  },
-    { @"Virtual Economy"      , @"", @"PPSExVirtualEconomyViewController"    , @"PPSExBasicTableView" }
+    { @"Virtual Economy"      , @"", @"PPSExVEViewController"                , @"PPSExBasicTableView" }
 };
 
 static PPSExMainScreenRowType PPSExMainScreenSection2Rows[] = 

@@ -1,5 +1,5 @@
 //
-//  PPSExVirtualEconomyViewController.m
+//  PPSExVEViewController.m
 //  PlayphoneExample
 //
 //  Created by Vladislav Ogol on 07.10.11.
@@ -7,7 +7,7 @@
 //
 
 #import "PPSExCommon.h"
-#import "PPSExVirtualEconomyViewController.h"
+#import "PPSExVEViewController.h"
 
 
 static NSString *PPSExVEconomyScreenSectionNames[] = 
@@ -17,13 +17,13 @@ static NSString *PPSExVEconomyScreenSectionNames[] =
 
 static PPSExMainScreenRowType PPSExVEconomyScreenRows[] = 
 {
-    { @"vItems"         , @"These are the items used in game"                    , @"", @"" },
+    { @"vItems"         , @"These are the items used in game"                    , @"PPSExVEVItemViewController", @"PPSExBasicTableView" },
     { @"PlayPhone Store", @"User can purchase these items on the PlayPhone Store", @"", @"" },
     { @"User Inventory" , @"Inventory can be tracked per user"                   , @"", @"" },
 };
 
 
-@implementation PPSExVirtualEconomyViewController
+@implementation PPSExVEViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

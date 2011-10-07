@@ -10,6 +10,8 @@
 
 #import "PPSExBasicViewController.h"
 
+#pragma mark -
+
 @implementation PPSExBasicViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -25,8 +27,6 @@
 {
     [super didReceiveMemoryWarning];
 }
-
-#pragma mark - View lifecycle
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
@@ -53,6 +53,8 @@
 
 @end
 
+#pragma mark -
+
 @implementation PPSExBasicTableViewController
 
 @synthesize sectionNames = _sectionNames;
@@ -69,8 +71,6 @@
 {
     [super didReceiveMemoryWarning];
 }
-
-#pragma mark - View lifecycle
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
@@ -94,10 +94,12 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSArray *rows = [self.sectionRows objectAtIndex:section];
-    
-    if (rows != nil) {
-        return [rows count];
+    if ([self.sectionRows count] > section) {
+        NSArray *rows = [self.sectionRows objectAtIndex:section];
+        
+        if (rows != nil) {
+            return [rows count];
+        }
     }
     
     return 0;

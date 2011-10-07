@@ -30,6 +30,19 @@
     return self;
 }
 
+- (id)initWithTitle:(NSString*)title subTitle:(NSString*) subTitle {
+    self = [super init];
+    
+    if (self) {
+        _rowTitle = [title retain];
+        _rowSubTitle = [subTitle retain];
+        _viewControllerName = @"";
+        _nibName = @"";
+    }
+    
+    return self;
+}
+
 - (void)dealloc {
     [_rowTitle release];
     [_rowSubTitle release];
