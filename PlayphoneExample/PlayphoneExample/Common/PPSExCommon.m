@@ -21,10 +21,10 @@
     self = [super init];
     
     if (self) {
-        _rowTitle = [row.rowTitle retain];
-        _rowSubTitle = [row.rowSubTitle retain];
-        _viewControllerName = [row.viewControllerName retain];
-        _nibName = [row.nibName retain];
+        self.rowTitle = [row.rowTitle retain];
+        self.rowSubTitle = [row.rowSubTitle retain];
+        self.viewControllerName = [row.viewControllerName retain];
+        self.nibName = [row.nibName retain];
     }
     
     return self;
@@ -34,20 +34,20 @@
     self = [super init];
     
     if (self) {
-        _rowTitle = [title retain];
-        _rowSubTitle = [subTitle retain];
-        _viewControllerName = @"";
-        _nibName = @"";
+        self.rowTitle = [title retain];
+        self.rowSubTitle = [subTitle retain];
+        self.viewControllerName = @"";
+        self.nibName = @"";
     }
     
     return self;
 }
 
 - (void)dealloc {
-    [_rowTitle release];
-    [_rowSubTitle release];
-    [_viewControllerName release];
-    [_nibName release];
+    self.rowTitle = nil;
+    self.rowSubTitle = nil;
+    self.viewControllerName = nil;
+    self.nibName = nil;
     
     [super dealloc];
 }

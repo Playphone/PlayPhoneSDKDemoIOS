@@ -36,10 +36,10 @@ typedef struct
     NSString *_nibName;
 }
 
-@property (nonatomic,readonly) NSString *rowTitle;
-@property (nonatomic,readonly) NSString *rowSubTitle;
-@property (nonatomic,readonly) NSString *viewControllerName;
-@property (nonatomic,readonly) NSString *nibName;
+@property (nonatomic,retain) NSString *rowTitle;
+@property (nonatomic,retain) NSString *rowSubTitle;
+@property (nonatomic,retain) NSString *viewControllerName;
+@property (nonatomic,retain) NSString *nibName;
 
 - (id)initWithNativeRow:(PPSExMainScreenRowType)row;
 - (id)initWithTitle:(NSString*)title subTitle:(NSString*) subTitle;
