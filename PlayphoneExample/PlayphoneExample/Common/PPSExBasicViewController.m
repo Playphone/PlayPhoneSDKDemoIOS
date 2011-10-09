@@ -59,6 +59,7 @@
 
 @synthesize sectionNames = _sectionNames;
 @synthesize sectionRows  = _sectionRows;
+@synthesize cellStyle    = _cellStyle;
 
 - (void)dealloc {
     self.sectionNames = nil;
@@ -77,6 +78,9 @@
 	return (YES);
 }
 
+- (void)viewDidLoad {
+    self.cellStyle = UITableViewCellStyleSubtitle;
+}
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
@@ -113,7 +117,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[[UITableViewCell alloc] initWithStyle:self.cellStyle reuseIdentifier:CellIdentifier] autorelease];
     }
     
     int sectionIndex = [indexPath indexAtPosition:0];

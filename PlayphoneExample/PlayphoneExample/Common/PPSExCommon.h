@@ -10,6 +10,7 @@
 #define PlayphoneExample_PPSExCommon_h
 
 #import <UIKit/UIKit.h>
+#import "MNVShopProvider.h"
 
 #define PPSExGameId      (10900)
 #define PPSExGameSecret1 (0xae2b10f2)
@@ -50,4 +51,5 @@ typedef struct
 
 @end
 
+NSString *MNVShopPackGetPriceString(MNVShopPackInfo *packInfo);
 #endif

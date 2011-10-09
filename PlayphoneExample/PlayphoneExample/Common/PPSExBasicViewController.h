@@ -29,10 +29,13 @@
 {
     NSArray *_sectionNames;
     NSArray *_sectionRows;
+    
+    UITableViewCellStyle _cellStyle;
 }
 
 @property (nonatomic,retain) NSArray *sectionNames;
 @property (nonatomic,retain) NSArray *sectionRows;
+@property (nonatomic,assign) UITableViewCellStyle cellStyle;
 
 - (void)updateState;
 

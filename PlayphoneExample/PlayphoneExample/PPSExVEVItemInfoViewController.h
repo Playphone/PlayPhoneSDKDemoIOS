@@ -12,16 +12,16 @@
 #import "PPSExBasicViewController.h"
 
 @interface PPSExVEVItemInfoViewController : PPSExBasicViewController {
-    UILabel *vItemIdLabel;
-    UILabel *vItemNameLabel;
-    UILabel *isConsumableLabel;
-    UILabel *isUniqueLabel;
-    UILabel *descriptionLabel;
-    MNUIUrlImageView *vItemImage;
-    UISwitch *issueOnClientSwitch;
-    UISwitch *isConsumableSwitch;
-    UISwitch *isUniqueSwitch;
-    UITextView *paramsTextView;
+    UILabel *_vItemIdLabel;
+    UILabel *_vItemNameLabel;
+    UILabel *_isConsumableLabel;
+    UILabel *_isUniqueLabel;
+    UILabel *_descriptionLabel;
+    MNUIUrlImageView *_vItemImage;
+    UISwitch *_issueOnClientSwitch;
+    UISwitch *_isConsumableSwitch;
+    UISwitch *_isUniqueSwitch;
+    UITextView *_paramsTextView;
     
     MNGameVItemInfo *_vItemInfo;
 }

@@ -18,7 +18,7 @@ static NSString *PPSExVEStoreScreenSectionNames[] =
 static PPSExMainScreenRowType PPSExVEStoreScreenRows[] = 
 {
     { @"vShop Categories List", @"", @"PPSExVECategoryListViewController", @"PPSExBasicTableView" },
-    { @"vShop Packs List"     , @"", @"", @"" },
+    { @"vShop Packs List"     , @"", @"PPSExVEPackListViewController"    , @"PPSExBasicTableView" },
     { @"Buy vShop Packs"      , @"", @"", @"" },
 };
 

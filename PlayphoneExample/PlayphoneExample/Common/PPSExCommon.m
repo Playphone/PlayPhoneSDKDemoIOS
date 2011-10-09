@@ -63,3 +63,16 @@
 }
 
 @end
+
+NSString *MNVShopPackGetPriceString(MNVShopPackInfo *packInfo) {
+    NSString *packPriceString = nil;
+    
+    if (packInfo.priceItemId == 0) {
+        packPriceString = [NSString stringWithFormat:@"$%0.2f",packInfo.priceValue / 100.];
+    }
+    else {
+        //need to determine price item name. Use VI for now;
+        packPriceString = [NSString stringWithFormat:@"%lld VI",packInfo.priceValue];
+    }
+    return  packPriceString;
+}

@@ -11,16 +11,16 @@
 #import "PPSExVEVItemInfoViewController.h"
 
 @implementation PPSExVEVItemInfoViewController
-@synthesize vItemIdLabel;
-@synthesize vItemNameLabel;
-@synthesize isConsumableLabel;
-@synthesize isUniqueLabel;
-@synthesize descriptionLabel;
-@synthesize vItemImage;
-@synthesize issueOnClientSwitch;
-@synthesize isConsumableSwitch;
-@synthesize isUniqueSwitch;
-@synthesize paramsTextView;
+@synthesize vItemIdLabel = _vItemIdLabel;
+@synthesize vItemNameLabel = _vItemNameLabel;
+@synthesize isConsumableLabel = _isConsumableLabel;
+@synthesize isUniqueLabel = _isUniqueLabel;
+@synthesize descriptionLabel = _descriptionLabel;
+@synthesize vItemImage = _vItemImage;
+@synthesize issueOnClientSwitch = _issueOnClientSwitch;
+@synthesize isConsumableSwitch = _isConsumableSwitch;
+@synthesize isUniqueSwitch = _isUniqueSwitch;
+@synthesize paramsTextView = _paramsTextView;
 @synthesize vItemInfo = _vItemInfo;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -49,16 +49,19 @@
 }
 
 - (void)dealloc {
-    [vItemIdLabel release];
-    [vItemNameLabel release];
-    [isConsumableLabel release];
-    [isUniqueLabel release];
-    [descriptionLabel release];
-    [vItemImage release];
-    [issueOnClientSwitch release];
-    [isConsumableSwitch release];
-    [isUniqueSwitch release];
-    [paramsTextView release];
+    [_vItemIdLabel release];
+    [_vItemNameLabel release];
+    [_isConsumableLabel release];
+    [_isUniqueLabel release];
+    [_descriptionLabel release];
+    [_vItemImage release];
+    [_issueOnClientSwitch release];
+    [_isConsumableSwitch release];
+    [_isUniqueSwitch release];
+    [_paramsTextView release];
+    
+    [_vItemInfo release];
+    
     [super dealloc];
 }
 
@@ -70,6 +73,7 @@
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
     ((UIScrollView*)self.view).contentSize = CGSizeMake(self.view.frame.size.width, 460);
 }
+
 - (void)setVItemInfo:(MNGameVItemInfo *)vItemInfo {
     if (_vItemInfo != nil) {
         [_vItemInfo release];
