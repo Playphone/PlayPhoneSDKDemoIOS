@@ -148,12 +148,8 @@
     NSArray                      *rows = [self.sectionRows objectAtIndex:sectionIndex];
     PPSExMainScreenRowTypeObject *row  = [rows objectAtIndex:rowIndex];
     
-    if      (sectionIndex == 0) {
-        viewControllerName = row.viewControllerName;
-        nibName            = row.nibName;
-    }
-    else {
-    }
+    viewControllerName = row.viewControllerName;
+    nibName            = row.nibName;
     
     if (viewControllerName != nil) {
         PPSExBasicViewController *viewController = [[NSClassFromString(viewControllerName) alloc] initWithNibName:nibName

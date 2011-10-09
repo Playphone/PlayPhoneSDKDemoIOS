@@ -58,9 +58,8 @@ static NSString *PPSExVEVItemListScreenSectionNames[] =
     _showVCurrencies = showVCurrencies;
     [self updateState];
 }
+
 - (void)updateState  {
-    NSLog(@"updateState");
-    
     if ([[MNDirect vItemsProvider]isGameVItemsListNeedUpdate]) {
         [[MNDirect vItemsProvider]doGameVItemsListUpdate];
     }

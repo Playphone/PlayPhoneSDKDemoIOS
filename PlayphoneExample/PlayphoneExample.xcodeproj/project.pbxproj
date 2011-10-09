@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		F56035E814407B62000FD6A6 /* PPSExVEVItemInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F56035E614407B61000FD6A6 /* PPSExVEVItemInfoViewController.m */; };
 		F56035E914407B62000FD6A6 /* PPSExVEVItemInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F56035E714407B61000FD6A6 /* PPSExVEVItemInfoView.xib */; };
+		F56035ED1440C669000FD6A6 /* PPSExVEStoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F56035EC1440C669000FD6A6 /* PPSExVEStoreViewController.m */; };
+		F56035F01440C857000FD6A6 /* PPSExVECategoryListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F56035EF1440C857000FD6A6 /* PPSExVECategoryListViewController.m */; };
 		F57C0D69143CB74D00A43EEF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F57C0D68143CB74D00A43EEF /* UIKit.framework */; };
 		F57C0D6B143CB74D00A43EEF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F57C0D6A143CB74D00A43EEF /* Foundation.framework */; };
 		F57C0D6D143CB74D00A43EEF /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F57C0D6C143CB74D00A43EEF /* CoreGraphics.framework */; };
@@ -158,6 +160,10 @@
 		F56035E514407B61000FD6A6 /* PPSExVEVItemInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPSExVEVItemInfoViewController.h; sourceTree = "<group>"; };
 		F56035E614407B61000FD6A6 /* PPSExVEVItemInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPSExVEVItemInfoViewController.m; sourceTree = "<group>"; };
 		F56035E714407B61000FD6A6 /* PPSExVEVItemInfoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PPSExVEVItemInfoView.xib; path = ../PPSExVEVItemInfoView.xib; sourceTree = "<group>"; };
+		F56035EB1440C668000FD6A6 /* PPSExVEStoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPSExVEStoreViewController.h; sourceTree = "<group>"; };
+		F56035EC1440C669000FD6A6 /* PPSExVEStoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPSExVEStoreViewController.m; sourceTree = "<group>"; };
+		F56035EE1440C857000FD6A6 /* PPSExVECategoryListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; path = PPSExVECategoryListViewController.h; sourceTree = "<group>"; };
+		F56035EF1440C857000FD6A6 /* PPSExVECategoryListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPSExVECategoryListViewController.m; sourceTree = "<group>"; };
 		F57C0D64143CB74D00A43EEF /* PlayphoneExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlayphoneExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F57C0D68143CB74D00A43EEF /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		F57C0D6A143CB74D00A43EEF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -508,6 +514,10 @@
 				F5E93B4C143F62D9001CBE7B /* PPSExVEVItemListViewController.m */,
 				F56035E514407B61000FD6A6 /* PPSExVEVItemInfoViewController.h */,
 				F56035E614407B61000FD6A6 /* PPSExVEVItemInfoViewController.m */,
+				F56035EB1440C668000FD6A6 /* PPSExVEStoreViewController.h */,
+				F56035EC1440C669000FD6A6 /* PPSExVEStoreViewController.m */,
+				F56035EE1440C857000FD6A6 /* PPSExVECategoryListViewController.h */,
+				F56035EF1440C857000FD6A6 /* PPSExVECategoryListViewController.m */,
 			);
 			path = PlayphoneExample;
 			sourceTree = "<group>";
@@ -1180,6 +1190,8 @@
 				F5E93B4A143F5C65001CBE7B /* PPSExVEVItemViewController.m in Sources */,
 				F5E93B4D143F62D9001CBE7B /* PPSExVEVItemListViewController.m in Sources */,
 				F56035E814407B62000FD6A6 /* PPSExVEVItemInfoViewController.m in Sources */,
+				F56035ED1440C669000FD6A6 /* PPSExVEStoreViewController.m in Sources */,
+				F56035F01440C857000FD6A6 /* PPSExVECategoryListViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
