@@ -46,8 +46,17 @@ static NSString *PPSExVECategoriesScreenSectionNames[] =
     self.sectionRows  = sectionRowsArray;
     
     [super viewDidLoad];
+    
     self.tableView.userInteractionEnabled = NO;
+    [[MNDirect vItemsProvider]addDelegate:self];
 }
+
+- (void)viewDidUnload {
+    [[MNDirect vItemsProvider] removeDelegate:self];
+    
+    [super viewDidUnload];
+}
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -63,7 +72,7 @@ static NSString *PPSExVECategoriesScreenSectionNames[] =
     [self updateView];    
 }
 
-- (void)updateState  {
+- (void)updateState {
     if ([[MNDirect vShopProvider]isVShopInfoNeedUpdate]) {
         [[MNDirect vShopProvider]doVShopInfoUpdate];
     }

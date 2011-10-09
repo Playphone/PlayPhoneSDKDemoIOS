@@ -52,4 +52,5 @@ typedef struct
 @end
 
 NSString *MNVShopPackGetPriceString(MNVShopPackInfo *packInfo);
+void PPSExShowAlert(NSString *message,NSString *title);
 #endif

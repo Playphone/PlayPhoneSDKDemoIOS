@@ -19,7 +19,7 @@ static PPSExMainScreenRowType PPSExVEStoreScreenRows[] =
 {
     { @"vShop Categories List", @"", @"PPSExVECategoryListViewController", @"PPSExBasicTableView" },
     { @"vShop Packs List"     , @"", @"PPSExVEPackListViewController"    , @"PPSExBasicTableView" },
-    { @"Buy vShop Packs"      , @"", @"", @"" },
+    { @"Buy vShop Packs"      , @"", @"PPSExVEPackBuyViewController"     , @"PPSExVEPackBuyView" },
 };
 
 @implementation PPSExVEStoreViewController

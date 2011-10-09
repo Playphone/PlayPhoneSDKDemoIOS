@@ -54,6 +54,12 @@ static NSString *PPSExVEVItemListScreenSectionNames[] =
     [[MNDirect vItemsProvider]addDelegate:self];
 }
 
+- (void)viewDidUnload {
+    [[MNDirect vItemsProvider] removeDelegate:self];
+    
+    [super viewDidUnload];
+}
+
 - (void)setShowVCurrencies:(BOOL)showVCurrencies {
     _showVCurrencies = showVCurrencies;
     [self updateState];
@@ -68,14 +74,11 @@ static NSString *PPSExVEVItemListScreenSectionNames[] =
     }
 }
 
-
 - (void)onVItemsListUpdated {
-    NSLog(@"onVItemsListUpdated");
     [self updateView];
 }
 
 - (void)updateView {
-    NSLog(@"updateView");
     self.gameVItemsList = [[MNDirect vItemsProvider]getGameVItemsList];
     
     NSMutableArray *tableViewRows = [NSMutableArray arrayWithCapacity:[self.gameVItemsList count]];

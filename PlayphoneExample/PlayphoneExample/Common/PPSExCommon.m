@@ -76,3 +76,9 @@ NSString *MNVShopPackGetPriceString(MNVShopPackInfo *packInfo) {
     }
     return  packPriceString;
 }
+
+void PPSExShowAlert(NSString *message,NSString *title) {
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:title message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alert show];
+    [alert release];
+}

@@ -6,8 +6,10 @@
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
+#import "MNVShopProvider.h"
+
 #import "PPSExBasicViewController.h"
 
-@interface PPSExVEPackListViewController : PPSExBasicTableViewController
+@interface PPSExVEPackListViewController : PPSExBasicTableViewController <MNVShopProviderDelegate>
 
 @end

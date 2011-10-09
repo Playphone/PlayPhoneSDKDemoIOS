@@ -47,8 +47,16 @@ static NSString *PPSExVECategoriesScreenSectionNames[] =
     self.sectionRows  = sectionRowsArray;
     
     [super viewDidLoad];
+    
     self.cellStyle = UITableViewCellStyleValue1;
+    [[MNDirect vShopProvider]addDelegate:self];
 }
+
+- (void)viewDidUnload {
+    [[MNDirect vShopProvider] removeDelegate:self];
+    [super viewDidUnload];
+}
+
 
 -(void) onVShopInfoUpdated {
     [self updateView];    
