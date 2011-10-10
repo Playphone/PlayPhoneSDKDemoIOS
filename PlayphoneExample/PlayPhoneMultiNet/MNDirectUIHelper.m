@@ -13,9 +13,74 @@
 static MNDelegateArray*     mnDirectUIHelperDelegates         = nil;
 static MNUserProfileView*   mnDirectUIHelperMNView            = nil;
 static BOOL                 mnDirectUIHelperAutorotationFlag  = YES;
+static BOOL                 mnDirectUIHelperPopupModeFlag     = YES;
 static UIPopoverController *mnDirectUIHelperPopoverController = nil;
 static CGAffineTransform    mnViewTransformOriginal;
 static CGRect               mnViewTransformFrame;
+
+#pragma mark -
+#pragma MNDirectUIHelperBgView
+
+#define MNDirectUIHelperPopupInsetX        (10.0f)
+#define MNDirectUIHelperPopupInsetY        (10.0f)
+#define MNDirectUIHelperPopupBorderWidth   ( 5.0f)
+
+static float MNDirectUIHelperPopupBorderColor[] = { 128.0/255.0, 128.0/255.0, 128.0/255.0, 0.8f };
+
+
+@interface MNDirectUIHelperBgView : UIView
+
+- (void)drawRect:(CGRect)rect;
+
+@end
+
+@implementation MNDirectUIHelperBgView
+
+
+- (void)drawRect:(CGRect)rect {
+    [super drawRect:rect];
+    
+    CGRect borderInRect = CGRectInset(self.bounds,MNDirectUIHelperPopupInsetX,MNDirectUIHelperPopupInsetY);
+    CGRect borderOutRect  = CGRectInset(self.bounds,MNDirectUIHelperPopupBorderWidth,MNDirectUIHelperPopupBorderWidth);
+    
+    float x1 = borderOutRect.origin.x;
+    float x2 = borderInRect.origin.x;
+    float x3 = borderInRect.origin.x + borderInRect.size.width;
+    float x4 = borderOutRect.origin.x + borderOutRect.size.width;
+    float y1 = borderOutRect.origin.y;
+    float y2 = borderInRect.origin.y;
+    float y3 = borderInRect.origin.y + borderInRect.size.height;
+    float y4 = borderOutRect.origin.y + borderOutRect.size.height;
+
+    CGContextRef currentContext = UIGraphicsGetCurrentContext();
+    
+    CGContextSaveGState(currentContext);
+    CGContextSetShouldAntialias(currentContext,TRUE);
+
+    CGContextBeginPath(currentContext);
+    
+    CGContextMoveToPoint(currentContext,x2,y1);
+    CGContextAddArcToPoint(currentContext,x4,y1,x4,y2,MNDirectUIHelperPopupBorderWidth);
+    CGContextAddArcToPoint(currentContext,x4,y4,x3,y4,MNDirectUIHelperPopupBorderWidth);
+    CGContextAddArcToPoint(currentContext,x1,y4,x1,y3,MNDirectUIHelperPopupBorderWidth);
+    CGContextAddArcToPoint(currentContext,x1,y1,x2,y1,MNDirectUIHelperPopupBorderWidth);
+    CGContextClosePath(currentContext);
+    CGContextAddRect(currentContext,borderInRect);
+    
+    CGContextSetRGBFillColor(currentContext,
+                             MNDirectUIHelperPopupBorderColor[0],MNDirectUIHelperPopupBorderColor[1],
+                             MNDirectUIHelperPopupBorderColor[2],MNDirectUIHelperPopupBorderColor[3]);
+
+    
+    CGContextFillPath(currentContext);
+
+    CGContextRestoreGState(currentContext);
+}
+
+@end
+
+#pragma mark -
+#pragma MNDirectUIHelper
 
 @interface MNDirectUIHelper()
 
@@ -42,6 +107,13 @@ static CGRect               mnViewTransformFrame;
     if (mnDirectUIHelperDelegates != nil) {
         [mnDirectUIHelperDelegates removeDelegate:delegate];
     }
+}
+
++(void) setPopupMode:(BOOL) popupModeFlag {
+    mnDirectUIHelperPopupModeFlag = popupModeFlag;
+}
++(BOOL) getPopupMode {
+    return mnDirectUIHelperPopupModeFlag;
 }
 
 +(void) showDashboard {
@@ -174,8 +246,20 @@ static CGRect               mnViewTransformFrame;
     }
     
     if (mnDirectUIHelperMNView != nil) {
-        mnViewTransformOriginal = mnDirectUIHelperMNView.transform;
-        mnViewTransformFrame    = mnDirectUIHelperMNView.frame;
+        if (!mnDirectUIHelperPopupModeFlag) {
+            mnViewTransformOriginal = mnDirectUIHelperMNView.transform;
+            mnViewTransformFrame    = mnDirectUIHelperMNView.frame;
+        }
+        else {
+            mnDirectUIHelperMNView = [[MNDirectUIHelperBgView alloc]initWithFrame:[UIScreen mainScreen].applicationFrame];
+            mnDirectUIHelperMNView.backgroundColor = [UIColor clearColor];
+            
+            UIView *mnView = [MNDirect getView];
+            CGRect newFrame = CGRectInset(mnDirectUIHelperMNView.bounds,MNDirectUIHelperPopupInsetX,MNDirectUIHelperPopupInsetY);
+            mnView.frame = newFrame;
+
+            [mnDirectUIHelperMNView addSubview:mnView];
+        }
 
         [MNDirectUIHelper refreshOrientationObserver];
     }        
@@ -188,6 +272,12 @@ static CGRect               mnViewTransformFrame;
         [mnDirectUIHelperMNView removeFromSuperview];
 //        [mnDirectUIHelperMNView removeDelegate:self];
 //        [[MNDirect getSession]  removeDelegate:self];
+
+        if (mnDirectUIHelperPopupModeFlag) {
+            [[MNDirect getView]removeFromSuperview];
+            [mnDirectUIHelperMNView release];
+        }
+        
         mnDirectUIHelperMNView = nil;
         
         [MNDirectUIHelper refreshOrientationObserver];

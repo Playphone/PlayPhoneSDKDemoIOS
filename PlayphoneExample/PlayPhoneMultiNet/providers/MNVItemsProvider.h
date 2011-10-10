@@ -16,6 +16,11 @@
 typedef long long MNVItemCount;
 typedef long long MNVItemTransactionId;
 
+#define MNVItemIsCurrencyMask    (0x0001)
+#define MNVItemIsUniqueMask      (0x0002)
+#define MNVItemIsConsumableMask  (0x0004)
+#define MNVItemIssueOnClientMask (0x0200)
+
 /**
  * @brief "vItems" provider delegate protocol.
  *

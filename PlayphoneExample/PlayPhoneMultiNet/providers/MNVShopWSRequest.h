@@ -46,7 +46,8 @@
 -(BOOL) mnVShopPurchaseWSRequestProcessFinishTransactionCommand:(NSString*) transactionId;
 -(BOOL) mnVShopPurchaseWSRequestProcessPostVItemTransactionCommandWithSrvTransactionId:(NSString*) srvTransactionId
                                                                       cliTransactionId:(NSString*) cliTransactionId
-                                                                            itemsToAdd:(NSString*) itemsToAdd;
+                                                                            itemsToAdd:(NSString*) itemsToAdd
+                                                               vShopTransactionEnabled:(BOOL) vShopTransactionEnabled;
 -(BOOL) mnVShopPurchaseWSRequestProcessPostSysEventCommandWithName:(NSString*) cmdName
                                                              param:(NSString*) cmdParam
                                                         callbackId:(NSString*) callbackId;

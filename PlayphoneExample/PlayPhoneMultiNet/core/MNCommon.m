@@ -8,4 +8,4 @@
 
 #import "MNCommon.h"
 
-NSString* MNClientAPIVersion = @"1_4_4";
+NSString* MNClientAPIVersion = @"1_4_5";

@@ -92,7 +92,7 @@ static void MNVShopInAppPurchaseWriteLog(NSString* message) {
                withParams: [NSDictionary dictionaryWithObjectsAndKeys:
                              transaction.transactionIdentifier, @"transactionId",
                              transaction.payment.productIdentifier,@"transactionPurchaseItemId",
-                             [NSString stringWithFormat: @"%d",transaction.payment.quantity],@"transactionPurchaseItemCound",
+                             [NSString stringWithFormat: @"%d",transaction.payment.quantity],@"transactionPurchaseItemCount",
                              nil]];
 
     [self sendWSRequestWithParams: params];
@@ -114,7 +114,7 @@ static void MNVShopInAppPurchaseWriteLog(NSString* message) {
                withParams: [NSDictionary dictionaryWithObjectsAndKeys:
                              transaction.transactionIdentifier, @"transactionId",
                              transaction.payment.productIdentifier,@"transactionPurchaseItemId",
-                             [NSString stringWithFormat: @"%d",transaction.payment.quantity],@"transactionPurchaseItemCound",
+                             [NSString stringWithFormat: @"%d",transaction.payment.quantity],@"transactionPurchaseItemCount",
                              errorCodeStr,@"errorCode",
                              [transaction.error localizedDescription],@"errorMessage",
                              nil]];
@@ -127,7 +127,7 @@ static void MNVShopInAppPurchaseWriteLog(NSString* message) {
                withParams: [NSDictionary dictionaryWithObjectsAndKeys:
                             transaction.transactionIdentifier, @"transactionId",
                             transaction.payment.productIdentifier,@"transactionPurchaseItemId",
-                            [NSString stringWithFormat: @"%d",transaction.payment.quantity],@"transactionPurchaseItemCound",
+                            [NSString stringWithFormat: @"%d",transaction.payment.quantity],@"transactionPurchaseItemCount",
                             nil]];
 }
 
@@ -246,28 +246,33 @@ static BOOL isLoggedIn (NSUInteger status) {
 }
 
 -(void) mnSessionWebEventReceived:(NSString*) eventName withParam:(NSString*) eventParam andCallbackId:(NSString*) callbackId {
-    if (![eventName isEqualToString: @"web.doAppPurchaseStartTransaction"]) {
-        return;
-    }
+    if      ([eventName isEqualToString: @"web.checkInAppBillingSupport"]) {
+        NSString* encodedParams = MNGetRequestStringFromParams
+                                   ([NSDictionary dictionaryWithObject: ([SKPaymentQueue canMakePayments] ? @"1" : @"0")
+                                                                forKey: @"app_billing_support"]);
 
-    if (![SKPaymentQueue canMakePayments]) {
-        return;
+        [_session postSysEvent: @"sys.checkInAppBillingSupport.Response" withParam: encodedParams andCallbackId: callbackId];
     }
+    else if ([eventName isEqualToString: @"web.doAppPurchaseStartTransaction"]) {
+        if (![SKPaymentQueue canMakePayments]) {
+            return;
+        }
 
-    NSDictionary* params = MNCopyDictionaryWithGetRequestParamString(eventParam);
-    NSString*     productId    = [params objectForKey: @"transactionPurchaseItemId"];
-    MNVItemCount  productCount = MNStringScanLongLongWithDefValue([params objectForKey: @"transactionPurchaseItemCount"],0);
+        NSDictionary* params = MNCopyDictionaryWithGetRequestParamString(eventParam);
+        NSString*     productId    = [params objectForKey: @"transactionPurchaseItemId"];
+        MNVItemCount  productCount = MNStringScanLongLongWithDefValue([params objectForKey: @"transactionPurchaseItemCount"],0);
 
-    if (productId == nil || productCount <= 0) {
-        MNVShopInAppPurchaseWriteLog(@"invalid product id or count in 'start app purchase' event");
-        return;
-    }
+        if (productId == nil || productCount <= 0) {
+            MNVShopInAppPurchaseWriteLog(@"invalid product id or count in 'start app purchase' event");
+            return;
+        }
 
-    if ([_knownProductIds containsObject: productId]) {
-        [self addPaymentForProduct: productId andCount: productCount];
-    }
-    else {
-        [self addPendingPaymentForProduct: productId andCount: productCount];
+        if ([_knownProductIds containsObject: productId]) {
+            [self addPaymentForProduct: productId andCount: productCount];
+        }
+        else {
+            [self addPendingPaymentForProduct: productId andCount: productCount];
+        }
     }
 }
 
@@ -333,7 +338,8 @@ static BOOL isLoggedIn (NSUInteger status) {
 
 -(BOOL) mnVShopPurchaseWSRequestProcessPostVItemTransactionCommandWithSrvTransactionId:(NSString*) srvTransactionId
                                                                       cliTransactionId:(NSString*) cliTransactionId
-                                                                            itemsToAdd:(NSString*) itemsToAdd {
+                                                                            itemsToAdd:(NSString*) itemsToAdd
+                                                               vShopTransactionEnabled:(BOOL) vShopTransactionEnabled {
     MNVItemTransactionId clientTransactionIdValue;
     MNVItemTransactionId serverTransactionIdValue;
 
@@ -350,7 +356,9 @@ static BOOL isLoggedIn (NSUInteger status) {
         MNVItemsTransactionInfo* transactionInfo = [_vItemsProvider applyTransactionFromDictionary: transactionParams vItemsItemSeparator: @"," vItemsFieldSeparator: @":"];
 
         if (transactionInfo != nil) {
-            [_vShopProvider dispatchCheckoutSucceededForTransaction: transactionInfo];
+            if (vShopTransactionEnabled) {
+                [_vShopProvider dispatchCheckoutSucceededForTransaction: transactionInfo];
+            }
         }
         else {
             MNVShopInAppPurchaseWriteLog(@"transaction cannot be processed by vItemsProvider");

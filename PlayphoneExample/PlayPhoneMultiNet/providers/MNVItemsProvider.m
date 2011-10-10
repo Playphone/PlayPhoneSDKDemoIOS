@@ -509,7 +509,7 @@ static MNPlayerVItemInfo* getPlayerVItemInfoById (NSArray* vItems, int vItemId) 
 }
 
 -(void) removeDelegate:(id<MNVItemsProviderDelegate>) delegate {
-    [_delegates addDelegate: delegate];
+    [_delegates removeDelegate: delegate];
 }
 
 /* private methods */

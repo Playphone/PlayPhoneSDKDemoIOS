@@ -20,6 +20,9 @@
 #define MN_VSHOP_PROVIDER_ERROR_CODE_XML_STRUCTURE_ERROR (-996)
 #define MN_VSHOP_PROVIDER_ERROR_CODE_NETWORK_ERROR       (-995)
 
+#define MNVItemIsHiddenMask      (0x0001)
+#define MNVItemIsHoldSalesMask   (0x0002)
+
 @class MNVShopProviderCheckoutVShopPackSuccessInfo;
 @class MNVShopProviderCheckoutVShopPackFailInfo;
 

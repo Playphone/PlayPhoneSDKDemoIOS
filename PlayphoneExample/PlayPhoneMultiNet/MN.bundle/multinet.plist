@@ -3,6 +3,8 @@
 <plist version="1.0">
 <dict>
 	<key>MultiNetConfigServerURL</key>
+	<string>http://devgameconfig.playphone.pluto.vn.ua/api_config_debug.php</string>
+	<key>MultiNetConfigServerURL - 2</key>
 	<string>http://gameconfig.playphone.com/api_config.php</string>
 </dict>
 </plist>

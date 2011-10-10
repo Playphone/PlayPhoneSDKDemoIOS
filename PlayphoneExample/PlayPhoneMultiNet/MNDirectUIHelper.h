@@ -56,6 +56,16 @@
 +(void) removeDelegate:(id<MNDirectUIHelperDelegate>) delegate;
 
 /**
+ * Toggles the display mode from fullscreen to popup and wise versa.
+ */
++(void) setPopupMode:(BOOL) popupModeFlag;
+
+/**
+ * Returns YES if popup mode enabled, NO otherwise.
+ */
++(BOOL) getPopupMode;
+
+/**
  * Shows Multinet Dashboard by adding it to keyWindow. Informs delegates
  * about this action.
  */

@@ -431,7 +431,7 @@ static NSString* mnStringWithIntList (NSArray* array) {
 }
 
 -(void) removeDelegate:(id<MNVShopProviderDelegate>) delegate {
-    [_delegates addDelegate: delegate];
+    [_delegates removeDelegate: delegate];
 }
 
 /* MNGameVocabularyDelegate protocol */
@@ -523,7 +523,8 @@ static NSString* mnStringWithIntList (NSArray* array) {
 
 -(BOOL) mnVShopPurchaseWSRequestProcessPostVItemTransactionCommandWithSrvTransactionId:(NSString*) srvTransactionId
                                                                       cliTransactionId:(NSString*) cliTransactionId
-                                                                            itemsToAdd:(NSString*) itemsToAdd {
+                                                                            itemsToAdd:(NSString*) itemsToAdd
+                                                               vShopTransactionEnabled:(BOOL) vShopTransactionEnabled {
     MNVItemTransactionId clientTransactionIdValue;
     MNVItemTransactionId serverTransactionIdValue;
 
@@ -540,11 +541,9 @@ static NSString* mnStringWithIntList (NSArray* array) {
                                                                                vItemsItemSeparator: @","
                                                                               vItemsFieldSeparator: @":"];
 
-        MNVShopProviderCheckoutVShopPackSuccessInfo* info = [[MNVShopProviderCheckoutVShopPackSuccessInfo alloc] initWithTransactionInfo: transactionInfo];
-
-        MN_DELEGATE_ARRAY_CALL_ARG1(MNVShopProviderDelegate,_delegates,onCheckoutVShopPackSuccess,info);
-
-        [info release];
+        if (vShopTransactionEnabled) {
+            [self dispatchCheckoutSucceededForTransaction: transactionInfo];
+        }
     }
     else {
         MNVShopWriteLog(@"incorrect format of 'post transaction' ws command");

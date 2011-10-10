@@ -202,9 +202,10 @@
 }
 
 -(BOOL) processWSCmdPostVItemTransaction:(CXMLElement*) cmdElement {
-    NSString* clientTransactionIdStr = nil;
-    NSString* serverTransactionIdStr = nil;
-    NSString* vItemsToAddStr         = nil;
+    NSString* clientTransactionIdStr  = nil;
+    NSString* serverTransactionIdStr  = nil;
+    NSString* vItemsToAddStr          = nil;
+    BOOL      vShopTransactionEnabled = YES;
 
     CXMLElement* currElement = MNWSXmlNodeGetFirstChildElement(cmdElement);
 
@@ -220,13 +221,17 @@
         else if ([name isEqualToString: @"itemsToAdd"]) {
             vItemsToAddStr = [currElement stringValue];
         }
+        else if ([name isEqualToString: @"callVShopTransactionSuccess"]) {
+            vShopTransactionEnabled = ![[[currElement stringValue] stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceCharacterSet]] isEqualToString: @"0"];
+        }
 
         currElement = MNWSXmlNodeGetNextSiblingElement(currElement);
     }
 
     return [_delegate mnVShopPurchaseWSRequestProcessPostVItemTransactionCommandWithSrvTransactionId: serverTransactionIdStr
                                                                                     cliTransactionId: clientTransactionIdStr
-                                                                                          itemsToAdd: vItemsToAddStr];
+                                                                                          itemsToAdd: vItemsToAddStr
+                                                                             vShopTransactionEnabled: vShopTransactionEnabled];
 }
 
 -(BOOL) processWSCmdPostSysEvent:(CXMLElement*) cmdElement {
