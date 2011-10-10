@@ -147,7 +147,7 @@ static PPSExMainScreenRowType PPSExMainScreenSection2Rows[] =
 - (void)navigationController:(UINavigationController *)navigationController 
       willShowViewController:(UIViewController *)viewController
                     animated:(BOOL)animated {
-    if ([viewController isKindOfClass:[PPSExBasicViewController class]]) {
+    if ([viewController conformsToProtocol:@protocol(PPSExBasicNotificationProtocol)]) {
         self.basicNotificationDelegate = (PPSExBasicViewController*)viewController;
     }
     else {

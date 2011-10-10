@@ -17,9 +17,9 @@ static NSString *PPSExVEconomyScreenSectionNames[] =
 
 static PPSExMainScreenRowType PPSExVEconomyScreenRows[] = 
 {
-    { @"vItems"         , @"These are the items used in game"                    , @"PPSExVEVItemViewController", @"PPSExBasicTableView" },
-    { @"PlayPhone Store", @"User can purchase these items on the PlayPhone Store", @"PPSExVEStoreViewController", @"PPSExBasicTableView" },
-    { @"User Inventory" , @"Inventory can be tracked per user"                   , @"", @"" },
+    { @"vItems"         , @"These are the items used in game"                    , @"PPSExVEVItemViewController"    , @"PPSExBasicTableView" },
+    { @"PlayPhone Store", @"User can purchase these items on the PlayPhone Store", @"PPSExVEStoreViewController"    , @"PPSExBasicTableView" },
+    { @"User Inventory" , @"Inventory can be tracked per user"                   , @"PPSExVEInventoryViewController", @"PPSExBasicTableView" },
 };
 
 

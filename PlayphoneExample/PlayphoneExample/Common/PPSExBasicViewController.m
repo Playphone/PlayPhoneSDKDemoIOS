@@ -79,6 +79,8 @@
 }
 
 - (void)viewDidLoad {
+    [super viewDidLoad];
+    
     self.cellStyle = UITableViewCellStyleSubtitle;
 }
 - (void)viewWillAppear:(BOOL)animated {
@@ -109,10 +111,9 @@
     return 0;
 }
 
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"VEconomyCell";
+    static NSString *CellIdentifier = @"Cell";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     

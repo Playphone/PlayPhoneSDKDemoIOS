@@ -47,7 +47,6 @@ static NSString *PPSExVECategoriesScreenSectionNames[] =
     
     [super viewDidLoad];
     
-    self.tableView.userInteractionEnabled = NO;
     [[MNDirect vItemsProvider]addDelegate:self];
 }
 
@@ -62,8 +61,9 @@ static NSString *PPSExVECategoriesScreenSectionNames[] =
 {
     UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
     
-    cell.accessoryType = UITableViewCellAccessoryNone;
-    
+    cell.accessoryType  = UITableViewCellAccessoryNone;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
     return cell;
 }
 
