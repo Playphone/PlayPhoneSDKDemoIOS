@@ -16,8 +16,8 @@ static NSString *PPSExVEInventoryScreenSectionNames[] =
 
 static PPSExMainScreenRowType PPSExVEInventoryScreenRows[] = 
 {
-    { @"Inventory List"  , @"", @"PPSExVEInventoryListViewController", @"PPSExBasicTableView" },
-    { @"Manage inventory", @"", @"", @"" },
+    { @"Inventory List"  , @"", @"PPSExVEInventoryListViewController"  , @"PPSExBasicTableView"        },
+    { @"Manage inventory", @"", @"PPSExVEManageInventoryViewController", @"PPSExVEManageInventoryView" },
 };
 
 @implementation PPSExVEInventoryViewController
