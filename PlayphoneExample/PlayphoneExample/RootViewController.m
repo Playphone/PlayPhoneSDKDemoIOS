@@ -7,6 +7,7 @@
 //
 
 #import "MNDirectButton.h"
+#import "MNDirectPopup.h"
 
 #import "PPSExCommon.h"
 #import "PPSExBasicViewController.h"
@@ -90,6 +91,8 @@ static PPSExMainScreenRowType PPSExMainScreenSection2Rows[] =
     
     [MNDirectButton initWithLocation:MNDIRECTBUTTON_TOPRIGHT];
     [MNDirectButton show];
+    
+    [MNDirectPopup init:MNDIRECTPOPUP_WELCOME | MNDIRECTPOPUP_ACHIEVEMENTS | MNDIRECTPOPUP_NEW_HI_SCORES];
     
     self.title = @"PlayPhone SDK Demo";
     
