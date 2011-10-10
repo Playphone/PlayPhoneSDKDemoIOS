@@ -9,11 +9,8 @@
 /* Begin PBXBuildFile section */
 		F540774A1441CB7200485608 /* PPSExVEPackListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F54077491441CB7200485608 /* PPSExVEPackListViewController.m */; };
 		F540774E1441D3F600485608 /* PPSExVEPackInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F540774C1441D3F600485608 /* PPSExVEPackInfoViewController.m */; };
-		F540774F1441D3F600485608 /* PPSExVEPackInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F540774D1441D3F600485608 /* PPSExVEPackInfoView.xib */; };
 		F54077531441F68700485608 /* PPSExVEPackBuyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F54077511441F68700485608 /* PPSExVEPackBuyViewController.m */; };
-		F54077541441F68700485608 /* PPSExVEPackBuyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F54077521441F68700485608 /* PPSExVEPackBuyView.xib */; };
 		F56035E814407B62000FD6A6 /* PPSExVEVItemInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F56035E614407B61000FD6A6 /* PPSExVEVItemInfoViewController.m */; };
-		F56035E914407B62000FD6A6 /* PPSExVEVItemInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F56035E714407B61000FD6A6 /* PPSExVEVItemInfoView.xib */; };
 		F56035ED1440C669000FD6A6 /* PPSExVEStoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F56035EC1440C669000FD6A6 /* PPSExVEStoreViewController.m */; };
 		F56035F01440C857000FD6A6 /* PPSExVECategoryListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F56035EF1440C857000FD6A6 /* PPSExVECategoryListViewController.m */; };
 		F57C0D69143CB74D00A43EEF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F57C0D68143CB74D00A43EEF /* UIKit.framework */; };
@@ -152,6 +149,10 @@
 		F57C0F2C143DF06000A43EEF /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F57C0F2B143DF06000A43EEF /* SystemConfiguration.framework */; };
 		F58D4381143F095D00859861 /* PPSExDashboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F58D437F143F095D00859861 /* PPSExDashboardViewController.m */; };
 		F58D4386143F0F8C00859861 /* PPSExVEViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F58D4384143F0F8C00859861 /* PPSExVEViewController.m */; };
+		F598A75014430545005F97B9 /* no-image.png in Resources */ = {isa = PBXBuildFile; fileRef = F598A74F14430545005F97B9 /* no-image.png */; };
+		F598A75514430637005F97B9 /* PPSExVEPackBuyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F598A75214430637005F97B9 /* PPSExVEPackBuyView.xib */; };
+		F598A75614430637005F97B9 /* PPSExVEPackInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F598A75314430637005F97B9 /* PPSExVEPackInfoView.xib */; };
+		F598A75714430637005F97B9 /* PPSExVEVItemInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F598A75414430637005F97B9 /* PPSExVEVItemInfoView.xib */; };
 		F5B1F1D7143F578A00911ED4 /* PPSExBasicTableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5B1F1D5143F578900911ED4 /* PPSExBasicTableView.xib */; };
 		F5E93B44143F5AF7001CBE7B /* PPSExBasicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5E93B3E143F5AF7001CBE7B /* PPSExBasicViewController.m */; };
 		F5E93B45143F5AF7001CBE7B /* PPSExCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = F5E93B40143F5AF7001CBE7B /* PPSExCommon.m */; };
@@ -166,13 +167,10 @@
 		F54077491441CB7200485608 /* PPSExVEPackListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPSExVEPackListViewController.m; sourceTree = "<group>"; };
 		F540774B1441D3F600485608 /* PPSExVEPackInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPSExVEPackInfoViewController.h; sourceTree = "<group>"; };
 		F540774C1441D3F600485608 /* PPSExVEPackInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPSExVEPackInfoViewController.m; sourceTree = "<group>"; };
-		F540774D1441D3F600485608 /* PPSExVEPackInfoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PPSExVEPackInfoView.xib; path = ../PPSExVEPackInfoView.xib; sourceTree = "<group>"; };
 		F54077501441F68600485608 /* PPSExVEPackBuyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPSExVEPackBuyViewController.h; sourceTree = "<group>"; };
 		F54077511441F68700485608 /* PPSExVEPackBuyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPSExVEPackBuyViewController.m; sourceTree = "<group>"; };
-		F54077521441F68700485608 /* PPSExVEPackBuyView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PPSExVEPackBuyView.xib; path = ../PPSExVEPackBuyView.xib; sourceTree = "<group>"; };
 		F56035E514407B61000FD6A6 /* PPSExVEVItemInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPSExVEVItemInfoViewController.h; sourceTree = "<group>"; };
 		F56035E614407B61000FD6A6 /* PPSExVEVItemInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPSExVEVItemInfoViewController.m; sourceTree = "<group>"; };
-		F56035E714407B61000FD6A6 /* PPSExVEVItemInfoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PPSExVEVItemInfoView.xib; path = ../PPSExVEVItemInfoView.xib; sourceTree = "<group>"; };
 		F56035EB1440C668000FD6A6 /* PPSExVEStoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPSExVEStoreViewController.h; sourceTree = "<group>"; };
 		F56035EC1440C669000FD6A6 /* PPSExVEStoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPSExVEStoreViewController.m; sourceTree = "<group>"; };
 		F56035EE1440C857000FD6A6 /* PPSExVECategoryListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPSExVECategoryListViewController.h; sourceTree = "<group>"; };
@@ -441,6 +439,10 @@
 		F58D437F143F095D00859861 /* PPSExDashboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPSExDashboardViewController.m; sourceTree = "<group>"; };
 		F58D4383143F0F8C00859861 /* PPSExVEViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPSExVEViewController.h; sourceTree = "<group>"; };
 		F58D4384143F0F8C00859861 /* PPSExVEViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPSExVEViewController.m; sourceTree = "<group>"; };
+		F598A74F14430545005F97B9 /* no-image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "no-image.png"; sourceTree = "<group>"; };
+		F598A75214430637005F97B9 /* PPSExVEPackBuyView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PPSExVEPackBuyView.xib; sourceTree = "<group>"; };
+		F598A75314430637005F97B9 /* PPSExVEPackInfoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PPSExVEPackInfoView.xib; sourceTree = "<group>"; };
+		F598A75414430637005F97B9 /* PPSExVEVItemInfoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PPSExVEVItemInfoView.xib; sourceTree = "<group>"; };
 		F5B1F1D6143F578A00911ED4 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/PPSExBasicTableView.xib; sourceTree = "<group>"; };
 		F5E93B3D143F5AF7001CBE7B /* PPSExBasicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPSExBasicViewController.h; sourceTree = "<group>"; };
 		F5E93B3E143F5AF7001CBE7B /* PPSExBasicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPSExBasicViewController.m; sourceTree = "<group>"; };
@@ -1005,13 +1007,14 @@
 		F5E93B41143F5AF7001CBE7B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				F598A74F14430545005F97B9 /* no-image.png */,
 				F57C0D7A143CB74E00A43EEF /* MainWindow.xib */,
 				F5B1F1D5143F578900911ED4 /* PPSExBasicTableView.xib */,
 				F5E93B42143F5AF7001CBE7B /* PPSExDashboardView.xib */,
 				F5E93B43143F5AF7001CBE7B /* PPSExLoginUserView.xib */,
-				F56035E714407B61000FD6A6 /* PPSExVEVItemInfoView.xib */,
-				F540774D1441D3F600485608 /* PPSExVEPackInfoView.xib */,
-				F54077521441F68700485608 /* PPSExVEPackBuyView.xib */,
+				F598A75214430637005F97B9 /* PPSExVEPackBuyView.xib */,
+				F598A75314430637005F97B9 /* PPSExVEPackInfoView.xib */,
+				F598A75414430637005F97B9 /* PPSExVEVItemInfoView.xib */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1077,9 +1080,10 @@
 				F5B1F1D7143F578A00911ED4 /* PPSExBasicTableView.xib in Resources */,
 				F5E93B46143F5AF7001CBE7B /* PPSExDashboardView.xib in Resources */,
 				F5E93B47143F5AF7001CBE7B /* PPSExLoginUserView.xib in Resources */,
-				F56035E914407B62000FD6A6 /* PPSExVEVItemInfoView.xib in Resources */,
-				F540774F1441D3F600485608 /* PPSExVEPackInfoView.xib in Resources */,
-				F54077541441F68700485608 /* PPSExVEPackBuyView.xib in Resources */,
+				F598A75014430545005F97B9 /* no-image.png in Resources */,
+				F598A75514430637005F97B9 /* PPSExVEPackBuyView.xib in Resources */,
+				F598A75614430637005F97B9 /* PPSExVEPackInfoView.xib in Resources */,
+				F598A75714430637005F97B9 /* PPSExVEVItemInfoView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
