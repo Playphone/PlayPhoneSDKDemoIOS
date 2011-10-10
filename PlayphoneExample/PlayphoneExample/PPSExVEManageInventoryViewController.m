@@ -140,7 +140,11 @@
                                                   count:amount
                                  andClientTransactionId:[[MNDirect vItemsProvider]getNewClientTransactionId]];
         }
+        else {
+            PPSExShowAlert(@"Invalid amount", @"Input Error");
+        }
     }
+
     [self.itemAmountTextField resignFirstResponder];
 }
 
@@ -155,6 +159,9 @@
                                                   count:-amount
                                  andClientTransactionId:[[MNDirect vItemsProvider]getNewClientTransactionId]];
         }
+    }
+    else {
+        PPSExShowAlert(@"Invalid amount", @"Input Error");
     }
 
     [self.itemAmountTextField resignFirstResponder];
