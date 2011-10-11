@@ -54,10 +54,10 @@ static NSString *PPSExVEVItemListScreenSectionNames[] =
     [[MNDirect vItemsProvider]addDelegate:self];
 }
 
-- (void)viewDidUnload {
+- (void)dealloc {
     [[MNDirect vItemsProvider] removeDelegate:self];
     
-    [super viewDidUnload];
+    [super dealloc];
 }
 
 - (void)setShowVCurrencies:(BOOL)showVCurrencies {

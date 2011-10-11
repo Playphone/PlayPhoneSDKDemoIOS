@@ -34,6 +34,9 @@
 
 - (void)dealloc {
     [_packPickerView release];
+    
+    [[MNDirect vShopProvider] removeDelegate:self];
+
     [super dealloc];
 }
 - (void)viewDidLoad {
@@ -42,7 +45,7 @@
 }
 - (void)viewDidUnload {
     [self setPackPickerView:nil];
-    [[MNDirect vShopProvider] removeDelegate:self];
+
     [super viewDidUnload];
 }
 

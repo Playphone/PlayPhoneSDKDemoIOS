@@ -50,12 +50,11 @@ static NSString *PPSExVECategoriesScreenSectionNames[] =
     [[MNDirect vItemsProvider]addDelegate:self];
 }
 
-- (void)viewDidUnload {
+- (void)dealloc {
     [[MNDirect vItemsProvider] removeDelegate:self];
-    
-    [super viewDidUnload];
-}
 
+    [super dealloc];
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {

@@ -59,8 +59,6 @@
     
     self.itemList = nil;
     
-    [[MNDirect vItemsProvider]removeDelegate:self];
-    
     [self setAmountLabel:nil];
     [super viewDidUnload];
 }
@@ -71,6 +69,9 @@
     [_itemList release];
     
     [_amountLabel release];
+    
+    [[MNDirect vItemsProvider]removeDelegate:self];
+
     [super dealloc];
 }
 

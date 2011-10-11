@@ -49,8 +49,10 @@ static NSString *PPSExVEInventoryListScreenSectionNames[] =
     self.cellStyle = UITableViewCellStyleValue1;
 }
 
-- (void)viewDidUnload {
+- (void)dealloc {
     [[MNDirect vItemsProvider]removeDelegate:self];
+
+    [super dealloc];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
