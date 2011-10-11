@@ -34,26 +34,13 @@
 @synthesize itemAmountTextField = _itemAmountTextField;
 @synthesize amountLabel = _amountLabel;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
-#pragma mark - View lifecycle
-
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     
     [[MNDirect vItemsProvider]addDelegate:self];
 }
 
-- (void)viewDidUnload
-{
+- (void)viewDidUnload {
     [self setItemPickerView:nil];
     [self setItemAmountTextField:nil];
     
@@ -108,7 +95,6 @@
     }
 }
 - (void)updateAmountOfItem:(MNGameVItemInfo*)itemInfo {
-    
     if ([MNDirect isUserLoggedIn]) {
         self.amountLabel.text = [NSString stringWithFormat:@"%lld",[[MNDirect vItemsProvider]getPlayerVItemCountById:itemInfo.vItemId]];
     }

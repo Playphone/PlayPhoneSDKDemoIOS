@@ -16,8 +16,8 @@ static NSString *PPSExAchievementsSectionNames[] =
 
 static PPSExMainScreenRowType PPSExAchievementsRows[] = 
 {
-    { @"Achievements List" , @"", @"PPSExAchListViewController"  , @"PPSExBasicTableView" },
-    { @"Unlock Achievement", @"", @"", @"" }
+    { @"Achievements List" , @"", @"PPSExAchListViewController"         , @"PPSExBasicTableView"       },
+    { @"User Achievemens"  , @"", @"PPSExUserAchievementsViewController", @"PPSExUserAchievementsView" }
 };
 
 @implementation PPSExAchievementsViewController
