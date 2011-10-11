@@ -152,6 +152,10 @@
 		F57C0F2C143DF06000A43EEF /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F57C0F2B143DF06000A43EEF /* SystemConfiguration.framework */; };
 		F58D4381143F095D00859861 /* PPSExDashboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F58D437F143F095D00859861 /* PPSExDashboardViewController.m */; };
 		F58D4386143F0F8C00859861 /* PPSExVEViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F58D4384143F0F8C00859861 /* PPSExVEViewController.m */; };
+		F59809D514447C29005DAB56 /* PPSExAchievementsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F59809D414447C29005DAB56 /* PPSExAchievementsViewController.m */; };
+		F59809D814448075005DAB56 /* PPSExAchListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F59809D714448075005DAB56 /* PPSExAchListViewController.m */; };
+		F59809DC1444830B005DAB56 /* PPSExAchInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F59809DA1444830B005DAB56 /* PPSExAchInfoViewController.m */; };
+		F59809DF14448332005DAB56 /* PPSExAchInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F59809DE14448332005DAB56 /* PPSExAchInfoView.xib */; };
 		F598A75014430545005F97B9 /* no-image.png in Resources */ = {isa = PBXBuildFile; fileRef = F598A74F14430545005F97B9 /* no-image.png */; };
 		F598A75514430637005F97B9 /* PPSExVEPackBuyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F598A75214430637005F97B9 /* PPSExVEPackBuyView.xib */; };
 		F598A75614430637005F97B9 /* PPSExVEPackInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F598A75314430637005F97B9 /* PPSExVEPackInfoView.xib */; };
@@ -176,7 +180,7 @@
 		F540774C1441D3F600485608 /* PPSExVEPackInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPSExVEPackInfoViewController.m; sourceTree = "<group>"; };
 		F54077501441F68600485608 /* PPSExVEPackBuyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPSExVEPackBuyViewController.h; sourceTree = "<group>"; };
 		F54077511441F68700485608 /* PPSExVEPackBuyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPSExVEPackBuyViewController.m; sourceTree = "<group>"; };
-		F557185C1444445B00DDD848 /* PPSExUserInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; path = PPSExUserInfoViewController.h; sourceTree = "<group>"; };
+		F557185C1444445B00DDD848 /* PPSExUserInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPSExUserInfoViewController.h; sourceTree = "<group>"; };
 		F557185D1444445B00DDD848 /* PPSExUserInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPSExUserInfoViewController.m; sourceTree = "<group>"; };
 		F5571862144444A200DDD848 /* PPSExUserInfoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PPSExUserInfoView.xib; sourceTree = "<group>"; };
 		F5571864144444B800DDD848 /* PPSExVEManageInventoryView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PPSExVEManageInventoryView.xib; sourceTree = "<group>"; };
@@ -450,6 +454,13 @@
 		F58D437F143F095D00859861 /* PPSExDashboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPSExDashboardViewController.m; sourceTree = "<group>"; };
 		F58D4383143F0F8C00859861 /* PPSExVEViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPSExVEViewController.h; sourceTree = "<group>"; };
 		F58D4384143F0F8C00859861 /* PPSExVEViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPSExVEViewController.m; sourceTree = "<group>"; };
+		F59809D314447C29005DAB56 /* PPSExAchievementsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPSExAchievementsViewController.h; sourceTree = "<group>"; };
+		F59809D414447C29005DAB56 /* PPSExAchievementsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPSExAchievementsViewController.m; sourceTree = "<group>"; };
+		F59809D614448075005DAB56 /* PPSExAchListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPSExAchListViewController.h; sourceTree = "<group>"; };
+		F59809D714448075005DAB56 /* PPSExAchListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPSExAchListViewController.m; sourceTree = "<group>"; };
+		F59809D91444830B005DAB56 /* PPSExAchInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPSExAchInfoViewController.h; sourceTree = "<group>"; };
+		F59809DA1444830B005DAB56 /* PPSExAchInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPSExAchInfoViewController.m; sourceTree = "<group>"; };
+		F59809DE14448332005DAB56 /* PPSExAchInfoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PPSExAchInfoView.xib; sourceTree = "<group>"; };
 		F598A74F14430545005F97B9 /* no-image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "no-image.png"; sourceTree = "<group>"; };
 		F598A75214430637005F97B9 /* PPSExVEPackBuyView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PPSExVEPackBuyView.xib; sourceTree = "<group>"; };
 		F598A75314430637005F97B9 /* PPSExVEPackInfoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PPSExVEPackInfoView.xib; sourceTree = "<group>"; };
@@ -565,6 +576,12 @@
 				F598A76714434F15005F97B9 /* PPSExVEManageInventoryViewController.m */,
 				F557185C1444445B00DDD848 /* PPSExUserInfoViewController.h */,
 				F557185D1444445B00DDD848 /* PPSExUserInfoViewController.m */,
+				F59809D314447C29005DAB56 /* PPSExAchievementsViewController.h */,
+				F59809D414447C29005DAB56 /* PPSExAchievementsViewController.m */,
+				F59809D614448075005DAB56 /* PPSExAchListViewController.h */,
+				F59809D714448075005DAB56 /* PPSExAchListViewController.m */,
+				F59809D91444830B005DAB56 /* PPSExAchInfoViewController.h */,
+				F59809DA1444830B005DAB56 /* PPSExAchInfoViewController.m */,
 			);
 			path = PlayphoneExample;
 			sourceTree = "<group>";
@@ -1044,6 +1061,7 @@
 				F598A75414430637005F97B9 /* PPSExVEVItemInfoView.xib */,
 				F5571864144444B800DDD848 /* PPSExVEManageInventoryView.xib */,
 				F5571862144444A200DDD848 /* PPSExUserInfoView.xib */,
+				F59809DE14448332005DAB56 /* PPSExAchInfoView.xib */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1116,6 +1134,7 @@
 				F5CE2E6F14437B0A0025B435 /* Icon.png in Resources */,
 				F5571863144444A200DDD848 /* PPSExUserInfoView.xib in Resources */,
 				F5571865144444B800DDD848 /* PPSExVEManageInventoryView.xib in Resources */,
+				F59809DF14448332005DAB56 /* PPSExAchInfoView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1258,6 +1277,9 @@
 				F598A75D144308C0005F97B9 /* PPSExVEInventoryListViewController.m in Sources */,
 				F598A76914434F19005F97B9 /* PPSExVEManageInventoryViewController.m in Sources */,
 				F557185F1444445B00DDD848 /* PPSExUserInfoViewController.m in Sources */,
+				F59809D514447C29005DAB56 /* PPSExAchievementsViewController.m in Sources */,
+				F59809D814448075005DAB56 /* PPSExAchListViewController.m in Sources */,
+				F59809DC1444830B005DAB56 /* PPSExAchInfoViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

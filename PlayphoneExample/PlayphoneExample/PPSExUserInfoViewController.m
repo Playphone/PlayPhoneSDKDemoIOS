@@ -37,7 +37,7 @@
 - (void)updateState {
     self.headerLabel.text = @"Details for the Current User";
     
-    NSMutableString *userDetails = [[NSMutableString alloc]initWithCapacity:PPSExDetailsDefCapacity];
+    NSMutableString *userDetails = [NSMutableString stringWithCapacity:PPSExDetailsDefCapacity];
     
     MNUserInfo *userInfo = [[MNDirect getSession]getMyUserInfo];
     
@@ -46,8 +46,6 @@
     [userDetails appendFormat:@"Current room: %d\n",[[MNDirect getSession]getCurrentRoomId]];
     
     self.bodyTextView.text = userDetails;
-    
-    [userDetails release];
     
     [self.image loadImageWithUrl:[NSURL URLWithString:[userInfo getAvatarUrl]]];
 }
