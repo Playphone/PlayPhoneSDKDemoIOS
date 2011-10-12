@@ -35,9 +35,9 @@ static PPSExMainScreenRowType PPSExMainScreenSection2Rows[] =
     { @"Leaderboards"         , @"", @"PPSExLeaderboardsViewController"      , @""},
     { @"Achievements"         , @"", @"PPSExAchievementsViewController"      , @"PPSExBasicTableView"},
     { @"Social Graph"         , @"", @"PPSExSocialGraphViewController"       , @"PPSExBasicTableView"},
-    { @"Dashboard Control"    , @"", @"PPSExDashboardControlViewController"  , @""},
-    { @"Cloud Storage"        , @"", @"PPSExCloudStorageViewController"      , @""},
-    { @"Multiplayer Basics"   , @"", @"PPSExMultiplayerBasicsViewController" , @""}
+    { @"Dashboard Control"    , @"", @"PPSExDashboardCtlViewController"      , @"PPSExBasicTableView"},
+    { @"Cloud Storage"        , @"", @""      , @""},
+    { @"Multiplayer Basics"   , @"", @"" , @""}
 };
 
 @interface RootViewController()

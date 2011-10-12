@@ -11,6 +11,7 @@
 		F540774E1441D3F600485608 /* PPSExVEPackInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F540774C1441D3F600485608 /* PPSExVEPackInfoViewController.m */; };
 		F54077531441F68700485608 /* PPSExVEPackBuyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F54077511441F68700485608 /* PPSExVEPackBuyViewController.m */; };
 		F545B31314459EFD006461EA /* PPSExSocialGraphViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F545B31214459EFD006461EA /* PPSExSocialGraphViewController.m */; };
+		F545B3171445EADB006461EA /* PPSExDashboardCtlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F545B3161445EADB006461EA /* PPSExDashboardCtlViewController.m */; };
 		F557185F1444445B00DDD848 /* PPSExUserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F557185D1444445B00DDD848 /* PPSExUserInfoViewController.m */; };
 		F5571863144444A200DDD848 /* PPSExUserInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5571862144444A200DDD848 /* PPSExUserInfoView.xib */; };
 		F5571865144444B800DDD848 /* PPSExVEManageInventoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5571864144444B800DDD848 /* PPSExVEManageInventoryView.xib */; };
@@ -185,6 +186,8 @@
 		F54077511441F68700485608 /* PPSExVEPackBuyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPSExVEPackBuyViewController.m; sourceTree = "<group>"; };
 		F545B31114459EFD006461EA /* PPSExSocialGraphViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPSExSocialGraphViewController.h; sourceTree = "<group>"; };
 		F545B31214459EFD006461EA /* PPSExSocialGraphViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPSExSocialGraphViewController.m; sourceTree = "<group>"; };
+		F545B3151445EADB006461EA /* PPSExDashboardCtlViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPSExDashboardCtlViewController.h; sourceTree = "<group>"; };
+		F545B3161445EADB006461EA /* PPSExDashboardCtlViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPSExDashboardCtlViewController.m; sourceTree = "<group>"; };
 		F557185C1444445B00DDD848 /* PPSExUserInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPSExUserInfoViewController.h; sourceTree = "<group>"; };
 		F557185D1444445B00DDD848 /* PPSExUserInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPSExUserInfoViewController.m; sourceTree = "<group>"; };
 		F5571862144444A200DDD848 /* PPSExUserInfoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PPSExUserInfoView.xib; sourceTree = "<group>"; };
@@ -594,6 +597,8 @@
 				F59809E114449CE7005DAB56 /* PPSExUserAchievementsViewController.m */,
 				F545B31114459EFD006461EA /* PPSExSocialGraphViewController.h */,
 				F545B31214459EFD006461EA /* PPSExSocialGraphViewController.m */,
+				F545B3151445EADB006461EA /* PPSExDashboardCtlViewController.h */,
+				F545B3161445EADB006461EA /* PPSExDashboardCtlViewController.m */,
 			);
 			path = PlayphoneExample;
 			sourceTree = "<group>";
@@ -1296,6 +1301,7 @@
 				F59809DC1444830B005DAB56 /* PPSExAchInfoViewController.m in Sources */,
 				F59809E314449CE7005DAB56 /* PPSExUserAchievementsViewController.m in Sources */,
 				F545B31314459EFD006461EA /* PPSExSocialGraphViewController.m in Sources */,
+				F545B3171445EADB006461EA /* PPSExDashboardCtlViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
