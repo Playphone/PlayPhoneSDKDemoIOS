@@ -32,11 +32,11 @@ static PPSExMainScreenRowType PPSExMainScreenSection1Rows[] =
 static PPSExMainScreenRowType PPSExMainScreenSection2Rows[] = 
 {
     { @"Current User Info"    , @"", @"PPSExUserInfoViewController"          , @"PPSExUserInfoView"},
-    { @"Leaderboards"         , @"", @"PPSExLeaderboardsViewController"      , @""},
+    { @"Leaderboards"         , @"", @""      , @""},
     { @"Achievements"         , @"", @"PPSExAchievementsViewController"      , @"PPSExBasicTableView"},
     { @"Social Graph"         , @"", @"PPSExSocialGraphViewController"       , @"PPSExBasicTableView"},
     { @"Dashboard Control"    , @"", @"PPSExDashboardCtlViewController"      , @"PPSExBasicTableView"},
-    { @"Cloud Storage"        , @"", @""      , @""},
+    { @"Cloud Storage"        , @"", @"PPSExCloudStorageViewController"      , @"PPSExCloudStorageView"},
     { @"Multiplayer Basics"   , @"", @"" , @""}
 };
 
