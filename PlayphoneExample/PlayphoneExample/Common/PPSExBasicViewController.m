@@ -173,6 +173,16 @@
     }
 }
 
+- (void)showFooterLabelWithText:(NSString*)labelText {
+    UILabel *footerLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 320, 21)];
+    footerLabel.text = labelText;
+    footerLabel.backgroundColor = [UIColor clearColor];
+    footerLabel.textAlignment   = UITextAlignmentCenter;
+    
+    ((UITableView*)self.view).tableFooterView = footerLabel;
+    [footerLabel release];
+}
+
 #pragma mark - PPSExBasicNotificationProtocol
 
 - (void)playerLoggedIn {

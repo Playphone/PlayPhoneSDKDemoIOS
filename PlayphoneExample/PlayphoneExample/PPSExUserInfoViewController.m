@@ -9,18 +9,22 @@
 #import "MNDirect.h"
 #import "MNSession.h"
 #import "MNUserInfo.h"
+#import "MNWSBuddyListItem.h"
 
 #import "PPSExUserInfoViewController.h"
 
 #define PPSExDetailsDefCapacity        (1024)
 
 @implementation PPSExUserInfoViewController
+@synthesize buddyInfo = _buddyInfo;
 @synthesize headerLabel = _headerLabel;
 @synthesize bodyTextView = _bodyTextView;
 @synthesize image = _image;
 
-- (void)viewDidUnload
-{
+- (void)viewDidLoad {
+    _buddyInfo = nil;
+}
+- (void)viewDidUnload {
     [self setHeaderLabel:nil];
     [self setBodyTextView:nil];
     [self setImage:nil];
@@ -35,19 +39,50 @@
 }
 
 - (void)updateState {
-    self.headerLabel.text = @"Details for the Current User";
+    if (self.buddyInfo == nil) {
+        self.headerLabel.text = @"Details for the Current User";
+        
+        NSMutableString *userDetails = [NSMutableString stringWithCapacity:PPSExDetailsDefCapacity];
+        
+        MNUserInfo *userInfo = [[MNDirect getSession]getMyUserInfo];
+        
+        [userDetails appendFormat:@"User Name: %@\n",userInfo.userName];
+        [userDetails appendFormat:@"User Id: %lld\n",userInfo.userId];
+        [userDetails appendFormat:@"Current room: %d\n",[[MNDirect getSession]getCurrentRoomId]];
+        
+        self.bodyTextView.text = userDetails;
+        
+        [self.image loadImageWithUrl:[NSURL URLWithString:[userInfo getAvatarUrl]]];
+    }
+    else {
+        self.headerLabel.text = @"Buddy details";
+        
+        NSMutableString *userDetails = [NSMutableString stringWithCapacity:PPSExDetailsDefCapacity];
+        
+        [userDetails appendFormat:@"User Name: %@\n",[self.buddyInfo getFriendUserNickName]];
+        [userDetails appendFormat:@"User Id: %lld\n",[self.buddyInfo getFriendUserId].longLongValue];
+        [userDetails appendFormat:@"User is online: %@\n",[self.buddyInfo getFriendUserOnlineNow].boolValue?@"YES":@"NO"];
+        [userDetails appendFormat:@"Playing game: %@\n",[self.buddyInfo getFriendInGameName]];
+        [userDetails appendFormat:@"Has current game: %@\n",[self.buddyInfo getFriendHasCurrentGame].boolValue?@"YES":@"NO"];
+        [userDetails appendFormat:@"Locale: %@\n",[self.buddyInfo getFriendUserLocale]];
+        [userDetails appendFormat:@"Is ignored: %@\n",[self.buddyInfo getFriendIsIgnored].boolValue?@"YES":@"NO"];
+        [userDetails appendFormat:@"Locale: %d\n",[self.buddyInfo getFriendInRoomSfid]];
+        [userDetails appendFormat:@"Current game achievements: %@\n",[self.buddyInfo getFriendCurrGameAchievementsList]];
+        
+        self.bodyTextView.text = userDetails;
+        
+        [self.image loadImageWithUrl:[NSURL URLWithString:[self.buddyInfo getFriendUserAvatarUrl]]];
+    }
+}
+
+- (void)setBuddyInfo:(MNWSBuddyListItem *)buddyInfo {
+    if (_buddyInfo != nil) {
+        [_buddyInfo release];
+    }
     
-    NSMutableString *userDetails = [NSMutableString stringWithCapacity:PPSExDetailsDefCapacity];
+    _buddyInfo = buddyInfo;
     
-    MNUserInfo *userInfo = [[MNDirect getSession]getMyUserInfo];
-    
-    [userDetails appendFormat:@"User Name: %@\n",userInfo.userName];
-    [userDetails appendFormat:@"User Id: %lld\n",userInfo.userId];
-    [userDetails appendFormat:@"Current room: %d\n",[[MNDirect getSession]getCurrentRoomId]];
-    
-    self.bodyTextView.text = userDetails;
-    
-    [self.image loadImageWithUrl:[NSURL URLWithString:[userInfo getAvatarUrl]]];
+    [self updateState];
 }
 
 #pragma mark - PPSExBasicNotificationProtocol

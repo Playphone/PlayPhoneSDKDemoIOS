@@ -37,6 +37,8 @@
 @property (nonatomic,retain) NSArray *sectionRows;
 @property (nonatomic,assign) UITableViewCellStyle cellStyle;
 
+- (void)showFooterLabelWithText:(NSString*)labelText;
+
 - (void)updateState;
 
 - (void)playerLoggedIn;

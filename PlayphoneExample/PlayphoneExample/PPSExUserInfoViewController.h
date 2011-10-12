@@ -7,13 +7,21 @@
 //
 
 #import "MNUIUrlImageView.h"
+#import "MNWSBuddyListItem.h"
+
 #import "PPSExBasicViewController.h"
 
+
+
 @interface PPSExUserInfoViewController : PPSExBasicViewController {
+    MNWSBuddyListItem *_buddyInfo;
+    
     UILabel *_headerLabel;
     UITextView *_bodyTextView;
     MNUIUrlImageView *_image;
 }
+
+@property (nonatomic, retain) MNWSBuddyListItem *buddyInfo;
 
 @property (nonatomic, retain) IBOutlet UILabel *headerLabel;
 @property (nonatomic, retain) IBOutlet UITextView *bodyTextView;
