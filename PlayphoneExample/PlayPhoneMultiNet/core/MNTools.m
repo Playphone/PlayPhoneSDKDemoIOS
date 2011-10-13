@@ -98,6 +98,40 @@ NSString* MNStringCreateFromLongLong(long long value) {
     return [[NSString alloc] initWithFormat: @"%lld", value];
 }
 
+NSString* MNStringWithIntList (NSArray* array, NSString* joinString) {
+    NSMutableString* result = [NSMutableString string];
+    NSUInteger index;
+    NSUInteger count = [array count];
+
+    if (count > 0) {
+        [result appendFormat: @"%d",[((NSNumber*)[array objectAtIndex: 0]) intValue]];
+
+        for (index = 1; index < count; index++) {
+            [result appendString: joinString];
+            [result appendFormat: @"%d",[((NSNumber*)[array objectAtIndex: index]) intValue]];
+        }
+    }
+
+    return result;
+}
+
+NSString* MNStringWithUnsignedLongLongList (NSArray* array, NSString* joinString) {
+    NSMutableString* result = [NSMutableString string];
+    NSUInteger index;
+    NSUInteger count = [array count];
+
+    if (count > 0) {
+        [result appendFormat: @"%llu",[((NSNumber*)[array objectAtIndex: 0]) unsignedLongLongValue]];
+
+        for (index = 1; index < count; index++) {
+            [result appendString: joinString];
+            [result appendFormat: @"%llu",[((NSNumber*)[array objectAtIndex: index]) unsignedLongLongValue]];
+        }
+    }
+
+    return result;
+}
+
 NSString* MNDictionaryStringForKey (NSDictionary* dict, NSString* key) {
     id value = [dict objectForKey: key];
 

@@ -12,20 +12,24 @@
 #import "MNAchievementsProvider.h"
 #import "MNClientRobotsProvider.h"
 #import "MNGameCookiesProvider.h"
+#import "MNGameRoomCookiesProvider.h"
 #import "MNMyHiScoresProvider.h"
 #import "MNPlayerListProvider.h"
 #import "MNScoreProgressProvider.h"
 #import "MNVItemsProvider.h"
 #import "MNVShopProvider.h"
+#import "MNGameSettingsProvider.h"
 
-static MNAchievementsProvider*  MNDirectAchievementsProvider  = nil;
-static MNClientRobotsProvider*  MNDirectClientRobotsProvider  = nil;
-static MNGameCookiesProvider*   MNDirectGameCookiesProvider   = nil;
-static MNMyHiScoresProvider*    MNDirectMyHiScoresProvider    = nil;
-static MNPlayerListProvider*    MNDirectPlayerListProvider    = nil;
-static MNScoreProgressProvider* MNDirectScoreProgressProvider = nil;
-static MNVItemsProvider*        MNDirectVItemsProvider        = nil;
-static MNVShopProvider*         MNDirectVShopProvider         = nil;
+static MNAchievementsProvider*    MNDirectAchievementsProvider    = nil;
+static MNClientRobotsProvider*    MNDirectClientRobotsProvider    = nil;
+static MNGameCookiesProvider*     MNDirectGameCookiesProvider     = nil;
+static MNGameRoomCookiesProvider* MNDirectGameRoomCookiesProvider = nil;
+static MNMyHiScoresProvider*      MNDirectMyHiScoresProvider      = nil;
+static MNPlayerListProvider*      MNDirectPlayerListProvider      = nil;
+static MNScoreProgressProvider*   MNDirectScoreProgressProvider   = nil;
+static MNVItemsProvider*          MNDirectVItemsProvider          = nil;
+static MNVShopProvider*           MNDirectVShopProvider           = nil;
+static MNGameSettingsProvider*    MNDirectGameSettingsProvider    = nil;
 
 @interface MNSessionDirectDelegate: NSObject<MNSessionDelegate,MNUserProfileViewDelegate> {
     @private
@@ -134,24 +138,28 @@ static void releaseProviders (void) {
     [MNDirectAchievementsProvider release]; MNDirectAchievementsProvider = nil;
     [MNDirectClientRobotsProvider release]; MNDirectClientRobotsProvider = nil;
     [MNDirectGameCookiesProvider release]; MNDirectGameCookiesProvider = nil;
+    [MNDirectGameRoomCookiesProvider release]; MNDirectGameRoomCookiesProvider = nil;
     [MNDirectMyHiScoresProvider release]; MNDirectMyHiScoresProvider = nil;
     [MNDirectPlayerListProvider release]; MNDirectPlayerListProvider = nil;
     [MNDirectScoreProgressProvider release]; MNDirectScoreProgressProvider = nil;
     [MNDirectVItemsProvider release]; MNDirectVItemsProvider = nil;
     [MNDirectVShopProvider release]; MNDirectVShopProvider = nil;
+    [MNDirectGameSettingsProvider release]; MNDirectGameSettingsProvider = nil;
 }
 
 static void initializeProviders (MNSession* session) {
     releaseProviders();
 
-    MNDirectAchievementsProvider  = [[MNAchievementsProvider alloc] initWithSession: session];
-    MNDirectClientRobotsProvider  = [[MNClientRobotsProvider alloc] initWithSession: session];
-    MNDirectGameCookiesProvider   = [[MNGameCookiesProvider alloc] initWithSession: session];
-    MNDirectMyHiScoresProvider    = [[MNMyHiScoresProvider alloc] initWithSession: session];
-    MNDirectPlayerListProvider    = [[MNPlayerListProvider alloc] initWithSession: session];
-    MNDirectScoreProgressProvider = [[MNScoreProgressProvider alloc] initWithSession: session];
-    MNDirectVItemsProvider        = [[MNVItemsProvider alloc] initWithSession: session];
-    MNDirectVShopProvider         = [[MNVShopProvider alloc] initWithSession: session andVItemsProvider: MNDirectVItemsProvider];
+    MNDirectAchievementsProvider    = [[MNAchievementsProvider alloc] initWithSession: session];
+    MNDirectClientRobotsProvider    = [[MNClientRobotsProvider alloc] initWithSession: session];
+    MNDirectGameCookiesProvider     = [[MNGameCookiesProvider alloc] initWithSession: session];
+    MNDirectGameRoomCookiesProvider = [[MNGameRoomCookiesProvider alloc] initWithSession: session];
+    MNDirectMyHiScoresProvider      = [[MNMyHiScoresProvider alloc] initWithSession: session];
+    MNDirectPlayerListProvider      = [[MNPlayerListProvider alloc] initWithSession: session];
+    MNDirectScoreProgressProvider   = [[MNScoreProgressProvider alloc] initWithSession: session];
+    MNDirectVItemsProvider          = [[MNVItemsProvider alloc] initWithSession: session];
+    MNDirectVShopProvider           = [[MNVShopProvider alloc] initWithSession: session andVItemsProvider: MNDirectVItemsProvider];
+    MNDirectGameSettingsProvider    = [[MNGameSettingsProvider alloc] initWithSession: session];
 }
 
 @implementation MNDirect
@@ -345,6 +353,10 @@ static void initializeProviders (MNSession* session) {
     return MNDirectGameCookiesProvider;
 }
 
++(MNGameRoomCookiesProvider*) gameRoomCookiesProvider {
+    return MNDirectGameRoomCookiesProvider;
+}
+
 +(MNMyHiScoresProvider*)    myHiScoresProvider {
     return MNDirectMyHiScoresProvider;
 }
@@ -363,6 +375,10 @@ static void initializeProviders (MNSession* session) {
 
 +(MNVShopProvider*) vShopProvider {
     return MNDirectVShopProvider;
+}
+
++(MNGameSettingsProvider*) gameSettingsProvider {
+    return MNDirectGameSettingsProvider;
 }
 
 @end

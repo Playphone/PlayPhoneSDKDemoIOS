@@ -49,7 +49,7 @@
 /**
  * @brief "Game cookies" MultiNet provider.
  *
- * "ScoreProgress" provider provides ability to store small pieces of information
+ * "Game cookies" provider provides ability to store small pieces of information
  * per player on server and retrieve it later.
  */
 @interface MNGameCookiesProvider : NSObject<MNSessionDelegate> {

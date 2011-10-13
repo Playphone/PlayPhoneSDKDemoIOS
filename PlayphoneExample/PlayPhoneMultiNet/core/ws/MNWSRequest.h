@@ -113,6 +113,7 @@
 -(NSString*) addAnyGameLeaderboardGlobal:(NSInteger) gameId gameSetId:(NSInteger) gameSetId period:(NSInteger) period;
 -(NSString*) addAnyUserAnyGameLeaderboardGlobal:(MNUserId) userId gameId:(NSInteger) gameId gameSetId:(NSInteger) gameSetId period:(NSInteger) period;
 -(NSString*) addCurrUserAnyGameLeaderboardLocal:(NSInteger) gameId gameSetId:(NSInteger) gameSetId period:(NSInteger) period;
+-(NSString*) addAnyUserGameCookies:(NSArray*) userIdList withKeys:(NSArray*) cookieKeyList;
 -(NSString*) addCurrUserSubscriptionStatusPlayPhone;
 
 -(void) addNameMappingForBlockName:(NSString*) blockName toParserName:(NSString*) parserName;

@@ -8,7 +8,9 @@
  * @li MNAchievementsProvider
  * @li MNClientRobotsProvider
  * @li MNGameCookiesProvider
+ * @li MNGameRoomCookiesProvider
  * @li MNVItemsProvider
  * @li MNVShopProvider
+ * @li MNGameSettingsProvider
  */
 
