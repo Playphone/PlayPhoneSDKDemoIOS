@@ -58,11 +58,11 @@ static NSString *PPSExUserAchievementsNotLoggedItMessage = @"User not logged in"
     
     if (![scanner scanInteger:&unlockAchId]) {
         PPSExShowAlert(@"Invalid number format", @"Input Error");
-        return;
     }
-
-    [[MNDirect achievementsProvider]unlockPlayerAchievement:unlockAchId];
-    [self.unlockAchIdTextField resignFirstResponder];
+    else {
+        [[MNDirect achievementsProvider]unlockPlayerAchievement:unlockAchId];
+        [self.unlockAchIdTextField resignFirstResponder];
+    }
 }
 
 - (IBAction)achIdEditingDidBegin:(id)sender {

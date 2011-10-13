@@ -44,7 +44,6 @@ static NSString *PPSExLeaderboardEmpty = @"<No data>";
     [super viewDidUnload];
 }
 
-
 - (void)dealloc {
     [_scoreTextField release];
     [_leaderboardTextView release];
@@ -62,6 +61,19 @@ static NSString *PPSExLeaderboardEmpty = @"<No data>";
 }
 
 - (IBAction)doPostScore:(id)sender {
+    [MNDirect setDefaultGameSetId:self.gameSetting.gameSetId];
+    
+    long long  score   = 0;
+    NSScanner* scanner = [[[NSScanner alloc] initWithString:self.scoreTextField.text]autorelease];
+    
+    if (![scanner scanLongLong:&score]) {
+        PPSExShowAlert(@"Invalid number format", @"Input Error");
+    }
+    else {
+        [MNDirect postGameScore:score];
+        
+        [self updateState];
+    }
 }
 
 - (void)updateState {
