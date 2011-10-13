@@ -52,13 +52,20 @@
     else {
         PPSExShowAlert(@"User is not logged in", @"Error");
     }
+    
+    [self.cookieTextField resignFirstResponder];
 }
 
 - (IBAction)doReadCloud:(id)sender {
     self.cookiesListTextView.text = @"";
     
-    for (NSInteger userCookie = 0;userCookie < 5;userCookie++) {
-        [[MNDirect gameCookiesProvider]downloadUserCookie:userCookie];
+    if ([MNDirect isUserLoggedIn]) {
+        for (NSInteger userCookie = 0;userCookie < 5;userCookie++) {
+            [[MNDirect gameCookiesProvider]downloadUserCookie:userCookie];
+        }
+    }
+    else {
+        PPSExShowAlert(@"User is not logged in", @"Error");
     }
 }
 
@@ -78,7 +85,7 @@
 }
 
 -(void) gameCookieUploadSucceeded:(NSInteger) key {
-    [[MNDirect gameCookiesProvider]downloadUserCookie:key];
+    [self doReadCloud:nil];
 }
 
 -(void) gameCookie:(NSInteger) key uploadFailedWithError:(NSString*) error {
