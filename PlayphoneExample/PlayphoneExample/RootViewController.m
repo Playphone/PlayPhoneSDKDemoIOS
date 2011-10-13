@@ -24,18 +24,18 @@ static NSString *PPSExMainScreenSectionNames[] =
 
 static PPSExMainScreenRowType PPSExMainScreenSection1Rows[] = 
 {
-    { @"Login User"           , @"", @"PPSExLoginUserViewController"         , @"PPSExLoginUserView"  },
-    { @"Dashboard"            , @"", @"PPSExDashboardViewController"         , @"PPSExDashboardView"  },
-    { @"Virtual Economy"      , @"", @"PPSExVEViewController"                , @"PPSExBasicTableView" }
+    { @"Login User"           , @"", @"PPSExLoginUserViewController"         , @"PPSExLoginUserView"   },
+    { @"Dashboard"            , @"", @"PPSExDashboardViewController"         , @"PPSExDashboardView"   },
+    { @"Virtual Economy"      , @"", @"PPSExVEViewController"                , @"PPSExBasicTableView"  }
 };
 
 static PPSExMainScreenRowType PPSExMainScreenSection2Rows[] = 
 {
-    { @"Current User Info"    , @"", @"PPSExUserInfoViewController"          , @"PPSExUserInfoView"},
-    { @"Leaderboards"         , @"", @""      , @""},
-    { @"Achievements"         , @"", @"PPSExAchievementsViewController"      , @"PPSExBasicTableView"},
-    { @"Social Graph"         , @"", @"PPSExSocialGraphViewController"       , @"PPSExBasicTableView"},
-    { @"Dashboard Control"    , @"", @"PPSExDashboardCtlViewController"      , @"PPSExBasicTableView"},
+    { @"Current User Info"    , @"", @"PPSExUserInfoViewController"          , @"PPSExUserInfoView"    },
+    { @"Leaderboards"         , @"", @"PPSExLeaderboardsListViewController"  , @"PPSExBasicTableView"  },
+    { @"Achievements"         , @"", @"PPSExAchievementsViewController"      , @"PPSExBasicTableView"  },
+    { @"Social Graph"         , @"", @"PPSExSocialGraphViewController"       , @"PPSExBasicTableView"  },
+    { @"Dashboard Control"    , @"", @"PPSExDashboardCtlViewController"      , @"PPSExBasicTableView"  },
     { @"Cloud Storage"        , @"", @"PPSExCloudStorageViewController"      , @"PPSExCloudStorageView"},
     { @"Multiplayer Basics"   , @"", @"" , @""}
 };
