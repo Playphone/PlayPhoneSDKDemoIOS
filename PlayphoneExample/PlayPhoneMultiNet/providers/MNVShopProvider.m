@@ -420,7 +420,7 @@ static void MNVShopWriteLog(NSString* message) {
 
 /* MNGameVocabularyDelegate protocol */
 -(void) mnGameVocabularyDownloadFinished:(int) downloadStatus {
-    if (downloadStatus > 0) {
+    if (downloadStatus >= 0) {
         [_delegates beginCall];
 
         for (id<MNVShopProviderDelegate> delegate in _delegates) {

@@ -645,7 +645,7 @@ static MNPlayerVItemInfo* getPlayerVItemInfoById (NSArray* vItems, int vItemId) 
 
 /* MNGameVocabularyDelegate protocol */
 -(void) mnGameVocabularyDownloadFinished:(int) downloadStatus {
-    if (downloadStatus > 0) {
+    if (downloadStatus >= 0) {
         [_delegates beginCall];
 
         for (id<MNVItemsProviderDelegate> delegate in _delegates) {

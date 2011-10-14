@@ -375,7 +375,7 @@ static NSString* stringWithCommaSeparatedAchievementIds (NSArray* achievementLis
 
 /* MNGameVocabularyDelegate protocol */
 -(void) mnGameVocabularyDownloadFinished:(int) downloadStatus {
-    if (downloadStatus > 0) {
+    if (downloadStatus >= 0) {
         [_delegates beginCall];
 
         for (id<MNAchievementsProviderDelegate> delegate in _delegates) {

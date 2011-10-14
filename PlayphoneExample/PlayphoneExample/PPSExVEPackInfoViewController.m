@@ -88,8 +88,8 @@
     self.priceLabel      .text = [NSString stringWithFormat:@"Price: %@"      ,MNVShopPackGetPriceString(self.packInfo)];
     self.descriptionLabel.text = [NSString stringWithFormat:@"Description: %@",self.packInfo.description];
     
-    self.isHiddenSwitch .on = self.packInfo.model & MNVItemIsHiddenMask;
-    self.holdSalesSwitch.on = self.packInfo.model & MNVItemIsHoldSalesMask;
+    self.isHiddenSwitch .on = self.packInfo.model & MNVShopPackIsHiddenMask;
+    self.holdSalesSwitch.on = self.packInfo.model & MNVShopPackIsHoldSalesMask;
     
     self.paramsTextView.text = self.packInfo.appParams;
     
