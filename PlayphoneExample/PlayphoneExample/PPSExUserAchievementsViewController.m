@@ -12,9 +12,6 @@
 #import "PPSExCommon.h"
 #import "PPSExUserAchievementsViewController.h"
 
-static NSString *PPSExUserAchievementsNotLoggedItMessage = @"User not logged in";
-#define PPSExUserAchievementsDefCapacity   (1024)
-
 #define PPSExKeyboardHeight                     (263)
 #define PPSExNavigationPaneHeight               (65)
 #define PPSExTextFieldGap                       (10)
@@ -49,20 +46,19 @@ static NSString *PPSExUserAchievementsNotLoggedItMessage = @"User not logged in"
 }
 
 - (IBAction)doUnlockAchievements:(id)sender {
+    NSInteger unlockAchId = 0;
+    
     if (![MNDirect isUserLoggedIn]) {
-        PPSExShowAlert(PPSExUserAchievementsNotLoggedItMessage, @"");
+        PPSExShowAlert(PPSExUserNotLoggedInString, @"");
     }
-    
-    NSScanner* scanner = [[[NSScanner alloc] initWithString:self.unlockAchIdTextField.text]autorelease];
-    NSInteger unlockAchId;
-    
-    if (![scanner scanInteger:&unlockAchId]) {
-        PPSExShowAlert(@"Invalid number format", @"Input Error");
+    else if (!PPSExScanInteger(self.unlockAchIdTextField.text,&unlockAchId)) {
+        PPSExShowInvalidNumberFormatAlert();
     }
     else {
         [[MNDirect achievementsProvider]unlockPlayerAchievement:unlockAchId];
-        [self.unlockAchIdTextField resignFirstResponder];
     }
+
+    [self.unlockAchIdTextField resignFirstResponder];
 }
 
 - (IBAction)achIdEditingDidBegin:(id)sender {
@@ -89,12 +85,12 @@ static NSString *PPSExUserAchievementsNotLoggedItMessage = @"User not logged in"
 }
 - (void)updateView {
     if (![MNDirect isUserLoggedIn]) {
-        self.userAchievementsTextView.text = PPSExUserAchievementsNotLoggedItMessage;
+        self.userAchievementsTextView.text = PPSExUserNotLoggedInString;
         
         return;
     }
     
-    NSMutableString *userAchListString = [NSMutableString stringWithCapacity:PPSExUserAchievementsDefCapacity];
+    NSMutableString *userAchListString = [NSMutableString stringWithCapacity:PPSExCommonStringDefCapacity];
     NSString        *achName           = nil;
     
     NSArray *userAchList = [[MNDirect achievementsProvider]getPlayerAchievementList];
@@ -133,7 +129,7 @@ static NSString *PPSExUserAchievementsNotLoggedItMessage = @"User not logged in"
 - (void)playerLoggedOut {
     [self updateState];
     
-    self.userAchievementsTextView.text = PPSExUserAchievementsNotLoggedItMessage;
+    self.userAchievementsTextView.text = PPSExUserNotLoggedInString;
 }
 
 

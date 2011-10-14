@@ -8,6 +8,9 @@
 
 #import "PPSExCommon.h"
 
+NSString *PPSExUserNotLoggedInString     = @"User is not logged in";
+NSString *PPSExInvalidNumberFormatString = @"Invalid number format";
+
 @implementation PPSExMainScreenRowTypeObject
 
 @synthesize rowTitle = _rowTitle;
@@ -81,4 +84,42 @@ void PPSExShowAlert(NSString *message,NSString *title) {
     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:title message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [alert show];
     [alert release];
+}
+
+void PPSExShowWSRequestErrorAlert(NSString *message) {
+    PPSExShowAlert(message,@"WS Request Error");
+}
+
+void PPSExShowNotLoggedInAlert (void) {
+    PPSExShowAlert(PPSExUserNotLoggedInString,@"Error");
+}
+
+void PPSExShowInvalidNumberFormatAlert (void) {
+    PPSExShowAlert(PPSExInvalidNumberFormatString,@"Input Error");
+}
+
+BOOL PPSExScanInteger(NSString *string,NSInteger *integerValuePtr) {
+    BOOL       result  = NO;
+    NSScanner* scanner = [[NSScanner alloc]initWithString:string];
+    
+    if (scanner != nil) {
+        result = [scanner scanInteger:integerValuePtr];
+        
+        [scanner release];
+    }
+    
+    return result;
+}
+
+BOOL PPSExScanLongLong(NSString *string,long long *integerValuePtr) {
+    BOOL       result  = NO;
+    NSScanner* scanner = [[NSScanner alloc]initWithString:string];
+    
+    if (scanner != nil) {
+        result = [scanner scanLongLong:integerValuePtr];
+        
+        [scanner release];
+    }
+    
+    return result;
 }

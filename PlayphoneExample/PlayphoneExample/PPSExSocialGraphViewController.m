@@ -72,7 +72,7 @@ static NSString *PPSExSocialGraphSectionNames[] =
     ((UITableView*)self.view).tableFooterView = nil;
     
     if (![MNDirect isUserLoggedIn]) {
-        [self showFooterLabelWithText:@"User is not logged in"];
+        [self showFooterLabelWithText:PPSExUserNotLoggedInString];
     }
     else if ((self.buddyList == nil) || ([self.buddyList count] == 0)) {
         [self showFooterLabelWithText:@"No friends detected"];
@@ -123,7 +123,7 @@ static NSString *PPSExSocialGraphSectionNames[] =
 }
 
 -(void) wsRequestDidFailWithError:(MNWSRequestError*) error {
-    PPSExShowAlert([NSString stringWithFormat:@"Message: %@",error.message],@"Buddy Request Failed");
+    PPSExShowWSRequestErrorAlert(error.message);
 
     self.requestBlockName = nil;
     
@@ -141,7 +141,7 @@ static NSString *PPSExSocialGraphSectionNames[] =
     self.sectionRows = nil;
     [self.tableView reloadData];
     
-    [self showFooterLabelWithText:@"User is not logged in"];
+    [self showFooterLabelWithText:PPSExUserNotLoggedInString];
 }
 
 @end

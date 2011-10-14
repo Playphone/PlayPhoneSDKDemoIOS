@@ -11,9 +11,9 @@
 #import "MNUserInfo.h"
 #import "MNWSBuddyListItem.h"
 
-#import "PPSExUserInfoViewController.h"
+#import "PPSExCommon.h"
 
-#define PPSExDetailsDefCapacity        (1024)
+#import "PPSExUserInfoViewController.h"
 
 @implementation PPSExUserInfoViewController
 @synthesize buddyInfo = _buddyInfo;
@@ -42,7 +42,7 @@
     if (self.buddyInfo == nil) {
         self.headerLabel.text = @"Details for the Current User";
         
-        NSMutableString *userDetails = [NSMutableString stringWithCapacity:PPSExDetailsDefCapacity];
+        NSMutableString *userDetails = [NSMutableString stringWithCapacity:PPSExCommonStringDefCapacity];
         
         MNUserInfo *userInfo = [[MNDirect getSession]getMyUserInfo];
         
@@ -57,7 +57,7 @@
     else {
         self.headerLabel.text = @"Buddy details";
         
-        NSMutableString *userDetails = [NSMutableString stringWithCapacity:PPSExDetailsDefCapacity];
+        NSMutableString *userDetails = [NSMutableString stringWithCapacity:PPSExCommonStringDefCapacity];
         
         [userDetails appendFormat:@"User Name: %@\n",[self.buddyInfo getFriendUserNickName]];
         [userDetails appendFormat:@"User Id: %lld\n",[self.buddyInfo getFriendUserId].longLongValue];

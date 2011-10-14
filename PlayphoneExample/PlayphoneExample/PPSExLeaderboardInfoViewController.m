@@ -21,6 +21,7 @@ static NSString *PPSExLeaderboardEmpty = @"<No data>";
 @property (nonatomic,retain) NSArray *leaderboardData;
 
 - (void)updateView;
+- (void)switchToLoggedInState;
 - (void)switchToNotLoggedInState;
 
 @end
@@ -65,14 +66,13 @@ static NSString *PPSExLeaderboardEmpty = @"<No data>";
 }
 
 - (IBAction)doPostScore:(id)sender {
-    long long  score   = 0;
-    NSScanner* scanner = [[[NSScanner alloc] initWithString:self.scoreTextField.text]autorelease];
+    long long  score = 0;
     
     if (![MNDirect isUserLoggedIn]) {
-        PPSExShowAlert(@"User is not logged in", @"Input Error");
+        PPSExShowNotLoggedInAlert();
     }
-    else if (![scanner scanLongLong:&score]) {
-        PPSExShowAlert(@"Invalid number format", @"Input Error");
+    else if (!PPSExScanLongLong(self.scoreTextField.text,&score)) {
+        PPSExShowInvalidNumberFormatAlert();
     }
     else {
         [MNDirect postGameScore:score];
@@ -84,13 +84,12 @@ static NSString *PPSExLeaderboardEmpty = @"<No data>";
 }
 
 - (void)updateState {
-    self.postScoreButton.enabled = YES;
-    self.leaderboardTextView.text = PPSExLeaderboardEmpty;
-
     if (![MNDirect isUserLoggedIn]) {
         [self switchToNotLoggedInState];
     }
     else if (self.gameSetting != nil) {
+        [self switchToLoggedInState];
+        
         [MNDirect setDefaultGameSetId:self.gameSetting.gameSetId];
         
         MNWSRequestContent* requestContent = [[[MNWSRequestContent alloc] init] autorelease];
@@ -101,6 +100,9 @@ static NSString *PPSExLeaderboardEmpty = @"<No data>";
         
         [requestSender sendWSRequestAuthorized: requestContent withDelegate: self];
     }
+    else {
+        [self switchToNotLoggedInState];
+    }
 }
 
 - (void)updateView {
@@ -108,7 +110,7 @@ static NSString *PPSExLeaderboardEmpty = @"<No data>";
         self.leaderboardTextView.text = PPSExLeaderboardEmpty;
     }
     else {
-        NSMutableString *leaderboardDataString = [NSMutableString stringWithCapacity:1024];
+        NSMutableString *leaderboardDataString = [NSMutableString stringWithCapacity:PPSExCommonStringDefCapacity];
         
         for (MNWSLeaderboardListItem* leaderboardItem in self.leaderboardData) {
             if ([leaderboardItem getGamesetId].intValue == self.gameSetting.gameSetId) {
@@ -123,9 +125,14 @@ static NSString *PPSExLeaderboardEmpty = @"<No data>";
     }
 }
 
+- (void)switchToLoggedInState {
+    self.postScoreButton.enabled = YES;
+    self.leaderboardTextView.text = PPSExLeaderboardEmpty;
+}
+
 - (void)switchToNotLoggedInState {
     self.postScoreButton.enabled = NO;
-    self.leaderboardTextView.text = @"User is not logged in";
+    self.leaderboardTextView.text = PPSExUserNotLoggedInString;
 }
 
 #pragma mark - MNWSRequestDelegate
@@ -139,7 +146,7 @@ static NSString *PPSExLeaderboardEmpty = @"<No data>";
 }
 
 -(void) wsRequestDidFailWithError:(MNWSRequestError*) error {
-    PPSExShowAlert([NSString stringWithFormat:@"Error: %@",error.message], @"Request error");
+    PPSExShowWSRequestErrorAlert(error.message);
     
     self.requestBlockName = nil;
 }

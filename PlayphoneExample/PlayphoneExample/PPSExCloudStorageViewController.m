@@ -12,9 +12,18 @@
 #import "PPSExCommon.h"
 #import "PPSExCloudStorageViewController.h"
 
+static NSString *PPSExCloudStorageUploadError = @"Upload Error";
+
+@interface PPSExCloudStorageViewController()
+- (void)switchToLoggedInState;
+- (void)switchToNotLoggedInState;
+@end
+
 @implementation PPSExCloudStorageViewController
 @synthesize cookieTextField = _cookieTextField;
 @synthesize cookiesListTextView = _cookiesListTextView;
+@synthesize storeInCloudButton = _storeInCloudButton;
+@synthesize readCloudButton = _readCloudButton;
 
 - (void)viewDidLoad {
     [[MNDirect gameCookiesProvider]addDelegate:self];
@@ -23,6 +32,8 @@
     [self setCookieTextField:nil];
     [self setCookiesListTextView:nil];
 
+    [self setStoreInCloudButton:nil];
+    [self setReadCloudButton:nil];
     [super viewDidUnload];
 }
 
@@ -33,16 +44,30 @@
     
     [[MNDirect gameCookiesProvider]removeDelegate:self];
 
+    [_storeInCloudButton release];
+    [_readCloudButton release];
     [super dealloc];
 }
 
 - (void)updateState {
     if (![MNDirect isUserLoggedIn]) {
-        self.cookiesListTextView.text = @"User is not logged in";
+        [self switchToNotLoggedInState];
     }
     else {
-        self.cookiesListTextView.text = @"";
+        [self switchToNotLoggedInState];
     }
+}
+
+- (void)switchToLoggedInState {
+    self.cookiesListTextView.text = @"";
+    self.storeInCloudButton.enabled = YES;
+    self.readCloudButton   .enabled = YES;
+}
+
+- (void)switchToNotLoggedInState {
+    self.cookiesListTextView.text = PPSExUserNotLoggedInString;
+    self.storeInCloudButton.enabled = NO;
+    self.readCloudButton   .enabled = NO;
 }
 
 - (IBAction)doStoreInCloud:(id)sender {
@@ -50,14 +75,14 @@
         [[MNDirect gameCookiesProvider]uploadUserCookieWithKey:rand() % 5 andCookie:self.cookieTextField.text];
     }
     else {
-        PPSExShowAlert(@"User is not logged in", @"Error");
+        PPSExShowNotLoggedInAlert();
     }
     
     [self.cookieTextField resignFirstResponder];
 }
 
 - (IBAction)doReadCloud:(id)sender {
-    self.cookiesListTextView.text = @"";
+    [self updateState];
     
     if ([MNDirect isUserLoggedIn]) {
         for (NSInteger userCookie = 0;userCookie < 5;userCookie++) {
@@ -65,9 +90,11 @@
         }
     }
     else {
-        PPSExShowAlert(@"User is not logged in", @"Error");
+        PPSExShowNotLoggedInAlert();
     }
 }
+
+#pragma mark - MNGameCookiesProviderDelegate
 
 -(void) gameCookie:(NSInteger) key downloadSucceeded:(NSString*) cookie {
     self.cookiesListTextView.text = [NSString stringWithFormat:
@@ -89,7 +116,7 @@
 }
 
 -(void) gameCookie:(NSInteger) key uploadFailedWithError:(NSString*) error {
-    PPSExShowAlert([NSString stringWithFormat:@"Message: %@",error], @"Upload error");
+    PPSExShowAlert(error,PPSExCloudStorageUploadError);
 }
 
 #pragma mark - PPSExBasicNotificationProtocol
@@ -100,7 +127,7 @@
 
 - (void)playerLoggedOut {
     // [self updateState];
-    self.cookiesListTextView.text = @"User is not logged in";
+    [self switchToNotLoggedInState];
 }
 
 #pragma mark - UITextFieldDelegate
@@ -109,6 +136,5 @@
     [textField resignFirstResponder];
     return NO;
 }
-
 
 @end

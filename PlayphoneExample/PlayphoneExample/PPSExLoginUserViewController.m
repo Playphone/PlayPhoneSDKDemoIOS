@@ -9,6 +9,7 @@
 #import "MNDirect.h"
 #import "MNDirectUIHelper.h"
 
+#import "PPSExCommon.h"
 #import "PPSExLoginUserViewController.h"
 
 @interface PPSExLoginUserViewController()
@@ -23,41 +24,14 @@
 @synthesize loginButton;
 @synthesize logoutButton;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
-- (void)didReceiveMemoryWarning
-{
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc that aren't in use.
-}
-
-#pragma mark - View lifecycle
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-}
-
-- (void)viewDidUnload
-{
+- (void)viewDidUnload {
     [self setUserIdLabel:nil];
     [self setUserNameLabel:nil];
     [self setUserStatusLabel:nil];
     [self setLoginButton:nil];
     [self setLogoutButton:nil];
+
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 - (IBAction)doLogin:(id)sender {
@@ -79,6 +53,17 @@
     [super dealloc];
 }
 
+- (void)updateState {
+    if ([MNDirect isUserLoggedIn]) {
+        [self playerLoggedIn];
+    }
+    else {
+        [self playerLoggedOut];
+    }
+}
+
+#pragma mark - PPSExBasicNotificationProtocol
+
 - (void)playerLoggedIn {
     self.userIdLabel    .text = [NSString stringWithFormat:@"%lld",[[MNDirect getSession]getMyUserId]];
     self.userNameLabel  .text = [[MNDirect getSession]getMyUserName];
@@ -87,22 +72,14 @@
     loginButton .enabled = NO;
     logoutButton.enabled = YES;
 }
+
 - (void)playerLoggedOut {
     self.userIdLabel    .text = @"[nil]";
     self.userNameLabel  .text = @"[nil]";
-    self.userStatusLabel.text = @"User is not logged in";
+    self.userStatusLabel.text = PPSExUserNotLoggedInString;
     
     loginButton .enabled = YES;
     logoutButton.enabled = NO;
-}
-
-- (void)updateState {
-    if ([MNDirect isUserLoggedIn]) {
-        [self playerLoggedIn];
-    }
-    else {
-        [self playerLoggedOut];
-    }
 }
 
 @end

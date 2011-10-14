@@ -17,6 +17,8 @@
 
 @property (nonatomic, retain) IBOutlet UITextField *cookieTextField;
 @property (nonatomic, retain) IBOutlet UITextView *cookiesListTextView;
+@property (retain, nonatomic) IBOutlet UIButton *storeInCloudButton;
+@property (retain, nonatomic) IBOutlet UIButton *readCloudButton;
 
 - (IBAction)doStoreInCloud:(id)sender;
 - (IBAction)doReadCloud:(id)sender;
