@@ -11,7 +11,7 @@
 #import "MNSession.h"
 #import "MNGameVocabulary.h"
 
-#define MNAchievementIsSecretMask    (0x0001)
+#define MNAchievementIsSecretMask (0x0001)
 
 /**
  * @brief "Achievements" delegate protocol.

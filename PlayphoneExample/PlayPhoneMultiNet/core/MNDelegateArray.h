@@ -34,28 +34,42 @@
 
 @end
 
-#define MN_DELEGATE_ARRAY_CALL_NOARG(protocol,delegates,sel)      \
-do {                                                              \
-    [(delegates) beginCall];                                      \
-                                                                  \
-    for (id<protocol> delegate in (delegates)) {                  \
-        if ([delegate respondsToSelector: @selector(sel)]) {      \
-            [delegate sel];                                       \
-        }                                                         \
-    }                                                             \
-                                                                  \
-    [(delegates) endCall];                                        \
+#define MN_DELEGATE_ARRAY_CALL_PROLOG(protocol,delegates) \
+do {                                                      \
+    [(delegates) beginCall];                              \
+                                                          \
+    for (id<protocol> delegate in (delegates)) {
+
+#define MN_DELEGATE_ARRAY_CALL_EPILOG(delegates) \
+    }                                            \
+                                                 \
+    [(delegates) endCall];                       \
 } while (0)
 
+#define MN_DELEGATE_ARRAY_CALL_NOARG(protocol,delegates,sel) \
+    MN_DELEGATE_ARRAY_CALL_PROLOG(protocol,delegates)        \
+    if ([delegate respondsToSelector: @selector(sel)]) {     \
+        [delegate sel];                                      \
+    }                                                        \
+    MN_DELEGATE_ARRAY_CALL_EPILOG(delegates)
+
 #define MN_DELEGATE_ARRAY_CALL_ARG1(protocol,delegates,sel0,arg0) \
-do {                                                              \
-    [(delegates) beginCall];                                      \
-                                                                  \
-    for (id<protocol> delegate in (delegates)) {                  \
-        if ([delegate respondsToSelector: @selector(sel0:)]) {    \
-            [delegate sel0: (arg0)];                              \
-        }                                                         \
+    MN_DELEGATE_ARRAY_CALL_PROLOG(protocol,delegates)             \
+    if ([delegate respondsToSelector: @selector(sel0:)]) {        \
+        [delegate sel0: (arg0)];                                  \
     }                                                             \
-                                                                  \
-    [(delegates) endCall];                                        \
-} while (0)
+    MN_DELEGATE_ARRAY_CALL_EPILOG(delegates)
+
+#define MN_DELEGATE_ARRAY_CALL_ARG2(protocol,delegates,sel0,arg0,sel1,arg1) \
+    MN_DELEGATE_ARRAY_CALL_PROLOG(protocol,delegates)                       \
+    if ([delegate respondsToSelector: @selector(sel0:sel1:)]) {             \
+        [delegate sel0: (arg0) sel1: (arg1)];                               \
+    }                                                                       \
+    MN_DELEGATE_ARRAY_CALL_EPILOG(delegates)
+
+#define MN_DELEGATE_ARRAY_CALL_ARG3(protocol,delegates,sel0,arg0,sel1,arg1,sel2,arg2) \
+    MN_DELEGATE_ARRAY_CALL_PROLOG(protocol,delegates)                                 \
+    if ([delegate respondsToSelector: @selector(sel0:sel1:sel2:)]) {                  \
+        [delegate sel0: (arg0) sel1: (arg1) sel2: (arg2)];                            \
+    }                                                                                 \
+    MN_DELEGATE_ARRAY_CALL_EPILOG(delegates)

@@ -102,7 +102,7 @@
         self.amountLabel.text = PPSExVEManageInventoryNotLoggedInString;
     }
 }
-
+/*
 - (BOOL)getUserAmountDelta:(NSInteger*)amountPtr {
     BOOL result = NO;
     NSScanner* scanner = [[NSScanner alloc] initWithString:self.itemAmountTextField.text];
@@ -115,20 +115,20 @@
     
     return result;
 }
-
+*/
 - (IBAction)doAddItems:(id)sender {
     NSInteger amount;
     
     MNGameVItemInfo *itemInfo = [self.itemList objectAtIndex:[self.itemPickerView selectedRowInComponent:0]];
     
     if (itemInfo != nil) {
-        if ([self getUserAmountDelta:&amount]) {
+        if (!PPSExScanInteger(self.itemAmountTextField.text,&amount)){
+            PPSExShowInvalidNumberFormatAlert();
+        }
+        else {
             [[MNDirect vItemsProvider]reqAddPlayerVItem:itemInfo.vItemId
                                                   count:amount
                                  andClientTransactionId:[[MNDirect vItemsProvider]getNewClientTransactionId]];
-        }
-        else {
-            PPSExShowAlert(@"Invalid amount", @"Input Error");
         }
     }
 
@@ -141,14 +141,14 @@
     MNGameVItemInfo *itemInfo = [self.itemList objectAtIndex:[self.itemPickerView selectedRowInComponent:0]];
     
     if (itemInfo != nil) {
-        if ([self getUserAmountDelta:&amount]) {
+        if (!PPSExScanInteger(self.itemAmountTextField.text,&amount)){
+            PPSExShowInvalidNumberFormatAlert();
+        }
+        else {
             [[MNDirect vItemsProvider]reqAddPlayerVItem:itemInfo.vItemId
                                                   count:-amount
                                  andClientTransactionId:[[MNDirect vItemsProvider]getNewClientTransactionId]];
         }
-    }
-    else {
-        PPSExShowAlert(@"Invalid amount", @"Input Error");
     }
 
     [self.itemAmountTextField resignFirstResponder];

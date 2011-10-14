@@ -20,6 +20,10 @@
 
 #define DeclaredArraySize(Array) ((int)(sizeof(Array) / sizeof(Array[0])))
 
+#define PPSExCommonStringDefCapacity (1024)
+
+NSString *PPSExUserNotLoggedInString;
+
 typedef struct
 {
     NSString *rowTitle;
@@ -52,5 +56,13 @@ typedef struct
 @end
 
 NSString *MNVShopPackGetPriceString(MNVShopPackInfo *packInfo);
+
 void PPSExShowAlert(NSString *message,NSString *title);
+void PPSExShowWSRequestErrorAlert(NSString *message);
+void PPSExShowNotLoggedInAlert (void);
+void PPSExShowInvalidNumberFormatAlert(void);
+
+BOOL PPSExScanInteger(NSString *string,NSInteger *integerValuePtr);
+BOOL PPSExScanLongLong(NSString *string,long long *integerValuePtr);
+
 #endif

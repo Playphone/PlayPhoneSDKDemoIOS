@@ -25,22 +25,6 @@ static void MNVShopWriteLog(NSString* message) {
     NSLog(@"MNVShopProvider: %@",message);
 }
 
-static NSString* mnStringWithIntList (NSArray* array) {
-    NSMutableString* result = [NSMutableString string];
-    NSUInteger index;
-    NSUInteger count = [array count];
-
-    if (count > 0) {
-        [result appendFormat: @"%d",[((NSNumber*)[array objectAtIndex: 0]) intValue]];
-
-        for (index = 1; index < count; index++) {
-            [result appendFormat: @",%d",[((NSNumber*)[array objectAtIndex: index]) intValue]];
-        }
-    }
-
-    return result;
-}
-
 // Internal interface of MNVItemsProvider
 @interface MNVItemsProvider()
 -(MNVItemsTransactionInfo*) applyTransactionFromDictionary:(NSDictionary*) params vItemsItemSeparator:(NSString*) vItemsItemSeparator vItemsFieldSeparator:(NSString*) vItemsFieldSeparator;
@@ -400,8 +384,8 @@ static NSString* mnStringWithIntList (NSArray* array) {
 }
 
 -(void) execCheckoutVShopPacks:(NSArray*) packIdArray packCount:(NSArray*) packCount clientTransactionId:(MNVItemTransactionId) clientTransactionId {
-    NSString* packIdStr    = mnStringWithIntList(packIdArray);
-    NSString* packCountStr = mnStringWithIntList(packCount);
+    NSString* packIdStr    = MNStringWithIntList(packIdArray,@",");
+    NSString* packCountStr = MNStringWithIntList(packCount,@",");
 
     [_session execAppCommand: @"jumpToBuyVShopPackRequestDialogSimple"
                    withParam: [NSString stringWithFormat: @"pack_id=%@&buy_count=%@&client_transaction_id=%lld",packIdStr,packCountStr,clientTransactionId]];
@@ -412,8 +396,8 @@ static NSString* mnStringWithIntList (NSArray* array) {
 
     if (webServerUrl != nil) {
         NSMutableDictionary* params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                       mnStringWithIntList(packIdArray),@"proc_pack_id",
-                                       mnStringWithIntList(packCount),@"proc_pack_count",
+                                       MNStringWithIntList(packIdArray,@","),@"proc_pack_id",
+                                       MNStringWithIntList(packCount,@","),@"proc_pack_count",
                                        [NSString stringWithFormat: @"%lld",clientTransactionId],@"proc_client_transaction_id",
                                        nil];
 
@@ -436,7 +420,7 @@ static NSString* mnStringWithIntList (NSArray* array) {
 
 /* MNGameVocabularyDelegate protocol */
 -(void) mnGameVocabularyDownloadFinished:(int) downloadStatus {
-    if (downloadStatus > 0) {
+    if (downloadStatus >= 0) {
         [_delegates beginCall];
 
         for (id<MNVShopProviderDelegate> delegate in _delegates) {

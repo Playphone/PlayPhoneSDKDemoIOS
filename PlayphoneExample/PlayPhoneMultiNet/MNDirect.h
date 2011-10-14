@@ -14,11 +14,13 @@
 @class MNAchievementsProvider;
 @class MNClientRobotsProvider;
 @class MNGameCookiesProvider;
+@class MNGameRoomCookiesProvider;
 @class MNMyHiScoresProvider;
 @class MNPlayerListProvider;
 @class MNScoreProgressProvider;
 @class MNVItemsProvider;
 @class MNVShopProvider;
+@class MNGameSettingsProvider;
 
 /**
  * @brief MultiNet "Direct" delegate protocol [Simple].
@@ -235,6 +237,12 @@
 +(MNGameCookiesProvider*)   gameCookiesProvider;
 
 /**
+ * Get room cookies provider instance
+ * @return MNGameRoomCookiesProvider object instance
+ */
++(MNGameRoomCookiesProvider*)   gameRoomCookiesProvider;
+
+/**
  * Get hi-scores provider instance
  * @return MNMyHiScoresProvider object instance
  */
@@ -263,5 +271,11 @@
  * @return MNVShopProvider object instance
  */
 +(MNVShopProvider*) vShopProvider;
+
+/**
+ * Get game settings provider instance
+ * @return MNGameSettingsProvider object instance
+ */
++(MNGameSettingsProvider*) gameSettingsProvider;
 
 @end

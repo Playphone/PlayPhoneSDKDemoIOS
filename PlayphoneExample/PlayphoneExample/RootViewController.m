@@ -19,25 +19,31 @@
 static NSString *PPSExMainScreenSectionNames[] = 
 {
     @"Required Integration",
-    @"Advanced Features"
+    @"Advanced Features"   ,
+    @"System Information"
 };
 
 static PPSExMainScreenRowType PPSExMainScreenSection1Rows[] = 
 {
-    { @"Login User"           , @"", @"PPSExLoginUserViewController"         , @"PPSExLoginUserView"  },
-    { @"Dashboard"            , @"", @"PPSExDashboardViewController"         , @"PPSExDashboardView"  },
-    { @"Virtual Economy"      , @"", @"PPSExVEViewController"                , @"PPSExBasicTableView" }
+    { @"Login User"           , @"", @"PPSExLoginUserViewController"         , @"PPSExLoginUserView"   },
+    { @"Dashboard"            , @"", @"PPSExDashboardViewController"         , @"PPSExDashboardView"   },
+    { @"Virtual Economy"      , @"", @"PPSExVEViewController"                , @"PPSExBasicTableView"  }
 };
 
 static PPSExMainScreenRowType PPSExMainScreenSection2Rows[] = 
 {
-    { @"Current User Info"    , @"", @"PPSExUserInfoViewController"          , @"PPSExUserInfoView"},
-    { @"Leaderboards"         , @"", @""      , @""},
-    { @"Achievements"         , @"", @"PPSExAchievementsViewController"      , @"PPSExBasicTableView"},
-    { @"Social Graph"         , @"", @"PPSExSocialGraphViewController"       , @"PPSExBasicTableView"},
-    { @"Dashboard Control"    , @"", @"PPSExDashboardCtlViewController"      , @"PPSExBasicTableView"},
+    { @"Current User Info"    , @"", @"PPSExUserInfoViewController"          , @"PPSExUserInfoView"    },
+    { @"Leaderboards"         , @"", @"PPSExLeaderboardsListViewController"  , @"PPSExBasicTableView"  },
+    { @"Achievements"         , @"", @"PPSExAchievementsViewController"      , @"PPSExBasicTableView"  },
+    { @"Social Graph"         , @"", @"PPSExSocialGraphViewController"       , @"PPSExBasicTableView"  },
+    { @"Dashboard Control"    , @"", @"PPSExDashboardCtlViewController"      , @"PPSExBasicTableView"  },
     { @"Cloud Storage"        , @"", @"PPSExCloudStorageViewController"      , @"PPSExCloudStorageView"},
     { @"Multiplayer Basics"   , @"", @"" , @""}
+};
+
+static PPSExMainScreenRowType PPSExMainScreenSection3Rows[] = 
+{
+    { @"Application Info"     , @"", @"PPSExAppInfoViewController"          , @"PPSExAppInfoView"      }
 };
 
 @interface RootViewController()
@@ -74,6 +80,8 @@ static PPSExMainScreenRowType PPSExMainScreenSection2Rows[] =
                                                                                count:DeclaredArraySize(PPSExMainScreenSection1Rows)],
                                   [PPSExMainScreenRowTypeObject getArrayOfNativeRows:PPSExMainScreenSection2Rows 
                                                                                count:DeclaredArraySize(PPSExMainScreenSection2Rows)],
+                                  [PPSExMainScreenRowTypeObject getArrayOfNativeRows:PPSExMainScreenSection3Rows
+                                                                               count:DeclaredArraySize(PPSExMainScreenSection3Rows)],
                                   nil];
     
     self.sectionNames = sectionNamesArray;

@@ -21,6 +21,7 @@
 #import "MNWSCurrentUserInfo.h"
 #import "MNWSRoomListItem.h"
 #import "MNWSRoomUserInfoItem.h"
+#import "MNWSUserGameCookie.h"
 
 #define MNWSSNIdPlayPhone (4)
 
@@ -381,6 +382,12 @@ static NSString* getScopeNameByCode (NSInteger scope) {
     return [self addCurrUserSubscriptionStatusForSnId: MNWSSNIdPlayPhone];
 }
 
+-(NSString*) addAnyUserGameCookies:(NSArray*) userIdList withKeys:(NSArray*) cookieKeyList {
+    return [self addInfoBlock: @"anyUserGameCookies"
+                   withParam1: MNStringWithUnsignedLongLongList(userIdList,@"^")
+                    andParam2: MNStringWithIntList(cookieKeyList,@"^")];
+}
+
 -(void) addNameMappingForBlockName:(NSString*) blockName toParserName:(NSString*) parserName {
     if (mapping == nil) {
         mapping = [[NSMutableDictionary alloc] init];
@@ -459,6 +466,9 @@ static NSString* getScopeNameByCode (NSInteger scope) {
     [_parsers setObject: [MNWSXmlGenericItemListParser MNWSXmlGenericItemListParserWithItemTagName: @"roomUserInfoItem"
                                                                                      andItemParser: [MNWSXmlGenericParser MNWSXmlGenericParserWithDataClass: [MNWSRoomUserInfoItem class]]]
                  forKey: @"currentGameRoomUserList"];
+    [_parsers setObject: [MNWSXmlGenericItemListParser MNWSXmlGenericItemListParserWithItemTagName: @"anyUserGameCookieItem"
+                                                                                     andItemParser: [MNWSXmlGenericParser MNWSXmlGenericParserWithDataClass: [MNWSUserGameCookie class]]]
+                 forKey: @"anyUserGameCookies"];
 }
 
 -(MNWSRequest*) sendWSRequest:(MNWSRequestContent*) requestContent withDelegate:(id<MNWSRequestDelegate>) delegate {

@@ -28,6 +28,9 @@ mn_extern_c long long MNStringScanLongLongWithDefValue (NSString* str, long long
 mn_extern_c NSString* MNStringCreateFromInteger(NSInteger value);
 mn_extern_c NSString* MNStringCreateFromLongLong(long long value);
 
+mn_extern_c NSString* MNStringWithIntList (NSArray* array, NSString* joinString);
+mn_extern_c NSString* MNStringWithUnsignedLongLongList (NSArray* array, NSString* joinString);
+
 mn_extern_c NSString* MNCreateStringByReplacingPercentEscapesUTF8 (NSString* src);
 mn_extern_c NSDictionary* MNCopyDictionaryWithGetRequestParamString (NSString* paramString);
 mn_extern_c NSDictionary* MNCopyDictionaryWithURLRequestParameters (NSURLRequest* request);
