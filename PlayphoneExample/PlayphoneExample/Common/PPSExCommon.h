@@ -20,6 +20,8 @@
 
 #define DeclaredArraySize(Array) ((int)(sizeof(Array) / sizeof(Array[0])))
 
+#define PPSExCommonStringDefCapacity (1024)
+
 typedef struct
 {
     NSString *rowTitle;

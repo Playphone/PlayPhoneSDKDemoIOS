@@ -19,7 +19,8 @@
 static NSString *PPSExMainScreenSectionNames[] = 
 {
     @"Required Integration",
-    @"Advanced Features"
+    @"Advanced Features"   ,
+    @"System Information"
 };
 
 static PPSExMainScreenRowType PPSExMainScreenSection1Rows[] = 
@@ -38,6 +39,11 @@ static PPSExMainScreenRowType PPSExMainScreenSection2Rows[] =
     { @"Dashboard Control"    , @"", @"PPSExDashboardCtlViewController"      , @"PPSExBasicTableView"  },
     { @"Cloud Storage"        , @"", @"PPSExCloudStorageViewController"      , @"PPSExCloudStorageView"},
     { @"Multiplayer Basics"   , @"", @"" , @""}
+};
+
+static PPSExMainScreenRowType PPSExMainScreenSection3Rows[] = 
+{
+    { @"Application Info"     , @"", @"PPSExAppInfoViewController"          , @"PPSExAppInfoView"      }
 };
 
 @interface RootViewController()
@@ -74,6 +80,8 @@ static PPSExMainScreenRowType PPSExMainScreenSection2Rows[] =
                                                                                count:DeclaredArraySize(PPSExMainScreenSection1Rows)],
                                   [PPSExMainScreenRowTypeObject getArrayOfNativeRows:PPSExMainScreenSection2Rows 
                                                                                count:DeclaredArraySize(PPSExMainScreenSection2Rows)],
+                                  [PPSExMainScreenRowTypeObject getArrayOfNativeRows:PPSExMainScreenSection3Rows
+                                                                               count:DeclaredArraySize(PPSExMainScreenSection3Rows)],
                                   nil];
     
     self.sectionNames = sectionNamesArray;
