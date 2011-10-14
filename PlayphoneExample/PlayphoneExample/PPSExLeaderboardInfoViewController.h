@@ -23,6 +23,7 @@
 
 @property (nonatomic, retain) IBOutlet UITextField *scoreTextField;
 @property (nonatomic, retain) IBOutlet UITextView *leaderboardTextView;
+@property (retain, nonatomic) IBOutlet UIButton *postScoreButton;
 
 - (IBAction)doPostScore:(id)sender;
 
