@@ -96,6 +96,12 @@ static PPSExMainScreenRowType PPSExMainScreenSection2Rows[] =
     
     self.title = @"PlayPhone SDK Demo";
     
+    // Set the back button text to "Back"
+    UIBarButtonItem *temporaryBarButtonItem = [[UIBarButtonItem alloc] init];
+    temporaryBarButtonItem.title = @"Back";
+    self.navigationItem.backBarButtonItem = temporaryBarButtonItem;
+    [temporaryBarButtonItem release];
+    
     self.navigationController.delegate = self;
 }
 

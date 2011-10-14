@@ -47,6 +47,12 @@ static PPSExMainScreenRowType PPSExAchievementsRows[] =
     self.sectionNames = sectionNamesArray;
     self.sectionRows  = sectionRowsArray;
     
+    // Set the back button text to "Back"
+    UIBarButtonItem *temporaryBarButtonItem = [[UIBarButtonItem alloc] init];
+    temporaryBarButtonItem.title = @"Back";
+    self.navigationItem.backBarButtonItem = temporaryBarButtonItem;
+    [temporaryBarButtonItem release];
+    
     [super viewDidLoad];
 }
 
