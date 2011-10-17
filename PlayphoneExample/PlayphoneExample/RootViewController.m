@@ -38,7 +38,7 @@ static PPSExMainScreenRowType PPSExMainScreenSection2Rows[] =
     { @"Social Graph"         , @"", @"PPSExSocialGraphViewController"       , @"PPSExBasicTableView"  },
     { @"Dashboard Control"    , @"", @"PPSExDashboardCtlViewController"      , @"PPSExBasicTableView"  },
     { @"Cloud Storage"        , @"", @"PPSExCloudStorageViewController"      , @"PPSExCloudStorageView"},
-    { @"Multiplayer Basics"   , @"", @"" , @""}
+//    { @"Multiplayer Basics"   , @"", @"" , @""}
 };
 
 static PPSExMainScreenRowType PPSExMainScreenSection3Rows[] = 
