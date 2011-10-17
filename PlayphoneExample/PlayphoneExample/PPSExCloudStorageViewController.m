@@ -54,18 +54,20 @@ static NSString *PPSExCloudStorageUploadError = @"Upload Error";
         [self switchToNotLoggedInState];
     }
     else {
-        [self switchToNotLoggedInState];
+        [self switchToLoggedInState];
     }
 }
 
 - (void)switchToLoggedInState {
     self.cookiesListTextView.text = @"";
+    self.cookieTextField   .enabled = YES;
     self.storeInCloudButton.enabled = YES;
     self.readCloudButton   .enabled = YES;
 }
 
 - (void)switchToNotLoggedInState {
     self.cookiesListTextView.text = PPSExUserNotLoggedInString;
+    self.cookieTextField   .enabled = NO;
     self.storeInCloudButton.enabled = NO;
     self.readCloudButton   .enabled = NO;
 }
