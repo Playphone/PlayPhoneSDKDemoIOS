@@ -1392,7 +1392,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		F57C0D83143CB74E00A43EEF /* Debug */ = {
+		F5649CC0144DC030003847E3 /* Universal-Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -1415,13 +1415,26 @@
 					"PlayPhoneMultiNet/**",
 					"$(SDKROOT)/usr/include/libxml2/**",
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				OTHER_LDFLAGS = "-lxml2";
 				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
-			name = Debug;
+			name = "Universal-Debug";
 		};
-		F57C0D84143CB74E00A43EEF /* Release */ = {
+		F5649CC1144DC030003847E3 /* Universal-Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PlayphoneExample/PlayphoneExample-Prefix.pch";
+				INFOPLIST_FILE = "PlayphoneExample/PlayphoneExample-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = "Universal-Debug";
+		};
+		F5649CC2144DC03C003847E3 /* Universal-Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -1437,15 +1450,81 @@
 					"PlayPhoneMultiNet/**",
 					"$(SDKROOT)/usr/include/libxml2/**",
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				OTHER_LDFLAGS = "-lxml2";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = "Universal-Release";
+		};
+		F5649CC3144DC03C003847E3 /* Universal-Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PlayphoneExample/PlayphoneExample-Prefix.pch";
+				INFOPLIST_FILE = "PlayphoneExample/PlayphoneExample-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = "Universal-Release";
+		};
+		F57C0D83143CB74E00A43EEF /* iPhone-Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"PlayPhoneMultiNet/**",
+					"$(SDKROOT)/usr/include/libxml2/**",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				OTHER_LDFLAGS = "-lxml2";
+				SDKROOT = iphoneos;
+			};
+			name = "iPhone-Debug";
+		};
+		F57C0D84143CB74E00A43EEF /* iPhone-Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"PlayPhoneMultiNet/**",
+					"$(SDKROOT)/usr/include/libxml2/**",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				OTHER_LDFLAGS = "-lxml2";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
-			name = Release;
+			name = "iPhone-Release";
 		};
-		F57C0D86143CB74E00A43EEF /* Debug */ = {
+		F57C0D86143CB74E00A43EEF /* iPhone-Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1455,9 +1534,9 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
-			name = Debug;
+			name = "iPhone-Debug";
 		};
-		F57C0D87143CB74E00A43EEF /* Release */ = {
+		F57C0D87143CB74E00A43EEF /* iPhone-Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1467,7 +1546,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
-			name = Release;
+			name = "iPhone-Release";
 		};
 /* End XCBuildConfiguration section */
 
@@ -1475,20 +1554,24 @@
 		F57C0D5E143CB74D00A43EEF /* Build configuration list for PBXProject "PlayphoneExample" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				F57C0D83143CB74E00A43EEF /* Debug */,
-				F57C0D84143CB74E00A43EEF /* Release */,
+				F57C0D83143CB74E00A43EEF /* iPhone-Debug */,
+				F5649CC0144DC030003847E3 /* Universal-Debug */,
+				F57C0D84143CB74E00A43EEF /* iPhone-Release */,
+				F5649CC2144DC03C003847E3 /* Universal-Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = "iPhone-Release";
 		};
 		F57C0D85143CB74E00A43EEF /* Build configuration list for PBXNativeTarget "PlayphoneExample" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				F57C0D86143CB74E00A43EEF /* Debug */,
-				F57C0D87143CB74E00A43EEF /* Release */,
+				F57C0D86143CB74E00A43EEF /* iPhone-Debug */,
+				F5649CC1144DC030003847E3 /* Universal-Debug */,
+				F57C0D87143CB74E00A43EEF /* iPhone-Release */,
+				F5649CC3144DC03C003847E3 /* Universal-Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = "iPhone-Release";
 		};
 /* End XCConfigurationList section */
 	};
