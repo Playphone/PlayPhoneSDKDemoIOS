@@ -96,6 +96,7 @@
     [self.itemPickerView reloadAllComponents];
     
     if ((self.itemList != nil) && ([self.itemList count] > 0)) {
+        [self.itemPickerView selectRow:0 inComponent:0 animated:NO];
         MNGameVItemInfo *itemInfo = [self.itemList objectAtIndex:0];
         [self updateAmountOfItem:itemInfo];
     }
