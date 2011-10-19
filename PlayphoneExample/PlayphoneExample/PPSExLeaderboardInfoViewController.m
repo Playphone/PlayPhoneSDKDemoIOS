@@ -52,6 +52,7 @@ static NSString *PPSExLeaderboardEmpty = @"<No data>";
     [self setLeaderboardTextView:nil];
     [self setPostScoreButton    :nil];
     
+    self.gameSetting = nil;
     [self cancelRequestSafely];
     
     [super viewDidUnload];
@@ -62,6 +63,8 @@ static NSString *PPSExLeaderboardEmpty = @"<No data>";
     [_leaderboardTextView release];
     [_postScoreButton     release];
 
+    [_gameSetting         release];
+    
     [self cancelRequestSafely];
 
     [super dealloc];
@@ -80,7 +83,7 @@ static NSString *PPSExLeaderboardEmpty = @"<No data>";
         [_gameSetting release];
     }
     
-    _gameSetting = gameSetting;
+    _gameSetting = [gameSetting retain];
     
     [self updateState];
 }

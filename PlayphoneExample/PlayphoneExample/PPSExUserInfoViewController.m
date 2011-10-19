@@ -36,6 +36,8 @@
     [self setBodyTextView:nil];
     [self setImage       :nil];
     
+    self.buddyInfo = nil;
+
     [super viewDidUnload];
 }
 
@@ -44,6 +46,8 @@
     [_bodyTextView release];
     [_image        release];
 
+    [_buddyInfo    release];
+    
     [super dealloc];
 }
 
@@ -104,7 +108,7 @@
         [_buddyInfo release];
     }
     
-    _buddyInfo = buddyInfo;
+    _buddyInfo = [buddyInfo retain];
     
     [self updateState];
 }

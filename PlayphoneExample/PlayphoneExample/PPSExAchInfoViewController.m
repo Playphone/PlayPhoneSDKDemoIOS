@@ -31,6 +31,8 @@
     [self setAchievementIcon     :nil];
     [self setGamerPointsLabel    :nil];
     
+    self.achievementInfo = nil;
+    
     [super viewDidUnload];
 }
 
@@ -43,6 +45,8 @@
     [_achievementIcon      release];
     [_gamerPointsLabel     release];
     
+    [_achievementInfo      release];
+    
     [super dealloc];
 }
 
@@ -51,7 +55,7 @@
         [_achievementInfo release];
     }
     
-    _achievementInfo = achievementInfo;
+    _achievementInfo = [achievementInfo retain];
     
     [self updateState];
 }
