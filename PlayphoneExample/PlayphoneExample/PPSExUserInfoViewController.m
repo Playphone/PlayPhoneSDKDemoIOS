@@ -66,7 +66,7 @@
         [userDetails appendFormat:@"Has current game: %@\n",[self.buddyInfo getFriendHasCurrentGame].boolValue?@"YES":@"NO"];
         [userDetails appendFormat:@"Locale: %@\n",[self.buddyInfo getFriendUserLocale]];
         [userDetails appendFormat:@"Is ignored: %@\n",[self.buddyInfo getFriendIsIgnored].boolValue?@"YES":@"NO"];
-        [userDetails appendFormat:@"Locale: %d\n",[self.buddyInfo getFriendInRoomSfid]];
+        [userDetails appendFormat:@"Current room: %d\n",[self.buddyInfo getFriendInRoomSfid]];
         [userDetails appendFormat:@"Current game achievements: %@\n",[self.buddyInfo getFriendCurrGameAchievementsList]];
         
         self.bodyTextView.text = userDetails;

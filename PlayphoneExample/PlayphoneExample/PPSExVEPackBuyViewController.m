@@ -76,14 +76,20 @@
 - (IBAction)doBuyBack:(id)sender {
     MNVShopPackInfo *packInfo = [self.packList objectAtIndex:[self.packPickerView selectedRowInComponent:0]];
 
-    if (packInfo.priceItemId == 0) {
+    if (packInfo.priceValue == 0) {
+        //Free pack
+        [[MNDirect vShopProvider]procCheckoutVShopPacksSilent:[NSArray arrayWithObject:[NSNumber numberWithInt:packInfo.packId]]
+                                                    packCount:[NSArray arrayWithObject:[NSNumber numberWithInt:1]]
+                                          clientTransactionId:[[MNDirect vItemsProvider]getNewClientTransactionId]];
+    }
+    else if (packInfo.priceItemId == 0) {
         //Pack priced in real currency
         [[MNDirect vShopProvider]execCheckoutVShopPacks:[NSArray arrayWithObject:[NSNumber numberWithInt:packInfo.packId]]
                                               packCount:[NSArray arrayWithObject:[NSNumber numberWithInt:1]]
                                     clientTransactionId:[[MNDirect vItemsProvider]getNewClientTransactionId]];
     }
     else {
-        //Pack priced in virtual currency
+        //Pack priced in virtual currency or free
         [[MNDirect vShopProvider]procCheckoutVShopPacksSilent:[NSArray arrayWithObject:[NSNumber numberWithInt:packInfo.packId]]
                                                     packCount:[NSArray arrayWithObject:[NSNumber numberWithInt:1]]
                                           clientTransactionId:[[MNDirect vItemsProvider]getNewClientTransactionId]];

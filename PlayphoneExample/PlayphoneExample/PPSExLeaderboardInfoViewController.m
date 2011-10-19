@@ -145,11 +145,14 @@ static NSString *PPSExLeaderboardEmpty = @"<No data>";
 
 - (void)switchToLoggedInState {
     self.postScoreButton.enabled = YES;
+    self.scoreTextField .enabled = YES;
     self.leaderboardTextView.text = PPSExLeaderboardEmpty;
 }
 
 - (void)switchToNotLoggedInState {
     self.postScoreButton.enabled = NO;
+    self.scoreTextField .enabled = NO;
+    
     self.leaderboardTextView.text = PPSExUserNotLoggedInString;
 }
 
