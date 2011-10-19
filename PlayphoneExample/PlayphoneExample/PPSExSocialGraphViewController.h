@@ -10,8 +10,10 @@
 #import "PPSExBasicViewController.h"
 
 @interface PPSExSocialGraphViewController : PPSExBasicTableViewController <MNWSRequestDelegate> {
-    NSString *_requestBlockName;
-    NSArray *_buddyList;
+    NSString    *_requestBlockName;
+    NSArray     *_buddyList;
+    
+    MNWSRequest *_wsRequest;
 }
 
 @end

@@ -12,18 +12,20 @@
 
 @interface PPSExLeaderboardInfoViewController : PPSExBasicViewController <MNWSRequestDelegate> {
     MNGameSettingInfo *_gameSetting;
-    NSString *_requestBlockName;
-    NSArray *_leaderboardData;
+    NSString          *_requestBlockName;
+    NSArray           *_leaderboardData;
 
-    UITextField *_scoreTextField;
-    UITextView *_leaderboardTextView;
+    UITextField       *_scoreTextField;
+    UITextView        *_leaderboardTextView;
+    
+    MNWSRequest       *_wsRequest;
 }
 
-@property (nonatomic,retain) MNGameSettingInfo *gameSetting;
+@property (nonatomic,retain) MNGameSettingInfo    *gameSetting;
 
-@property (nonatomic, retain) IBOutlet UITextField *scoreTextField;
-@property (nonatomic, retain) IBOutlet UITextView *leaderboardTextView;
-@property (retain, nonatomic) IBOutlet UIButton *postScoreButton;
+@property (nonatomic,retain) IBOutlet UITextField *scoreTextField;
+@property (nonatomic,retain) IBOutlet UITextView  *leaderboardTextView;
+@property (nonatomic,retain) IBOutlet UIButton    *postScoreButton;
 
 - (IBAction)doPostScore:(id)sender;
 

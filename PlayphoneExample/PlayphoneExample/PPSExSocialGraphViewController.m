@@ -22,13 +22,18 @@ static NSString *PPSExSocialGraphSectionNames[] =
 @interface PPSExSocialGraphViewController()
 @property (nonatomic,retain) NSString *requestBlockName;
 @property (nonatomic,retain) NSArray  *buddyList;
+@property (nonatomic,retain) MNWSRequest *wsRequest;
 
 - (void)updateView;
+- (void)cancelRequestSafely;
+- (void)switchToNotLoggedInState;
+
 @end
 
 @implementation PPSExSocialGraphViewController
 @synthesize requestBlockName = _requestBlockName;
-@synthesize buddyList = _buddyList;
+@synthesize buddyList        = _buddyList;
+@synthesize wsRequest        = _wsRequest;
 
 - (void)viewDidLoad {
     NSArray *sectionNamesArray = [NSArray arrayWithObjects:PPSExSocialGraphSectionNames
@@ -41,15 +46,32 @@ static NSString *PPSExSocialGraphSectionNames[] =
     
     [super viewDidLoad];
     
-    self.requestBlockName = nil;
-    self.buddyList        = nil;
+    _requestBlockName = nil;
+    _buddyList        = nil;
+    _wsRequest        = nil;
+}
+
+- (void)viewDidUnload {
+    [self cancelRequestSafely];
+
+    [super viewDidUnload];
 }
 
 - (void)dealloc {
     self.requestBlockName = nil;
     self.buddyList        = nil;
 
+    [self cancelRequestSafely];
+
     [super dealloc];
+}
+
+- (void)cancelRequestSafely {
+    if (self.wsRequest != nil) {
+        [self.wsRequest cancel];
+        
+        self.wsRequest = nil;
+    }
 }
 
 - (void)updateState  {
@@ -60,7 +82,7 @@ static NSString *PPSExSocialGraphSectionNames[] =
         
         MNWSRequestSender* requestSender = [[[MNWSRequestSender alloc]initWithSession:[MNDirect getSession]]autorelease];
         
-        [requestSender sendWSRequestAuthorized:requestContent withDelegate:self];
+        self.wsRequest = [requestSender sendWSRequestAuthorized:requestContent withDelegate:self];
     }
     else {
         [self updateView];
@@ -68,32 +90,41 @@ static NSString *PPSExSocialGraphSectionNames[] =
 }
 
 - (void)updateView {
-    NSMutableArray *tableViewRows = [NSMutableArray arrayWithCapacity:20];
-    ((UITableView*)self.view).tableFooterView = nil;
-    
     if (![MNDirect isUserLoggedIn]) {
-        [self showFooterLabelWithText:PPSExUserNotLoggedInString];
-    }
-    else if ((self.buddyList == nil) || ([self.buddyList count] == 0)) {
-        [self showFooterLabelWithText:@"No friends detected"];
+        [self switchToNotLoggedInState];
     }
     else {
-        PPSExMainScreenRowTypeObject *rowObject = nil;
+        NSMutableArray *tableViewRows = [NSMutableArray arrayWithCapacity:20];
+        ((UITableView*)self.view).tableFooterView = nil;
         
-        for (MNWSBuddyListItem *buddyInfo in self.buddyList) {                             
-            rowObject = [[PPSExMainScreenRowTypeObject alloc]initWithTitle:[buddyInfo getFriendUserNickName]
-                                                                  subTitle:[NSString stringWithFormat:@"Now is: %@",[[buddyInfo getFriendUserOnlineNow]boolValue]?@"Online":@"Offline"]];
-            rowObject.viewControllerName = @"PPSExUserInfoViewController";
-            rowObject.nibName = @"PPSExUserInfoView";
-            
-            [tableViewRows addObject:rowObject];
-            
-            [rowObject release];
-            rowObject = nil;
+        if ((self.buddyList == nil) || ([self.buddyList count] == 0)) {
+            [self showFooterLabelWithText:@"No friends detected"];
         }
+        else {
+            PPSExMainScreenRowTypeObject *rowObject = nil;
+            
+            for (MNWSBuddyListItem *buddyInfo in self.buddyList) {                             
+                rowObject = [[PPSExMainScreenRowTypeObject alloc]initWithTitle:[buddyInfo getFriendUserNickName]
+                                                                      subTitle:[NSString stringWithFormat:@"Now is: %@",[[buddyInfo getFriendUserOnlineNow]boolValue]?@"Online":@"Offline"]];
+                
+                rowObject.viewControllerName = @"PPSExUserInfoViewController";
+                rowObject.nibName            = @"PPSExUserInfoView";
+                
+                [tableViewRows addObject:rowObject];
+                
+                [rowObject release];
+                rowObject = nil;
+            }
+        }
+        self.sectionRows = [NSArray arrayWithObjects:tableViewRows,nil];
+        [self.tableView reloadData];
     }
-    
-    self.sectionRows = [NSArray arrayWithObjects:tableViewRows,nil];
+}
+
+- (void)switchToNotLoggedInState {
+    [self showFooterLabelWithText:PPSExUserNotLoggedInString];
+
+    self.sectionRows = nil;
     [self.tableView reloadData];
 }
 
@@ -117,8 +148,10 @@ static NSString *PPSExSocialGraphSectionNames[] =
 
 -(void) wsRequestDidSucceed:(MNWSResponse*) response {
     self.buddyList = [response getDataForBlock: self.requestBlockName];
-    self.requestBlockName = nil;
     
+    self.requestBlockName = nil;
+    self.wsRequest        = nil;
+
     [self updateView];
 }
 
@@ -126,6 +159,7 @@ static NSString *PPSExSocialGraphSectionNames[] =
     PPSExShowWSRequestErrorAlert(error.message);
 
     self.requestBlockName = nil;
+    self.wsRequest        = nil;
     
     [self updateView];
 }
@@ -138,10 +172,7 @@ static NSString *PPSExSocialGraphSectionNames[] =
 
 - (void)playerLoggedOut {
     // [self updateState];
-    self.sectionRows = nil;
-    [self.tableView reloadData];
-    
-    [self showFooterLabelWithText:PPSExUserNotLoggedInString];
+    [self switchToNotLoggedInState];
 }
 
 @end

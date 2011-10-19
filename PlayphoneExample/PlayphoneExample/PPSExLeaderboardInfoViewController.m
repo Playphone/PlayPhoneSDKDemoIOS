@@ -17,42 +17,60 @@
 static NSString *PPSExLeaderboardEmpty = @"<No data>";
 
 @interface PPSExLeaderboardInfoViewController()
-@property (nonatomic,retain) NSString *requestBlockName;
-@property (nonatomic,retain) NSArray *leaderboardData;
+@property (nonatomic,retain) NSString    *requestBlockName;
+@property (nonatomic,retain) NSArray     *leaderboardData;
+@property (nonatomic,retain) MNWSRequest *wsRequest;
 
 - (void)updateView;
 - (void)switchToLoggedInState;
 - (void)switchToNotLoggedInState;
+- (void)cancelRequestSafely;
 
 @end
 
 @implementation PPSExLeaderboardInfoViewController
 
-@synthesize requestBlockName = _requestBlockName;
-@synthesize leaderboardData = _leaderboardData;
-@synthesize gameSetting = _gameSetting;
-@synthesize scoreTextField = _scoreTextField;
+@synthesize requestBlockName    = _requestBlockName;
+@synthesize leaderboardData     = _leaderboardData;
+@synthesize gameSetting         = _gameSetting;
+@synthesize scoreTextField      = _scoreTextField;
 @synthesize leaderboardTextView = _leaderboardTextView;
-@synthesize postScoreButton = _postScoreButton;
+@synthesize postScoreButton     = _postScoreButton;
+@synthesize wsRequest           = _wsRequest;
 
 - (void)viewDidLoad {
     _requestBlockName = nil;
     _leaderboardData  = nil;
     _gameSetting      = nil;
+    _wsRequest        = nil;
 }
 
 - (void)viewDidUnload {
-    [self setScoreTextField:nil];
+    [self setScoreTextField     :nil];
     [self setLeaderboardTextView:nil];
-    [self setPostScoreButton:nil];
+    [self setPostScoreButton    :nil];
+    
+    [self cancelRequestSafely];
+    
     [super viewDidUnload];
 }
 
 - (void)dealloc {
-    [_scoreTextField release];
+    [_scoreTextField      release];
     [_leaderboardTextView release];
-    [_postScoreButton release];
+    [_postScoreButton     release];
+
+    [self cancelRequestSafely];
+
     [super dealloc];
+}
+
+- (void)cancelRequestSafely {
+    if (self.wsRequest != nil) {
+        [self.wsRequest cancel];
+
+        self.wsRequest = nil;
+    }
 }
 
 - (void)setGameSetting:(MNGameSettingInfo *)gameSetting {
@@ -98,7 +116,7 @@ static NSString *PPSExLeaderboardEmpty = @"<No data>";
         
         MNWSRequestSender* requestSender = [[[MNWSRequestSender alloc] initWithSession: [MNDirect getSession]] autorelease];
         
-        [requestSender sendWSRequestAuthorized: requestContent withDelegate: self];
+        self.wsRequest = [requestSender sendWSRequestAuthorized: requestContent withDelegate: self];
     }
     else {
         [self switchToNotLoggedInState];
@@ -143,12 +161,14 @@ static NSString *PPSExLeaderboardEmpty = @"<No data>";
     [self updateView];
     
     self.requestBlockName = nil;
+    self.wsRequest        = nil;
 }
 
 -(void) wsRequestDidFailWithError:(MNWSRequestError*) error {
     PPSExShowWSRequestErrorAlert(error.message);
     
     self.requestBlockName = nil;
+    self.wsRequest        = nil;
 }
 
 #pragma mark - UITextFieldDelegate
@@ -168,6 +188,5 @@ static NSString *PPSExLeaderboardEmpty = @"<No data>";
     // [self updateState];
     [self switchToNotLoggedInState];
 }
-
 
 @end
