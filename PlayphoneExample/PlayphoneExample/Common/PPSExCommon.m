@@ -56,10 +56,10 @@ NSString *PPSExInvalidNumberFormatString = @"Invalid number format";
 }
 
 + (NSArray*)getArrayOfNativeRows:(PPSExMainScreenRowType*)rowsArray count:(NSUInteger)rowsCount {
-    NSMutableArray *resultArray = [[NSMutableArray alloc]initWithCapacity:rowsCount];
+    NSMutableArray *resultArray = [NSMutableArray arrayWithCapacity:rowsCount];
     
     for (NSUInteger index = 0;index < rowsCount;index++) {
-        [resultArray addObject:[[PPSExMainScreenRowTypeObject alloc]initWithNativeRow:rowsArray[index]]];
+        [resultArray addObject:[[[PPSExMainScreenRowTypeObject alloc]initWithNativeRow:rowsArray[index]]autorelease]];
     }
     
     return (NSArray*)resultArray;
