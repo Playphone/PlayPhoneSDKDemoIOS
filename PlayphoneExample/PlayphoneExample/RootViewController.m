@@ -88,20 +88,7 @@ static PPSExMainScreenRowType PPSExMainScreenSection3Rows[] =
     self.sectionRows  = sectionRowsArray;
     
     [super viewDidLoad];
-    
-    [MNDirect prepareSessionWithGameId:10900
-                            gameSecret:[MNDirect makeGameSecretByComponents:PPSExGameSecret1
-                                                                    secret2:PPSExGameSecret2
-                                                                    secret3:PPSExGameSecret3
-                                                                    secret4:PPSExGameSecret4]
-                           andDelegate:self];
-    
-    
-    [MNDirectButton initWithLocation:MNDIRECTBUTTON_TOPRIGHT];
-    [MNDirectButton show];
-    
-    [MNDirectPopup init:MNDIRECTPOPUP_WELCOME | MNDIRECTPOPUP_ACHIEVEMENTS | MNDIRECTPOPUP_NEW_HI_SCORES];
-    
+
     self.title = @"PlayPhone SDK Demo";
     
     self.navigationController.delegate = self;

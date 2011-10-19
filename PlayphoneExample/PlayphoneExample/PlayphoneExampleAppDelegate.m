@@ -5,6 +5,12 @@
 //  Created by Vladislav Ogol on 05.10.11.
 //  Copyright 2011 PlayPhone Inc. All rights reserved.
 //
+#import "MNDirect.h"
+#import "MNDirectButton.h"
+#import "MNDirectPopup.h"
+
+#import "PPSExCommon.h"
+#import "RootViewController.h"
 
 #import "PlayphoneExampleAppDelegate.h"
 
@@ -28,6 +34,25 @@
     }
     
     [self.window makeKeyAndVisible];
+    
+    UIViewController *viewController = [self.navigationController.viewControllers objectAtIndex:0];
+
+    //viewController should have type RootViewController, otherwise - logic error!
+    assert([viewController isKindOfClass:[RootViewController class]]);
+
+    [MNDirect prepareSessionWithGameId:10900
+                            gameSecret:[MNDirect makeGameSecretByComponents:PPSExGameSecret1
+                                                                    secret2:PPSExGameSecret2
+                                                                    secret3:PPSExGameSecret3
+                                                                    secret4:PPSExGameSecret4]
+                           andDelegate:(RootViewController *)viewController];
+    
+    
+    [MNDirectButton initWithLocation:MNDIRECTBUTTON_TOPRIGHT];
+    [MNDirectButton show];
+    
+    [MNDirectPopup init:MNDIRECTPOPUP_WELCOME | MNDIRECTPOPUP_ACHIEVEMENTS | MNDIRECTPOPUP_NEW_HI_SCORES];
+    
     return YES;
 }
 
