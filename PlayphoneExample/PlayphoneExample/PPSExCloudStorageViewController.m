@@ -20,41 +20,40 @@ static NSString *PPSExCloudStorageUploadError = @"Upload Error";
 @end
 
 @implementation PPSExCloudStorageViewController
-@synthesize cookieTextField = _cookieTextField;
+@synthesize cookieTextField     = _cookieTextField;
 @synthesize cookiesListTextView = _cookiesListTextView;
-@synthesize storeInCloudButton = _storeInCloudButton;
-@synthesize readCloudButton = _readCloudButton;
+@synthesize storeInCloudButton  = _storeInCloudButton;
+@synthesize readCloudButton     = _readCloudButton;
 
 - (void)viewDidLoad {
     [[MNDirect gameCookiesProvider]addDelegate:self];
 }
 - (void)viewDidUnload {
-    [self setCookieTextField:nil];
+    [self setCookieTextField    :nil];
     [self setCookiesListTextView:nil];
+    [self setStoreInCloudButton :nil];
+    [self setReadCloudButton    :nil];
 
-    [self setStoreInCloudButton:nil];
-    [self setReadCloudButton:nil];
     [super viewDidUnload];
 }
 
 - (void)dealloc {
-    [_cookieTextField release];
+    [_cookieTextField     release];
     [_cookiesListTextView release];
-    [_doReadCloud release];
+    [_storeInCloudButton  release];
+    [_readCloudButton     release];
     
     [[MNDirect gameCookiesProvider]removeDelegate:self];
 
-    [_storeInCloudButton release];
-    [_readCloudButton release];
     [super dealloc];
 }
 
 - (void)updateState {
-    if (![MNDirect isUserLoggedIn]) {
-        [self switchToNotLoggedInState];
+    if ([MNDirect isUserLoggedIn]) {
+        [self switchToLoggedInState];
     }
     else {
-        [self switchToLoggedInState];
+        [self switchToNotLoggedInState];
     }
 }
 

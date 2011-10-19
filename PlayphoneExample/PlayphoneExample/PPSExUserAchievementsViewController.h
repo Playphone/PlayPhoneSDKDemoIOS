@@ -10,12 +10,14 @@
 #import "PPSExBasicViewController.h"
 
 @interface PPSExUserAchievementsViewController : PPSExBasicViewController <MNAchievementsProviderDelegate>{
-    UITextView *userAchievementsTextView;
-    UITextField *unlockAchIdTextField;
+    UITextView  *_userAchievementsTextView;
+    UITextField *_unlockAchIdTextField;
+    UIButton    *_unlockButton;
 }
 
-@property (nonatomic, retain) IBOutlet UITextView *userAchievementsTextView;
+@property (nonatomic, retain) IBOutlet UITextView  *userAchievementsTextView;
 @property (nonatomic, retain) IBOutlet UITextField *unlockAchIdTextField;
+@property (nonatomic, retain) IBOutlet UIButton    *unlockButton;
 
 - (IBAction)doUnlockAchievements:(id)sender;
 - (IBAction)achIdEditingDidEnd:(id)sender;

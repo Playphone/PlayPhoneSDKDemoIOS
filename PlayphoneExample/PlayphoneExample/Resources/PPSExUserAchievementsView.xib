@@ -47,6 +47,7 @@
 						<int key="NSvFlags">290</int>
 						<string key="NSFrame">{{20, 20}, {280, 21}}</string>
 						<reference key="NSSuperview" ref="342107417"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="866986126"/>
 						<string key="NSReuseIdentifierKey">_NS:311</string>
 						<bool key="IBUIOpaque">NO</bool>
@@ -77,6 +78,7 @@
 						<int key="NSvFlags">290</int>
 						<string key="NSFrame">{{20, 49}, {280, 137}}</string>
 						<reference key="NSSuperview" ref="342107417"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="1055882738"/>
 						<string key="NSReuseIdentifierKey">_NS:613</string>
 						<object class="NSColor" key="IBUIBackgroundColor">
@@ -100,6 +102,7 @@
 						<int key="NSvFlags">291</int>
 						<string key="NSFrame">{{165, 194}, {135, 37}}</string>
 						<reference key="NSSuperview" ref="342107417"/>
+						<reference key="NSWindow"/>
 						<string key="NSReuseIdentifierKey">_NS:222</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -110,6 +113,10 @@
 						<object class="NSColor" key="IBUIHighlightedTitleColor">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MQA</bytes>
+						</object>
+						<object class="NSColor" key="IBUIDisabledTitleColor">
+							<int key="NSColorSpace">3</int>
+							<bytes key="NSWhite">MC42NjY2NjY2NjY3AA</bytes>
 						</object>
 						<object class="NSColor" key="IBUINormalTitleColor">
 							<int key="NSColorSpace">1</int>
@@ -136,6 +143,7 @@
 						<int key="NSvFlags">294</int>
 						<string key="NSFrame">{{20, 197}, {135, 31}}</string>
 						<reference key="NSSuperview" ref="342107417"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="713355175"/>
 						<string key="NSReuseIdentifierKey">_NS:294</string>
 						<bool key="IBUIOpaque">NO</bool>
@@ -175,6 +183,7 @@
 				</object>
 				<string key="NSFrameSize">{320, 251}</string>
 				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<string key="NSReuseIdentifierKey">_NS:174</string>
 				<bool key="IBUIClipsSubviews">YES</bool>
 				<bool key="IBUIMultipleTouchEnabled">YES</bool>
@@ -207,6 +216,14 @@
 						<reference key="destination" ref="342107417"/>
 					</object>
 					<int key="connectionID">12</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">unlockButton</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="713355175"/>
+					</object>
+					<int key="connectionID">16</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -312,6 +329,7 @@
 					<string>4.IBPluginDependency</string>
 					<string>5.IBPluginDependency</string>
 					<string>6.IBPluginDependency</string>
+					<string>6.IBUIButtonInspectorSelectedStateConfigurationMetadataKey</string>
 					<string>7.IBPluginDependency</string>
 				</object>
 				<object class="NSMutableArray" key="dict.values">
@@ -324,6 +342,7 @@
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<real value="0.0"/>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				</object>
 			</object>
@@ -339,9 +358,107 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">15</int>
+			<int key="maxID">16</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes"/>
+		<object class="IBClassDescriber" key="IBDocument.Classes">
+			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
+				<bool key="EncodedWithXMLCoder">YES</bool>
+				<object class="IBPartialClassDescription">
+					<string key="className">PPSExBasicViewController</string>
+					<string key="superclassName">UIViewController</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/PPSExBasicViewController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">PPSExUserAchievementsViewController</string>
+					<string key="superclassName">PPSExBasicViewController</string>
+					<object class="NSMutableDictionary" key="actions">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>achIdEditingDidBegin:</string>
+							<string>achIdEditingDidEnd:</string>
+							<string>doUnlockAchievements:</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+						</object>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>achIdEditingDidBegin:</string>
+							<string>achIdEditingDidEnd:</string>
+							<string>doUnlockAchievements:</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBActionInfo">
+								<string key="name">achIdEditingDidBegin:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">achIdEditingDidEnd:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">doUnlockAchievements:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+						</object>
+					</object>
+					<object class="NSMutableDictionary" key="outlets">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>unlockAchIdTextField</string>
+							<string>unlockButton</string>
+							<string>userAchievementsTextView</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>UITextField</string>
+							<string>UIButton</string>
+							<string>UITextView</string>
+						</object>
+					</object>
+					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>unlockAchIdTextField</string>
+							<string>unlockButton</string>
+							<string>userAchievementsTextView</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBToOneOutletInfo">
+								<string key="name">unlockAchIdTextField</string>
+								<string key="candidateClassName">UITextField</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">unlockButton</string>
+								<string key="candidateClassName">UIButton</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">userAchievementsTextView</string>
+								<string key="candidateClassName">UITextView</string>
+							</object>
+						</object>
+					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/PPSExUserAchievementsViewController.h</string>
+					</object>
+				</object>
+			</object>
+		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaTouchFramework</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDevelopmentDependencies">

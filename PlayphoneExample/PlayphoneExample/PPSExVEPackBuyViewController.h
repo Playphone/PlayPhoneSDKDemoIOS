@@ -10,11 +10,14 @@
 #import "PPSExBasicViewController.h"
 
 @interface PPSExVEPackBuyViewController : PPSExBasicViewController <MNVShopProviderDelegate> {
-    NSArray *_packList;
+    NSArray      *_packList;
+    UIButton     *_buyButton;
     UIPickerView *_packPickerView;
 }
 
+@property (nonatomic, retain) IBOutlet UIButton     *buyButton;
 @property (nonatomic, retain) IBOutlet UIPickerView *packPickerView;
+
 - (IBAction)doBuyBack:(id)sender;
 
 @end

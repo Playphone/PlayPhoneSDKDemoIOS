@@ -19,11 +19,16 @@
 
 @interface PPSExUserAchievementsViewController()
 - (void)updateView;
+
+- (void)switchToLoggedInState;
+- (void)switchToNotLoggedInState;
+
 @end
 
 @implementation PPSExUserAchievementsViewController
-@synthesize userAchievementsTextView;
-@synthesize unlockAchIdTextField;
+@synthesize userAchievementsTextView = _userAchievementsTextView;
+@synthesize unlockAchIdTextField     = _unlockAchIdTextField;
+@synthesize unlockButton             = _unlockButton;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -33,15 +38,19 @@
 
 - (void)viewDidUnload {
     [self setUserAchievementsTextView:nil];
-    [self setUnlockAchIdTextField:nil];
+    [self setUnlockAchIdTextField    :nil];
+    [self setUnlockButton            :nil];
 
     [super viewDidUnload];
 }
 
 - (void)dealloc {
-    [userAchievementsTextView release];
-    [unlockAchIdTextField release];
-    
+    [_userAchievementsTextView release];
+    [_unlockAchIdTextField     release];
+    [_unlockButton             release];
+
+    [[MNDirect achievementsProvider]removeDelegate:self];
+
     [super dealloc];
 }
 
@@ -76,20 +85,21 @@
 }
 
 - (void)updateState {
-    if ([[MNDirect achievementsProvider]isGameAchievementListNeedUpdate]) {
-        [[MNDirect achievementsProvider]doGameAchievementListUpdate];
+    if ([MNDirect isUserLoggedIn]) {
+        [self switchToLoggedInState];
+        
+        if ([[MNDirect achievementsProvider]isGameAchievementListNeedUpdate]) {
+            [[MNDirect achievementsProvider]doGameAchievementListUpdate];
+        }
+        else {
+            [self updateView];
+        }
     }
     else {
-        [self updateView];
+        [self switchToNotLoggedInState];
     }
 }
 - (void)updateView {
-    if (![MNDirect isUserLoggedIn]) {
-        self.userAchievementsTextView.text = PPSExUserNotLoggedInString;
-        
-        return;
-    }
-    
     NSMutableString *userAchListString = [NSMutableString stringWithCapacity:PPSExCommonStringDefCapacity];
     NSString        *achName           = nil;
     
@@ -101,6 +111,18 @@
     }
     
     self.userAchievementsTextView.text = userAchListString;
+}
+
+- (void)switchToLoggedInState {
+    self.unlockAchIdTextField.enabled = YES;
+    self.unlockButton        .enabled = YES;
+}
+- (void)switchToNotLoggedInState {
+    self.unlockAchIdTextField.text    = @"";
+    self.unlockAchIdTextField.enabled = NO;
+    self.unlockButton        .enabled = NO;
+    
+    self.userAchievementsTextView.text = PPSExUserNotLoggedInString;
 }
 
 #pragma mark - UITextFieldDelegate
@@ -127,9 +149,9 @@
 }
 
 - (void)playerLoggedOut {
-    [self updateState];
-    
-    self.userAchievementsTextView.text = PPSExUserNotLoggedInString;
+    //[self updateState];
+
+    [self switchToNotLoggedInState];
 }
 
 

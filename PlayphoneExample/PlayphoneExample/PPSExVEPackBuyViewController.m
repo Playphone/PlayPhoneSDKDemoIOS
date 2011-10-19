@@ -16,24 +16,29 @@
 
 @interface PPSExVEPackBuyViewController()
 @property (nonatomic,retain)NSArray *packList;
+
+- (void)switchToLoggedInState;
+- (void)switchToNotLoggedInState;
 @end
 
 
 @implementation PPSExVEPackBuyViewController
+@synthesize buyButton      = _buyButton;
 @synthesize packPickerView = _packPickerView;
-@synthesize packList = _packList;
+@synthesize packList       = _packList;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    ((UIScrollView*)self.view).contentSize = CGSizeMake(self.view.frame.size.width, 400);
+    ((UIScrollView*)self.view).contentSize = CGSizeMake(self.view.frame.size.width,400);
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
-    ((UIScrollView*)self.view).contentSize = CGSizeMake(self.view.frame.size.width, 400);
+    ((UIScrollView*)self.view).contentSize = CGSizeMake(self.view.frame.size.width,400);
 }
 
 - (void)dealloc {
     [_packPickerView release];
+    [_buyButton      release];
     
     [[MNDirect vShopProvider] removeDelegate:self];
 
@@ -45,13 +50,30 @@
 }
 - (void)viewDidUnload {
     [self setPackPickerView:nil];
-
+    [self setBuyButton     :nil];
+    
     [super viewDidUnload];
 }
 
 - (void)updateState {
     self.packList = [[MNDirect vShopProvider]getVShopPackList];
     [self.packPickerView reloadAllComponents];
+    
+    if ([MNDirect isUserLoggedIn]) {
+        [self switchToLoggedInState];
+    }
+    else {
+        [self switchToNotLoggedInState];
+    }
+}
+
+- (void)switchToLoggedInState {
+    self.buyButton.enabled = YES;
+    [self.buyButton setTitle:@"Buy" forState:UIControlStateNormal];
+}
+- (void)switchToNotLoggedInState {
+    self.buyButton.enabled = NO;
+    [self.buyButton setTitle:PPSExUserNotLoggedInString forState:UIControlStateNormal];
 }
 
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
@@ -113,6 +135,17 @@
 
 -(void) onCheckoutVShopPackFail:(MNVShopProviderCheckoutVShopPackFailInfo*) result {    
     PPSExShowAlert([NSString stringWithFormat:@"Error code: [%d]\nMessage: [%@]",result.errorCode,result.errorMessage],@"Purchase failed");
+}
+
+#pragma mark - PPSExBasicNotificationProtocol
+
+- (void)playerLoggedIn {
+    [self updateState];
+}
+
+- (void)playerLoggedOut {
+    //[self updateState];
+    [self switchToNotLoggedInState];
 }
 
 @end

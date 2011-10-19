@@ -11,14 +11,15 @@
 
 @interface PPSExCloudStorageViewController : PPSExBasicViewController <MNGameCookiesProviderDelegate> {
     UITextField *_cookieTextField;
-    UITextView *_cookiesListTextView;
-    UIButton *_doReadCloud;
+    UITextView  *_cookiesListTextView;
+    UIButton    *_storeInCloudButton;
+    UIButton    *_readCloudButton;
 }
 
 @property (nonatomic, retain) IBOutlet UITextField *cookieTextField;
-@property (nonatomic, retain) IBOutlet UITextView *cookiesListTextView;
-@property (retain, nonatomic) IBOutlet UIButton *storeInCloudButton;
-@property (retain, nonatomic) IBOutlet UIButton *readCloudButton;
+@property (nonatomic, retain) IBOutlet UITextView  *cookiesListTextView;
+@property (retain, nonatomic) IBOutlet UIButton    *storeInCloudButton;
+@property (retain, nonatomic) IBOutlet UIButton    *readCloudButton;
 
 - (IBAction)doStoreInCloud:(id)sender;
 - (IBAction)doReadCloud:(id)sender;

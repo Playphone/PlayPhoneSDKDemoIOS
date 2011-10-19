@@ -19,28 +19,19 @@ static NSString *PPSExVEInventoryListScreenSectionNames[] =
 
 @interface PPSExVEInventoryListViewController()
 - (void)updateView;
+
+- (void)switchToLoggedInState;
+- (void)switchToNotLoggedInState;
+
 @end
 
 @implementation PPSExVEInventoryListViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
-- (void)viewDidLoad
-{
-    NSArray *sectionNamesArray = [NSArray arrayWithObjects:PPSExVEInventoryListScreenSectionNames
-                                                     count:DeclaredArraySize(PPSExVEInventoryListScreenSectionNames)];
+- (void)viewDidLoad {
+    self.sectionNames = [NSArray arrayWithObjects:PPSExVEInventoryListScreenSectionNames
+                                            count:DeclaredArraySize(PPSExVEInventoryListScreenSectionNames)];
     
-    NSArray *sectionRowsArray  = [NSArray arrayWithObjects:nil];
-    
-    self.sectionNames = sectionNamesArray;
-    self.sectionRows  = sectionRowsArray;
+    self.sectionRows  = [NSArray arrayWithObjects:nil];
     
     [super viewDidLoad];
     
@@ -66,11 +57,18 @@ static NSString *PPSExVEInventoryListScreenSectionNames[] =
 }
 
 - (void)updateState {
-    if ([[MNDirect vItemsProvider]isGameVItemsListNeedUpdate]) {
-        [[MNDirect vItemsProvider]doGameVItemsListUpdate];
+    if ([MNDirect isUserLoggedIn]) {
+        [self switchToLoggedInState];
+
+        if ([[MNDirect vItemsProvider]isGameVItemsListNeedUpdate]) {
+            [[MNDirect vItemsProvider]doGameVItemsListUpdate];
+        }
+        else {
+            [self updateView];
+        }
     }
     else {
-        [self updateView];
+        [self switchToNotLoggedInState];
     }
 }
 
@@ -108,6 +106,23 @@ static NSString *PPSExVEInventoryListScreenSectionNames[] =
     [self.tableView reloadData];
 }
 
+- (void)switchToLoggedInState {
+    [self showFooterLabelWithText:@""];
+
+    self.sectionNames = [NSArray arrayWithObjects:PPSExVEInventoryListScreenSectionNames
+                                            count:DeclaredArraySize(PPSExVEInventoryListScreenSectionNames)];
+
+    [self.tableView reloadData];
+}
+- (void)switchToNotLoggedInState {
+    [self showFooterLabelWithText:PPSExUserNotLoggedInString];
+
+    self.sectionNames = [NSArray arrayWithObjects:nil];
+    self.sectionRows  = [NSArray arrayWithObjects:nil];
+    
+    [self.tableView reloadData];
+}
+
 #pragma mark - MNVItemsProviderDelegate
 
 -(void) onVItemsListUpdated {
@@ -119,9 +134,8 @@ static NSString *PPSExVEInventoryListScreenSectionNames[] =
     [self updateState];
 }
 - (void)playerLoggedOut {
-    self.sectionRows = [NSArray arrayWithObjects: nil];
-    
-    [self.tableView reloadData];
+    //[self updateState];
+    [self switchToNotLoggedInState];
 }
 
 @end

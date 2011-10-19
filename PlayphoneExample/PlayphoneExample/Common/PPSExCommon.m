@@ -10,6 +10,7 @@
 
 NSString *PPSExUserNotLoggedInString     = @"User is not logged in";
 NSString *PPSExInvalidNumberFormatString = @"Invalid number format";
+NSString *PPSExVirtualItemCurrencyString = @"vI";
 
 @implementation PPSExMainScreenRowTypeObject
 
@@ -74,8 +75,8 @@ NSString *MNVShopPackGetPriceString(MNVShopPackInfo *packInfo) {
         packPriceString = [NSString stringWithFormat:@"$%0.2f",packInfo.priceValue / 100.];
     }
     else {
-        //need to determine price item name. Use VI for now;
-        packPriceString = [NSString stringWithFormat:@"%lld VI",packInfo.priceValue];
+        //need to determine price item name. Use general symbol "vI" for now;
+        packPriceString = [NSString stringWithFormat:@"%lld %@",packInfo.priceValue,PPSExVirtualItemCurrencyString];
     }
     return  packPriceString;
 }

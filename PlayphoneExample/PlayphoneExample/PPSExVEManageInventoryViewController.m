@@ -25,14 +25,20 @@
 - (void)updateAmountOfCurrentItem;
 - (void)updateAmountOfItem:(MNGameVItemInfo*)itemInfo;
 
+- (void)switchToLoggedInState;
+- (void)switchToNotLoggedInState;
+
 @end
 
 
 @implementation PPSExVEManageInventoryViewController
-@synthesize itemList = _itemList;
-@synthesize itemPickerView = _itemPickerView;
+@synthesize itemList            = _itemList;
+@synthesize itemPickerView      = _itemPickerView;
 @synthesize itemAmountTextField = _itemAmountTextField;
-@synthesize amountLabel = _amountLabel;
+@synthesize amountLabel         = _amountLabel;
+@synthesize titleLabel          = _titleLabel;
+@synthesize addButton           = _addButton;
+@synthesize subtractButton      = _subtractButton;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -41,21 +47,26 @@
 }
 
 - (void)viewDidUnload {
-    [self setItemPickerView:nil];
+    [self setItemPickerView     :nil];
     [self setItemAmountTextField:nil];
-    
+    [self setAmountLabel        :nil];
+    [self setTitleLabel         :nil];
+    [self setAddButton          :nil];
+    [self setSubtractButton     :nil];
+
     self.itemList = nil;
     
-    [self setAmountLabel:nil];
     [super viewDidUnload];
 }
 
 - (void)dealloc {
-    [_itemPickerView release];
+    [_itemPickerView      release];
     [_itemAmountTextField release];
-    [_itemList release];
-    
-    [_amountLabel release];
+    [_itemList            release];
+    [_amountLabel         release];
+    [_titleLabel          release];
+    [_addButton           release];
+    [_subtractButton      release];
     
     [[MNDirect vItemsProvider]removeDelegate:self];
 
@@ -68,6 +79,13 @@
     }
     else {
         [self updateView];
+    }
+    
+    if ([MNDirect isUserLoggedIn]) {
+        [self switchToLoggedInState];
+    }
+    else {
+        [self switchToNotLoggedInState];
     }
 }
 
@@ -102,20 +120,26 @@
         self.amountLabel.text = PPSExVEManageInventoryNotLoggedInString;
     }
 }
-/*
-- (BOOL)getUserAmountDelta:(NSInteger*)amountPtr {
-    BOOL result = NO;
-    NSScanner* scanner = [[NSScanner alloc] initWithString:self.itemAmountTextField.text];
+
+- (void)switchToLoggedInState {
+    self.titleLabel .text   = @"Current Amount:";
+    self.amountLabel.hidden = NO;
     
-    if (scanner != nil) {
-        result = [scanner scanInteger: amountPtr];
-        
-        [scanner release];
-    }
-    
-    return result;
+    self.itemAmountTextField.enabled = YES;
+    self.addButton          .enabled = YES;
+    self.subtractButton     .enabled = YES;
 }
-*/
+- (void)switchToNotLoggedInState {
+    self.titleLabel .text   = PPSExUserNotLoggedInString;
+    self.amountLabel.hidden = YES;
+    self.amountLabel.text   = PPSExVEManageInventoryNotLoggedInString;
+
+    self.itemAmountTextField.text    = @"";
+    self.itemAmountTextField.enabled = NO;
+    self.addButton          .enabled = NO;
+    self.subtractButton     .enabled = NO;
+}
+
 - (IBAction)doAddItems:(id)sender {
     NSInteger amount;
     
@@ -134,7 +158,6 @@
 
     [self.itemAmountTextField resignFirstResponder];
 }
-
 - (IBAction)doSubtractItems:(id)sender {
     NSInteger amount;
     
@@ -153,7 +176,6 @@
 
     [self.itemAmountTextField resignFirstResponder];
 }
-
 - (IBAction)textFieldEditDidBegin:(id)sender {
     [((UIScrollView*)self.view) 
      setContentOffset:CGPointMake(0,(self.itemAmountTextField.frame.origin.y    + 
@@ -163,7 +185,6 @@
                                      PPSExTextFieldGap))
      animated:YES];
 }
-
 - (IBAction)textFieldEditDidEnd:(id)sender {
     [((UIScrollView*)self.view) setContentOffset:CGPointMake(0, 0) animated:YES];
 }
@@ -232,9 +253,9 @@
     [self updateState];
 }
 - (void)playerLoggedOut {
-    [self updateState];
+    //[self updateState];
     
-    self.amountLabel.text = PPSExVEManageInventoryNotLoggedInString;
+    [self switchToNotLoggedInState];
 }
 
 @end

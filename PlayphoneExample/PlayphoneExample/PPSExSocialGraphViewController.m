@@ -85,40 +85,35 @@ static NSString *PPSExSocialGraphSectionNames[] =
         self.wsRequest = [requestSender sendWSRequestAuthorized:requestContent withDelegate:self];
     }
     else {
-        [self updateView];
+        [self switchToNotLoggedInState];
     }
 }
 
 - (void)updateView {
-    if (![MNDirect isUserLoggedIn]) {
-        [self switchToNotLoggedInState];
+    NSMutableArray *tableViewRows = [NSMutableArray arrayWithCapacity:20];
+    ((UITableView*)self.view).tableFooterView = nil;
+    
+    if ((self.buddyList == nil) || ([self.buddyList count] == 0)) {
+        [self showFooterLabelWithText:@"No friends detected"];
     }
     else {
-        NSMutableArray *tableViewRows = [NSMutableArray arrayWithCapacity:20];
-        ((UITableView*)self.view).tableFooterView = nil;
+        PPSExMainScreenRowTypeObject *rowObject = nil;
         
-        if ((self.buddyList == nil) || ([self.buddyList count] == 0)) {
-            [self showFooterLabelWithText:@"No friends detected"];
-        }
-        else {
-            PPSExMainScreenRowTypeObject *rowObject = nil;
+        for (MNWSBuddyListItem *buddyInfo in self.buddyList) {                             
+            rowObject = [[PPSExMainScreenRowTypeObject alloc]initWithTitle:[buddyInfo getFriendUserNickName]
+                                                                  subTitle:[NSString stringWithFormat:@"Now is: %@",[[buddyInfo getFriendUserOnlineNow]boolValue]?@"Online":@"Offline"]];
             
-            for (MNWSBuddyListItem *buddyInfo in self.buddyList) {                             
-                rowObject = [[PPSExMainScreenRowTypeObject alloc]initWithTitle:[buddyInfo getFriendUserNickName]
-                                                                      subTitle:[NSString stringWithFormat:@"Now is: %@",[[buddyInfo getFriendUserOnlineNow]boolValue]?@"Online":@"Offline"]];
-                
-                rowObject.viewControllerName = @"PPSExUserInfoViewController";
-                rowObject.nibName            = @"PPSExUserInfoView";
-                
-                [tableViewRows addObject:rowObject];
-                
-                [rowObject release];
-                rowObject = nil;
-            }
+            rowObject.viewControllerName = @"PPSExUserInfoViewController";
+            rowObject.nibName            = @"PPSExUserInfoView";
+            
+            [tableViewRows addObject:rowObject];
+            
+            [rowObject release];
+            rowObject = nil;
         }
-        self.sectionRows = [NSArray arrayWithObjects:tableViewRows,nil];
-        [self.tableView reloadData];
     }
+    self.sectionRows = [NSArray arrayWithObjects:tableViewRows,nil];
+    [self.tableView reloadData];
 }
 
 - (void)switchToNotLoggedInState {
