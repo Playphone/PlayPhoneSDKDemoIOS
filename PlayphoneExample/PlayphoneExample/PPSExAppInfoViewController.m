@@ -12,16 +12,20 @@
 #import "PPSExCommon.h"
 #import "PPSExAppInfoViewController.h"
 
+
 @implementation PPSExAppInfoViewController
+
 @synthesize infoTextView = _infoTextView;
 
 - (void)viewDidUnload {
     [self setInfoTextView:nil];
+    
     [super viewDidUnload];
 }
 
 - (void)dealloc {
     [_infoTextView release];
+    
     [super dealloc];
 }
 

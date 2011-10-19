@@ -12,13 +12,13 @@ NSString *PPSExUserNotLoggedInString     = @"User is not logged in";
 NSString *PPSExInvalidNumberFormatString = @"Invalid number format";
 NSString *PPSExVirtualItemCurrencyString = @"vI";
 
+
 @implementation PPSExMainScreenRowTypeObject
 
 @synthesize rowTitle = _rowTitle;
 @synthesize rowSubTitle = _rowSubTitle;
 @synthesize viewControllerName = _viewControllerName;
 @synthesize nibName = _nibName;
-
 
 - (id)initWithNativeRow:(PPSExMainScreenRowType)row {
 
@@ -34,7 +34,7 @@ NSString *PPSExVirtualItemCurrencyString = @"vI";
     return self;
 }
 
-- (id)initWithTitle:(NSString*)title subTitle:(NSString*) subTitle {
+- (id)initWithTitle:(NSString *)title subTitle:(NSString *) subTitle {
     self = [super init];
     
     if (self) {
@@ -56,14 +56,14 @@ NSString *PPSExVirtualItemCurrencyString = @"vI";
     [super dealloc];
 }
 
-+ (NSArray*)getArrayOfNativeRows:(PPSExMainScreenRowType*)rowsArray count:(NSUInteger)rowsCount {
++ (NSArray* )getArrayOfNativeRows:(PPSExMainScreenRowType *)rowsArray count:(NSUInteger)rowsCount {
     NSMutableArray *resultArray = [NSMutableArray arrayWithCapacity:rowsCount];
     
     for (NSUInteger index = 0;index < rowsCount;index++) {
         [resultArray addObject:[[[PPSExMainScreenRowTypeObject alloc]initWithNativeRow:rowsArray[index]]autorelease]];
     }
     
-    return (NSArray*)resultArray;
+    return (NSArray *)resultArray;
 }
 
 @end

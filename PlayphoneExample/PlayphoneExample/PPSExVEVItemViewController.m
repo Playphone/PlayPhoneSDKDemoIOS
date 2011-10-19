@@ -21,19 +21,10 @@ static PPSExMainScreenRowType PPSExVEVItemScreenRows[] =
     { @"Get Virtual Currencires", @"", @"PPSExVEVItemListViewController", @"PPSExBasicTableView" },
 };
 
+
 @implementation PPSExVEVItemViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     NSArray *sectionNamesArray = [NSArray arrayWithObjects:PPSExVEVItemScreenSectionNames
                                                      count:DeclaredArraySize(PPSExVEVItemScreenSectionNames)];
     
@@ -52,10 +43,10 @@ static PPSExMainScreenRowType PPSExVEVItemScreenRows[] =
     [super tableView:tableView didSelectRowAtIndexPath:indexPath];
     
     if      ([indexPath indexAtPosition:1] == 0) {
-        ((PPSExVEVItemListViewController*)self.navigationController.topViewController).showVCurrencies = NO;
+        ((PPSExVEVItemListViewController *)self.navigationController.topViewController).showVCurrencies = NO;
     }
     else if ([indexPath indexAtPosition:1] == 1) {
-        ((PPSExVEVItemListViewController*)self.navigationController.topViewController).showVCurrencies = YES;
+        ((PPSExVEVItemListViewController *)self.navigationController.topViewController).showVCurrencies = YES;
     }
     else {
     }

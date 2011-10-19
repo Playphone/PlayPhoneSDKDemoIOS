@@ -12,6 +12,6 @@
 
 - (IBAction)doShowLauncherIcon:(id)sender;
 - (IBAction)doHideLauncherIcon:(id)sender;
-- (IBAction)doShowDashboard:(id)sender;
+- (IBAction)doShowDashboard   :(id)sender;
 
 @end

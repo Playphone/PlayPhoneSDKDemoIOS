@@ -46,20 +46,21 @@ static PPSExMainScreenRowType PPSExMainScreenSection3Rows[] =
     { @"Application Info"     , @"", @"PPSExAppInfoViewController"          , @"PPSExAppInfoView"      }
 };
 
+
 @interface RootViewController()
 
 @property (nonatomic,retain) id<PPSExBasicNotificationProtocol> basicNotificationDelegate;
 
 @end
 
+
 @implementation RootViewController
 
-@synthesize basicNotificationDelegate;
+@synthesize basicNotificationDelegate = _basicNotificationDelegate;
 
 #pragma mark - View lifecycle
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil
                            bundle:nibBundleOrNil];
     
@@ -70,8 +71,7 @@ static PPSExMainScreenRowType PPSExMainScreenSection3Rows[] =
     return self;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     NSArray *sectionNamesArray = [NSArray arrayWithObjects:PPSExMainScreenSectionNames
                                                      count:DeclaredArraySize(PPSExMainScreenSectionNames)];
     
@@ -107,23 +107,19 @@ static PPSExMainScreenRowType PPSExMainScreenSection3Rows[] =
     self.navigationController.delegate = self;
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
+- (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
 }
 
-- (void)viewWillDisappear:(BOOL)animated
-{
+- (void)viewWillDisappear:(BOOL)animated {
 	[super viewWillDisappear:animated];
 }
 
-- (void)viewDidDisappear:(BOOL)animated
-{
+- (void)viewDidDisappear:(BOOL)animated {
 	[super viewDidDisappear:animated];
 }
 
@@ -132,24 +128,21 @@ static PPSExMainScreenRowType PPSExMainScreenSection3Rows[] =
 	return (YES);
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
     
     // Relinquish ownership any cached data, images, etc that aren't in use.
 }
 
-- (void)viewDidUnload
-{
+- (void)viewDidUnload {
     [super viewDidUnload];
     
     // Relinquish ownership of anything that can be recreated in viewDidLoad or on demand.
     // For example: self.myOutlet = nil;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
     [super dealloc];
 }
 
@@ -159,7 +152,7 @@ static PPSExMainScreenRowType PPSExMainScreenSection3Rows[] =
       willShowViewController:(UIViewController *)viewController
                     animated:(BOOL)animated {
     if ([viewController conformsToProtocol:@protocol(PPSExBasicNotificationProtocol)]) {
-        self.basicNotificationDelegate = (PPSExBasicViewController*)viewController;
+        self.basicNotificationDelegate = (PPSExBasicViewController *)viewController;
     }
     else {
         self.basicNotificationDelegate = nil;

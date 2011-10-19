@@ -17,7 +17,7 @@
 {
     NSUInteger mnDirectCurStatus;
     
-    id<PPSExBasicNotificationProtocol> basicNotificationDelegate;
+    id<PPSExBasicNotificationProtocol> _basicNotificationDelegate;
 }
 
 

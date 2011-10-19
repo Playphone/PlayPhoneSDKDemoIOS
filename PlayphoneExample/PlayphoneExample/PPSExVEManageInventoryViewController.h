@@ -27,8 +27,8 @@
 @property (nonatomic, retain) IBOutlet UIButton     *addButton;
 @property (nonatomic, retain) IBOutlet UIButton     *subtractButton;
 
-- (IBAction)doAddItems:(id)sender;
-- (IBAction)doSubtractItems:(id)sender;
+- (IBAction)doAddItems           :(id)sender;
+- (IBAction)doSubtractItems      :(id)sender;
 - (IBAction)textFieldEditDidBegin:(id)sender;
-- (IBAction)textFieldEditDidEnd:(id)sender;
+- (IBAction)textFieldEditDidEnd  :(id)sender;
 @end

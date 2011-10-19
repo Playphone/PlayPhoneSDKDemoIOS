@@ -17,26 +17,15 @@ static NSString *PPSExVECategoriesScreenSectionNames[] =
     @"",
 };
 
+
 @interface PPSExVECategoryListViewController()
 - (void)updateView;
 @end
 
+
 @implementation PPSExVECategoryListViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil
-                           bundle:nibBundleOrNil];
-    
-    if (self) {
-        // Custom initialization
-    }
-    
-    return self;
-}
-
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     NSArray *sectionNamesArray = [NSArray arrayWithObjects:PPSExVECategoriesScreenSectionNames
                                                      count:DeclaredArraySize(PPSExVECategoriesScreenSectionNames)];
     

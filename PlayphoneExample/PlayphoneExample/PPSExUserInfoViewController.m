@@ -15,30 +15,35 @@
 
 #import "PPSExUserInfoViewController.h"
 
+
 @interface PPSExUserInfoViewController ()
 - (void)switchToNotLoggedInState;
 @end
 
+
 @implementation PPSExUserInfoViewController
-@synthesize buddyInfo = _buddyInfo;
-@synthesize headerLabel = _headerLabel;
+
+@synthesize buddyInfo    = _buddyInfo;
+@synthesize headerLabel  = _headerLabel;
 @synthesize bodyTextView = _bodyTextView;
-@synthesize image = _image;
+@synthesize image        = _image;
 
 - (void)viewDidLoad {
     _buddyInfo = nil;
 }
 - (void)viewDidUnload {
-    [self setHeaderLabel:nil];
+    [self setHeaderLabel :nil];
     [self setBodyTextView:nil];
-    [self setImage:nil];
+    [self setImage       :nil];
+    
     [super viewDidUnload];
 }
 
 - (void)dealloc {
-    [_headerLabel release];
+    [_headerLabel  release];
     [_bodyTextView release];
-    [_image release];
+    [_image        release];
+
     [super dealloc];
 }
 

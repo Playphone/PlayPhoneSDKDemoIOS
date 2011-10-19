@@ -17,6 +17,7 @@ static NSString *PPSExVEInventoryListScreenSectionNames[] =
     @"Items"
 };
 
+
 @interface PPSExVEInventoryListViewController()
 - (void)updateView;
 
@@ -24,6 +25,7 @@ static NSString *PPSExVEInventoryListScreenSectionNames[] =
 - (void)switchToNotLoggedInState;
 
 @end
+
 
 @implementation PPSExVEInventoryListViewController
 

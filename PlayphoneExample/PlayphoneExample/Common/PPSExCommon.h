@@ -47,11 +47,11 @@ typedef struct
 @property (nonatomic,retain) NSString *nibName;
 
 - (id)initWithNativeRow:(PPSExMainScreenRowType)row;
-- (id)initWithTitle:(NSString*)title subTitle:(NSString*) subTitle;
+- (id)initWithTitle:(NSString *)title subTitle:(NSString *) subTitle;
 
 - (void)dealloc;
 
-+ (NSArray*)getArrayOfNativeRows:(PPSExMainScreenRowType*)rowsArray count:(NSUInteger)rowsCount;
++ (NSArray *)getArrayOfNativeRows:(PPSExMainScreenRowType *)rowsArray count:(NSUInteger)rowsCount;
 
 @end
 

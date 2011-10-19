@@ -22,6 +22,6 @@
 @property (retain, nonatomic) IBOutlet UIButton    *readCloudButton;
 
 - (IBAction)doStoreInCloud:(id)sender;
-- (IBAction)doReadCloud:(id)sender;
+- (IBAction)doReadCloud   :(id)sender;
 
 @end

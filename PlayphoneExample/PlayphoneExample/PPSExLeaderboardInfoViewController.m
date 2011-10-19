@@ -16,6 +16,7 @@
 
 static NSString *PPSExLeaderboardEmpty = @"<No data>";
 
+
 @interface PPSExLeaderboardInfoViewController()
 @property (nonatomic,retain) NSString    *requestBlockName;
 @property (nonatomic,retain) NSArray     *leaderboardData;
@@ -27,6 +28,7 @@ static NSString *PPSExLeaderboardEmpty = @"<No data>";
 - (void)cancelRequestSafely;
 
 @end
+
 
 @implementation PPSExLeaderboardInfoViewController
 
@@ -158,7 +160,7 @@ static NSString *PPSExLeaderboardEmpty = @"<No data>";
 
 #pragma mark - MNWSRequestDelegate
 
--(void) wsRequestDidSucceed:(MNWSResponse*) response {
+-(void) wsRequestDidSucceed:(MNWSResponse *) response {
     self.leaderboardData = [response getDataForBlock: self.requestBlockName];
     
     [self updateView];
@@ -167,7 +169,7 @@ static NSString *PPSExLeaderboardEmpty = @"<No data>";
     self.wsRequest        = nil;
 }
 
--(void) wsRequestDidFailWithError:(MNWSRequestError*) error {
+-(void) wsRequestDidFailWithError:(MNWSRequestError *) error {
     PPSExShowWSRequestErrorAlert(error.message);
     
     self.requestBlockName = nil;

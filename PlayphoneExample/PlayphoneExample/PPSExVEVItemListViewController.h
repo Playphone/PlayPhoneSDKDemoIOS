@@ -9,11 +9,12 @@
 #import "MNVItemsProvider.h"
 #import "PPSExBasicViewController.h"
 
-@interface PPSExVEVItemListViewController : PPSExBasicTableViewController <MNVItemsProviderDelegate> {
+@interface PPSExVEVItemListViewController : PPSExBasicTableViewController <MNVItemsProviderDelegate>
+{
     NSArray *_gameVItemsList;
-    BOOL _showVCurrencies;
+    BOOL     _showVCurrencies;
 }
 
-@property (nonatomic,assign) BOOL showVCurrencies;
+@property (nonatomic, assign) BOOL showVCurrencies;
 
 @end

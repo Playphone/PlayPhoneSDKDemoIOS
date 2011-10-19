@@ -8,7 +8,6 @@
 
 #import "PPSExBasicViewController.h"
 
-@interface PPSExVEViewController : PPSExBasicTableViewController {
-}
+@interface PPSExVEViewController : PPSExBasicTableViewController
 
 @end

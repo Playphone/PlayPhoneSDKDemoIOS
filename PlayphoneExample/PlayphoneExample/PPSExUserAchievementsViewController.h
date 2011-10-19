@@ -20,7 +20,8 @@
 @property (nonatomic, retain) IBOutlet UIButton    *unlockButton;
 
 - (IBAction)doUnlockAchievements:(id)sender;
-- (IBAction)achIdEditingDidEnd:(id)sender;
+
+- (IBAction)achIdEditingDidEnd  :(id)sender;
 - (IBAction)achIdEditingDidBegin:(id)sender;
 
 @end

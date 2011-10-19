@@ -18,6 +18,7 @@ static NSString *PPSExVEVItemListScreenSectionNames[] =
     @"",
 };
 
+
 @interface PPSExVEVItemListViewController()
 @property (nonatomic,retain) NSArray *gameVItemsList;
 
@@ -25,22 +26,13 @@ static NSString *PPSExVEVItemListScreenSectionNames[] =
 
 @end
 
+
 @implementation PPSExVEVItemListViewController
-@synthesize gameVItemsList = _gameVItemsList;
+
+@synthesize gameVItemsList  = _gameVItemsList;
 @synthesize showVCurrencies = _showVCurrencies;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        _gameVItemsList  = nil;
-        _showVCurrencies = NO;
-    }
-    return self;
-}
-
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     NSArray *sectionNamesArray = [NSArray arrayWithObjects:PPSExVEVItemListScreenSectionNames
                                                      count:DeclaredArraySize(PPSExVEVItemListScreenSectionNames)];
     
@@ -48,7 +40,10 @@ static NSString *PPSExVEVItemListScreenSectionNames[] =
     
     self.sectionNames = sectionNamesArray;
     self.sectionRows  = sectionRowsArray;
-    
+
+    _gameVItemsList  = nil;
+    _showVCurrencies = NO;
+
     [super viewDidLoad];
     
     [[MNDirect vItemsProvider]addDelegate:self];
@@ -101,7 +96,8 @@ static NSString *PPSExVEVItemListScreenSectionNames[] =
         
         if (rowObject != nil) {
             rowObject.viewControllerName = @"PPSExVEVItemInfoViewController";
-            rowObject.nibName = @"PPSExVEVItemInfoView";
+            rowObject.nibName            = @"PPSExVEVItemInfoView";
+            
             [tableViewRows addObject:rowObject];
             
             [rowObject release];
@@ -126,7 +122,7 @@ static NSString *PPSExVEVItemListScreenSectionNames[] =
         }
     }
     
-    ((PPSExVEVItemInfoViewController*)self.navigationController.topViewController).vItemInfo = selectedItem;
+    ((PPSExVEVItemInfoViewController *)self.navigationController.topViewController).vItemInfo = selectedItem;
 }
 
 @end

@@ -68,13 +68,11 @@
     [super dealloc];
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
 	return (YES);
 }
 
@@ -83,6 +81,7 @@
     
     self.cellStyle = UITableViewCellStyleSubtitle;
 }
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
@@ -92,14 +91,12 @@
 #pragma mark - UITableViewDataSource
 
 // Customize the number of sections in the table view.
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     int sections = [self.sectionNames count];
     return sections;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if ([self.sectionRows count] > section) {
         NSArray *rows = [self.sectionRows objectAtIndex:section];
         
@@ -111,8 +108,7 @@
     return 0;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *CellIdentifier = @"Cell";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -135,15 +131,13 @@
     return cell;
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-{
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     return [self.sectionNames objectAtIndex:section];
 }
 
 #pragma mark - UITableViewDelegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     int sectionIndex = [indexPath indexAtPosition:0];
     int rowIndex     = [indexPath indexAtPosition:1];
     
@@ -172,14 +166,13 @@
         }
     }
 }
-
-- (void)showFooterLabelWithText:(NSString*)labelText {
+- (void)showFooterLabelWithText:(NSString *)labelText {
     UILabel *footerLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 320, 21)];
     footerLabel.text = labelText;
     footerLabel.backgroundColor = [UIColor clearColor];
     footerLabel.textAlignment   = UITextAlignmentCenter;
     
-    ((UITableView*)self.view).tableFooterView = footerLabel;
+    ((UITableView *)self.view).tableFooterView = footerLabel;
     [footerLabel release];
 }
 

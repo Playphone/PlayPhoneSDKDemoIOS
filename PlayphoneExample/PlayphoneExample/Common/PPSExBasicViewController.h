@@ -27,17 +27,17 @@
 
 @interface PPSExBasicTableViewController : UITableViewController <UITableViewDataSource,UITableViewDelegate,PPSExBasicNotificationProtocol>
 {
-    NSArray *_sectionNames;
-    NSArray *_sectionRows;
+    NSArray             *_sectionNames;
+    NSArray             *_sectionRows;
     
     UITableViewCellStyle _cellStyle;
 }
 
-@property (nonatomic,retain) NSArray *sectionNames;
-@property (nonatomic,retain) NSArray *sectionRows;
+@property (nonatomic,retain) NSArray             *sectionNames;
+@property (nonatomic,retain) NSArray             *sectionRows;
 @property (nonatomic,assign) UITableViewCellStyle cellStyle;
 
-- (void)showFooterLabelWithText:(NSString*)labelText;
+- (void)showFooterLabelWithText:(NSString *)labelText;
 
 - (void)updateState;
 

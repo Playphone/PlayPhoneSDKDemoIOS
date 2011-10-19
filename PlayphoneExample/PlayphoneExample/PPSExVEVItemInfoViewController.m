@@ -10,68 +10,62 @@
 
 #import "PPSExVEVItemInfoViewController.h"
 
+
 @implementation PPSExVEVItemInfoViewController
-@synthesize vItemIdLabel = _vItemIdLabel;
-@synthesize vItemNameLabel = _vItemNameLabel;
-@synthesize isConsumableLabel = _isConsumableLabel;
-@synthesize isUniqueLabel = _isUniqueLabel;
-@synthesize descriptionLabel = _descriptionLabel;
-@synthesize vItemImage = _vItemImage;
+
+@synthesize vItemIdLabel        = _vItemIdLabel;
+@synthesize vItemNameLabel      = _vItemNameLabel;
+@synthesize isConsumableLabel   = _isConsumableLabel;
+@synthesize isUniqueLabel       = _isUniqueLabel;
+@synthesize descriptionLabel    = _descriptionLabel;
+@synthesize vItemImage          = _vItemImage;
 @synthesize issueOnClientSwitch = _issueOnClientSwitch;
-@synthesize isConsumableSwitch = _isConsumableSwitch;
-@synthesize isUniqueSwitch = _isUniqueSwitch;
-@synthesize paramsTextView = _paramsTextView;
-@synthesize vItemInfo = _vItemInfo;
+@synthesize isConsumableSwitch  = _isConsumableSwitch;
+@synthesize isUniqueSwitch      = _isUniqueSwitch;
+@synthesize paramsTextView      = _paramsTextView;
+@synthesize vItemInfo           = _vItemInfo;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
-- (void)viewDidUnload
-{
-    [self setVItemIdLabel:nil];
-    [self setVItemNameLabel:nil];
-    [self setIsConsumableLabel:nil];
-    [self setIsUniqueLabel:nil];
-    [self setDescriptionLabel:nil];
-    [self setVItemImage:nil];
+- (void)viewDidUnload {
+    [self setVItemIdLabel       :nil];
+    [self setVItemNameLabel     :nil];
+    [self setIsConsumableLabel  :nil];
+    [self setIsUniqueLabel      :nil];
+    [self setDescriptionLabel   :nil];
+    [self setVItemImage         :nil];
     [self setIssueOnClientSwitch:nil];
-    [self setIsConsumableSwitch:nil];
-    [self setIsUniqueSwitch:nil];
-    [self setParamsTextView:nil];
+    [self setIsConsumableSwitch :nil];
+    [self setIsUniqueSwitch     :nil];
+    [self setParamsTextView     :nil];
+    
+    self.vItemInfo = nil;
     
     [super viewDidUnload];
 }
 
 - (void)dealloc {
-    [_vItemIdLabel release];
-    [_vItemNameLabel release];
-    [_isConsumableLabel release];
-    [_isUniqueLabel release];
-    [_descriptionLabel release];
-    [_vItemImage release];
+    [_vItemIdLabel        release];
+    [_vItemNameLabel      release];
+    [_isConsumableLabel   release];
+    [_isUniqueLabel       release];
+    [_descriptionLabel    release];
+    [_vItemImage          release];
     [_issueOnClientSwitch release];
-    [_isConsumableSwitch release];
-    [_isUniqueSwitch release];
-    [_paramsTextView release];
+    [_isConsumableSwitch  release];
+    [_isUniqueSwitch      release];
+    [_paramsTextView      release];
     
-    [_vItemInfo release];
+    [_vItemInfo           release];
     
     [super dealloc];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    ((UIScrollView*)self.view).contentSize = CGSizeMake(self.view.frame.size.width, 460);
+    ((UIScrollView *)self.view).contentSize = CGSizeMake(self.view.frame.size.width, 460);
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
-    ((UIScrollView*)self.view).contentSize = CGSizeMake(self.view.frame.size.width, 460);
+    ((UIScrollView *)self.view).contentSize = CGSizeMake(self.view.frame.size.width, 460);
 }
 
 - (void)setVItemInfo:(MNGameVItemInfo *)vItemInfo {

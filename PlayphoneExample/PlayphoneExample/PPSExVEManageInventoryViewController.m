@@ -23,7 +23,7 @@
 
 - (void)updateView;
 - (void)updateAmountOfCurrentItem;
-- (void)updateAmountOfItem:(MNGameVItemInfo*)itemInfo;
+- (void)updateAmountOfItem:(MNGameVItemInfo *)itemInfo;
 
 - (void)switchToLoggedInState;
 - (void)switchToNotLoggedInState;
@@ -32,6 +32,7 @@
 
 
 @implementation PPSExVEManageInventoryViewController
+
 @synthesize itemList            = _itemList;
 @synthesize itemPickerView      = _itemPickerView;
 @synthesize itemAmountTextField = _itemAmountTextField;
@@ -62,11 +63,12 @@
 - (void)dealloc {
     [_itemPickerView      release];
     [_itemAmountTextField release];
-    [_itemList            release];
     [_amountLabel         release];
     [_titleLabel          release];
     [_addButton           release];
     [_subtractButton      release];
+
+    [_itemList            release];
     
     [[MNDirect vItemsProvider]removeDelegate:self];
 
@@ -112,7 +114,7 @@
         [self updateAmountOfItem:[self.itemList objectAtIndex:selectedItem]];
     }
 }
-- (void)updateAmountOfItem:(MNGameVItemInfo*)itemInfo {
+- (void)updateAmountOfItem:(MNGameVItemInfo *)itemInfo {
     if ([MNDirect isUserLoggedIn]) {
         self.amountLabel.text = [NSString stringWithFormat:@"%lld",[[MNDirect vItemsProvider]getPlayerVItemCountById:itemInfo.vItemId]];
     }
@@ -140,7 +142,7 @@
     self.subtractButton     .enabled = NO;
 }
 
-- (IBAction)doAddItems:(id)sender {
+- (IBAction)doAddItems           :(id)sender {
     NSInteger amount;
     
     MNGameVItemInfo *itemInfo = [self.itemList objectAtIndex:[self.itemPickerView selectedRowInComponent:0]];
@@ -158,7 +160,7 @@
 
     [self.itemAmountTextField resignFirstResponder];
 }
-- (IBAction)doSubtractItems:(id)sender {
+- (IBAction)doSubtractItems      :(id)sender {
     NSInteger amount;
     
     MNGameVItemInfo *itemInfo = [self.itemList objectAtIndex:[self.itemPickerView selectedRowInComponent:0]];
@@ -177,7 +179,7 @@
     [self.itemAmountTextField resignFirstResponder];
 }
 - (IBAction)textFieldEditDidBegin:(id)sender {
-    [((UIScrollView*)self.view) 
+    [((UIScrollView *)self.view) 
      setContentOffset:CGPointMake(0,(self.itemAmountTextField.frame.origin.y    + 
                                      self.itemAmountTextField.frame.size.height - 
                                      PPSExKeyboardHeight                        +
@@ -185,8 +187,8 @@
                                      PPSExTextFieldGap))
      animated:YES];
 }
-- (IBAction)textFieldEditDidEnd:(id)sender {
-    [((UIScrollView*)self.view) setContentOffset:CGPointMake(0, 0) animated:YES];
+- (IBAction)textFieldEditDidEnd  :(id)sender {
+    [((UIScrollView *)self.view) setContentOffset:CGPointMake(0, 0) animated:YES];
 }
 
 #pragma mark - UIPickerViewDataSource
@@ -234,12 +236,12 @@
     [self updateView];
 }
 
--(void) onVItemsTransactionCompleted:(MNVItemsTransactionInfo*) transaction {
+-(void) onVItemsTransactionCompleted:(MNVItemsTransactionInfo *) transaction {
     PPSExShowAlert(@"Item amount changed successfully", @"Transfer succeeded");
     [self updateAmountOfCurrentItem];
 }
 
--(void) onVItemsTransactionFailed:(MNVItemsTransactionError*) transactionError {
+-(void) onVItemsTransactionFailed:(MNVItemsTransactionError *) transactionError {
     PPSExShowAlert([NSString stringWithFormat:
                     @"Error code: [%d]\nMessage: [%@]",
                     transactionError.failReasonCode,

@@ -14,26 +14,29 @@
 #import "PPSExCommon.h"
 #import "PPSExVEPackBuyViewController.h"
 
+
 @interface PPSExVEPackBuyViewController()
-@property (nonatomic,retain)NSArray *packList;
+@property (nonatomic, retain)NSArray *packList;
 
 - (void)switchToLoggedInState;
 - (void)switchToNotLoggedInState;
+
 @end
 
 
 @implementation PPSExVEPackBuyViewController
+
 @synthesize buyButton      = _buyButton;
 @synthesize packPickerView = _packPickerView;
 @synthesize packList       = _packList;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    ((UIScrollView*)self.view).contentSize = CGSizeMake(self.view.frame.size.width,400);
+    ((UIScrollView *)self.view).contentSize = CGSizeMake(self.view.frame.size.width,400);
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
-    ((UIScrollView*)self.view).contentSize = CGSizeMake(self.view.frame.size.width,400);
+    ((UIScrollView *)self.view).contentSize = CGSizeMake(self.view.frame.size.width,400);
 }
 
 - (void)dealloc {
@@ -44,10 +47,12 @@
 
     [super dealloc];
 }
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [[MNDirect vShopProvider] addDelegate:self];
 }
+
 - (void)viewDidUnload {
     [self setPackPickerView:nil];
     [self setBuyButton     :nil];
@@ -129,11 +134,11 @@
     [MNDirectUIHelper hideDashboard];
 }
 
--(void) onCheckoutVShopPackSuccess:(MNVShopProviderCheckoutVShopPackSuccessInfo*) result {
+-(void) onCheckoutVShopPackSuccess:(MNVShopProviderCheckoutVShopPackSuccessInfo *) result {
     PPSExShowAlert(@"Pack purchased successfully",@"Purchase succeeded");
 }
 
--(void) onCheckoutVShopPackFail:(MNVShopProviderCheckoutVShopPackFailInfo*) result {    
+-(void) onCheckoutVShopPackFail:(MNVShopProviderCheckoutVShopPackFailInfo *) result {    
     PPSExShowAlert([NSString stringWithFormat:@"Error code: [%d]\nMessage: [%@]",result.errorCode,result.errorMessage],@"Purchase failed");
 }
 

@@ -14,58 +14,61 @@
 
 #import "PPSExVEPackInfoViewController.h"
 
+
 @implementation PPSExVEPackInfoViewController
 
-@synthesize packInfo = _packInfo;
-@synthesize packIdLabel = _packIdLabel;
-@synthesize nameLabel = _nameLabel;
-@synthesize categoryLabel = _categoryLabel;
+@synthesize packInfo         = _packInfo;
+@synthesize packIdLabel      = _packIdLabel;
+@synthesize nameLabel        = _nameLabel;
+@synthesize categoryLabel    = _categoryLabel;
 @synthesize descriptionLabel = _descriptionLabel;
-@synthesize priceLabel = _priceLabel;
-@synthesize packIcon = _packIcon;
-@synthesize isHiddenSwitch = _isHiddenSwitch;
-@synthesize holdSalesSwitch = _holdSalesSwitch;
-@synthesize itemsTextView = _itemsTextView;
-@synthesize paramsTextView = _paramsTextView;
+@synthesize priceLabel       = _priceLabel;
+@synthesize packIcon         = _packIcon;
+@synthesize isHiddenSwitch   = _isHiddenSwitch;
+@synthesize holdSalesSwitch  = _holdSalesSwitch;
+@synthesize itemsTextView    = _itemsTextView;
+@synthesize paramsTextView   = _paramsTextView;
 
 - (void)viewDidUnload {
-    [self setPackIdLabel:nil];
-    [self setNameLabel:nil];
-    [self setCategoryLabel:nil];
+    [self setPackIdLabel     :nil];
+    [self setNameLabel       :nil];
+    [self setCategoryLabel   :nil];
     [self setDescriptionLabel:nil];
-    [self setPriceLabel:nil];
-    [self setPackIcon:nil];
-    [self setIsHiddenSwitch:nil];
-    [self setHoldSalesSwitch:nil];
-    [self setItemsTextView:nil];
-    [self setParamsTextView:nil];
+    [self setPriceLabel      :nil];
+    [self setPackIcon        :nil];
+    [self setIsHiddenSwitch  :nil];
+    [self setHoldSalesSwitch :nil];
+    [self setItemsTextView   :nil];
+    [self setParamsTextView  :nil];
+    
+    self.packInfo = nil;
 
     [super viewDidUnload];
 }
 
 - (void)dealloc {
-    [_packIdLabel release];
-    [_nameLabel release];
-    [_categoryLabel release];
+    [_packIdLabel      release];
+    [_nameLabel        release];
+    [_categoryLabel    release];
     [_descriptionLabel release];
-    [_priceLabel release];
-    [_packIcon release];
-    [_isHiddenSwitch release];
-    [_holdSalesSwitch release];
-    [_itemsTextView release];
-    [_paramsTextView release];
-    [_packInfo release];
+    [_priceLabel       release];
+    [_packIcon         release];
+    [_isHiddenSwitch   release];
+    [_holdSalesSwitch  release];
+    [_itemsTextView    release];
+    [_paramsTextView   release];
+    [_packInfo         release];
     
     [super dealloc];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    ((UIScrollView*)self.view).contentSize = CGSizeMake(self.view.frame.size.width, 510);
+    ((UIScrollView *)self.view).contentSize = CGSizeMake(self.view.frame.size.width, 510);
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
-    ((UIScrollView*)self.view).contentSize = CGSizeMake(self.view.frame.size.width, 510);
+    ((UIScrollView *)self.view).contentSize = CGSizeMake(self.view.frame.size.width, 510);
 }
 
 - (void)setPackInfo:(MNVShopPackInfo *)packInfo {
@@ -96,6 +99,7 @@
     [self.packIcon loadImageWithUrl:[[MNDirect vShopProvider]getVShopPackImageURL:self.packInfo.packId]];
     
     NSString *deliveryString = nil;
+    
     for (MNVShopDeliveryInfo *deliveryInfo in self.packInfo.delivery) {
         deliveryString = [NSString stringWithFormat:@"%@\t%d",[[MNDirect vItemsProvider]findGameVItemById:deliveryInfo.vItemId].name,deliveryInfo.amount];
         

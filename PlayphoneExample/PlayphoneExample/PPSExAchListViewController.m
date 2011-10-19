@@ -20,14 +20,15 @@ static NSString *PPSExAchListSectionNames[] =
     @"",
 };
 
+
 @interface PPSExAchListViewController()
 - (void)updateView;
 @end
 
+
 @implementation PPSExAchListViewController
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     NSArray *sectionNamesArray = [NSArray arrayWithObjects:PPSExAchListSectionNames
                                                      count:DeclaredArraySize(PPSExAchListSectionNames)];
     
@@ -67,7 +68,7 @@ static NSString *PPSExAchListSectionNames[] =
         rowObject = [[PPSExMainScreenRowTypeObject alloc]initWithTitle:achInfo.name
                                                               subTitle:[NSString stringWithFormat:@"Id: %d",achInfo.achievementId]];
         rowObject.viewControllerName = @"PPSExAchInfoViewController";
-        rowObject.nibName = @"PPSExAchInfoView";
+        rowObject.nibName            = @"PPSExAchInfoView";
         
         [tableViewRows addObject:rowObject];
         
@@ -94,7 +95,7 @@ static NSString *PPSExAchListSectionNames[] =
         }
     }
     
-    ((PPSExAchInfoViewController*)self.navigationController.topViewController).achievementInfo = selectedItem;
+    ((PPSExAchInfoViewController *)self.navigationController.topViewController).achievementInfo = selectedItem;
 }
 
 #pragma mark - MNAchievementsProviderDelegate

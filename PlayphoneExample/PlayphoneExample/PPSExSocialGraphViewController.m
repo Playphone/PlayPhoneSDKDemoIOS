@@ -19,9 +19,10 @@ static NSString *PPSExSocialGraphSectionNames[] =
     @"",
 };
 
+
 @interface PPSExSocialGraphViewController()
-@property (nonatomic,retain) NSString *requestBlockName;
-@property (nonatomic,retain) NSArray  *buddyList;
+@property (nonatomic,retain) NSString    *requestBlockName;
+@property (nonatomic,retain) NSArray     *buddyList;
 @property (nonatomic,retain) MNWSRequest *wsRequest;
 
 - (void)updateView;
@@ -30,7 +31,9 @@ static NSString *PPSExSocialGraphSectionNames[] =
 
 @end
 
+
 @implementation PPSExSocialGraphViewController
+
 @synthesize requestBlockName = _requestBlockName;
 @synthesize buddyList        = _buddyList;
 @synthesize wsRequest        = _wsRequest;
@@ -91,7 +94,7 @@ static NSString *PPSExSocialGraphSectionNames[] =
 
 - (void)updateView {
     NSMutableArray *tableViewRows = [NSMutableArray arrayWithCapacity:20];
-    ((UITableView*)self.view).tableFooterView = nil;
+    ((UITableView *)self.view).tableFooterView = nil;
     
     if ((self.buddyList == nil) || ([self.buddyList count] == 0)) {
         [self showFooterLabelWithText:@"No friends detected"];
@@ -136,12 +139,12 @@ static NSString *PPSExSocialGraphSectionNames[] =
         }
     }
     
-    ((PPSExUserInfoViewController*)self.navigationController.topViewController).buddyInfo = selectedItem;
+    ((PPSExUserInfoViewController *)self.navigationController.topViewController).buddyInfo = selectedItem;
 }
 
 #pragma mark - MNWSRequestDelegate
 
--(void) wsRequestDidSucceed:(MNWSResponse*) response {
+-(void) wsRequestDidSucceed:(MNWSResponse *) response {
     self.buddyList = [response getDataForBlock: self.requestBlockName];
     
     self.requestBlockName = nil;
@@ -150,7 +153,7 @@ static NSString *PPSExSocialGraphSectionNames[] =
     [self updateView];
 }
 
--(void) wsRequestDidFailWithError:(MNWSRequestError*) error {
+-(void) wsRequestDidFailWithError:(MNWSRequestError *) error {
     PPSExShowWSRequestErrorAlert(error.message);
 
     self.requestBlockName = nil;

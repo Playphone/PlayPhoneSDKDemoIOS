@@ -25,7 +25,9 @@
 
 @end
 
+
 @implementation PPSExUserAchievementsViewController
+
 @synthesize userAchievementsTextView = _userAchievementsTextView;
 @synthesize unlockAchIdTextField     = _unlockAchIdTextField;
 @synthesize unlockButton             = _unlockButton;
@@ -71,7 +73,7 @@
 }
 
 - (IBAction)achIdEditingDidBegin:(id)sender {
-    [((UIScrollView*)self.view) 
+    [((UIScrollView *)self.view) 
      setContentOffset:CGPointMake(0,(self.unlockAchIdTextField.frame.origin.y    + 
                                      self.unlockAchIdTextField.frame.size.height - 
                                      PPSExKeyboardHeight                         +
@@ -79,9 +81,8 @@
                                      PPSExTextFieldGap))
      animated:YES];
 }
-
-- (IBAction)achIdEditingDidEnd:(id)sender {
-    [((UIScrollView*)self.view) setContentOffset:CGPointMake(0, 0) animated:YES];
+- (IBAction)achIdEditingDidEnd  :(id)sender {
+    [((UIScrollView *)self.view) setContentOffset:CGPointMake(0, 0) animated:YES];
 }
 
 - (void)updateState {
@@ -99,6 +100,7 @@
         [self switchToNotLoggedInState];
     }
 }
+
 - (void)updateView {
     NSMutableString *userAchListString = [NSMutableString stringWithCapacity:PPSExCommonStringDefCapacity];
     NSString        *achName           = nil;

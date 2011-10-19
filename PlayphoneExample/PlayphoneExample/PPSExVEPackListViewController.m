@@ -18,26 +18,15 @@ static NSString *PPSExVECategoriesScreenSectionNames[] =
     @"",
 };
 
+
 @interface PPSExVEPackListViewController()
 - (void)updateView;
 @end
 
+
 @implementation PPSExVEPackListViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil
-                           bundle:nibBundleOrNil];
-    
-    if (self) {
-        // Custom initialization
-    }
-    
-    return self;
-}
-
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     NSArray *sectionNamesArray = [NSArray arrayWithObjects:PPSExVECategoriesScreenSectionNames
                                                      count:DeclaredArraySize(PPSExVECategoriesScreenSectionNames)];
     
@@ -82,7 +71,7 @@ static NSString *PPSExVECategoriesScreenSectionNames[] =
         rowObject = [[PPSExMainScreenRowTypeObject alloc]initWithTitle:packInfo.name 
                                                               subTitle:MNVShopPackGetPriceString(packInfo)];
         rowObject.viewControllerName = @"PPSExVEPackInfoViewController";
-        rowObject.nibName = @"PPSExVEPackInfoView";
+        rowObject.nibName            = @"PPSExVEPackInfoView";
 
         [tableViewRows addObject:rowObject];
         
@@ -109,7 +98,7 @@ static NSString *PPSExVECategoriesScreenSectionNames[] =
         }
     }
     
-    ((PPSExVEPackInfoViewController*)self.navigationController.topViewController).packInfo = selectedItem;
+    ((PPSExVEPackInfoViewController *)self.navigationController.topViewController).packInfo = selectedItem;
 }
 
 @end

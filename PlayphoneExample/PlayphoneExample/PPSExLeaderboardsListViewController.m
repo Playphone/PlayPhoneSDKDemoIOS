@@ -19,12 +19,14 @@ static NSString *PPSExLeaderboardsSectionNames[] =
     @"",
 };
 
-@interface PPSExLeaderboardsListViewController()
 
+@interface PPSExLeaderboardsListViewController()
 @property (nonatomic,retain) NSArray *gameSettingList;
 
 - (void)updateView;
+
 @end
+
 
 @implementation PPSExLeaderboardsListViewController
 
@@ -62,10 +64,6 @@ static NSString *PPSExLeaderboardsSectionNames[] =
     }
 }
 
--(void) onGameSettingListUpdated {
-    [self updateView];
-}
-
 - (void)updateView {
     self.gameSettingList = [[MNDirect gameSettingsProvider]getGameSettingList];
     
@@ -81,7 +79,8 @@ static NSString *PPSExLeaderboardsSectionNames[] =
             
             if (rowObject != nil) {
                 rowObject.viewControllerName = @"PPSExLeaderboardInfoViewController";
-                rowObject.nibName = @"PPSExLeaderboardInfoView";
+                rowObject.nibName            = @"PPSExLeaderboardInfoView";
+                
                 [tableViewRows addObject:rowObject];
                 
                 [rowObject release];
@@ -107,7 +106,13 @@ static NSString *PPSExLeaderboardsSectionNames[] =
         }
     }
     
-    ((PPSExLeaderboardInfoViewController*)self.navigationController.topViewController).gameSetting = selectedItem;
+    ((PPSExLeaderboardInfoViewController *)self.navigationController.topViewController).gameSetting = selectedItem;
+}
+
+#pragma mark - MNGameSettingsProviderDelegate
+
+- (void)onGameSettingListUpdated {
+    [self updateView];
 }
 
 @end

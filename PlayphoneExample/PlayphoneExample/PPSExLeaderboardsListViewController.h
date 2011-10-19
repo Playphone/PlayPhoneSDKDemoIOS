@@ -10,7 +10,7 @@
 #import "PPSExBasicViewController.h"
 
 @interface PPSExLeaderboardsListViewController : PPSExBasicTableViewController <MNGameSettingsProviderDelegate> {
-    NSArray* _gameSettingList;
+    NSArray *_gameSettingList;
 }
 
 @end

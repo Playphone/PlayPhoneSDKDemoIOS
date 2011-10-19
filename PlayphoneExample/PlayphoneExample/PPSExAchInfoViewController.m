@@ -10,39 +10,39 @@
 #import "MNAchievementsProvider.h"
 #import "PPSExAchInfoViewController.h"
 
+
 @implementation PPSExAchInfoViewController
 
-@synthesize achievementInfo = _achievementInfo;
-@synthesize achievementIdLabel = _achievementIdLabel;
+@synthesize achievementInfo      = _achievementInfo;
+@synthesize achievementIdLabel   = _achievementIdLabel;
 @synthesize achievementNameLabel = _achievementNameLabel;
-@synthesize descLabel = _descLabel;
-@synthesize isSecretSwitch = _isSecretSwitch;
-@synthesize paramsTextView = _paramsTextView;
-@synthesize achievementIcon = _achievementIcon;
-@synthesize gamerPointsLabel = _gamerPointsLabel;
+@synthesize descLabel            = _descLabel;
+@synthesize isSecretSwitch       = _isSecretSwitch;
+@synthesize paramsTextView       = _paramsTextView;
+@synthesize achievementIcon      = _achievementIcon;
+@synthesize gamerPointsLabel     = _gamerPointsLabel;
 
-- (void)viewDidUnload
-{
-    [self setAchievementIdLabel:nil];
+- (void)viewDidUnload {
+    [self setAchievementIdLabel  :nil];
     [self setAchievementNameLabel:nil];
-    [self setDescLabel:nil];
-    [self setIsSecretSwitch:nil];
-    [self setParamsTextView:nil];
-    [self setAchievementIcon:nil];
-
-    [self setGamerPointsLabel:nil];
+    [self setDescLabel           :nil];
+    [self setIsSecretSwitch      :nil];
+    [self setParamsTextView      :nil];
+    [self setAchievementIcon     :nil];
+    [self setGamerPointsLabel    :nil];
+    
     [super viewDidUnload];
 }
 
 - (void)dealloc {
-    [_achievementIdLabel release];
+    [_achievementIdLabel   release];
     [_achievementNameLabel release];
-    [_descLabel release];
-    [_isSecretSwitch release];
-    [_paramsTextView release];
-    [_achievementIcon release];
+    [_descLabel            release];
+    [_isSecretSwitch       release];
+    [_paramsTextView       release];
+    [_achievementIcon      release];
+    [_gamerPointsLabel     release];
     
-    [_gamerPointsLabel release];
     [super dealloc];
 }
 

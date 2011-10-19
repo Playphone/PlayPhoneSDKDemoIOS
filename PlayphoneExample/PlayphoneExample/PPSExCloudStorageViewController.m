@@ -14,12 +14,15 @@
 
 static NSString *PPSExCloudStorageUploadError = @"Upload Error";
 
+
 @interface PPSExCloudStorageViewController()
 - (void)switchToLoggedInState;
 - (void)switchToNotLoggedInState;
 @end
 
+
 @implementation PPSExCloudStorageViewController
+
 @synthesize cookieTextField     = _cookieTextField;
 @synthesize cookiesListTextView = _cookiesListTextView;
 @synthesize storeInCloudButton  = _storeInCloudButton;
@@ -81,8 +84,7 @@ static NSString *PPSExCloudStorageUploadError = @"Upload Error";
     
     [self.cookieTextField resignFirstResponder];
 }
-
-- (IBAction)doReadCloud:(id)sender {
+- (IBAction)doReadCloud   :(id)sender {
     [self updateState];
     
     if ([MNDirect isUserLoggedIn]) {
@@ -97,7 +99,7 @@ static NSString *PPSExCloudStorageUploadError = @"Upload Error";
 
 #pragma mark - MNGameCookiesProviderDelegate
 
--(void) gameCookie:(NSInteger) key downloadSucceeded:(NSString*) cookie {
+-(void) gameCookie:(NSInteger) key downloadSucceeded:(NSString *) cookie {
     self.cookiesListTextView.text = [NSString stringWithFormat:
                                      @"%@\nId: %d, Value: %@",
                                      self.cookiesListTextView.text,
@@ -105,7 +107,7 @@ static NSString *PPSExCloudStorageUploadError = @"Upload Error";
     
 }
 
--(void) gameCookie:(NSInteger) key downloadFailedWithError:(NSString*) error {
+-(void) gameCookie:(NSInteger) key downloadFailedWithError:(NSString *) error {
     self.cookiesListTextView.text = [NSString stringWithFormat:
                                      @"%@\nId: %d, Error: %@",
                                      self.cookiesListTextView.text,
@@ -116,7 +118,7 @@ static NSString *PPSExCloudStorageUploadError = @"Upload Error";
     [self doReadCloud:nil];
 }
 
--(void) gameCookie:(NSInteger) key uploadFailedWithError:(NSString*) error {
+-(void) gameCookie:(NSInteger) key uploadFailedWithError:(NSString *) error {
     PPSExShowAlert(error,PPSExCloudStorageUploadError);
 }
 

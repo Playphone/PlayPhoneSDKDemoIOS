@@ -12,12 +12,9 @@
 #import "PPSExCommon.h"
 #import "PPSExLoginUserViewController.h"
 
-@interface PPSExLoginUserViewController()
-
-
-@end
 
 @implementation PPSExLoginUserViewController
+
 @synthesize userIdLabel;
 @synthesize userNameLabel;
 @synthesize userStatusLabel;
@@ -25,31 +22,30 @@
 @synthesize logoutButton;
 
 - (void)viewDidUnload {
-    [self setUserIdLabel:nil];
-    [self setUserNameLabel:nil];
+    [self setUserIdLabel    :nil];
+    [self setUserNameLabel  :nil];
     [self setUserStatusLabel:nil];
-    [self setLoginButton:nil];
-    [self setLogoutButton:nil];
+    [self setLoginButton    :nil];
+    [self setLogoutButton   :nil];
 
     [super viewDidUnload];
 }
 
-- (IBAction)doLogin:(id)sender {
+- (IBAction)doLogin :(id)sender {
     [MNDirect execAppCommand:@"jumpToUserHome" withParam:nil];
     [MNDirectUIHelper showDashboard];
 }
-
 - (IBAction)doLogout:(id)sender {
     [MNDirect execAppCommand:@"jumpToUserProfile" withParam:nil];
     [MNDirectUIHelper showDashboard];
 }
 
 - (void)dealloc {
-    [userIdLabel release];
-    [userNameLabel release];
+    [userIdLabel     release];
+    [userNameLabel   release];
     [userStatusLabel release];
-    [loginButton release];
-    [logoutButton release];
+    [loginButton     release];
+    [logoutButton    release];
     [super dealloc];
 }
 
