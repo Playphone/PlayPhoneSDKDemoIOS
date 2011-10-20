@@ -25,6 +25,7 @@ static PPSExMainScreenRowType PPSExDashboardCtlRows[] =
     { @"User Profile", @"jumpToUserProfile" , @"", @"" },
     { @"User Home"   , @"jumpToUserHome"    , @"", @"" },
     { @"Achievements", @"jumpToAchievements", @"", @"" },
+    { @"Add Friends" , @"jumpToAddFriends"  , @"", @"" },
 };
 
 
