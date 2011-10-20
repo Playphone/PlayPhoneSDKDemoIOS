@@ -45,6 +45,18 @@ static PPSExMainScreenRowType PPSExDashboardCtlRows[] =
     [super viewDidLoad];
 }
 
+- (void)viewDidUnload {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self]; 
+    
+    [super viewDidUnload];
+}
+
+- (void)dealloc {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self]; 
+
+    [super dealloc];
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
     
@@ -57,9 +69,14 @@ static PPSExMainScreenRowType PPSExDashboardCtlRows[] =
     UITableViewCell *selectedCell = [tableView cellForRowAtIndexPath:indexPath];
     
     NSString *applicationCommand = selectedCell.detailTextLabel.text;
+    
     [MNDirect execAppCommand:applicationCommand withParam:nil];
     [MNDirectUIHelper showDashboard];
     
+    [self performSelector:@selector(clearSelectionForCell:) withObject:selectedCell afterDelay:0.5];
+}
+
+- (void)clearSelectionForCell:(UITableViewCell *)selectedCell {
     [selectedCell setSelected:NO animated:YES];
 }
 
