@@ -34,6 +34,7 @@
     
     [infoString appendFormat:@"Application version: %@\n"      ,[[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey]];
     [infoString appendFormat:@"MN API version: %@\n"           ,MNClientAPIVersion];
+    [infoString appendFormat:@"Game Id: %d\n"                  ,PPSExGameId];
     [infoString appendFormat:@"Configuration URL: %@\n"        ,MNGetMultiNetConfigURL()];
     [infoString appendFormat:@"Build time: %s %s\n"            ,__DATE__,__TIME__];
     [infoString appendFormat:@"Current device: %@, OS: %@ %@\n",[[UIDevice currentDevice]model],[[UIDevice currentDevice]systemName],[[UIDevice currentDevice] systemVersion]];
