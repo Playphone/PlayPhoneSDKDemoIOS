@@ -23,7 +23,7 @@ static CGRect               mnViewTransformFrame;
 
 #define MNDirectUIHelperPopupInsetX        (10.0f)
 #define MNDirectUIHelperPopupInsetY        (10.0f)
-#define MNDirectUIHelperPopupBorderWidth   ( 5.0f)
+#define MNDirectUIHelperPopupBorderWidth   ( 3.0f)
 
 static float MNDirectUIHelperPopupBorderColor[] = { 128.0/255.0, 128.0/255.0, 128.0/255.0, 0.8f };
 
@@ -41,7 +41,7 @@ static float MNDirectUIHelperPopupBorderColor[] = { 128.0/255.0, 128.0/255.0, 12
     [super drawRect:rect];
     
     CGRect borderInRect = CGRectInset(self.bounds,MNDirectUIHelperPopupInsetX,MNDirectUIHelperPopupInsetY);
-    CGRect borderOutRect  = CGRectInset(self.bounds,MNDirectUIHelperPopupBorderWidth,MNDirectUIHelperPopupBorderWidth);
+    CGRect borderOutRect  = CGRectInset(self.bounds,MNDirectUIHelperPopupInsetX - MNDirectUIHelperPopupBorderWidth,MNDirectUIHelperPopupInsetY - MNDirectUIHelperPopupBorderWidth);
     
     float x1 = borderOutRect.origin.x;
     float x2 = borderInRect.origin.x;
@@ -313,6 +313,8 @@ static float MNDirectUIHelperPopupBorderColor[] = { 128.0/255.0, 128.0/255.0, 12
 +(void) didRotate:(NSNotification *)notification {
     if (mnDirectUIHelperAutorotationFlag) {
         [MNDirectUIHelper adjustToCurrentOrientation];
+        
+        [mnDirectUIHelperMNView setNeedsDisplay];
     }
 }
 
