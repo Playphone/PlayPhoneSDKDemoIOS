@@ -11,6 +11,9 @@
 #import "PPSExVEVItemInfoViewController.h"
 
 
+#define PPSExVEVItemInfoViewMinHeight (460)
+
+
 @implementation PPSExVEVItemInfoViewController
 
 @synthesize vItemIdLabel        = _vItemIdLabel;
@@ -61,11 +64,11 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    ((UIScrollView *)self.view).contentSize = CGSizeMake(self.view.frame.size.width, 460);
+    ((UIScrollView *)self.view).contentSize = CGSizeMake(self.view.frame.size.width, PPSExVEVItemInfoViewMinHeight);
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
-    ((UIScrollView *)self.view).contentSize = CGSizeMake(self.view.frame.size.width, 460);
+    ((UIScrollView *)self.view).contentSize = CGSizeMake(self.view.frame.size.width, PPSExVEVItemInfoViewMinHeight);
 }
 
 - (void)setVItemInfo:(MNGameVItemInfo *)vItemInfo {

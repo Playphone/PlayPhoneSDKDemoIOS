@@ -15,6 +15,9 @@
 #import "PPSExVEPackInfoViewController.h"
 
 
+#define PPSExVEPackInfoViewMinHeight (510)
+
+
 @implementation PPSExVEPackInfoViewController
 
 @synthesize packInfo         = _packInfo;
@@ -64,11 +67,11 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    ((UIScrollView *)self.view).contentSize = CGSizeMake(self.view.frame.size.width, 510);
+    ((UIScrollView *)self.view).contentSize = CGSizeMake(self.view.frame.size.width, PPSExVEPackInfoViewMinHeight);
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
-    ((UIScrollView *)self.view).contentSize = CGSizeMake(self.view.frame.size.width, 510);
+    ((UIScrollView *)self.view).contentSize = CGSizeMake(self.view.frame.size.width, PPSExVEPackInfoViewMinHeight);
 }
 
 - (void)setPackInfo:(MNVShopPackInfo *)packInfo {

@@ -15,6 +15,9 @@
 #import "PPSExVEPackBuyViewController.h"
 
 
+#define PPSExVEPackBuyViewMinHeight (400)
+
+
 @interface PPSExVEPackBuyViewController()
 @property (nonatomic, retain)NSArray *packList;
 
@@ -32,11 +35,11 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    ((UIScrollView *)self.view).contentSize = CGSizeMake(self.view.frame.size.width,400);
+    ((UIScrollView *)self.view).contentSize = CGSizeMake(self.view.frame.size.width,PPSExVEPackBuyViewMinHeight);
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
-    ((UIScrollView *)self.view).contentSize = CGSizeMake(self.view.frame.size.width,400);
+    ((UIScrollView *)self.view).contentSize = CGSizeMake(self.view.frame.size.width,PPSExVEPackBuyViewMinHeight);
 }
 
 - (void)dealloc {
