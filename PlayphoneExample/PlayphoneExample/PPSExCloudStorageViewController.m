@@ -12,6 +12,8 @@
 #import "PPSExCommon.h"
 #import "PPSExCloudStorageViewController.h"
 
+#define PPSExCloudStorageViewMinHeight (380)
+
 static NSString *PPSExCloudStorageUploadError = @"Upload Error";
 
 
@@ -30,6 +32,8 @@ static NSString *PPSExCloudStorageUploadError = @"Upload Error";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.contentMinHeght = PPSExCloudStorageViewMinHeight;
     
     [[MNDirect gameCookiesProvider]addDelegate:self];
 }
@@ -102,17 +106,23 @@ static NSString *PPSExCloudStorageUploadError = @"Upload Error";
 #pragma mark - MNGameCookiesProviderDelegate
 
 -(void) gameCookie:(NSInteger) key downloadSucceeded:(NSString *) cookie {
-    self.cookiesListTextView.text = [NSString stringWithFormat:
-                                     @"%@\nId: %d, Value: %@",
-                                     self.cookiesListTextView.text,
+    if (self.cookiesListTextView.text.length != 0) {
+        self.cookiesListTextView.text = [self.cookiesListTextView.text stringByAppendingString:@"\n"];
+    }
+    
+    self.cookiesListTextView.text = [self.cookiesListTextView.text stringByAppendingFormat:
+                                     @"Id: %d, Value: %@",
                                      key,cookie];
     
 }
 
 -(void) gameCookie:(NSInteger) key downloadFailedWithError:(NSString *) error {
-    self.cookiesListTextView.text = [NSString stringWithFormat:
-                                     @"%@\nId: %d, Error: %@",
-                                     self.cookiesListTextView.text,
+    if (self.cookiesListTextView.text.length != 0) {
+        self.cookiesListTextView.text = [self.cookiesListTextView.text stringByAppendingString:@"\n"];
+    }
+
+    self.cookiesListTextView.text = [self.cookiesListTextView.text stringByAppendingFormat:
+                                     @"Id: %d, Error: %@",
                                      key,error];
 }
 
