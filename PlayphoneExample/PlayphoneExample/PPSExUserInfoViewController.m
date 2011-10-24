@@ -29,6 +29,8 @@
 @synthesize image        = _image;
 
 - (void)viewDidLoad {
+    [super viewDidLoad];
+    
     _buddyInfo = nil;
 }
 - (void)viewDidUnload {

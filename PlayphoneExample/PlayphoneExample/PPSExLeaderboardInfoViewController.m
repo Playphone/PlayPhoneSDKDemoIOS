@@ -41,6 +41,8 @@ static NSString *PPSExLeaderboardEmpty = @"<No data>";
 @synthesize wsRequest           = _wsRequest;
 
 - (void)viewDidLoad {
+    [super viewDidLoad];
+    
     _requestBlockName = nil;
     _leaderboardData  = nil;
     _gameSetting      = nil;
