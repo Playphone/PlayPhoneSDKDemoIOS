@@ -39,6 +39,7 @@ static PPSExMainScreenRowType PPSExMainScreenSection2Rows[] =
     { @"Dashboard Control"    , @"", @"PPSExDashboardCtlViewController"      , @"PPSExBasicTableView"  },
     { @"Cloud Storage"        , @"", @"PPSExCloudStorageViewController"      , @"PPSExCloudStorageView"},
     { @"Game Settings"        , @"", @"PPSExGameSetListViewController"       , @"PPSExBasicTableView"  },
+    { @"Room Cookies"         , @"", @"PPSExRoomCookieViewController"        , @"PPSExBasicTableView"  },
     
 //    { @"Multiplayer Basics"   , @"", @"" , @""}
 };

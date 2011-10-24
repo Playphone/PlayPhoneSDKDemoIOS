@@ -14,6 +14,11 @@
 		F545B3171445EADB006461EA /* PPSExDashboardCtlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F545B3161445EADB006461EA /* PPSExDashboardCtlViewController.m */; };
 		F545B31B1445FD25006461EA /* PPSExCloudStorageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F545B3191445FD25006461EA /* PPSExCloudStorageViewController.m */; };
 		F545B31E1445FD3F006461EA /* PPSExCloudStorageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F545B31D1445FD3F006461EA /* PPSExCloudStorageView.xib */; };
+		F55589CC14557038002C163F /* PPSExRoomCookieViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F55589CB14557038002C163F /* PPSExRoomCookieViewController.m */; };
+		F55589D114557103002C163F /* PPSExCurrentRoomCookieViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F55589CF14557103002C163F /* PPSExCurrentRoomCookieViewController.m */; };
+		F55589D414557131002C163F /* PPSExCurrentRoomCookieView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F55589D314557131002C163F /* PPSExCurrentRoomCookieView.xib */; };
+		F55589D814558275002C163F /* PPSExAnyRoomCookieViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F55589D614558275002C163F /* PPSExAnyRoomCookieViewController.m */; };
+		F55589DB1455829C002C163F /* PPSExAnyRoomCookieView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F55589DA1455829C002C163F /* PPSExAnyRoomCookieView.xib */; };
 		F557185F1444445B00DDD848 /* PPSExUserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F557185D1444445B00DDD848 /* PPSExUserInfoViewController.m */; };
 		F5571863144444A200DDD848 /* PPSExUserInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5571862144444A200DDD848 /* PPSExUserInfoView.xib */; };
 		F5571865144444B800DDD848 /* PPSExVEManageInventoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5571864144444B800DDD848 /* PPSExVEManageInventoryView.xib */; };
@@ -205,6 +210,14 @@
 		F545B3181445FD25006461EA /* PPSExCloudStorageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPSExCloudStorageViewController.h; sourceTree = "<group>"; };
 		F545B3191445FD25006461EA /* PPSExCloudStorageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPSExCloudStorageViewController.m; sourceTree = "<group>"; };
 		F545B31D1445FD3F006461EA /* PPSExCloudStorageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PPSExCloudStorageView.xib; sourceTree = "<group>"; };
+		F55589CA14557038002C163F /* PPSExRoomCookieViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPSExRoomCookieViewController.h; sourceTree = "<group>"; };
+		F55589CB14557038002C163F /* PPSExRoomCookieViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPSExRoomCookieViewController.m; sourceTree = "<group>"; };
+		F55589CE14557103002C163F /* PPSExCurrentRoomCookieViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPSExCurrentRoomCookieViewController.h; sourceTree = "<group>"; };
+		F55589CF14557103002C163F /* PPSExCurrentRoomCookieViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPSExCurrentRoomCookieViewController.m; sourceTree = "<group>"; };
+		F55589D314557131002C163F /* PPSExCurrentRoomCookieView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PPSExCurrentRoomCookieView.xib; sourceTree = "<group>"; };
+		F55589D514558275002C163F /* PPSExAnyRoomCookieViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPSExAnyRoomCookieViewController.h; sourceTree = "<group>"; };
+		F55589D614558275002C163F /* PPSExAnyRoomCookieViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPSExAnyRoomCookieViewController.m; sourceTree = "<group>"; };
+		F55589DA1455829C002C163F /* PPSExAnyRoomCookieView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PPSExAnyRoomCookieView.xib; sourceTree = "<group>"; };
 		F557185C1444445B00DDD848 /* PPSExUserInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPSExUserInfoViewController.h; sourceTree = "<group>"; };
 		F557185D1444445B00DDD848 /* PPSExUserInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPSExUserInfoViewController.m; sourceTree = "<group>"; };
 		F5571862144444A200DDD848 /* PPSExUserInfoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PPSExUserInfoView.xib; sourceTree = "<group>"; };
@@ -646,6 +659,12 @@
 				F5DDF5021451BC21009A394D /* PPSExGameSetInfoViewController.m */,
 				F59C18091447556F006F9758 /* PPSExAppInfoViewController.h */,
 				F59C180A1447556F006F9758 /* PPSExAppInfoViewController.m */,
+				F55589CA14557038002C163F /* PPSExRoomCookieViewController.h */,
+				F55589CB14557038002C163F /* PPSExRoomCookieViewController.m */,
+				F55589CE14557103002C163F /* PPSExCurrentRoomCookieViewController.h */,
+				F55589CF14557103002C163F /* PPSExCurrentRoomCookieViewController.m */,
+				F55589D514558275002C163F /* PPSExAnyRoomCookieViewController.h */,
+				F55589D614558275002C163F /* PPSExAnyRoomCookieViewController.m */,
 			);
 			path = PlayphoneExample;
 			sourceTree = "<group>";
@@ -1140,6 +1159,8 @@
 				F545B31D1445FD3F006461EA /* PPSExCloudStorageView.xib */,
 				F59C180714472434006F9758 /* PPSExLeaderboardInfoView.xib */,
 				F5DDF5081451BC3E009A394D /* PPSExGameSetInfoView.xib */,
+				F55589D314557131002C163F /* PPSExCurrentRoomCookieView.xib */,
+				F55589DA1455829C002C163F /* PPSExAnyRoomCookieView.xib */,
 				F59C180C144757E9006F9758 /* PPSExAppInfoView.xib */,
 			);
 			path = Resources;
@@ -1220,6 +1241,8 @@
 				F592FB5714487A1900FBBE14 /* MNScoreProgressView.bundle in Resources */,
 				F5AED307144DDE2E00779AAC /* MainWindow-ipad.xib in Resources */,
 				F5DDF5091451BC3E009A394D /* PPSExGameSetInfoView.xib in Resources */,
+				F55589D414557131002C163F /* PPSExCurrentRoomCookieView.xib in Resources */,
+				F55589DB1455829C002C163F /* PPSExAnyRoomCookieView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1377,6 +1400,9 @@
 				F592FB6414487A1900FBBE14 /* MNVShopWSRequest.m in Sources */,
 				F5DDF5051451BC21009A394D /* PPSExGameSetInfoViewController.m in Sources */,
 				F5DDF5061451BC21009A394D /* PPSExGameSetListViewController.m in Sources */,
+				F55589CC14557038002C163F /* PPSExRoomCookieViewController.m in Sources */,
+				F55589D114557103002C163F /* PPSExCurrentRoomCookieViewController.m in Sources */,
+				F55589D814558275002C163F /* PPSExAnyRoomCookieViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
