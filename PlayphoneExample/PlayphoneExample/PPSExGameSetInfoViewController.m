@@ -24,6 +24,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.contentMinHeght = PPSExGameSetInfoViewMinHeight;
 
     _gameSetting = nil;
 }
@@ -39,15 +41,6 @@
     self.gameSetting = nil;
 
     [super viewDidUnload];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    ((UIScrollView *)self.view).contentSize = CGSizeMake(self.view.frame.size.width, PPSExGameSetInfoViewMinHeight);
-}
-
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
-    ((UIScrollView *)self.view).contentSize = CGSizeMake(self.view.frame.size.width, PPSExGameSetInfoViewMinHeight);
 }
 
 - (void)dealloc {

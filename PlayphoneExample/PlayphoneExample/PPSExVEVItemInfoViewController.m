@@ -28,6 +28,12 @@
 @synthesize paramsTextView      = _paramsTextView;
 @synthesize vItemInfo           = _vItemInfo;
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    self.contentMinHeght = PPSExVEVItemInfoViewMinHeight;
+}
+
 - (void)viewDidUnload {
     [self setVItemIdLabel       :nil];
     [self setVItemNameLabel     :nil];
@@ -60,15 +66,6 @@
     [_vItemInfo           release];
     
     [super dealloc];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    ((UIScrollView *)self.view).contentSize = CGSizeMake(self.view.frame.size.width, PPSExVEVItemInfoViewMinHeight);
-}
-
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
-    ((UIScrollView *)self.view).contentSize = CGSizeMake(self.view.frame.size.width, PPSExVEVItemInfoViewMinHeight);
 }
 
 - (void)setVItemInfo:(MNGameVItemInfo *)vItemInfo {

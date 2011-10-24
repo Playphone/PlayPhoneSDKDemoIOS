@@ -15,7 +15,12 @@
 
 @end
 
-@interface PPSExBasicViewController : UIViewController <PPSExBasicNotificationProtocol>
+@interface PPSExBasicViewController : UIViewController <PPSExBasicNotificationProtocol> {
+    CGFloat _contentMinHeght;
+}
+
+@property (nonatomic, assign) CGFloat contentMinHeght;
+
 
 - (void)updateState;
 

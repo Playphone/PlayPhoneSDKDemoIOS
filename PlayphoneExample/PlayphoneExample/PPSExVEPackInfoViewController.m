@@ -32,6 +32,12 @@
 @synthesize itemsTextView    = _itemsTextView;
 @synthesize paramsTextView   = _paramsTextView;
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    self.contentMinHeght = PPSExVEPackInfoViewMinHeight;
+}
+
 - (void)viewDidUnload {
     [self setPackIdLabel     :nil];
     [self setNameLabel       :nil];
@@ -63,15 +69,6 @@
     [_packInfo         release];
     
     [super dealloc];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    ((UIScrollView *)self.view).contentSize = CGSizeMake(self.view.frame.size.width, PPSExVEPackInfoViewMinHeight);
-}
-
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
-    ((UIScrollView *)self.view).contentSize = CGSizeMake(self.view.frame.size.width, PPSExVEPackInfoViewMinHeight);
 }
 
 - (void)setPackInfo:(MNVShopPackInfo *)packInfo {

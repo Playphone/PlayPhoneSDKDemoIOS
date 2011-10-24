@@ -12,31 +12,42 @@
 
 #pragma mark -
 
+#define PPSExBasicViewContentDefHeight (440.0)
+
 @implementation PPSExBasicViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+@synthesize contentMinHeght = _contentMinHeght;
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        _contentMinHeght = PPSExBasicViewContentDefHeight;
     }
     return self;
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
 	return (YES);
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-
+    
+    if ([self.view isKindOfClass:[UIScrollView class]]) {
+        ((UIScrollView *)self.view).contentSize = CGSizeMake(self.view.frame.size.width,self.contentMinHeght);
+    }
+    
     [self updateState];
+}
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    if ([self.view isKindOfClass:[UIScrollView class]]) {
+        ((UIScrollView *)self.view).contentSize = CGSizeMake(self.view.frame.size.width,self.contentMinHeght);
+    }
 }
 
 #pragma mark - PPSExBasicNotificationProtocol

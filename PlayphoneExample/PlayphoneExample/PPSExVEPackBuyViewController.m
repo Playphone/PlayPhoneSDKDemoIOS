@@ -33,15 +33,6 @@
 @synthesize packPickerView = _packPickerView;
 @synthesize packList       = _packList;
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    ((UIScrollView *)self.view).contentSize = CGSizeMake(self.view.frame.size.width,PPSExVEPackBuyViewMinHeight);
-}
-
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
-    ((UIScrollView *)self.view).contentSize = CGSizeMake(self.view.frame.size.width,PPSExVEPackBuyViewMinHeight);
-}
-
 - (void)dealloc {
     [_packPickerView release];
     [_buyButton      release];
@@ -53,6 +44,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.contentMinHeght = PPSExVEPackBuyViewMinHeight;
+    
     [[MNDirect vShopProvider] addDelegate:self];
 }
 
