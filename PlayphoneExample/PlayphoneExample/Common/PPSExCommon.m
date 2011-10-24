@@ -25,10 +25,10 @@ NSString *PPSExVirtualItemCurrencyString = @"vI";
     self = [super init];
     
     if (self) {
-        self.rowTitle = [row.rowTitle retain];
-        self.rowSubTitle = [row.rowSubTitle retain];
-        self.viewControllerName = [row.viewControllerName retain];
-        self.nibName = [row.nibName retain];
+        self.rowTitle           = row.rowTitle;
+        self.rowSubTitle        = row.rowSubTitle;
+        self.viewControllerName = row.viewControllerName;
+        self.nibName            = row.nibName;
     }
     
     return self;
@@ -38,20 +38,20 @@ NSString *PPSExVirtualItemCurrencyString = @"vI";
     self = [super init];
     
     if (self) {
-        self.rowTitle = [title retain];
-        self.rowSubTitle = [subTitle retain];
+        self.rowTitle           = title;
+        self.rowSubTitle        = subTitle;
         self.viewControllerName = @"";
-        self.nibName = @"";
+        self.nibName            = @"";
     }
     
     return self;
 }
 
 - (void)dealloc {
-    self.rowTitle = nil;
-    self.rowSubTitle = nil;
+    self.rowTitle           = nil;
+    self.rowSubTitle        = nil;
     self.viewControllerName = nil;
-    self.nibName = nil;
+    self.nibName            = nil;
     
     [super dealloc];
 }

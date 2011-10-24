@@ -37,6 +37,8 @@
     [_packPickerView release];
     [_buyButton      release];
     
+    self.packList = nil;
+    
     [[MNDirect vShopProvider] removeDelegate:self];
 
     [super dealloc];

@@ -52,6 +52,8 @@ static NSString *PPSExVEVItemListScreenSectionNames[] =
 - (void)dealloc {
     [[MNDirect vItemsProvider] removeDelegate:self];
     
+    self.gameVItemsList = nil;
+    
     [super dealloc];
 }
 
