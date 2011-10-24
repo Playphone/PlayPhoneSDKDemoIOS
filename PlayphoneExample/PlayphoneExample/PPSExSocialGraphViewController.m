@@ -61,7 +61,6 @@ static NSString *PPSExSocialGraphSectionNames[] =
 }
 
 - (void)dealloc {
-    self.requestBlockName = nil;
     self.buddyList        = nil;
 
     [self cancelRequestSafely];
@@ -70,6 +69,8 @@ static NSString *PPSExSocialGraphSectionNames[] =
 }
 
 - (void)cancelRequestSafely {
+    self.requestBlockName = nil;
+
     if (self.wsRequest != nil) {
         [self.wsRequest cancel];
         

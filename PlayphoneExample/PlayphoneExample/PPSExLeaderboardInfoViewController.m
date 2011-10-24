@@ -73,6 +73,8 @@ static NSString *PPSExLeaderboardEmpty = @"<No data>";
 }
 
 - (void)cancelRequestSafely {
+    self.requestBlockName = nil;
+
     if (self.wsRequest != nil) {
         [self.wsRequest cancel];
 
