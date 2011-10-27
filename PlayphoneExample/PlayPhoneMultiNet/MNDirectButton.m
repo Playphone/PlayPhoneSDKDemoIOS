@@ -577,8 +577,7 @@ static NSString *MNDirectButtonBundlePath      = @"MNDirectButton.bundle/Images/
                 }    
             }
             else {
-                //DO NOTHING
-                //mnDirectButtonWindow.hidden = NO;
+                mnDirectButtonWindow.hidden = NO;
             }
         }
     }
@@ -595,11 +594,15 @@ static NSString *MNDirectButtonBundlePath      = @"MNDirectButton.bundle/Images/
 -(id) init {
     self = [super init];
 
-    [MNDirectUIHelper addDelegate:self];
+    if (self) {
+        [MNDirectUIHelper addDelegate:self];
+    }
     
     return self;
 }
 -(void) dealloc {
+    [MNDirectUIHelper removeDelegate:self];
+    
     [super dealloc];
 }
 

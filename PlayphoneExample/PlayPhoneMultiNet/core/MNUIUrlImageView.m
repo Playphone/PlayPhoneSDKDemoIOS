@@ -56,13 +56,12 @@
     [self cancelDownloading];
    }
   
-  self.imageData = [[NSMutableData alloc] init];
-  self.downloadConnection = [[NSURLConnection alloc]
-                 initWithRequest: [NSURLRequest requestWithURL: aImageUrl
-                                                   cachePolicy: NSURLRequestUseProtocolCachePolicy
-                                               timeoutInterval: MNUIUrlImageViewDownloadTimeout]
-                 delegate: self];
-  
+  self.imageData = [[[NSMutableData alloc] init]autorelease];
+  self.downloadConnection = [[[NSURLConnection alloc]
+                              initWithRequest: [NSURLRequest requestWithURL: aImageUrl
+                                                                cachePolicy: NSURLRequestUseProtocolCachePolicy
+                                                            timeoutInterval: MNUIUrlImageViewDownloadTimeout]
+                              delegate: self]autorelease];
  }
 
 -(void)       cancelDownloading

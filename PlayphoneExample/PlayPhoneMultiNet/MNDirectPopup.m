@@ -66,7 +66,7 @@ static BOOL                   mnDirectPopupAutorotationFlag   = YES;
 static UIInterfaceOrientation mnDirectPopupOrientation        = UIDeviceOrientationUnknown;
 static UIInterfaceOrientation mnDirectPopupOrientationDefault = UIInterfaceOrientationPortrait;
 
-static NSString *MNDirectPopupWelcomeMessageFormat = @"Welcome back, %@";
+static NSString *MNDirectPopupWelcomeMessageFormat = @"Welcome %@";
 static NSString *MNDirectPopupNewHiScoreMessage = @"New Hi Score!";
 
 #define MNDirectPopupShowTime                              (5)
@@ -104,9 +104,6 @@ static NSString *MNDirectPopupNewHiScoreMessage = @"New Hi Score!";
     
     if (actionsBitMask != 0) {
         mnDirectPopupActiveFlag = YES;
-    }
-    
-    if (actionsBitMask & MNDIRECTPOPUP_WELCOME) {
         [[MNDirect getSession] addDelegate:self];
     }
     
@@ -212,7 +209,7 @@ static NSString *MNDirectPopupNewHiScoreMessage = @"New Hi Score!";
     }
 }
 
--(void) mnSessionStatusChangedTo:(NSUInteger) newStatus from:(NSUInteger) oldStatus {
++(void) mnSessionStatusChangedTo:(NSUInteger) newStatus from:(NSUInteger) oldStatus {
     if ((MNDirectPopupAchievemntsListAutoUpdate) && 
         (mnDirectPopupActionBitMask & MNDIRECTPOPUP_ACHIEVEMENTS)) {
         

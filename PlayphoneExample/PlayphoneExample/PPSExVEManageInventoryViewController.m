@@ -11,6 +11,8 @@
 #import "PPSExCommon.h"
 #import "PPSExVEManageInventoryViewController.h"
 
+#define PPSExVEManageInventoryViewMinHeight     (304)
+
 #define PPSExVEManageInventoryNotLoggedInString (@"N/A")
 
 #define PPSExKeyboardHeight                     (263)
@@ -43,7 +45,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
+    self.contentMinHeght = PPSExVEManageInventoryViewMinHeight;
+
     [[MNDirect vItemsProvider]addDelegate:self];
 }
 

@@ -21,6 +21,7 @@
 @class MNVItemsProvider;
 @class MNVShopProvider;
 @class MNGameSettingsProvider;
+@class MNServerInfoProvider;
 
 /**
  * @brief MultiNet "Direct" delegate protocol [Simple].
@@ -277,5 +278,11 @@
  * @return MNGameSettingsProvider object instance
  */
 +(MNGameSettingsProvider*) gameSettingsProvider;
+
+/**
+ * Get server information provider instance
+ * @return MNServerInfoProvider object instance
+ */
++(MNServerInfoProvider*) serverInfoProvider;
 
 @end

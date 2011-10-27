@@ -124,3 +124,11 @@ BOOL PPSExScanLongLong(NSString *string,long long *integerValuePtr) {
     
     return result;
 }
+
+BOOL PPSExIsIPad(void) {
+#ifdef UI_USER_INTERFACE_IDIOM
+	return (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad);
+#else
+	return NO;
+#endif
+}

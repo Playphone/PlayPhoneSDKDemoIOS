@@ -12,7 +12,7 @@
 
 #pragma mark -
 
-#define PPSExBasicViewContentDefHeight (440.0)
+#define PPSExBasicViewContentDefHeight (410.0)
 
 @implementation PPSExBasicViewController
 

@@ -355,7 +355,7 @@ void MNPostRequestBodyAddParam (NSMutableData* bodyData, NSString* paramName, NS
 }
 
 static NSMutableData* requestDataWithParams(NSDictionary* params) {
-    NSMutableData* data = [[NSMutableData alloc] init];
+    NSMutableData* data = [[[NSMutableData alloc] init] autorelease];
 
     BOOL haveParams = NO;
     

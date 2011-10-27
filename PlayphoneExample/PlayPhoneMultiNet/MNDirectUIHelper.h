@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
+#define  MN_DASHBOARD_STYLE_FULLSCREEN   (1)
+#define  MN_DASHBOARD_STYLE_POPUP        (2)
+
 /**
  * @brief "MNDirectUIHelper" delegate protocol.
  *
@@ -40,7 +43,7 @@
  * "MNDirectUIHelper" provides functionality which allows to show and hide 
  * Multinet Dashboard.
  */
-@interface MNDirectUIHelper : NSObject <UIPopoverControllerDelegate> {
+@interface MNDirectUIHelper : NSObject {
 }
 
 /**
@@ -56,14 +59,16 @@
 +(void) removeDelegate:(id<MNDirectUIHelperDelegate>) delegate;
 
 /**
- * Toggles the display mode from fullscreen to popup and wise versa.
+ * Sets dashboard style
+ * @param new dashboard style (one of MNDASHBOARD_STYLE_* constants)
  */
-+(void) setPopupMode:(BOOL) popupModeFlag;
++(void) setDashboardStyle:(int) newStyle;
 
 /**
- * Returns YES if popup mode enabled, NO otherwise.
+ * Returns dashboard style.
+ * @return current dashboard style (one of MNDASHBOARD_STYLE_* constants)
  */
-+(BOOL) getPopupMode;
++(int) getDashboardStyle;
 
 /**
  * Shows Multinet Dashboard by adding it to keyWindow. Informs delegates
@@ -92,6 +97,11 @@
  * Checsk is Multinet Dashboard hidden.
  */
 +(BOOL) isDashboardHidden;
+
+/**
+ * Returns dashboard frame for current display mode.
+ */
++(CGRect) getDashboardFrame;
 
 /**
  * Sets/clears property wich indicate either dashboard rotates with status bar or not.

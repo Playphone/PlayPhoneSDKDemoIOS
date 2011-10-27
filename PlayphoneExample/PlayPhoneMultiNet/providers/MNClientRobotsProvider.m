@@ -6,6 +6,10 @@
 //  Copyright 2010 PlayPhone. All rights reserved.
 //
 
+#import "INFSmartFoxiPhoneClient.h"
+#import "INFSmartFoxRoom.h"
+#import "INFSmartFoxRoomVariable.h"
+
 #import "MNTools.h"
 
 #import "MNClientRobotsProvider.h"
@@ -15,6 +19,8 @@ static NSString* MNClientRobotsProviderPluginName = @"com.playphone.mn.robotscor
 /* NOTE: message prefix length constant must be consistent with prefix value */
 static NSString* MNClientRobotsProviderIRobotMessagePrefix = @"irobot:";
 #define MNClientRobotsProviderIRobotMessagePrefixLength (7)
+
+static NSString* MNClientRobotsProviderRobotRoomLimitVarName = @"MN_robot_limit";
 
 static BOOL isPlayerInGameRoomByStatus (NSUInteger status) {
     return status == MN_IN_GAME_WAIT || status == MN_IN_GAME_START ||
@@ -58,6 +64,34 @@ static BOOL isPlayerInGameRoomByStatus (NSUInteger status) {
 -(void) postRobot:(MNUserInfo*) userInfo score:(long long) score {
     [_session sendPlugin: MNClientRobotsProviderPluginName
               message: [NSString stringWithFormat: @"robotScore:%d:%lld", userInfo.userSFId, score]];
+}
+
+-(void) setRoomRobotLimit:(NSInteger) robotCount {
+    INFSmartFoxiPhoneClient* smartFox = [_session getSmartFox];
+    INFSmartFoxRoomVariable* var;
+
+    var = [INFSmartFoxRoomVariable roomVariableWithString: MNClientRobotsProviderRobotRoomLimitVarName
+                                                    value: [NSString stringWithFormat: @"%d", robotCount]];
+
+    var.priv       = NO;
+    var.persistent = YES;
+
+    [smartFox setRoomVariables:[NSArray arrayWithObject: var]
+                        roomId: smartFox.activeRoomId
+                  setOwnership: NO];
+}
+
+-(NSInteger) getRoomRobotLimit {
+    NSInteger        result = 0;
+    INFSmartFoxRoom* activeRoom = [[_session getSmartFox] getActiveRoom];
+
+    if (activeRoom != nil) {
+        NSObject* var = [activeRoom getVariable: MNClientRobotsProviderRobotRoomLimitVarName];
+
+        result = MNStringScanIntegerWithDefValue([var description],0);
+    }
+
+    return result;
 }
 
 -(void) mnSessionPlugin:(NSString*) pluginName messageReceived:(NSString*) message from:(MNUserInfo*) sender {

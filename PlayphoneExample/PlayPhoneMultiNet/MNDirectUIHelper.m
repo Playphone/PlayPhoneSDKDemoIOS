@@ -10,10 +10,10 @@
 #import "MNDelegateArray.h"
 #import "MNDirectUIHelper.h"
 
-static MNDelegateArray*     mnDirectUIHelperDelegates         = nil;
-static MNUserProfileView*   mnDirectUIHelperMNView            = nil;
+static MNDelegateArray     *mnDirectUIHelperDelegates         = nil;
+static UIView              *mnDirectUIHelperMNView            = nil;
 static BOOL                 mnDirectUIHelperAutorotationFlag  = YES;
-static BOOL                 mnDirectUIHelperPopupModeFlag     = YES;
+static int                  mnDirectUIHelperDashboardStyle    = MN_DASHBOARD_STYLE_POPUP;
 static UIPopoverController *mnDirectUIHelperPopoverController = nil;
 static CGAffineTransform    mnViewTransformOriginal;
 static CGRect               mnViewTransformFrame;
@@ -23,9 +23,10 @@ static CGRect               mnViewTransformFrame;
 
 #define MNDirectUIHelperPopupInsetX        (10.0f)
 #define MNDirectUIHelperPopupInsetY        (10.0f)
-#define MNDirectUIHelperPopupBorderWidth   ( 3.0f)
+#define MNDirectUIHelperPopupBorderWidth   ( 5.0f)
 
-static float MNDirectUIHelperPopupBorderColor[] = { 128.0/255.0, 128.0/255.0, 128.0/255.0, 0.8f };
+static float MNDirectUIHelperPopupBGColor[]     = { 0, 0, 0, 0.3f  };
+static float MNDirectUIHelperPopupBorderColor[] = { 0, 0, 0, 0.24f };
 
 
 @interface MNDirectUIHelperBgView : UIView
@@ -84,12 +85,17 @@ static float MNDirectUIHelperPopupBorderColor[] = { 128.0/255.0, 128.0/255.0, 12
 
 @interface MNDirectUIHelper()
 
++(NSValue*) getDashboardFrameValue;
+
 +(void) prepareView;
 +(void) releaseView;
 
 +(void) refreshOrientationObserver;
 +(void) addOrientationOserver;
 +(void) removeOrientationOserver;
+
++(CGAffineTransform)getTransformByOrientation:(UIInterfaceOrientation)orientation;
++(CGAffineTransform)getCurrentDashboardTransform;
 
 @end
 
@@ -109,11 +115,11 @@ static float MNDirectUIHelperPopupBorderColor[] = { 128.0/255.0, 128.0/255.0, 12
     }
 }
 
-+(void) setPopupMode:(BOOL) popupModeFlag {
-    mnDirectUIHelperPopupModeFlag = popupModeFlag;
++(void) setDashboardStyle:(int) newStyle {
+    mnDirectUIHelperDashboardStyle = newStyle;
 }
-+(BOOL) getPopupMode {
-    return mnDirectUIHelperPopupModeFlag;
++(int) getDashboardStyle {
+    return mnDirectUIHelperDashboardStyle;
 }
 
 +(void) showDashboard {
@@ -157,7 +163,7 @@ static float MNDirectUIHelperPopupBorderColor[] = { 128.0/255.0, 128.0/255.0, 12
 
         mnDirectUIHelperPopoverController = [[UIPopoverController alloc]initWithContentViewController:dashboardController];
         
-        mnDirectUIHelperPopoverController.delegate = self;
+        mnDirectUIHelperPopoverController.delegate = (id<UIPopoverControllerDelegate>)self;
         mnDirectUIHelperPopoverController.popoverContentSize = popoverSize;
         
         [mnDirectUIHelperPopoverController presentPopoverFromRect:popoverFromRect
@@ -201,6 +207,30 @@ static float MNDirectUIHelperPopupBorderColor[] = { 128.0/255.0, 128.0/255.0, 12
     [mnDirectUIHelperDelegates endCall];
 }
 
++(CGRect) getDashboardFrame {
+    CGRect dashboardFrame = [[UIScreen mainScreen]applicationFrame];
+    
+    if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
+        if (dashboardFrame.size.width < dashboardFrame.size.height) {
+            dashboardFrame = CGRectMake(0,0,dashboardFrame.size.height,dashboardFrame.size.width);
+        }
+    }
+    else {
+        if (dashboardFrame.size.width > dashboardFrame.size.height) {
+            dashboardFrame = CGRectMake(0,0,dashboardFrame.size.height,dashboardFrame.size.width);
+        }        
+    }
+
+    if (mnDirectUIHelperDashboardStyle == MN_DASHBOARD_STYLE_POPUP) {
+        dashboardFrame = CGRectInset(dashboardFrame,MNDirectUIHelperPopupInsetX,MNDirectUIHelperPopupInsetY);
+    }
+    
+    return dashboardFrame;
+}
++(NSValue*) getDashboardFrameValue {
+    return [NSValue valueWithCGRect:[MNDirectUIHelper getDashboardFrame]];
+}
+
 +(BOOL) isDashboardHidden {
     return(mnDirectUIHelperMNView == nil);
 }
@@ -219,23 +249,12 @@ static float MNDirectUIHelperPopupBorderColor[] = { 128.0/255.0, 128.0/255.0, 12
 
 +(void) adjustToCurrentOrientation {
     UIInterfaceOrientation currentOrientation = [UIApplication sharedApplication].statusBarOrientation;
-    CGAffineTransform      transformNeeded;
-    
-    if      (currentOrientation == UIInterfaceOrientationLandscapeRight) {
-        transformNeeded = CGAffineTransformMakeRotation((CGFloat)M_PI_2);
-    }
-    else if (currentOrientation == UIInterfaceOrientationLandscapeLeft) {
-        transformNeeded = CGAffineTransformMakeRotation((CGFloat)-M_PI_2);
-    }
-    else if (currentOrientation == UIInterfaceOrientationPortraitUpsideDown) {
-        transformNeeded = CGAffineTransformMakeRotation((CGFloat)M_PI);
-    }
-    else { //currentOrientation == UIInterfaceOrientationPortrait;
-        transformNeeded = CGAffineTransformMakeRotation(0);
-    }
-    
+    CGAffineTransform      transformNeeded    = [MNDirectUIHelper getTransformByOrientation:currentOrientation];
+
     mnDirectUIHelperMNView.transform = transformNeeded;
     mnDirectUIHelperMNView.frame     = [UIScreen mainScreen].applicationFrame;
+    
+    [mnDirectUIHelperMNView setNeedsDisplay];
 }
 
 #pragma mark -
@@ -246,19 +265,25 @@ static float MNDirectUIHelperPopupBorderColor[] = { 128.0/255.0, 128.0/255.0, 12
     }
     
     if (mnDirectUIHelperMNView != nil) {
-        if (!mnDirectUIHelperPopupModeFlag) {
+        if (mnDirectUIHelperDashboardStyle == MN_DASHBOARD_STYLE_FULLSCREEN) {
             mnViewTransformOriginal = mnDirectUIHelperMNView.transform;
             mnViewTransformFrame    = mnDirectUIHelperMNView.frame;
         }
-        else {
+        else if (mnDirectUIHelperDashboardStyle == MN_DASHBOARD_STYLE_POPUP) {
             mnDirectUIHelperMNView = [[MNDirectUIHelperBgView alloc]initWithFrame:[UIScreen mainScreen].applicationFrame];
-            mnDirectUIHelperMNView.backgroundColor = [UIColor clearColor];
+            mnDirectUIHelperMNView.backgroundColor = [UIColor colorWithRed:MNDirectUIHelperPopupBGColor[0]
+                                                                     green:MNDirectUIHelperPopupBGColor[1]
+                                                                      blue:MNDirectUIHelperPopupBGColor[2]
+                                                                     alpha:MNDirectUIHelperPopupBGColor[3]];
             
             UIView *mnView = [MNDirect getView];
             CGRect newFrame = CGRectInset(mnDirectUIHelperMNView.bounds,MNDirectUIHelperPopupInsetX,MNDirectUIHelperPopupInsetY);
             mnView.frame = newFrame;
 
             [mnDirectUIHelperMNView addSubview:mnView];
+        }
+        else {
+            NSLog(@"MNDirectUIHelper: Unknown Dashboard Stye: [%d]",mnDirectUIHelperDashboardStyle);
         }
 
         [MNDirectUIHelper refreshOrientationObserver];
@@ -273,7 +298,7 @@ static float MNDirectUIHelperPopupBorderColor[] = { 128.0/255.0, 128.0/255.0, 12
 //        [mnDirectUIHelperMNView removeDelegate:self];
 //        [[MNDirect getSession]  removeDelegate:self];
 
-        if (mnDirectUIHelperPopupModeFlag) {
+        if (mnDirectUIHelperDashboardStyle == MN_DASHBOARD_STYLE_POPUP) {
             [[MNDirect getView]removeFromSuperview];
             [mnDirectUIHelperMNView release];
         }
@@ -310,11 +335,40 @@ static float MNDirectUIHelperPopupBorderColor[] = { 128.0/255.0, 128.0/255.0, 12
                                                  object:nil];
 }
 
++(CGAffineTransform)getTransformByOrientation:(UIInterfaceOrientation)orientation {
+    CGAffineTransform      resultTransform;
+    
+    if      (orientation == UIInterfaceOrientationLandscapeRight) {
+        resultTransform = CGAffineTransformMakeRotation((CGFloat)M_PI_2);
+    }
+    else if (orientation == UIInterfaceOrientationLandscapeLeft) {
+        resultTransform = CGAffineTransformMakeRotation((CGFloat)-M_PI_2);
+    }
+    else if (orientation == UIInterfaceOrientationPortraitUpsideDown) {
+        resultTransform = CGAffineTransformMakeRotation((CGFloat)M_PI);
+    }
+    else { //currentOrientation == UIInterfaceOrientationPortrait;
+        resultTransform = CGAffineTransformMakeRotation(0);
+    }
+
+    return resultTransform;
+}
++(CGAffineTransform)getCurrentDashboardTransform {
+    CGAffineTransform      currentNeeded;
+    
+    if (mnDirectUIHelperMNView != nil) {
+        currentNeeded = mnDirectUIHelperMNView.transform;
+    }
+    else {
+        currentNeeded = [MNDirectUIHelper getTransformByOrientation:[UIApplication sharedApplication].statusBarOrientation];
+    }
+    
+    return currentNeeded;
+}
+
 +(void) didRotate:(NSNotification *)notification {
     if (mnDirectUIHelperAutorotationFlag) {
         [MNDirectUIHelper adjustToCurrentOrientation];
-        
-        [mnDirectUIHelperMNView setNeedsDisplay];
     }
 }
 

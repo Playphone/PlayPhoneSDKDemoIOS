@@ -103,6 +103,7 @@
 @property (nonatomic,readonly) NSMutableDictionary* mapping;
 
 -(NSString*) addInfoBlock:(NSString*) infoBlockSelector;
+-(NSString*) addSystemGameNetStats;
 -(NSString*) addCurrentUserInfo;
 -(NSString*) addCurrUserBuddyList;
 -(NSString*) addCurrGameRoomList;

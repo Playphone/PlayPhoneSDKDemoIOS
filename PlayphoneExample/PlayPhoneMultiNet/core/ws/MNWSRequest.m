@@ -22,6 +22,7 @@
 #import "MNWSRoomListItem.h"
 #import "MNWSRoomUserInfoItem.h"
 #import "MNWSUserGameCookie.h"
+#import "MNWSSystemGameNetStats.h"
 
 #define MNWSSNIdPlayPhone (4)
 
@@ -327,6 +328,10 @@ static NSString* getScopeNameByCode (NSInteger scope) {
     return blockName;
 }
 
+-(NSString*) addSystemGameNetStats {
+    return [self addInfoBlock: @"systemGameNetStats"];
+}
+
 -(NSString*) addCurrentUserInfo {
     return [self addInfoBlock: @"currentUser"];
 }
@@ -432,6 +437,10 @@ static NSString* getScopeNameByCode (NSInteger scope) {
     _altRequestPath = [requestPath copy];
 }
 
+-(void) registerParser:(id<MNWSXmlDataParser>) parser forBlock:(NSString*) blockName {
+    [_parsers setObject: parser forKey: blockName];
+}
+
 -(void) setupStdParsers {
     MNWSXmlGenericItemListParser* buddyListParser =
      [MNWSXmlGenericItemListParser MNWSXmlGenericItemListParserWithItemTagName: @"buddyItem"
@@ -440,6 +449,7 @@ static NSString* getScopeNameByCode (NSInteger scope) {
     [MNWSXmlGenericItemListParser MNWSXmlGenericItemListParserWithItemTagName: @"leaderboardItem"
                                                                 andItemParser: [MNWSXmlGenericParser MNWSXmlGenericParserWithDataClass: [MNWSLeaderboardListItem class]]];
 
+    [_parsers setObject: [MNWSXmlGenericParser MNWSXmlGenericParserWithDataClass: [MNWSSystemGameNetStats class]] forKey: @"systemGameNetStats"];
     [_parsers setObject: [MNWSXmlGenericParser MNWSXmlGenericParserWithDataClass: [MNWSCurrentUserInfo class]] forKey: @"currentUser"];
     [_parsers setObject: buddyListParser forKey: @"currentUserBuddyList"];
     [_parsers setObject: [MNWSXmlGenericParser MNWSXmlGenericParserWithDataClass: [MNWSAnyUserItem class]] forKey: @"anyUser"];

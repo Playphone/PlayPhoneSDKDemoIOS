@@ -44,4 +44,15 @@
  */
 -(void) postRobot:(MNUserInfo*) userInfo score:(long long) score;
 
+/**
+ * Request a server to maintain the particular number of robots in current game room
+ * @param robotCount number of robots server should maintain
+ */
+-(void) setRoomRobotLimit:(NSInteger) robotCount;
+
+/**
+ * Get a number of robots server was asked to maintain in current game room
+ */
+-(NSInteger) getRoomRobotLimit;
+
 @end

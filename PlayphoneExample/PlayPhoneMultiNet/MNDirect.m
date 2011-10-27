@@ -19,6 +19,7 @@
 #import "MNVItemsProvider.h"
 #import "MNVShopProvider.h"
 #import "MNGameSettingsProvider.h"
+#import "MNServerInfoProvider.h"
 
 static MNAchievementsProvider*    MNDirectAchievementsProvider    = nil;
 static MNClientRobotsProvider*    MNDirectClientRobotsProvider    = nil;
@@ -30,6 +31,7 @@ static MNScoreProgressProvider*   MNDirectScoreProgressProvider   = nil;
 static MNVItemsProvider*          MNDirectVItemsProvider          = nil;
 static MNVShopProvider*           MNDirectVShopProvider           = nil;
 static MNGameSettingsProvider*    MNDirectGameSettingsProvider    = nil;
+static MNServerInfoProvider*      MNDirectServerInfoProvider      = nil;
 
 @interface MNSessionDirectDelegate: NSObject<MNSessionDelegate,MNUserProfileViewDelegate> {
     @private
@@ -145,6 +147,7 @@ static void releaseProviders (void) {
     [MNDirectVItemsProvider release]; MNDirectVItemsProvider = nil;
     [MNDirectVShopProvider release]; MNDirectVShopProvider = nil;
     [MNDirectGameSettingsProvider release]; MNDirectGameSettingsProvider = nil;
+    [MNDirectServerInfoProvider release]; MNDirectServerInfoProvider = nil;
 }
 
 static void initializeProviders (MNSession* session) {
@@ -160,6 +163,7 @@ static void initializeProviders (MNSession* session) {
     MNDirectVItemsProvider          = [[MNVItemsProvider alloc] initWithSession: session];
     MNDirectVShopProvider           = [[MNVShopProvider alloc] initWithSession: session andVItemsProvider: MNDirectVItemsProvider];
     MNDirectGameSettingsProvider    = [[MNGameSettingsProvider alloc] initWithSession: session];
+    MNDirectServerInfoProvider      = [[MNServerInfoProvider alloc] initWithSession: session];
 }
 
 @implementation MNDirect
@@ -206,7 +210,27 @@ static void initializeProviders (MNSession* session) {
 }
 
 +(BOOL) prepareSessionWithGameId:(NSInteger) gameId gameSecret:(NSString*) gameSecret andDelegate:(id<MNDirectDelegate>) delegate {
-	return [MNDirect prepareSessionWithGameId: gameId gameSecret: gameSecret frame: [UIScreen mainScreen].applicationFrame andDelegate: delegate];
+    NSValue* viewFrameValue = nil;
+
+    Class helperClass = NSClassFromString(@"MNDirectUIHelper");
+
+    if (helperClass != nil && [helperClass respondsToSelector:@selector(getDashboardFrameValue)]) {
+        viewFrameValue = [helperClass performSelector:@selector(getDashboardFrameValue)];
+    }
+
+    CGRect viewFrame;
+
+    if (viewFrameValue != nil) {
+        viewFrame = [viewFrameValue CGRectValue];
+    }
+    else {
+        viewFrame = [UIScreen mainScreen].applicationFrame;
+    }
+
+	return [MNDirect prepareSessionWithGameId: gameId
+                                   gameSecret: gameSecret
+                                        frame: viewFrame
+                                  andDelegate: delegate];
 }
 
 +(NSString*) makeGameSecretByComponents:(unsigned int) secret1
@@ -379,6 +403,10 @@ static void initializeProviders (MNSession* session) {
 
 +(MNGameSettingsProvider*) gameSettingsProvider {
     return MNDirectGameSettingsProvider;
+}
+
++(MNServerInfoProvider*) serverInfoProvider {
+    return MNDirectServerInfoProvider;
 }
 
 @end

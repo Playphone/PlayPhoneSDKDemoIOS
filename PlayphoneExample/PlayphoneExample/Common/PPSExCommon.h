@@ -65,4 +65,6 @@ void PPSExShowInvalidNumberFormatAlert(void);
 BOOL PPSExScanInteger(NSString *string,NSInteger *integerValuePtr);
 BOOL PPSExScanLongLong(NSString *string,long long *integerValuePtr);
 
+BOOL PPSExIsIPad(void);
+
 #endif
