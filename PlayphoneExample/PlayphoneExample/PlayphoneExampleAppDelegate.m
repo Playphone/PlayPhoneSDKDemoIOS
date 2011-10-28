@@ -53,7 +53,18 @@
     
     [MNDirectPopup init:MNDIRECTPOPUP_WELCOME | MNDIRECTPOPUP_ACHIEVEMENTS | MNDIRECTPOPUP_NEW_HI_SCORES];
     
-    return YES;
+    NSURL* url = [launchOptions objectForKey: UIApplicationLaunchOptionsURLKey];
+    
+    if (url != nil) {
+        return [MNDirect handleOpenURL: url];
+    }
+    else {
+        return NO;
+    }
+}
+
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
+    return [MNDirect handleOpenURL: url];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
