@@ -321,6 +321,7 @@ static void runRunLoopOnce (void) {
     _trackingVariables = [[NSMutableDictionary alloc] init];
 
     [_trackingVariables setObject: [device uniqueIdentifier] forKey: @"tv_udid"];
+    [_trackingVariables setObject: @"" forKey: @"tv_udid2"]; // not available on iOS
 // [_trackingVariables setObject: [device systemName] forKey: @"tv_device_name"]; 
     [_trackingVariables setObject: [device model] forKey: @"tv_device_type"];
     [_trackingVariables setObject: [device systemVersion] forKey: @"tv_os_version"];

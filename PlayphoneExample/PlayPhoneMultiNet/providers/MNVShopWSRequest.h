@@ -48,6 +48,9 @@
                                                                       cliTransactionId:(NSString*) cliTransactionId
                                                                             itemsToAdd:(NSString*) itemsToAdd
                                                                vShopTransactionEnabled:(BOOL) vShopTransactionEnabled;
+-(void) mnVShopPurchaseWSRequestProcessCallVShopTransactionFailCommandWithCliTransactionId:(MNVItemTransactionId) cliTransactionId
+                                                                                 errorCode:(int) errorCode
+                                                                              errorMessage:(NSString*) errorMessage;
 -(BOOL) mnVShopPurchaseWSRequestProcessPostSysEventCommandWithName:(NSString*) cmdName
                                                              param:(NSString*) cmdParam
                                                         callbackId:(NSString*) callbackId;

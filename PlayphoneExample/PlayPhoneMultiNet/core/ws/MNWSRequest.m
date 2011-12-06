@@ -23,6 +23,7 @@
 #import "MNWSRoomUserInfoItem.h"
 #import "MNWSUserGameCookie.h"
 #import "MNWSSystemGameNetStats.h"
+#import "MNWSSessionSignedClientToken.h"
 
 #define MNWSSNIdPlayPhone (4)
 
@@ -387,6 +388,10 @@ static NSString* getScopeNameByCode (NSInteger scope) {
     return [self addCurrUserSubscriptionStatusForSnId: MNWSSNIdPlayPhone];
 }
 
+-(NSString*) addGetSessionSignedClientToken:(NSString*) payload {
+    return [self addInfoBlock: @"getSessionSignedClientToken" withParam: MNGetURLEncodedString(payload)];
+}
+
 -(NSString*) addAnyUserGameCookies:(NSArray*) userIdList withKeys:(NSArray*) cookieKeyList {
     return [self addInfoBlock: @"anyUserGameCookies"
                    withParam1: MNStringWithUnsignedLongLongList(userIdList,@"^")
@@ -479,6 +484,7 @@ static NSString* getScopeNameByCode (NSInteger scope) {
     [_parsers setObject: [MNWSXmlGenericItemListParser MNWSXmlGenericItemListParserWithItemTagName: @"anyUserGameCookieItem"
                                                                                      andItemParser: [MNWSXmlGenericParser MNWSXmlGenericParserWithDataClass: [MNWSUserGameCookie class]]]
                  forKey: @"anyUserGameCookies"];
+    [_parsers setObject: [MNWSXmlGenericParser MNWSXmlGenericParserWithDataClass: [MNWSSessionSignedClientToken class]] forKey: @"getSessionSignedClientToken"];
 }
 
 -(MNWSRequest*) sendWSRequest:(MNWSRequestContent*) requestContent withDelegate:(id<MNWSRequestDelegate>) delegate {

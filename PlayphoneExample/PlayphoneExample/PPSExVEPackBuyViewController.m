@@ -33,17 +33,6 @@
 @synthesize packPickerView = _packPickerView;
 @synthesize packList       = _packList;
 
-- (void)dealloc {
-    [_packPickerView release];
-    [_buyButton      release];
-    
-    self.packList = nil;
-    
-    [[MNDirect vShopProvider] removeDelegate:self];
-
-    [super dealloc];
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -56,7 +45,20 @@
     [self setPackPickerView:nil];
     [self setBuyButton     :nil];
     
+    [[MNDirect vShopProvider] removeDelegate:self];
+
     [super viewDidUnload];
+}
+
+- (void)dealloc {
+    [_packPickerView release];
+    [_buyButton      release];
+    
+    self.packList = nil;
+    
+    [[MNDirect vShopProvider] removeDelegate:self];
+    
+    [super dealloc];
 }
 
 - (void)updateState {

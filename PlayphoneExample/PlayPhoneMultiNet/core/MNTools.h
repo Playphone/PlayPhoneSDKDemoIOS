@@ -43,6 +43,7 @@ mn_extern_c NSString* MNStringWithJSSpecCharsEscaped(NSString* string);
 
 mn_extern_c void      MNPostRequestBodyAddParam (NSMutableData* bodyData, NSString* paramName, NSString* paramValue, BOOL urlEncodeName, BOOL urlEncodeValue);
 mn_extern_c NSMutableURLRequest* MNGetURLRequestWithPostMethod(NSURL* url, NSDictionary* params);
+mn_extern_c NSString* MNGetURLEncodedString (NSString* str);
 mn_extern_c NSString* MNGetRequestStringFromParams (NSDictionary* params);
 
 mn_extern_c NSString* MNStringAsJSString(NSString* string);

@@ -21,14 +21,16 @@
     @private
 
     MNFBSessionWrapper* _fbSessionWrapper;
+    NSInteger           _gameId;
     NSString*           _fbAppId;
     NSURL*              _fbUrlToHandle;
+    BOOL                _useSSO;
 }
 
--(id) initWithDelegate:(id<MNSocNetFBDelegate>) delegate;
+-(id) initWithGameId:(NSInteger) gameId andDelegate:(id<MNSocNetFBDelegate>) delegate;
 -(void) dealloc;
 
--(void) setFBAppId:(NSString*) appId;
+-(void) setFBAppId:(NSString*) appId useSSO:(BOOL) useSSO;
 -(BOOL) handleOpenURL:(NSURL*) url;
 
 -(BOOL) connectWithPermissions:(NSArray*) permissions andFillErrorMessage:(NSString**) error;

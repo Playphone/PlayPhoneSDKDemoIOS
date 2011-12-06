@@ -13,8 +13,6 @@
 
 #import "MNSocNetSessionFB.h"
 
-#define MNSocNetFBSingleSignOnDisabled (1)
-
 static NSString* MNSocNetFBAccessTokenDefaultsKey    = @"FBAccessTokenKey";
 static NSString* MNSocNetFBExpirationDateDefaultsKey = @"FBExpirationDateKey";
 
@@ -221,7 +219,7 @@ static NSString* MNSocNetFBExpirationDateDefaultsKey = @"FBExpirationDateKey";
         [_facebook dialog: @"stream.publish" 
                 andParams: [NSMutableDictionary dictionaryWithObjectsAndKeys:
                              prompt, @"message", attachment, @"attachment",
-                             actionLinks, @"actionLinks", targetId, @"targetId", nil]
+                             actionLinks, @"action_links", targetId, @"target_id", nil]
               andDelegate: _streamDelegateWrapper];
     }
 }
@@ -283,15 +281,53 @@ static BOOL isFacebookUrl (NSURL* url) {
     return [urlString hasPrefix: @"fb"];
 }
 
+/* facebook application does not allow to use digits in url scheme suffix, */
+/* so we need to encode game id into sequence of letter characters         */
+/* the following scheme is used:  0 is encoded as 'a',  1 - as 'b',  ...,  */
+/* 9 - as 'j'                                                              */
+
+#define MNFB_INT64_MAX_STRLEN (19 + 1) // 19 digits plus sign
+
+static NSString* encodeIntegerToUrlSchemeEncoding (NSInteger value) {
+    BOOL isNegative = NO;
+    char buffer[MNFB_INT64_MAX_STRLEN + 1]; // use buffer which is enough for even 64-bit ints
+
+    if (value < 0) {
+        isNegative = YES;
+        value      = -value;
+    }
+
+    unsigned int offset = MNFB_INT64_MAX_STRLEN;
+
+    buffer[offset] = '\0';
+
+    while (value > 0 && offset > 0) {
+        buffer[--offset] = 'a' + value % 10;
+        value /= 10;
+    }
+
+    if (isNegative && offset > 0) {
+        buffer[--offset] = '-';
+    }
+
+    return [NSString stringWithUTF8String: &buffer[offset]];
+}
+                                                  
+static NSString* getUrlSchemeSuffixByGameId (NSInteger gameId) {
+    return [NSString stringWithFormat: @"mn%@", encodeIntegerToUrlSchemeEncoding(gameId)];
+}
+
 @implementation MNSocNetSessionFB
 
--(id) initWithDelegate:(id<MNSocNetFBDelegate>) delegate {
+-(id) initWithGameId:(NSInteger) gameId andDelegate:(id<MNSocNetFBDelegate>) delegate {
     self = [super init];
 
     if (self != nil) {
         _fbSessionWrapper = [[MNFBSessionWrapper alloc] initWithSocNetSessionFB: self andDelegate: delegate];
+        _gameId           = gameId;
         _fbAppId          = nil;
         _fbUrlToHandle    = nil;
+        _useSSO           = NO;
     }
 
     return self;
@@ -304,7 +340,7 @@ static BOOL isFacebookUrl (NSURL* url) {
     [super dealloc];
 }
 
--(void) setFBAppId:(NSString*) appId {
+-(void) setFBAppId:(NSString*) appId useSSO:(BOOL) useSSO {
     if (_fbAppId != nil && ![appId isEqualToString: _fbAppId]) {
         NSLog(@"WARNING: facebook appid changed during app runtime");
     }
@@ -312,9 +348,17 @@ static BOOL isFacebookUrl (NSURL* url) {
     [_fbAppId release];
 
     _fbAppId = [appId retain];
+    _useSSO  = useSSO;
 
     if (_fbSessionWrapper->_facebook == nil) {
-        _fbSessionWrapper->_facebook = [[Facebook alloc] initWithAppId: _fbAppId];
+        if (_useSSO) {
+            _fbSessionWrapper->_facebook = [[Facebook alloc] initWithAppId: _fbAppId
+                                                           urlSchemeSuffix: getUrlSchemeSuffixByGameId(_gameId)
+                                                               andDelegate: _fbSessionWrapper];
+        }
+        else {
+            _fbSessionWrapper->_facebook = [[Facebook alloc] initWithAppId: _fbAppId andDelegate: _fbSessionWrapper];
+        }
 
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 
@@ -337,9 +381,6 @@ static BOOL isFacebookUrl (NSURL* url) {
 }
 
 -(BOOL) handleOpenURL:(NSURL*) url {
-#if MNSocNetFBSingleSignOnDisabled
-    return NO;
-#else
     if (_fbSessionWrapper->_facebook != nil) {
         return [_fbSessionWrapper->_facebook handleOpenURL: url];
     }
@@ -357,7 +398,6 @@ static BOOL isFacebookUrl (NSURL* url) {
 
         return YES;
     }
-#endif
 }
 
 -(BOOL) connectWithPermissions:(NSArray*) permissions andFillErrorMessage:(NSString**) error {
@@ -379,11 +419,12 @@ static BOOL isFacebookUrl (NSURL* url) {
 
     _fbSessionWrapper->_connecting = YES;
 
-#if MNSocNetFBSingleSignOnDisabled
-    [_fbSessionWrapper->_facebook authorizeWithFBAppAuth: NO safariAuth: NO permissions: (permissions != nil ? permissions : [NSArray array]) delegate: _fbSessionWrapper];
-#else
-    [_fbSessionWrapper->_facebook authorize: (permissions != nil ? permissions : [NSArray array]) delegate: _fbSessionWrapper];
-#endif
+    if (_useSSO) {
+        [_fbSessionWrapper->_facebook authorize: (permissions != nil ? permissions : [NSArray array])];
+    }
+    else {
+        [_fbSessionWrapper->_facebook authorizeWithFBAppAuth: NO safariAuth: NO permissions: (permissions != nil ? permissions : [NSArray array])];
+    }
 
     return YES;
 }

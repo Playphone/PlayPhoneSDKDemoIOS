@@ -18,6 +18,7 @@ static NSString* MNConfigParamSmartConnectMode = @"BlueBoxSmartConnect";
 static NSString* MNConfigParamMultiNetWebServerURL = @"MultiNetWebServerURL";
 static NSString* MNConfigParamFacebookApiKey = @"FacebookApiKey";
 static NSString* MNConfigParamFacebookAppId = @"FacebookAppId";
+static NSString* MNConfigParamFacebookSSOMode = @"FacebookSSOMode";
 
 static NSString* MNConfigParamLaunchTrackerUrl = @"LaunchTrackerURL";
 static NSString* MNConfigParamShutdownTrackerUrl = @"ShutdownTrackerURL";
@@ -25,6 +26,7 @@ static NSString* MNConfigParamBeaconTrackerUrl = @"BeaconTrackerURL";
 static NSString* MNConfigParamEnterForegroundTrackerUrl = @"EnterForegroundTrackerURL";
 static NSString* MNConfigParamEnterBackgroundTrackerUrl = @"EnterBackgroundTrackerURL";
 static NSString* MNConfigParamGameVocabularyVersion = @"GameVocabularyVersion";
+static NSString* MNConfigParamTryFastResumeMode = @"TryFastResumeMode";
 
 static BOOL MNConfigDataParseConfigString (NSString** key, NSString**value, NSString* str) {
     NSRange range = [str rangeOfString: @"="];
@@ -140,12 +142,14 @@ static BOOL MNConfigDataGetParamBoolean (BOOL* value, NSDictionary* params, NSSt
 @synthesize webServerURL     = _webServerURL;
 @synthesize facebookAPIKey   = _facebookAPIKey;
 @synthesize facebookAppId    = _facebookAppId;
+@synthesize facebookSSOMode  = _facebookSSOMode;
 @synthesize launchTrackerUrl = _launchTrackerUrl;
 @synthesize shutdownTrackerUrl = _shutdownTrackerUrl;
 @synthesize beaconTrackerUrl = _beaconTrackerUrl;
 @synthesize enterForegroundTrackerUrl = _enterForegroundTrackerUrl;
 @synthesize enterBackgroundTrackerUrl = _enterBackgroundTrackerUrl;
 @synthesize gameVocabularyVersion = _gameVocabularyVersion;
+@synthesize tryFastResumeMode = _tryFastResumeMode;
 
 -(id) initWithConfigRequest:(NSURLRequest*) configRequest {
     self = [super init];
@@ -193,12 +197,14 @@ static BOOL MNConfigDataGetParamBoolean (BOOL* value, NSDictionary* params, NSSt
     self.webServerURL   = nil;
     self.facebookAPIKey = nil;
     self.facebookAppId  = nil;
+    self.facebookSSOMode = 0;
     self.launchTrackerUrl = nil;
     self.shutdownTrackerUrl = nil;
     self.beaconTrackerUrl = nil;
     self.enterForegroundTrackerUrl = nil;
     self.enterBackgroundTrackerUrl = nil;
     self.gameVocabularyVersion = nil;
+    self.tryFastResumeMode = 0;
 }
 
 -(void) loadWithDelegate:(id<MNConfigDataDelegate>) delegate {
@@ -274,12 +280,20 @@ static BOOL MNConfigDataGetParamBoolean (BOOL* value, NSDictionary* params, NSSt
     if (ok) {
         self.facebookAppId = strParam;
 
+        if (!MNConfigDataGetParamInteger(&_facebookSSOMode,params,MNConfigParamFacebookSSOMode)) {
+            _facebookSSOMode = 0;
+        }
+
         self.launchTrackerUrl          = (NSString*)[params objectForKey: MNConfigParamLaunchTrackerUrl];
         self.shutdownTrackerUrl        = (NSString*)[params objectForKey: MNConfigParamShutdownTrackerUrl];
         self.beaconTrackerUrl          = (NSString*)[params objectForKey: MNConfigParamBeaconTrackerUrl];
         self.enterForegroundTrackerUrl = (NSString*)[params objectForKey: MNConfigParamEnterForegroundTrackerUrl];
         self.enterBackgroundTrackerUrl = (NSString*)[params objectForKey: MNConfigParamEnterBackgroundTrackerUrl];
         self.gameVocabularyVersion     = (NSString*)[params objectForKey: MNConfigParamGameVocabularyVersion];
+
+        if (!MNConfigDataGetParamInteger(&_tryFastResumeMode,params,MNConfigParamTryFastResumeMode)) {
+            _tryFastResumeMode = 0;
+        }
 
         _loaded = YES;
 

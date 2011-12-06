@@ -298,11 +298,15 @@ static BOOL MNDeviceOSVersionIs4OrHigher (void) {
         _status = MN_OFFLINE;
         _defaultGameSetId = 0;
         _pendingGameResult = nil;
+        _fastSessionResumeEnabled = YES;
 
         NSURLRequest* configRequest = nil;
         NSString*     configUrl     = MNGetMultiNetConfigURL();
 
         if (configUrl != nil) {
+            NSString* appVerInternal = MNGetAppVersionInternal();
+            NSString* appVerExternal = MNGetAppVersionExternal();
+
             NSDictionary* configRequestParams = [NSDictionary dictionaryWithObjectsAndKeys:
                                                  [NSString stringWithFormat: @"%d",gameId],
                                                  @"game_id",
@@ -312,6 +316,10 @@ static BOOL MNDeviceOSVersionIs4OrHigher (void) {
                                                  @"client_ver",
                                                  [[NSLocale currentLocale] localeIdentifier],
                                                  @"client_locale",
+                                                 appVerExternal == nil ? @"" : MNGetURLEncodedString(appVerExternal),
+                                                 @"app_ver_ext",
+                                                 appVerInternal == nil ? @"" : MNGetURLEncodedString(appVerInternal),
+                                                 @"app_ver_int",
                                                  nil];
 
             configRequest = MNGetURLRequestWithPostMethod([NSURL URLWithString: configUrl],configRequestParams);
@@ -326,7 +334,7 @@ static BOOL MNDeviceOSVersionIs4OrHigher (void) {
         
         _roomExtraInfoReceived = NO;
 
-        socNetSessionFB = [[MNSocNetSessionFB alloc] initWithDelegate: self];
+        socNetSessionFB = [[MNSocNetSessionFB alloc] initWithGameId: _gameId andDelegate: self];
 
         _offlinePack = [[MNOfflinePack alloc] initOfflinePackWithGameId: gameId andDelegate: self];
 
@@ -364,6 +372,7 @@ static BOOL MNDeviceOSVersionIs4OrHigher (void) {
         _foregroundAccumulatedTime = 0;
 
         _gameVocabulary = [[MNGameVocabulary alloc] initWithSession: self];
+        _webShopIsReady = NO;
     }
 
     return self;
@@ -679,6 +688,17 @@ static BOOL MNDeviceOSVersionIs4OrHigher (void) {
                              andAuthSign: [NSString stringWithFormat: @"TMP_%lld%lld",(long long)currentTime,(long long)userId]];
 
     return YES;
+}
+
+-(BOOL) loginWithStoredCredentials {
+    MNUserCredentials* lastUserCredentials = MNUserCredentialsGetMostRecentlyLoggedUserCredentials(varStorage);
+
+    if (lastUserCredentials != nil) {
+        return [self loginWithUserId: lastUserCredentials.userId authSign: lastUserCredentials.userAuthSign];
+    }
+    else {
+        return NO;
+    }
 }
 
 -(BOOL) loginAuto {
@@ -1521,7 +1541,7 @@ static BOOL MNDeviceOSVersionIs4OrHigher (void) {
         [_offlinePack setWebServerUrl: _webBaseUrl];
     }
 
-    [socNetSessionFB setFBAppId: smartFoxFacade->configData.facebookAppId];
+    [socNetSessionFB setFBAppId: smartFoxFacade->configData.facebookAppId useSSO: configData.facebookSSOMode != 0];
 
     [_delegates beginCall];
 
@@ -1532,6 +1552,12 @@ static BOOL MNDeviceOSVersionIs4OrHigher (void) {
     }
     
     [_delegates endCall];
+
+    if (_fastSessionResumeEnabled && smartFoxFacade->configData.tryFastResumeMode != 0) {
+        _fastSessionResumeEnabled = NO;
+
+        [self loginWithStoredCredentials];
+    }
 }
 
 -(void) mnConfigLoadDidFailWithError:(NSString*) error {

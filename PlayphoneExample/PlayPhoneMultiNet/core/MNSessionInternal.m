@@ -59,4 +59,12 @@
     return smartFoxFacade->configData;
 }
 
+-(void) setWebShopReady:(BOOL) isReady {
+    _webShopIsReady = isReady;
+}
+
+-(BOOL) isWebShopReady {
+    return _webShopIsReady;
+}
+
 @end

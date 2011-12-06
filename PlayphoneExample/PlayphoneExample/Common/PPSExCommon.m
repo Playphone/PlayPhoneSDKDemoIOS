@@ -8,9 +8,16 @@
 
 #import "PPSExCommon.h"
 
+
 NSString *PPSExUserNotLoggedInString     = @"User is not logged in";
 NSString *PPSExInvalidNumberFormatString = @"Invalid number format";
 NSString *PPSExVirtualItemCurrencyString = @"vI";
+
+
+#define PPSExKeyboardHeightPortraitIPhone    (216)
+#define PPSExKeyboardHeightLanscapeIPhone    (162)
+#define PPSExKeyboardHeightPortraitIPad      (264)
+#define PPSExKeyboardHeightLanscapeIPad      (352)
 
 
 @implementation PPSExMainScreenRowTypeObject
@@ -125,6 +132,19 @@ BOOL PPSExScanLongLong(NSString *string,long long *integerValuePtr) {
     return result;
 }
 
+BOOL PPSExScanDouble(NSString *string,double *doubleValuePtr) {
+    BOOL       result  = NO;
+    NSScanner* scanner = [[NSScanner alloc]initWithString:string];
+    
+    if (scanner != nil) {
+        result = [scanner scanDouble:doubleValuePtr];
+        
+        [scanner release];
+    }
+    
+    return result;
+}
+
 BOOL PPSExIsIPad(void) {
 #ifdef UI_USER_INTERFACE_IDIOM
 	return (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad);
@@ -132,3 +152,28 @@ BOOL PPSExIsIPad(void) {
 	return NO;
 #endif
 }
+
+
+CGFloat PPSExGetKeyboardHeight(void) {
+    CGFloat keyboardHeight = 0;
+    
+    if (UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)) {
+        if (PPSExIsIPad()) {
+            keyboardHeight = PPSExKeyboardHeightPortraitIPad;
+        }
+        else {
+            keyboardHeight = PPSExKeyboardHeightPortraitIPhone;
+        }
+    }
+    else {
+        if (PPSExIsIPad()) {
+            keyboardHeight = PPSExKeyboardHeightLanscapeIPad;
+        }
+        else {
+            keyboardHeight = PPSExKeyboardHeightLanscapeIPhone;
+        }
+    }
+    
+    return keyboardHeight;
+}
+

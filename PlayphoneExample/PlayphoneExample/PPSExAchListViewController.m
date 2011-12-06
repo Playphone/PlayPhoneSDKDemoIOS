@@ -43,6 +43,12 @@ static NSString *PPSExAchListSectionNames[] =
     [[MNDirect achievementsProvider]addDelegate:self];
 }
 
+- (void)viewDidUnload {
+    [[MNDirect achievementsProvider] removeDelegate:self];
+    
+    [super viewDidUnload];
+}
+
 - (void)dealloc {
     [[MNDirect achievementsProvider] removeDelegate:self];
     [super dealloc];

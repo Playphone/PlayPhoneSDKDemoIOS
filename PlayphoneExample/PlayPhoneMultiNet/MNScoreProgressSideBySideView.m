@@ -65,9 +65,12 @@
     return self;
 }
 
--(void) awakeFromNib {
-    [super awakeFromNib];
-    [self makeViewInFrame:self.frame];
+-(id) initWithCoder:(NSCoder *)aDecoder {
+    if (self = [super initWithCoder:aDecoder]) {
+        [self makeViewInFrame:self.frame];
+    }
+    
+    return self;
 }
 
 -(void) makeViewInFrame:(CGRect) frame {
@@ -75,13 +78,14 @@
     self.clipsToBounds   = YES;
  
     self.mySPView  = [[[UIView alloc]initWithFrame:CGRectMake(0                     ,0,frame.size.width / 2.0, frame.size.height)]autorelease];
-    self.mySPView .autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleWidth;
-    self.mySPView .backgroundColor  = [UIColor clearColor]; 
+    self.mySPView .backgroundColor     = [UIColor clearColor]; 
+    self.mySPView .autoresizesSubviews = YES;
+    self.mySPView .autoresizingMask    = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleWidth;
 
     self.oppSPView = [[[UIView alloc]initWithFrame:CGRectMake(frame.size.width / 2.0,0,frame.size.width / 2.0, frame.size.height)]autorelease];
-    self.oppSPView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin  | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleWidth;
-    self.oppSPView.backgroundColor  = self.mySPView.backgroundColor;
-    
+    self.oppSPView.backgroundColor     = self.mySPView.backgroundColor;
+    self.oppSPView.autoresizesSubviews = self.mySPView.autoresizesSubviews;
+    self.oppSPView.autoresizingMask    = UIViewAutoresizingFlexibleLeftMargin  | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleWidth;
     
     self.mySPPlaceLabel = [[[UILabel alloc]initWithFrame:CGRectMake(65,39,31,21)]autorelease];
     self.mySPPlaceLabel.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin;
@@ -96,14 +100,14 @@
     self.oppSPPlaceLabel.textColor        = self.mySPPlaceLabel.textColor;
     self.oppSPPlaceLabel.backgroundColor  = self.mySPPlaceLabel.backgroundColor;
     self.oppSPPlaceLabel.textAlignment    = self.mySPPlaceLabel.textAlignment;
-    
-    
+
     self.mySPNameLabel   = [[[UILabel alloc]initWithFrame:CGRectMake(67, 2,93,37)]autorelease];
     self.mySPNameLabel.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleWidth;
     self.mySPNameLabel.font             = [UIFont fontWithName:@"Arial" size:15];
     self.mySPNameLabel.textColor        = [UIColor whiteColor];
     self.mySPNameLabel.backgroundColor  = [UIColor clearColor];
     self.mySPNameLabel.numberOfLines    = 2;
+    self.mySPNameLabel.minimumFontSize  = 13;
     
     self.oppSPNameLabel  = [[[UILabel alloc]initWithFrame:CGRectMake(67, 2,93,37)]autorelease];
     self.oppSPNameLabel.autoresizingMask = self.mySPNameLabel.autoresizingMask;
@@ -111,7 +115,7 @@
     self.oppSPNameLabel.textColor        = self.mySPNameLabel.textColor;
     self.oppSPNameLabel.backgroundColor  = self.mySPNameLabel.backgroundColor;
     self.oppSPNameLabel.numberOfLines    = self.mySPNameLabel.numberOfLines;
-    
+    self.oppSPNameLabel.minimumFontSize  = self.mySPNameLabel.minimumFontSize;
     
     self.mySPScoreLabel  = [[[UILabel alloc]initWithFrame:CGRectMake(99,40,50,21)]autorelease];
     self.mySPScoreLabel.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth;
@@ -128,21 +132,49 @@
     self.oppSPScoreLabel.textAlignment    = self.mySPScoreLabel.textAlignment;
     
     
-    self.mySPBackgroundFirstPlaceImageView   = [[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"MNScoreProgressView.bundle/Images/mnsp_sticker_green.png"]]autorelease];
-    self.mySPBackgroundDrawPlaceImageView    = [[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"MNScoreProgressView.bundle/Images/mnsp_sticker_green.png"]]autorelease];
-    self.mySPBackgroundSecondPlaceImageView  = [[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"MNScoreProgressView.bundle/Images/mnsp_sticker_red.png"  ]]autorelease];
-    self.oppSPBackgroundFirstPlaceImageView  = [[[UIImageView alloc]initWithImage:self.mySPBackgroundFirstPlaceImageView .image]autorelease];
-    self.oppSPBackgroundDrawPlaceImageView   = [[[UIImageView alloc]initWithImage:self.mySPBackgroundDrawPlaceImageView  .image]autorelease];
-    self.oppSPBackgroundSecondPlaceImageView = [[[UIImageView alloc]initWithImage:self.mySPBackgroundSecondPlaceImageView.image]autorelease];
+    self.mySPBackgroundFirstPlaceImageView   = [[[UIImageView alloc]initWithFrame:self.mySPView.bounds]autorelease];
+    self.mySPBackgroundDrawPlaceImageView    = [[[UIImageView alloc]initWithFrame:self.mySPBackgroundFirstPlaceImageView.frame]autorelease];
+    self.mySPBackgroundSecondPlaceImageView  = [[[UIImageView alloc]initWithFrame:self.mySPBackgroundFirstPlaceImageView.frame]autorelease];
+
+    self.oppSPBackgroundFirstPlaceImageView  = [[[UIImageView alloc]initWithFrame:self.oppSPView.bounds]autorelease];
+    self.oppSPBackgroundDrawPlaceImageView   = [[[UIImageView alloc]initWithFrame:self.oppSPBackgroundFirstPlaceImageView.frame]autorelease];
+    self.oppSPBackgroundSecondPlaceImageView = [[[UIImageView alloc]initWithFrame:self.oppSPBackgroundFirstPlaceImageView.frame]autorelease];
+
+    self.mySPBackgroundFirstPlaceImageView  .image = [UIImage imageNamed:@"MNScoreProgressView.bundle/Images/mnsp_sticker_green.png"];
+    self.mySPBackgroundDrawPlaceImageView   .image = [UIImage imageNamed:@"MNScoreProgressView.bundle/Images/mnsp_sticker_green.png"];
+    self.mySPBackgroundSecondPlaceImageView .image = [UIImage imageNamed:@"MNScoreProgressView.bundle/Images/mnsp_sticker_red.png"  ];
+    self.oppSPBackgroundFirstPlaceImageView .image = [UIImage imageNamed:@"MNScoreProgressView.bundle/Images/mnsp_sticker_green.png"];
+    self.oppSPBackgroundDrawPlaceImageView  .image = [UIImage imageNamed:@"MNScoreProgressView.bundle/Images/mnsp_sticker_green.png"];
+    self.oppSPBackgroundSecondPlaceImageView.image = [UIImage imageNamed:@"MNScoreProgressView.bundle/Images/mnsp_sticker_red.png"  ];
+
+    UIViewAutoresizing commonAutoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     
-    self.mySPBackgroundFirstPlaceImageView .autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    self.mySPBackgroundDrawPlaceImageView  .autoresizingMask = self.mySPBackgroundSecondPlaceImageView.autoresizingMask;
-    self.mySPBackgroundSecondPlaceImageView.autoresizingMask = self.mySPBackgroundSecondPlaceImageView.autoresizingMask;
-    self.oppSPBackgroundFirstPlaceImageView .autoresizingMask = self.mySPBackgroundSecondPlaceImageView.autoresizingMask;
-    self.oppSPBackgroundDrawPlaceImageView  .autoresizingMask = self.mySPBackgroundSecondPlaceImageView.autoresizingMask;
-    self.oppSPBackgroundSecondPlaceImageView.autoresizingMask = self.mySPBackgroundSecondPlaceImageView.autoresizingMask;
+    self.mySPBackgroundFirstPlaceImageView  .autoresizingMask = commonAutoresizingMask;
+    self.mySPBackgroundDrawPlaceImageView   .autoresizingMask = commonAutoresizingMask;
+    self.mySPBackgroundSecondPlaceImageView .autoresizingMask = commonAutoresizingMask;
+    self.oppSPBackgroundFirstPlaceImageView .autoresizingMask = commonAutoresizingMask;
+    self.oppSPBackgroundDrawPlaceImageView  .autoresizingMask = commonAutoresizingMask;
+    self.oppSPBackgroundSecondPlaceImageView.autoresizingMask = commonAutoresizingMask;
+
+    CGRect myCommonContentStretch  = CGRectMake(100 / self.mySPBackgroundFirstPlaceImageView.frame.size.width,
+                                                0,
+                                                2   / self.mySPBackgroundFirstPlaceImageView.frame.size.width,
+                                                1);
     
-    self.myUrlImageView = [[[MNUIUrlImageView alloc]initWithFrame:CGRectMake(6,6,55,55)]autorelease];
+    CGRect oppCommonContentStretch = CGRectMake(100 / self.oppSPBackgroundFirstPlaceImageView.frame.size.width,
+                                                0, 
+                                                2   / self.oppSPBackgroundFirstPlaceImageView.frame.size.width,
+                                                1);
+    
+    self.mySPBackgroundFirstPlaceImageView  .contentStretch = myCommonContentStretch;
+    self.mySPBackgroundDrawPlaceImageView   .contentStretch = myCommonContentStretch;
+    self.mySPBackgroundSecondPlaceImageView .contentStretch = myCommonContentStretch;
+    self.oppSPBackgroundFirstPlaceImageView .contentStretch = oppCommonContentStretch;
+    self.oppSPBackgroundDrawPlaceImageView  .contentStretch = oppCommonContentStretch;
+    self.oppSPBackgroundSecondPlaceImageView.contentStretch = oppCommonContentStretch;
+  
+
+    self.myUrlImageView  = [[[MNUIUrlImageView alloc]initWithFrame:CGRectMake(6,6,55,55)]autorelease];
     self.oppUrlImageView = [[[MNUIUrlImageView alloc]initWithFrame:CGRectMake(6,6,55,55)]autorelease];
     
     [self.mySPView  addSubview:self.mySPBackgroundFirstPlaceImageView  ];
@@ -159,6 +191,7 @@
     [self.oppSPView addSubview:self.oppSPNameLabel ];
     [self.mySPView  addSubview:self.mySPScoreLabel ];
     [self.oppSPView addSubview:self.oppSPScoreLabel];
+    
     [self addSubview:self.mySPView ];
     [self addSubview:self.oppSPView];
 }
@@ -206,8 +239,7 @@
     self.oppSPNameLabel .text = @"";
     self.oppSPScoreLabel.text = @"";
     self.oppUrlImageView.hidden = YES;
-     
-     
+
     [self updateViewWithMode:MNScoreProgressSideBySideModeDraw animated:NO];
      
     [self.myUrlImageView loadImageWithUrl:[NSURL URLWithString:[[[MNDirect getSession] getMyUserInfo]getAvatarUrl]]];
@@ -224,7 +256,15 @@
         MNScoreProgressProviderItem *item = [scoreProgressItems objectAtIndex:index];
         
         if (item.userInfo.userId == [[MNDirect getSession] getMyUserInfo].userId) {
+            if (mySPItem != nil) {
+                // Generally not possible
+                [mySPItem release];
+                mySPItem = nil;
+            }
+            
             mySPItem = item;
+            
+            // call retain to make future work with mySPItem identical as in case if no mySPItem was found
             [mySPItem retain];
         }
         else if (oppSPItem == nil) {
@@ -363,7 +403,7 @@ static NSString *FMThOrdinalPostfix     = @"th";
         lowValue = intValue % 1000;
     }
     
-    resultStr = [NSString stringWithFormat:@"%d%@",lowValue,resultStr];
+    resultStr = [NSString stringWithFormat:@"%lld%@",lowValue,resultStr];
     
     if (negativeFlag) {
         resultStr = [NSString stringWithFormat:@"-%@",resultStr];

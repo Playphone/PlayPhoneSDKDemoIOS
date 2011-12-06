@@ -43,6 +43,8 @@
     [self setUnlockAchIdTextField    :nil];
     [self setUnlockButton            :nil];
 
+    [[MNDirect achievementsProvider]removeDelegate:self];
+
     [super viewDidUnload];
 }
 

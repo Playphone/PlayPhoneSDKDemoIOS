@@ -16,13 +16,19 @@
 @end
 
 @interface PPSExBasicViewController : UIViewController <PPSExBasicNotificationProtocol> {
-    CGFloat _contentMinHeght;
+    CGFloat                  _contentMinHeght;
+    UIActivityIndicatorView *_activityIndicator;
+    CGPoint                  _oldOffset;
+    UITextField             *_activeTextField;
 }
 
 @property (nonatomic, assign) CGFloat contentMinHeght;
 
 
 - (void)updateState;
+
+- (void)startActivityIndicator;
+- (void)stopActivityIndicator;
 
 - (void)playerLoggedIn;
 - (void)playerLoggedOut;

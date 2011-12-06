@@ -6,6 +6,7 @@
 //  Copyright 2009 PlayPhone. All rights reserved.
 //
 
+#import "JSON.h"
 #import "MNTools.h"
 #import "MNUserInfo.h"
 #import "MNChatMessage.h"
@@ -16,6 +17,7 @@
 #import "MNNetworkStatus.h"
 #import "MNABImportDialogView.h"
 #import "MNABImportTableViewDataSource.h"
+#import "MNABImport.h"
 #import "MNLauncherTools.h"
 
 #import "MNSessionInternal.h"
@@ -130,6 +132,7 @@ static NSString* MNUserProfileViewRequestParamVarValue = @"var_value";
 static NSString* MNUserProfileViewRequestParamVarNameList = @"var_name_list";
 
 static NSString* MNUserProfileViewRequestParamContextCallWaitLoad = @"context_call_wait_load";
+static NSString* MNUserProfileViewRequestParamVShopIsReady = @"vshop_is_ready";
 
 static NSString* MNURLHttpScheme  = @"http";
 static NSString* MNURLHttpsScheme = @"https";
@@ -172,7 +175,9 @@ static BOOL stringStartsWithFileURLScheme (NSString* str) {
 
 static NSURLRequest* MNUserProfileViewGetStartRequestOnline (NSString* webServerURL, NSInteger gameId) {
     NSString* startURL = [NSString stringWithFormat: MNStartUrlFormat, webServerURL];
-
+    NSString* appVerInternal = MNGetAppVersionInternal();
+    NSString* appVerExternal = MNGetAppVersionExternal();
+    
     NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:
                              [NSString stringWithFormat: @"%d",gameId],
                              @"game_id",
@@ -184,19 +189,28 @@ static NSURLRequest* MNUserProfileViewGetStartRequestOnline (NSString* webServer
                              @"client_ver",
                              [[NSLocale currentLocale] localeIdentifier],
                              @"client_locale",
+                             appVerExternal == nil ? @"" : MNGetURLEncodedString(appVerExternal),
+                             @"app_ver_ext",
+                             appVerInternal == nil ? @"" : MNGetURLEncodedString(appVerInternal),
+                             @"app_ver_int",
                              nil];
 
     return MNGetURLRequestWithPostMethod([NSURL URLWithString: startURL],params);
 }
 
 static NSURLRequest* MNUserProfileViewGetStartRequestOffline (NSString* webServerURL, NSInteger gameId) {
-    NSString* startURL = [[NSString stringWithFormat: @"%@/welcome.php.html?game_id=%d&dev_id=%@&dev_type=%d&client_ver=%@&client_locale=%@",
+    NSString* appVerInternal = MNGetAppVersionInternal();
+    NSString* appVerExternal = MNGetAppVersionExternal();
+    NSString* startURL = [[NSString stringWithFormat: @"%@/welcome.php.html?game_id=%d&dev_id=%@&dev_type=%d&client_ver=%@&client_locale=%@&app_ver_ext=%@&app_ver_int=%@",
                            webServerURL,
                            gameId,
                            MNGetDeviceIdMD5(),
                            MNDeviceTypeiPhoneiPod,
                            MNClientAPIVersion,
-                           [[NSLocale currentLocale] localeIdentifier]] stringByReplacingOccurrencesOfString: @" " withString: @"%20"];
+                           [[NSLocale currentLocale] localeIdentifier],
+                           appVerExternal == nil ? @"" : MNGetURLEncodedString(appVerExternal),
+                           appVerInternal == nil ? @"" : MNGetURLEncodedString(appVerInternal)]
+                           stringByReplacingOccurrencesOfString: @" " withString: @"%20"];
 
     return [NSURLRequest requestWithURL: [NSURL URLWithString: startURL]];
 }
@@ -373,6 +387,7 @@ static void accumulateVarsList (NSMutableString* javaScriptSrc, NSDictionary* va
 -(void) mnSessionDevUsersInfoChanged;
 -(void) mnSessionExecAppCommandReceived:(NSString*) cmdName withParam:(NSString*) cmdParam;
 -(void) mnSessionSysEventReceived:(NSString*) eventName withParam:(NSString*) eventParam andCallbackId:(NSString*) callbackId;
+-(void) mnSessionWebEventReceived:(NSString*) eventName withParam:(NSString*) eventParam andCallbackId:(NSString*) callbackId;
 -(void) mnSessionErrorOccurred:(MNErrorInfo*) error;
 -(void) mnSessionWebFrontURLReady:(NSString*) url;
 -(void) mnSessionHandleOpenURL:(NSURL*) url;
@@ -1371,6 +1386,33 @@ static NSString* MNWebKitErrorDomain = @"WebKitErrorDomain";
     [javaScriptSrc release];
 }
 
+-(void) handleGetAddressBookDataRequestExt:(NSString*) callbackId {
+    NSArray* addressBookSourceData = [MNABImport getContactList];
+    NSMutableArray* addressBookContent = [NSMutableArray arrayWithCapacity: [addressBookSourceData count]];
+
+    for (MNABPersonInfo* personData in addressBookSourceData) {
+        NSDictionary* personContent = [NSDictionary dictionaryWithObjectsAndKeys:
+                                       personData.personName, @"name",
+                                       personData.personEMails, @"emails",
+                                       personData.personPhones, @"phones",
+                                       nil];
+
+        [addressBookContent addObject: personContent];
+    }
+
+    NSString* addressBookContentJSON = [addressBookContent JSONRepresentation];
+
+    [_session postSysEvent: @"sys.getUserAddressBook.Response"
+                 withParam: addressBookContentJSON
+             andCallbackId: callbackId];
+}
+
+-(void) mnSessionWebEventReceived:(NSString*) eventName withParam:(NSString*) eventParam andCallbackId:(NSString*) callbackId {
+    if ([eventName isEqualToString: @"web.getUserAddressBook"]) {
+        [self handleGetAddressBookDataRequestExt: callbackId];
+    }
+}
+
 -(void) mnSessionHandleOpenURL:(NSURL*) url {
     [self scheduleJSUpdateContext];
 }
@@ -1926,7 +1968,8 @@ static UIImage* MNImageCopyScaledCenteredImage(UIImage* srcImage, CGFloat maxDim
 }
 
 - (void) handleSetHostParamRequest: (NSDictionary*) params {
-    NSString*     contextCallWaitLoadParam = [params objectForKey: MNUserProfileViewRequestParamContextCallWaitLoad];
+    NSString* contextCallWaitLoadParam = [params objectForKey: MNUserProfileViewRequestParamContextCallWaitLoad];
+    NSString* vShopIsReadyParam        = [params objectForKey: MNUserProfileViewRequestParamVShopIsReady];
 
     if (contextCallWaitLoadParam != nil) {
         if ([contextCallWaitLoadParam isEqualToString: @"0"]) {
@@ -1935,6 +1978,10 @@ static UIImage* MNImageCopyScaledCenteredImage(UIImage* srcImage, CGFloat maxDim
         else {
             contextCallWaitLoad = YES;
         }
+    }
+
+    if (vShopIsReadyParam != nil) {
+        [_session setWebShopReady: ![vShopIsReadyParam isEqualToString: @"0"]];
     }
 }
 

@@ -10,9 +10,11 @@
 
 #import "TouchXML.h"
 
+#import "MNMessageCodes.h"
 #import "MNTools.h"
 #import "MNDelegateArray.h"
 #import "MNGameVocabulary.h"
+#import "MNSessionInternal.h"
 #import "MNWSXmlTools.h"
 #import "MNVShopInAppPurchase.h"
 #import "MNVShopProvider.h"
@@ -387,8 +389,21 @@ static void MNVShopWriteLog(NSString* message) {
     NSString* packIdStr    = MNStringWithIntList(packIdArray,@",");
     NSString* packCountStr = MNStringWithIntList(packCount,@",");
 
-    [_session execAppCommand: @"jumpToBuyVShopPackRequestDialogSimple"
-                   withParam: [NSString stringWithFormat: @"pack_id=%@&buy_count=%@&client_transaction_id=%lld",packIdStr,packCountStr,clientTransactionId]];
+    if ([_session isWebShopReady]) {
+        [_session execAppCommand: @"jumpToBuyVShopPackRequestDialogSimple"
+                       withParam: [NSString stringWithFormat: @"pack_id=%@&buy_count=%@&client_transaction_id=%lld",packIdStr,packCountStr,clientTransactionId]];
+    }
+    else {
+        NSString* errorMessage = [_session varStorageGetValueForVariable: @"hook.ui.shop_not_ready_error_message"];
+
+        if (errorMessage == nil) {
+            errorMessage = MNLocalizedString(@"Purchase system is loading. Please retry later.",MNMessageCodePurchaseSystemIsNotReadyError);
+        }
+
+        [self dispatchCheckoutFailedEventWithErrorCode: MN_VSHOP_PROVIDER_ERROR_CODE_WF_NOT_READY
+                                          errorMessage: errorMessage
+                                andClientTransactionId: clientTransactionId];
+    }
 }
 
 -(void) procCheckoutVShopPacksSilent:(NSArray*) packIdArray packCount:(NSArray*) packCount clientTransactionId:(MNVItemTransactionId) clientTransactionId {
@@ -559,6 +574,12 @@ static void MNVShopWriteLog(NSString* message) {
     }
 
     return YES;
+}
+
+-(void) mnVShopPurchaseWSRequestProcessCallVShopTransactionFailCommandWithCliTransactionId:(MNVItemTransactionId) cliTransactionId
+                                                                                 errorCode:(int) errorCode
+                                                                              errorMessage:(NSString*) errorMessage {
+    [self dispatchCheckoutFailedEventWithErrorCode: errorCode errorMessage: errorMessage andClientTransactionId: cliTransactionId];
 }
 
 @end

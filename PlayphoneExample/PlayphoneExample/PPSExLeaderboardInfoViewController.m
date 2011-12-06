@@ -142,7 +142,8 @@ static NSString *PPSExLeaderboardEmpty = @"<No data>";
         for (MNWSLeaderboardListItem* leaderboardItem in self.leaderboardData) {
             if ([leaderboardItem getGamesetId].intValue == self.gameSetting.gameSetId) {
                 [leaderboardDataString appendFormat:
-                 @"%@ : %@\n",
+                 @"%d. %@ : %@\n",
+                 [leaderboardItem getOutUserPlace].intValue,
                  [leaderboardItem getUserNickName],
                  [leaderboardItem getOutHiScoreText]];
             }

@@ -12,6 +12,7 @@
 
 #import "MNVShopWSRequest.h"
 
+#define MNVShopWSRequestDefaultCliTransactionId (0)
 #define MNVShopWSRequestDefaultErrorCode (100)
 
 @interface MNVShopWSRequestInfo : NSObject {
@@ -39,7 +40,7 @@
 
     if (self != nil) {
         _downloader          = nil;
-        _clientTransactionId = 0;
+        _clientTransactionId = MNVShopWSRequestDefaultCliTransactionId;
     }
 
     return self;
@@ -122,7 +123,7 @@
     MNVShopWSRequestInfo* requestInfo = [self completeDownload: downloader];
 
     [_delegate mnVShopWSRequestSet: self
-    requestWithClientTransactionId: requestInfo == nil ? 0 : requestInfo.clientTransactionId
+    requestWithClientTransactionId: requestInfo == nil ? MNVShopWSRequestDefaultCliTransactionId : requestInfo.clientTransactionId
                  didFinishWithData: data];
 }
 
@@ -130,7 +131,7 @@
     MNVShopWSRequestInfo* requestInfo = [self completeDownload: downloader];
 
     [_delegate mnVShopWSRequestSet: self
-    requestWithClientTransactionId: requestInfo == nil ? 0 : requestInfo.clientTransactionId
+    requestWithClientTransactionId: requestInfo == nil ? MNVShopWSRequestDefaultCliTransactionId : requestInfo.clientTransactionId
                   didFailWithError: error.message];
 }
 
@@ -182,7 +183,7 @@
 }
 
 -(void) sendWSRequestToWS:(NSString*) wsUrl withParams:(NSDictionary*) params {
-    [self sendWSRequestToWS:wsUrl withParams: params clientTransactionId: 0];
+    [self sendWSRequestToWS:wsUrl withParams: params clientTransactionId: MNVShopWSRequestDefaultCliTransactionId];
 }
 
 -(void) cancelAllWSRequests {
@@ -282,6 +283,34 @@
     return [_delegate mnVShopPurchaseWSRequestProcessPostPluginMessageCommand: pluginName pluginMessage: pluginMessage];
 }
 
+-(void) processWSCmdCallVShopTransactionFail:(CXMLElement*) cmdElement {
+    MNVItemTransactionId cliTransactionId = MNVShopWSRequestDefaultCliTransactionId;
+    int                  errorCode        = MNVShopWSRequestDefaultErrorCode;
+    NSString*            errorMessage     = nil;
+
+    CXMLElement* currElement = MNWSXmlNodeGetFirstChildElement(cmdElement);
+
+    while (currElement != nil) {
+        NSString* name = [currElement name];
+
+        if ([name isEqualToString: @"clientTransactionId"]) {
+            cliTransactionId = MNStringScanLongLongWithDefValue([currElement stringValue],MNVShopWSRequestDefaultCliTransactionId);
+        }
+        else if ([name isEqualToString: @"errorCode"]) {
+            errorCode = MNStringScanIntegerWithDefValue([currElement stringValue],MNVShopWSRequestDefaultErrorCode);
+        }
+        else if ([name isEqualToString: @"errorMessage"]) {
+            errorMessage = [currElement stringValue];
+        }
+
+        currElement = MNWSXmlNodeGetNextSiblingElement(currElement);
+    }
+
+    [_delegate mnVShopPurchaseWSRequestProcessCallVShopTransactionFailCommandWithCliTransactionId: cliTransactionId
+                                                                                        errorCode: errorCode
+                                                                                     errorMessage: errorMessage];
+}
+
 /* MNVShopWSRequestSetDelegate protocol */
 -(void)     mnVShopWSRequestSet:(MNVShopWSRequestSet*) requestSet
  requestWithClientTransactionId:(MNVItemTransactionId) clientTransactionId
@@ -326,6 +355,9 @@
                         }
                         else if ([cmdName isEqualToString: @"postPluginMessage"]) {
                             cont = [self processWSCmdPostPluginMessage: cmdElement];
+                        }
+                        else if ([cmdName isEqualToString: @"callVShopTransactionFail"]) {
+                            [self processWSCmdCallVShopTransactionFail: cmdElement];
                         }
                         else {
                             NSLog(@"vshop ws response contains unsupported command (%@)",cmdName);

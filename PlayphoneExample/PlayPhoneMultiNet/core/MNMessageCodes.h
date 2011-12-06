@@ -57,7 +57,8 @@ enum {
     MNMessageCodeOutOfMemoryError,
     MNMessageCodeReconnectFailedError,
     MNMessageCodeCannotGetContactListError,
-    MNMessageCodeCannonOpenApplicationURLError, //43
+    MNMessageCodeCannonOpenApplicationURLError,
+    MNMessageCodePurchaseSystemIsNotReadyError, //44
 
     MNMessageCodeOfflineNeedOnlineModeError = MNMessageCodeOfflineDomainLowBound, //50
     MNMessageCodeOfflineCannotLoginOfflineWhileConnectedToServerError,

@@ -48,6 +48,12 @@ static NSString *PPSExLeaderboardsSectionNames[] =
     [[MNDirect gameSettingsProvider]addDelegate:self];
 }
 
+- (void)viewDidUnload {
+    [[MNDirect gameSettingsProvider] removeDelegate:self];
+
+    [super viewDidUnload];
+}
+
 - (void)dealloc {
     [[MNDirect gameSettingsProvider] removeDelegate:self];
     self.gameSettingList = nil;

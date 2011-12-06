@@ -20,12 +20,18 @@ static NSString *PPSExDashboardCtlSectionNames[] =
 
 static PPSExMainScreenRowType PPSExDashboardCtlRows[] = 
 {
-    { @"Leaderboards", @"jumpToLeaderboard" , @"", @"" },
-    { @"Friends list", @"jumpToBuddyList"   , @"", @"" },
-    { @"User Profile", @"jumpToUserProfile" , @"", @"" },
-    { @"User Home"   , @"jumpToUserHome"    , @"", @"" },
-    { @"Achievements", @"jumpToAchievements", @"", @"" },
-    { @"Add Friends" , @"jumpToAddFriends"  , @"", @"" },
+    { @"Leaderboards"    , @"jumpToLeaderboard"      , @"", @"" },
+    { @"Friends list"    , @"jumpToBuddyList"        , @"", @"" },
+    { @"User Profile"    , @"jumpToUserProfile"      , @"", @"" },
+    { @"User Home"       , @"jumpToUserHome"         , @"", @"" },
+    { @"Achievements"    , @"jumpToAchievements"     , @"", @"" },
+    { @"Game Info"       , @"jumpToGameInfo"         , @"", @"" },
+    { @"Add Friends"     , @"jumpToAddFriends"       , @"", @"" },
+    { @"PlayCredits Shop", @"jumpToGameShop:_credits", @"", @"" },
+    { @"Redeem"          , @"jumpToGameShop:_redeem" , @"", @"" },
+    { @"Shop Catalog"    , @"jumpToGameShop"         , @"", @"" },
+    //{ @"Buy Credits"     , @"jumpToBuyCredits"       , @"", @"" },
+    //{ @"Buy Subscription", @"jumpToBuySubscription"  , @"", @"" },
 };
 
 
@@ -69,9 +75,15 @@ static PPSExMainScreenRowType PPSExDashboardCtlRows[] =
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *selectedCell = [tableView cellForRowAtIndexPath:indexPath];
     
-    NSString *applicationCommand = selectedCell.detailTextLabel.text;
+    NSArray *command = [selectedCell.detailTextLabel.text componentsSeparatedByString:@":"];
+    NSString *applicationCommand = [command objectAtIndex:0];
+    NSString *applicationParams  = nil;
     
-    [MNDirect execAppCommand:applicationCommand withParam:nil];
+    if ([command count] > 1) {
+        applicationParams  = [command objectAtIndex:1];
+    }
+    
+    [MNDirect execAppCommand:applicationCommand withParam:applicationParams];
     [MNDirectUIHelper showDashboard];
     
     [self performSelector:@selector(clearSelectionForCell:) withObject:selectedCell afterDelay:0.5];

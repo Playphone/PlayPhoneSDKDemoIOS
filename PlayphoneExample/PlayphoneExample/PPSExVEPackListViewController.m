@@ -41,6 +41,12 @@ static NSString *PPSExVECategoriesScreenSectionNames[] =
     [[MNDirect vShopProvider]addDelegate:self];
 }
 
+- (void)viewDidUnload {
+    [[MNDirect vShopProvider] removeDelegate:self];
+
+    [super viewDidUnload];
+}
+
 - (void)dealloc {
     [[MNDirect vShopProvider] removeDelegate:self];
     [super dealloc];

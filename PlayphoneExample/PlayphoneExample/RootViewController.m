@@ -11,6 +11,8 @@
 
 #import "PPSExCommon.h"
 #import "PPSExBasicViewController.h"
+#import "PPSExMultiplayerViewController.h"
+#import "PlayphoneExampleAppDelegate.h"
 
 #import "RootViewController.h"
 
@@ -40,8 +42,8 @@ static PPSExMainScreenRowType PPSExMainScreenSection2Rows[] =
     { @"Cloud Storage"        , @"", @"PPSExCloudStorageViewController"      , @"PPSExCloudStorageView"},
     { @"Game Settings"        , @"", @"PPSExGameSetListViewController"       , @"PPSExBasicTableView"  },
     { @"Room Cookies"         , @"", @"PPSExRoomCookieViewController"        , @"PPSExBasicTableView"  },
-    
-//    { @"Multiplayer Basics"   , @"", @"" , @""}
+    { @"Multiplayer Basics"   , @"", @"PPSExMultiplayerViewController"       , @"PPSExMultiplayerView" },
+    { @"Server Info"          , @"", @"PPSExServerInfoViewController"        , @"PPSExServerInfoView"  },
 };
 
 static PPSExMainScreenRowType PPSExMainScreenSection3Rows[] = 
@@ -49,6 +51,8 @@ static PPSExMainScreenRowType PPSExMainScreenSection3Rows[] =
     { @"Application Info"     , @"", @"PPSExAppInfoViewController"          , @"PPSExAppInfoView"      }
 };
 
+
+#define PPSExMultiplayerRowIndex (8)
 
 @interface RootViewController()
 
@@ -151,8 +155,16 @@ static PPSExMainScreenRowType PPSExMainScreenSection3Rows[] =
 
 #pragma mark - MNDirectDelegate
 
--(void) mnDirectSessionStatusChangedTo:(NSUInteger) newStatus {
+- (void)mnDirectSessionReady:(MNSession *)session {
+    PPSExAppDelegate.sessionReady = YES;
     
+    // Call scoreProgerssView's sessionReady if topViewController is PPSExMultiplayerViewController
+    if ([self.navigationController.topViewController isKindOfClass:[PPSExMultiplayerViewController class]]) {
+        [((PPSExMultiplayerViewController *)self.navigationController.topViewController).scoreProgressView sessionReady];
+    }
+}
+
+- (void)mnDirectSessionStatusChangedTo:(NSUInteger) newStatus {
     if (((mnDirectCurStatus == MN_OFFLINE) || (mnDirectCurStatus == MN_CONNECTING)) && 
         (newStatus == MN_LOGGEDIN)) {
         //Player just logged in
@@ -166,6 +178,32 @@ static PPSExMainScreenRowType PPSExMainScreenSection3Rows[] =
     }
     
     mnDirectCurStatus = newStatus;
+}
+
+- (void)mnDirectDoStartGameWithParams:(MNGameParams *)params {
+    MARK;
+
+    if (![self.navigationController.topViewController isKindOfClass:[PPSExMultiplayerViewController class]]) {
+        PPSExMainScreenRowType multiplayerRow = PPSExMainScreenSection2Rows[PPSExMultiplayerRowIndex];
+        
+        PPSExMultiplayerViewController *viewController = [[NSClassFromString(multiplayerRow.viewControllerName) alloc] initWithNibName:multiplayerRow.nibName
+                                                                                                                                bundle:[NSBundle mainBundle]];
+        if (viewController != nil) {
+            viewController.title = multiplayerRow.rowTitle;
+            
+            [self.navigationController pushViewController:viewController animated:YES];
+            
+            [viewController release];
+        }
+    }
+}
+
+- (void)mnDirectDoCancelGame {
+    MARK;
+}
+
+- (void)mnDirectDoFinishGame {
+    MARK;
 }
 
 @end

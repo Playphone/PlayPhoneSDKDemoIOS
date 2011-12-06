@@ -19,6 +19,7 @@
 
 @synthesize window               = _window;
 @synthesize navigationController = _navigationController;
+@synthesize sessionReady         = _sessionReady;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
@@ -35,12 +36,16 @@
     
     [self.window makeKeyAndVisible];
     
+    srand(time(0));
+    
     UIViewController *viewController = [self.navigationController.viewControllers objectAtIndex:0];
 
     //viewController should have type RootViewController, otherwise - logic error!
     assert([viewController isKindOfClass:[RootViewController class]]);
 
-    [MNDirect prepareSessionWithGameId:10900
+    self.sessionReady = NO;
+    
+    [MNDirect prepareSessionWithGameId:PPSExGameId
                             gameSecret:[MNDirect makeGameSecretByComponents:PPSExGameSecret1
                                                                     secret2:PPSExGameSecret2
                                                                     secret3:PPSExGameSecret3

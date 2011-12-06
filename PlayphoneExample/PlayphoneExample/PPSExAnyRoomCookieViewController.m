@@ -62,6 +62,8 @@
     
     [self cancelRequestSafely];
     
+    [[MNDirect gameRoomCookiesProvider]removeDelegate:self];
+
     [super viewDidUnload];
 }
 
@@ -104,7 +106,7 @@
         [self switchToLoggedInState];
         
         MNWSRequestContent *requestContent = [[[MNWSRequestContent alloc] init] autorelease];
-        self.requestBlockName = [[requestContent addCurrGameRoomList] retain];
+        self.requestBlockName = [requestContent addCurrGameRoomList];
         
         MNWSRequestSender *requestSender = [[[MNWSRequestSender alloc] initWithSession: [MNDirect getSession]] autorelease];
         self.wsRequest = [requestSender sendWSRequestAuthorized: requestContent withDelegate: self];

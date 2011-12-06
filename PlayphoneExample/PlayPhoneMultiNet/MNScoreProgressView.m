@@ -13,7 +13,7 @@
 @property (nonatomic,retain) NSTimer *scoreResendTimer;
 @property (nonatomic,assign) long long currentScore;
 
--(void) performStatusAction:(NSUInteger) mnStatus;
+-(void) performActionForSessionStatus:(NSInteger) sessionStatus andUserStatus:(NSInteger)userStatus;
 -(void) prepareView;
 -(void) startScoreProgressProvider;
 -(void) stopScoreProgressProvider;
@@ -45,14 +45,18 @@
     return self;
 }
 
--(void) awakeFromNib {
-    scoreCompareFunc         = MNScoreProgressProviderScoreCompareFuncMoreIsBetter;
-    self.scoreResendTimeout  = MNScoreProgressScoreResendDefTimeout;
+- (id)initWithCoder:(NSCoder *)decoder {
+    if (self = [super initWithCoder:decoder]) {
+        scoreCompareFunc         = MNScoreProgressProviderScoreCompareFuncMoreIsBetter;
+        self.scoreResendTimeout  = MNScoreProgressScoreResendDefTimeout;
+        
+        self.backgroundColor = [UIColor clearColor];
+        self.hidden          = YES;
+        
+        inited = NO;
+    }
     
-    self.backgroundColor = [UIColor clearColor];
-    self.hidden          = YES;
-    
-    inited = NO;
+    return self;
 }
 
 -(void) drawRect:(CGRect) rect {
@@ -62,6 +66,13 @@
 -(void) dealloc {
     [self stopScoreProgressProvider];
     
+    if (inited) {
+        [[MNDirect scoreProgressProvider] removeDelegate:self];
+        [[MNDirect getSession           ] removeDelegate:self];
+        
+        inited = NO;
+    }
+        
     [super dealloc];
 }
 
@@ -91,30 +102,32 @@
 }
 
 -(void) willMoveToSuperview:(UIView*) newSuperview {
-    if (![self checkProvider]) {
-        return;
-    }
-    
-    [self performStatusAction:[[MNDirect getSession] getStatus]];
-}
+    if (newSuperview != nil) {
+        if (![self checkProvider]) {
+            return;
+        }
 
--(void) mnSessionStatusChangedTo:(NSUInteger) newStatus from:(NSUInteger) oldStatus {
-    [self performStatusAction:newStatus];
-}
--(void) mnSessionRoomUserStatusChangedTo:(NSInteger) newStatus {
-    if (newStatus == MN_USER_CHATER) {
+        [self prepareView];
+        
+        [self performActionForSessionStatus:[MNDirect getSessionStatus] andUserStatus:[[MNDirect getSession]getRoomUserStatus]];
+    }
+    else {
         [self stopScoreProgressProvider];
     }
 }
 
--(void) performStatusAction:(NSUInteger) mnStatus {
-    if (mnStatus == MN_IN_GAME_START) {
-        [self prepareView];
-    }
-    else if (mnStatus == MN_IN_GAME_PLAY) {
+-(void) mnSessionStatusChangedTo:(NSUInteger) newStatus from:(NSUInteger) oldStatus {
+    [self performActionForSessionStatus:newStatus andUserStatus:[[MNDirect getSession]getRoomUserStatus]];
+}
+-(void) mnSessionRoomUserStatusChangedTo:(NSInteger) newStatus {
+    [self performActionForSessionStatus:[MNDirect getSessionStatus] andUserStatus:newStatus];
+}
+
+-(void) performActionForSessionStatus:(NSInteger) sessionStatus andUserStatus:(NSInteger)userStatus {
+    if ((sessionStatus == MN_IN_GAME_PLAY) && (userStatus == MN_USER_PLAYER)) {
         [self startScoreProgressProvider];
     }
-    else if (mnStatus != MN_IN_GAME_END) { // scoreProgress indicator hides when user becomes a chater 
+    else {
         [self stopScoreProgressProvider];
     }
 }
@@ -138,7 +151,7 @@
 }
 
 -(void) stopScoreProgressProvider {
-    if (![self checkProvider]) {
+    if (!inited) {
         return;
     }
     

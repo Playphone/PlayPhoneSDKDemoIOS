@@ -43,6 +43,8 @@ static NSString *PPSExCloudStorageUploadError = @"Upload Error";
     [self setStoreInCloudButton :nil];
     [self setReadCloudButton    :nil];
 
+    [[MNDirect gameCookiesProvider]removeDelegate:self];
+
     [super viewDidUnload];
 }
 

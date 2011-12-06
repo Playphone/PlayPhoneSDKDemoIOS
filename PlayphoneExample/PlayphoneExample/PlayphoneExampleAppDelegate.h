@@ -8,9 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+#define PPSExAppDelegate ((PlayphoneExampleAppDelegate*)[UIApplication sharedApplication].delegate)
+
 @interface PlayphoneExampleAppDelegate : NSObject <UIApplicationDelegate>
+{
+    BOOL       _sessionReady;
+}
 
 @property (nonatomic, retain) IBOutlet UIWindow               *window;
 @property (nonatomic, retain) IBOutlet UINavigationController *navigationController;
+
+@property (nonatomic, assign) BOOL     sessionReady;
 
 @end

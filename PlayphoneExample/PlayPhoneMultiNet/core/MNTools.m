@@ -388,6 +388,12 @@ NSMutableURLRequest* MNGetURLRequestWithPostMethod(NSURL* url, NSDictionary* par
     return request;
 }
 
+NSString* MNGetURLEncodedString (NSString* str) {
+    NSData* data = GetURLEncodedData(str);
+
+    return [[[NSString alloc] initWithBytes: [data bytes] length: [data length] encoding: NSUTF8StringEncoding] autorelease];
+}
+
 NSString* MNGetRequestStringFromParams (NSDictionary* params) {
     NSData* requestData = requestDataWithParams(params);
 

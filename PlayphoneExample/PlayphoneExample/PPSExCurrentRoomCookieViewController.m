@@ -96,7 +96,6 @@
 
 - (void)switchToLoggedInState {
     self.cookiesTextView     .text     = @"";
-    self.cookiesTextView     .editable = YES;
     self.cookieValueTextField.enabled  = YES;
     self.storeCookieButton   .enabled  = YES;
     self.readCookiesButton   .enabled  = YES;
@@ -106,7 +105,6 @@
 
 - (void)switchToNotLoggedInState {
     self.cookiesTextView     .text     = @"";
-    self.cookiesTextView     .editable = NO;
     self.cookieValueTextField.enabled  = NO;
     self.storeCookieButton   .enabled  = NO;
     self.readCookiesButton   .enabled  = NO;

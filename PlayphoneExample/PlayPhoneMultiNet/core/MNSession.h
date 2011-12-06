@@ -81,6 +81,8 @@ id<MNSessionSocNetFBDelegate> socNetSessionFBDelegate;
 BOOL reloginRequired;
 BOOL _autoReconnectOnWakeEnabled;
 NSUInteger _disconnectOnSleepDelay;
+BOOL _fastSessionResumeEnabled;
+BOOL _webShopIsReady;
 
 MNOfflinePack* _offlinePack;
 

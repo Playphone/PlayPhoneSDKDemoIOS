@@ -24,12 +24,14 @@
     NSString* _webServerURL;
     NSString* _facebookAPIKey;
     NSString* _facebookAppId;
+    NSInteger _facebookSSOMode;
     NSString* _launchTrackerUrl;
     NSString* _shutdownTrackerUrl;
     NSString* _beaconTrackerUrl;
     NSString* _enterForegroundTrackerUrl;
     NSString* _enterBackgroundTrackerUrl;
     NSString* _gameVocabularyVersion;
+    NSInteger _tryFastResumeMode;
 
     NSURLRequest* _configRequest;
     MNURLDownloader* _downloader;
@@ -44,12 +46,14 @@
 @property (nonatomic,retain) NSString* webServerURL;
 @property (nonatomic,retain) NSString* facebookAPIKey;
 @property (nonatomic,retain) NSString* facebookAppId;
+@property (nonatomic,assign) NSInteger facebookSSOMode;
 @property (nonatomic,retain) NSString* launchTrackerUrl;
 @property (nonatomic,retain) NSString* shutdownTrackerUrl;
 @property (nonatomic,retain) NSString* beaconTrackerUrl;
 @property (nonatomic,retain) NSString* enterForegroundTrackerUrl;
 @property (nonatomic,retain) NSString* enterBackgroundTrackerUrl;
 @property (nonatomic,retain) NSString* gameVocabularyVersion;
+@property (nonatomic,assign) NSInteger tryFastResumeMode;
 
 -(id) initWithConfigRequest:(NSURLRequest*) configRequest;
 -(BOOL) isLoaded;

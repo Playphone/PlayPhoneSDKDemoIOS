@@ -60,7 +60,9 @@
     [self setSubtractButton     :nil];
 
     self.itemList = nil;
-    
+
+    [[MNDirect vItemsProvider]removeDelegate:self];
+
     [super viewDidUnload];
 }
 

@@ -30,6 +30,7 @@ static void MNVShopInAppPurchaseWriteLog(NSString* message) {
 // Internal interface of MNVShopProvider
 @interface MNVShopProvider()
 -(void) dispatchCheckoutSucceededForTransaction:(MNVItemsTransactionInfo*) transactionInfo;
+-(void) dispatchCheckoutFailedEventWithErrorCode:(int) errorCode errorMessage:(NSString*) errorMessage andClientTransactionId:(MNVItemTransactionId) clientTransactionId;
 @end
 
 @implementation MNVShopInAppPurchase
@@ -394,6 +395,12 @@ static BOOL isLoggedIn (NSUInteger status) {
     }
 
     return YES;
+}
+
+-(void) mnVShopPurchaseWSRequestProcessCallVShopTransactionFailCommandWithCliTransactionId:(MNVItemTransactionId) cliTransactionId
+                                                                                 errorCode:(int) errorCode
+                                                                              errorMessage:(NSString*) errorMessage {
+    [_vShopProvider dispatchCheckoutFailedEventWithErrorCode: errorCode errorMessage: errorMessage andClientTransactionId: cliTransactionId];
 }
 
 @end

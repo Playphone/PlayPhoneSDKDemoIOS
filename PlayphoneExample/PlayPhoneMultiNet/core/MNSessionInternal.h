@@ -23,4 +23,7 @@
 -(time_t)            getForegroundTime;
 
 -(MNConfigData*)     getConfigData;
+
+-(void)              setWebShopReady:(BOOL) isReady;
+-(BOOL)              isWebShopReady;
 @end

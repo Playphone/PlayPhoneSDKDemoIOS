@@ -105,7 +105,7 @@ static NSString* MNGameCookiesProviderDownloadRequestFormat = @"g%d:%d";
 		return NO;
 	}
 
-	if (!MNStringScanInteger(requestNumber,[response substringWithRange: NSMakeRange(pos,reqNumberRange.location - 1)])) {
+	if (!MNStringScanInteger(requestNumber,[response substringWithRange: NSMakeRange(pos,reqNumberRange.location - pos)])) {
 		return NO;
 	}
 

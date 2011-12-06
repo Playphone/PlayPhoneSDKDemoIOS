@@ -42,6 +42,12 @@ static NSString *PPSExVEInventoryListScreenSectionNames[] =
     self.cellStyle = UITableViewCellStyleValue1;
 }
 
+- (void)viewDidUnload {
+    [[MNDirect vItemsProvider]removeDelegate:self];
+
+    [super viewDidUnload];
+}
+
 - (void)dealloc {
     [[MNDirect vItemsProvider]removeDelegate:self];
 
