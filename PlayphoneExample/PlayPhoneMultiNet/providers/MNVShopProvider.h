@@ -63,6 +63,12 @@
  */
 -(void) onCheckoutVShopPackFail:(MNVShopProviderCheckoutVShopPackFailInfo*) result;
 
+/*
+ * This message is sent when virtual shop becomes ready or not ready to make purchases
+ * @param isReady YES if virtual shop is ready to purchase operations, NO - otherwise
+ */
+-(void) onVShopReadyStatusChanged:(BOOL) isReady;
+
 @end
 
 
@@ -304,6 +310,12 @@
  * @return image URL
  */
 -(NSURL*) getVShopPackImageURL:(int) packId;
+
+/**
+ * Returns status of virtual shop
+ * @return YES if virtual shop is ready to purchase operations, NO - otherwise
+ */
+-(BOOL) isVShopReady;
 
 /**
  * Starts checkout operation

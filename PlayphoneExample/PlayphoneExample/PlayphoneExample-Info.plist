@@ -29,7 +29,7 @@
 			<string>Facebook SSO</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>fb134124253267439mnbajaaa</string>
+				<string>fb134124253267439mnbajaa</string>
 			</array>
 		</dict>
 		<dict>
@@ -42,7 +42,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1.4.7.2</string>
+	<string>1.4.7.3</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSMainNibFile</key>

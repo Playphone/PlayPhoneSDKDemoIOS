@@ -744,6 +744,12 @@ MNGameVocabulary* _gameVocabulary;
  */
 -(void) mnSessionHandleOpenURL:(NSURL*) url;
 
+/**
+ * Tells the delegate that virtual shop ready status has been changed
+ * @param isVShopReady YES if virtual shop is ready to purchase operations, NO - otherwise
+ */
+-(void) mnSessionVShopReadyStatusChanged:(BOOL) isVShopReady;
+
 @end
 
 @protocol MNSessionSocNetFBDelegate<NSObject>

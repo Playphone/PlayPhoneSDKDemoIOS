@@ -155,7 +155,6 @@ static NSString* MNSocNetFBExpirationDateDefaultsKey = @"FBExpirationDateKey";
     @public
 
     Facebook* _facebook;
-    BOOL _connecting;
     id<MNSocNetFBDelegate> _delegate;
     MNSocNetSessionFB* _session;
 
@@ -192,7 +191,6 @@ static NSString* MNSocNetFBExpirationDateDefaultsKey = @"FBExpirationDateKey";
         _session    = session;
         _facebook   = nil;
         _delegate   = delegate;
-        _connecting = NO;
 
         _streamDelegateWrapper     = [[MNSocNetFBStreamDelegateWrapper alloc] init];
         _permissionDelegateWrapper = [[MNSocNetFBPermissionDelegateWrapper alloc] init];
@@ -236,8 +234,6 @@ static NSString* MNSocNetFBExpirationDateDefaultsKey = @"FBExpirationDateKey";
 }
 
 - (void)fbDidLogin {
-    _connecting = NO;
-
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 
     [defaults setObject:[_facebook accessToken] forKey:MNSocNetFBAccessTokenDefaultsKey];
@@ -249,8 +245,6 @@ static NSString* MNSocNetFBExpirationDateDefaultsKey = @"FBExpirationDateKey";
 }
 
 - (void)fbDidLogout {
-    _connecting = NO;
-
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 
     [defaults removeObjectForKey:MNSocNetFBAccessTokenDefaultsKey];
@@ -262,8 +256,6 @@ static NSString* MNSocNetFBExpirationDateDefaultsKey = @"FBExpirationDateKey";
 }
 
 - (void)fbDidNotLogin:(BOOL)cancelled {
-    _connecting = NO;
-
     if (cancelled) {
         [_delegate socNetFBLoginCanceled];
     }
@@ -409,16 +401,6 @@ static NSString* getUrlSchemeSuffixByGameId (NSInteger gameId) {
         return NO;
     }
 
-    if (_fbSessionWrapper->_connecting) {
-        if (error != NULL) {
-            *error = [NSString stringWithString: MNLocalizedString(@"Facebook connection already have been initiated",MNMessageCodeFacebookConnectionAlreadyInitiatedError)];
-        }
-
-        return NO;
-    }
-
-    _fbSessionWrapper->_connecting = YES;
-
     if (_useSSO) {
         [_fbSessionWrapper->_facebook authorize: (permissions != nil ? permissions : [NSArray array])];
     }
@@ -435,8 +417,6 @@ static NSString* getUrlSchemeSuffixByGameId (NSInteger gameId) {
 
 -(void) logout {
     [_fbSessionWrapper->_facebook logout: _fbSessionWrapper];
-
-    _fbSessionWrapper->_connecting = NO;
 }
 
 -(BOOL) isConnected {

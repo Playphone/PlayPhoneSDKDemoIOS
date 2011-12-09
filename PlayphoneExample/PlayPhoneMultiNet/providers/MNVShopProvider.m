@@ -366,6 +366,10 @@ static void MNVShopWriteLog(NSString* message) {
     }
 }
 
+-(BOOL) isVShopReady {
+    return [_session isWebShopReady];
+}
+
 -(void) dispatchCheckoutFailedEventWithErrorCode:(int) errorCode errorMessage:(NSString*) errorMessage andClientTransactionId:(MNVItemTransactionId) clientTransactionId {
     MNVShopProviderCheckoutVShopPackFailInfo* info =
     [[MNVShopProviderCheckoutVShopPackFailInfo alloc] initWithErrorCode: errorCode
@@ -490,6 +494,10 @@ static void MNVShopWriteLog(NSString* message) {
     }
 
     [params release];
+}
+
+-(void) mnSessionVShopReadyStatusChanged:(BOOL) isVShopReady {
+    MN_DELEGATE_ARRAY_CALL_ARG1(MNVShopProviderDelegate,_delegates,onVShopReadyStatusChanged,isVShopReady);
 }
 
 /* MNVShopPurchaseWSRequestHelperDelegate protocol */

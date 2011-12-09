@@ -11,6 +11,8 @@
 
 #import "MNTrackingSystem.h"
 #import "MNSmartFoxFacade.h"
+#import "MNDelegateArray.h"
+#import "MNSession.h"
 #import "MNSessionInternal.h"
 
 @implementation MNSession(internal)
@@ -61,6 +63,8 @@
 
 -(void) setWebShopReady:(BOOL) isReady {
     _webShopIsReady = isReady;
+
+    MN_DELEGATE_ARRAY_CALL_ARG1(MNSessionDelegate,_delegates,mnSessionVShopReadyStatusChanged,isReady);
 }
 
 -(BOOL) isWebShopReady {
