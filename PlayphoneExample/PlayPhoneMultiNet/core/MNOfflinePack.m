@@ -108,8 +108,11 @@ static void removeTempFiles (void) {
     [fileManager removeItemAtPath: getOfflineBackupDirectoryPath() error: NULL];
 }
 
-static NSURLRequest* createURLRequestWithParams (NSString* prefix, NSInteger gameId) {
-    NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:
+static NSURLRequest* createURLRequestWithParams (NSString* prefix, NSInteger gameId, NSDictionary* appExtParams) {
+    NSString* appVerInternal = MNGetAppVersionInternal();
+    NSString* appVerExternal = MNGetAppVersionExternal();
+
+    NSMutableDictionary* params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                              [NSString stringWithFormat: @"%d",gameId],
                               @"game_id",
                               [NSString stringWithFormat: @"%d",MNDeviceTypeiPhoneiPod],
@@ -118,7 +121,15 @@ static NSURLRequest* createURLRequestWithParams (NSString* prefix, NSInteger gam
                               @"client_ver",
                               [[NSLocale currentLocale] localeIdentifier],
                               @"client_locale",
+                              appVerExternal == nil ? @"" : MNGetURLEncodedString(appVerExternal),
+                              @"app_ver_ext",
+                              appVerInternal == nil ? @"" : MNGetURLEncodedString(appVerInternal),
+                              @"app_ver_int",
                               nil];
+
+    if ([appExtParams count] > 0) {
+        [params addEntriesFromDictionary: appExtParams];
+    }
 
     NSMutableURLRequest* request = MNGetURLRequestWithPostMethod([NSURL URLWithString: prefix],params);
 
@@ -270,7 +281,7 @@ static NSString* getLocalOfflinePackVersion (void) {
 
 @implementation MNOfflinePack
 
--(id) initOfflinePackWithGameId:(NSInteger) gameId andDelegate:(id<MNOfflinePackDelegate>) delegate {
+-(id) initOfflinePackWithGameId:(NSInteger) gameId appExtParams:(NSDictionary*) appExtParams andDelegate:(id<MNOfflinePackDelegate>) delegate {
     self = [super init];
 
     if (self != nil) {
@@ -279,6 +290,7 @@ static NSString* getLocalOfflinePackVersion (void) {
         _startPageUrl = nil;
         _webServerUrl = nil;
         _gameId       = gameId;
+        _appExtParams = appExtParams;
 
         _retrievalState          = MNOfflinePackRetrievalStateIdle;
         _startFromDownloadedPack = NO;
@@ -346,7 +358,8 @@ static NSString* getLocalOfflinePackVersion (void) {
 
         NSURLRequest* request = createURLRequestWithParams
                                  ([NSString stringWithFormat: @"%@/%@",_webServerUrl,MNRemotePackVersionUrlPath],
-                                  _gameId);
+                                  _gameId,
+                                  _appExtParams);
 
         [_downloader loadRequest: request delegate: self];
     }
@@ -363,7 +376,8 @@ static NSString* getLocalOfflinePackVersion (void) {
 
         NSURLRequest* request = createURLRequestWithParams
                                  ([NSString stringWithFormat: @"%@/%@",_webServerUrl,MNRemotePackDataUrlPath],
-                                  _gameId);
+                                  _gameId,
+                                  _appExtParams);
 
         [_downloader loadRequest: request delegate: self];
     }

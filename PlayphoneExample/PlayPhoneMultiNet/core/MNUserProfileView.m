@@ -173,12 +173,12 @@ static BOOL stringStartsWithFileURLScheme (NSString* str) {
     return [str compare: NSURLFileScheme options: 0 range: NSMakeRange(0,fileURLFileSchemeLen)] == NSOrderedSame;
 }
 
-static NSURLRequest* MNUserProfileViewGetStartRequestOnline (NSString* webServerURL, NSInteger gameId) {
+static NSURLRequest* MNUserProfileViewGetStartRequestOnline (NSString* webServerURL, NSInteger gameId, NSDictionary* appExtParams) {
     NSString* startURL = [NSString stringWithFormat: MNStartUrlFormat, webServerURL];
     NSString* appVerInternal = MNGetAppVersionInternal();
     NSString* appVerExternal = MNGetAppVersionExternal();
     
-    NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:
+    NSMutableDictionary* params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                              [NSString stringWithFormat: @"%d",gameId],
                              @"game_id",
                              MNGetDeviceIdMD5(),
@@ -195,13 +195,15 @@ static NSURLRequest* MNUserProfileViewGetStartRequestOnline (NSString* webServer
                              @"app_ver_int",
                              nil];
 
+    [params addEntriesFromDictionary: appExtParams];
+
     return MNGetURLRequestWithPostMethod([NSURL URLWithString: startURL],params);
 }
 
-static NSURLRequest* MNUserProfileViewGetStartRequestOffline (NSString* webServerURL, NSInteger gameId) {
+static NSURLRequest* MNUserProfileViewGetStartRequestOffline (NSString* webServerURL, NSInteger gameId, NSDictionary* appExtParams) {
     NSString* appVerInternal = MNGetAppVersionInternal();
     NSString* appVerExternal = MNGetAppVersionExternal();
-    NSString* startURL = [[NSString stringWithFormat: @"%@/welcome.php.html?game_id=%d&dev_id=%@&dev_type=%d&client_ver=%@&client_locale=%@&app_ver_ext=%@&app_ver_int=%@",
+    NSMutableString* startURL = [NSMutableString stringWithString: [[NSString stringWithFormat: @"%@/welcome.php.html?game_id=%d&dev_id=%@&dev_type=%d&client_ver=%@&client_locale=%@&app_ver_ext=%@&app_ver_int=%@",
                            webServerURL,
                            gameId,
                            MNGetDeviceIdMD5(),
@@ -210,18 +212,25 @@ static NSURLRequest* MNUserProfileViewGetStartRequestOffline (NSString* webServe
                            [[NSLocale currentLocale] localeIdentifier],
                            appVerExternal == nil ? @"" : MNGetURLEncodedString(appVerExternal),
                            appVerInternal == nil ? @"" : MNGetURLEncodedString(appVerInternal)]
-                           stringByReplacingOccurrencesOfString: @" " withString: @"%20"];
+                           stringByReplacingOccurrencesOfString: @" " withString: @"%20"]];
+
+    if ([appExtParams count] > 0) {
+        NSString* appExtParamsString = MNGetRequestStringFromParams(appExtParams);
+
+        [startURL appendString: @"&"];
+        [startURL appendString: appExtParamsString];
+    }
 
     return [NSURLRequest requestWithURL: [NSURL URLWithString: startURL]];
 }
 
-static NSURLRequest* MNUserProfileViewGetStartRequest (NSString* webServerURL, NSInteger gameId) {
+static NSURLRequest* MNUserProfileViewGetStartRequest (NSString* webServerURL, NSInteger gameId, NSDictionary* appExtParams) {
     if (webServerURL != nil) {
         if (stringStartsWithFileURLScheme(webServerURL)) {
-            return MNUserProfileViewGetStartRequestOffline(webServerURL,gameId);
+            return MNUserProfileViewGetStartRequestOffline(webServerURL,gameId,appExtParams);
         }
         else {
-            return MNUserProfileViewGetStartRequestOnline(webServerURL,gameId);
+            return MNUserProfileViewGetStartRequestOnline(webServerURL,gameId,appExtParams);
         }
     }
     else {
@@ -573,7 +582,7 @@ static void accumulateVarsList (NSMutableString* javaScriptSrc, NSDictionary* va
 }
 
 -(void) loadStartPage {
-    NSURLRequest* startRequest = MNUserProfileViewGetStartRequest(_webServerURL,[_session getGameId]);
+    NSURLRequest* startRequest = MNUserProfileViewGetStartRequest(_webServerURL,[_session getGameId],[_session getAppExtParams]);
 
     if (startRequest != nil) {
         baseHost = [[[startRequest URL] host] copy];

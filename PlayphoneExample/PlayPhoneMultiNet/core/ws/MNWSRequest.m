@@ -25,8 +25,6 @@
 #import "MNWSSystemGameNetStats.h"
 #import "MNWSSessionSignedClientToken.h"
 
-#define MNWSSNIdPlayPhone (4)
-
 static NSString* MNWSURLPath = @"user_ajax_host.php";
 
 @protocol MNWSXmlDataParser<NSObject>
@@ -54,7 +52,7 @@ static NSString* MNWSURLPath = @"user_ajax_host.php";
 
 @interface MNWSRequestSender()
 -(void) setupStdParsers;
--(MNWSRequest*) sendWSRequest:(MNWSRequestContent*) requestContent authorized:(BOOL) authorized withDelegate:(id<MNWSRequestDelegate>) delegate;
+-(MNWSRequest*) sendWSRequest:(MNWSRequestContent*) requestContent authorized:(BOOL) authorized smartAuth:(BOOL) smartAuth withDelegate:(id<MNWSRequestDelegate>) delegate;
 @end
 
 @interface MNWSRequestContent()
@@ -488,14 +486,21 @@ static NSString* getScopeNameByCode (NSInteger scope) {
 }
 
 -(MNWSRequest*) sendWSRequest:(MNWSRequestContent*) requestContent withDelegate:(id<MNWSRequestDelegate>) delegate {
-    return [self sendWSRequest: requestContent authorized: NO withDelegate: delegate];
+    return [self sendWSRequest: requestContent authorized: NO smartAuth: NO withDelegate: delegate];
 }
 
 -(MNWSRequest*) sendWSRequestAuthorized:(MNWSRequestContent*) requestContent withDelegate:(id<MNWSRequestDelegate>) delegate {
-    return [self sendWSRequest: requestContent authorized: YES withDelegate: delegate];
+    return [self sendWSRequest: requestContent authorized: YES smartAuth: NO withDelegate: delegate];
 }
 
--(MNWSRequest*) sendWSRequest:(MNWSRequestContent*) requestContent authorized:(BOOL) authorized withDelegate:(id<MNWSRequestDelegate>) delegate {
+-(MNWSRequest*) sendWSRequestSmartAuth:(MNWSRequestContent*) requestContent withDelegate:(id<MNWSRequestDelegate>) delegate {
+    return [self sendWSRequest: requestContent authorized: YES smartAuth: YES withDelegate: delegate];
+}
+
+-(MNWSRequest*) sendWSRequest:(MNWSRequestContent*) requestContent
+                   authorized:(BOOL) authorized
+                    smartAuth:(BOOL) smartAuth
+                 withDelegate:(id<MNWSRequestDelegate>) delegate {
     NSString* webServerUrl = [_session getWebServerURL];
     NSString* userSId      = [_session getMySId];
 
@@ -506,6 +511,10 @@ static NSString* getScopeNameByCode (NSInteger scope) {
         }
 
         return nil;
+    }
+
+    if (smartAuth) {
+        authorized = [_session isOnline] && userSId != nil;
     }
 
     if (authorized && (![_session isOnline] || userSId == nil)) {

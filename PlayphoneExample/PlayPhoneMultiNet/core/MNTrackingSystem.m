@@ -360,6 +360,8 @@ static void runRunLoopOnce (void) {
 
     [_trackingVariables setObject: [[timeZoneInfo stringByReplacingOccurrencesOfString: @"," withString: @"-"]
                                     stringByReplacingOccurrencesOfString: @"|" withString: @" "] forKey: @"mn_tz_info"];
+
+    [_trackingVariables addEntriesFromDictionary: [session getAppExtParams]];
 }
 
 -(void) trackLaunchWithUrlTemplate:(NSString*) urlTemplate forSession:(MNSession*) session {

@@ -159,6 +159,7 @@
 		F56FB36B147FEDC20079C8A9 /* MNVShopInAppPurchase.m in Sources */ = {isa = PBXBuildFile; fileRef = F56FB2E8147FEDC20079C8A9 /* MNVShopInAppPurchase.m */; };
 		F56FB36C147FEDC20079C8A9 /* MNVShopProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = F56FB2EA147FEDC20079C8A9 /* MNVShopProvider.m */; };
 		F56FB36D147FEDC20079C8A9 /* MNVShopWSRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = F56FB2EC147FEDC20079C8A9 /* MNVShopWSRequest.m */; };
+		F572BC3614BCA21000154C14 /* MNWSProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = F572BC3514BCA21000154C14 /* MNWSProvider.m */; };
 		F57C0D69143CB74D00A43EEF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F57C0D68143CB74D00A43EEF /* UIKit.framework */; };
 		F57C0D6B143CB74D00A43EEF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F57C0D6A143CB74D00A43EEF /* Foundation.framework */; };
 		F57C0D6D143CB74D00A43EEF /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F57C0D6C143CB74D00A43EEF /* CoreGraphics.framework */; };
@@ -503,6 +504,8 @@
 		F56FB2EB147FEDC20079C8A9 /* MNVShopWSRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MNVShopWSRequest.h; sourceTree = "<group>"; };
 		F56FB2EC147FEDC20079C8A9 /* MNVShopWSRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MNVShopWSRequest.m; sourceTree = "<group>"; };
 		F56FB2ED147FEDC20079C8A9 /* MultiNetProviders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultiNetProviders.h; sourceTree = "<group>"; };
+		F572BC3414BCA21000154C14 /* MNWSProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MNWSProvider.h; sourceTree = "<group>"; };
+		F572BC3514BCA21000154C14 /* MNWSProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MNWSProvider.m; sourceTree = "<group>"; };
 		F57C0D64143CB74D00A43EEF /* PlayphoneExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlayphoneExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F57C0D68143CB74D00A43EEF /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		F57C0D6A143CB74D00A43EEF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -1044,6 +1047,8 @@
 				F56FB2EA147FEDC20079C8A9 /* MNVShopProvider.m */,
 				F56FB2EB147FEDC20079C8A9 /* MNVShopWSRequest.h */,
 				F56FB2EC147FEDC20079C8A9 /* MNVShopWSRequest.m */,
+				F572BC3414BCA21000154C14 /* MNWSProvider.h */,
+				F572BC3514BCA21000154C14 /* MNWSProvider.m */,
 				F56FB2ED147FEDC20079C8A9 /* MultiNetProviders.h */,
 			);
 			path = providers;
@@ -1467,6 +1472,7 @@
 				F56FB36B147FEDC20079C8A9 /* MNVShopInAppPurchase.m in Sources */,
 				F56FB36C147FEDC20079C8A9 /* MNVShopProvider.m in Sources */,
 				F56FB36D147FEDC20079C8A9 /* MNVShopWSRequest.m in Sources */,
+				F572BC3614BCA21000154C14 /* MNWSProvider.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

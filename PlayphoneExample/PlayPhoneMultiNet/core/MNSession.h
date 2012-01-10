@@ -99,6 +99,7 @@ time_t       _foregroundLastStartTime;
 time_t       _foregroundAccumulatedTime;
 
 MNGameVocabulary* _gameVocabulary;
+NSDictionary* _appExtParams;
 }
 
 /**

@@ -213,7 +213,10 @@ static BOOL MNGameVocabularyBundledFileExists () {
 }
 
 -(NSURLRequest*) requestWithUrl:(NSString*) url {
-    NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:
+    NSString* appVerInternal = MNGetAppVersionInternal();
+    NSString* appVerExternal = MNGetAppVersionExternal();
+
+    NSMutableDictionary* params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                             [NSString stringWithFormat: @"%d",[_session getGameId]],
                             @"game_id",
                             [NSString stringWithFormat: @"%d",MNDeviceTypeiPhoneiPod],
@@ -222,7 +225,13 @@ static BOOL MNGameVocabularyBundledFileExists () {
                             @"client_ver",
                             [[NSLocale currentLocale] localeIdentifier],
                             @"client_locale",
+                            appVerExternal == nil ? @"" : MNGetURLEncodedString(appVerExternal),
+                            @"app_ver_ext",
+                            appVerInternal == nil ? @"" : MNGetURLEncodedString(appVerInternal),
+                            @"app_ver_int",
                             nil];
+
+    [params addEntriesFromDictionary: [_session getAppExtParams]];
 
     NSMutableURLRequest* request = MNGetURLRequestWithPostMethod([NSURL URLWithString: url],params);
 

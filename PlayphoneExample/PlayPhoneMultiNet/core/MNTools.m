@@ -19,6 +19,8 @@
 static NSString* MNConfigFileName    = @"MN.bundle/multinet";
 static NSString* MNConfigFileNameOld = @"MN.bundle/MultiNet";
 static NSString* MNConfigFileType    = @"plist";
+static NSString* MNAppExtParamsFileName = @"MN.bundle/multinet_appext";
+static NSString* MNAppExtParamsFileType = @"ini";
 
 static NSString* MNConfigParamConfigURL = @"MultiNetConfigServerURL";
 
@@ -181,6 +183,58 @@ static BOOL MNDictionaryBooleanForKey (NSDictionary* dict, NSString* key, BOOL* 
     }
 }
 
+static BOOL MNParseKeyValueString (NSString** key, NSString**value, NSString* str) {
+    NSRange range = [str rangeOfString: @"="];
+
+    if (range.location == NSNotFound) {
+        return NO;
+    }
+
+    *key   = [[str substringToIndex: range.location] stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceCharacterSet]];
+    *value = [[str substringFromIndex: range.location + range.length] stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceCharacterSet]];
+
+    return [*key length] > 0;
+}
+
+NSDictionary* MNDictionaryFromKeyValueText (NSString* text) {
+    NSArray* strings = [text componentsSeparatedByString: @"\n"];
+    NSMutableDictionary* result = [NSMutableDictionary dictionaryWithCapacity: [strings count]];
+    NSUInteger index;
+    NSUInteger count;
+    BOOL ok;
+
+    index = 0;
+    count = [strings count];
+    ok    = YES;
+
+    while (index < count && ok) {
+        NSString* str = [[strings objectAtIndex: index]
+                         stringByTrimmingCharactersInSet:
+                         [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+
+        if ([str length] > 0) {
+            NSString* key;
+            NSString* value;
+
+            if (MNParseKeyValueString(&key,&value,str)) {
+                [result setObject: value forKey: key];
+            }
+            else {
+                ok = NO;
+            }
+        }
+
+        index++;
+    }
+
+    if (ok) {
+        return result;
+    }
+    else {
+        return nil;
+    }
+}
+
 static NSDictionary* MNReadProperties (void) {
     NSString* multiNetPropertiesFilePath = [[[[NSBundle mainBundle] bundlePath]
                                             stringByAppendingPathComponent: MNConfigFileName]
@@ -203,6 +257,27 @@ static NSDictionary* MNReadProperties (void) {
 
 NSString* MNGetMultiNetConfigURL (void) {
     return MNDictionaryStringForKey(MNReadProperties(),MNConfigParamConfigURL);
+}
+
+NSDictionary* MNGetAppExtParams (void) {
+    NSDictionary* data;
+
+    NSString* appExtParamsFilePath = [[[[NSBundle mainBundle] bundlePath]
+                                       stringByAppendingPathComponent: MNAppExtParamsFileName]
+                                        stringByAppendingPathExtension: MNAppExtParamsFileType];
+
+
+    NSString* text = [NSString stringWithContentsOfFile: appExtParamsFilePath encoding: NSUTF8StringEncoding error: NULL];
+
+    data = MNDictionaryFromKeyValueText(text);
+
+    NSMutableDictionary* result = [NSMutableDictionary dictionary];
+
+    for (NSString* key in data) {
+        [result setObject: [data objectForKey: key] forKey: [NSString stringWithFormat: @"appext_%@",key]];
+    }
+
+    return result;
 }
 
 NSString* MNCreateStringByReplacingPercentEscapesUTF8 (NSString* src) {

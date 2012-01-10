@@ -26,6 +26,7 @@
     MNURLDownloader*          _downloader;
     NSString*                 _startPageUrl;
     NSString*                 _webServerUrl;
+    NSDictionary*             _appExtParams;
     NSInteger                 _gameId;
 
     unsigned int _retrievalState;
@@ -33,7 +34,7 @@
     BOOL         _packUnavailable;
 }
 
--(id) initOfflinePackWithGameId:(NSInteger) gameId andDelegate:(id<MNOfflinePackDelegate>) delegate;
+-(id) initOfflinePackWithGameId:(NSInteger) gameId appExtParams:(NSDictionary*) appExtParams andDelegate:(id<MNOfflinePackDelegate>) delegate;
 -(NSString*) getStartPageUrl;
 
 -(void) setWebServerUrl:(NSString*) url;

@@ -300,6 +300,8 @@ static BOOL MNDeviceOSVersionIs4OrHigher (void) {
         _pendingGameResult = nil;
         _fastSessionResumeEnabled = YES;
 
+        _appExtParams = [MNGetAppExtParams() retain];
+
         NSURLRequest* configRequest = nil;
         NSString*     configUrl     = MNGetMultiNetConfigURL();
 
@@ -307,7 +309,7 @@ static BOOL MNDeviceOSVersionIs4OrHigher (void) {
             NSString* appVerInternal = MNGetAppVersionInternal();
             NSString* appVerExternal = MNGetAppVersionExternal();
 
-            NSDictionary* configRequestParams = [NSDictionary dictionaryWithObjectsAndKeys:
+            NSMutableDictionary* configRequestParams = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                                  [NSString stringWithFormat: @"%d",gameId],
                                                  @"game_id",
                                                  [NSString stringWithFormat: @"%d",MNDeviceTypeiPhoneiPod],
@@ -321,6 +323,8 @@ static BOOL MNDeviceOSVersionIs4OrHigher (void) {
                                                  appVerInternal == nil ? @"" : MNGetURLEncodedString(appVerInternal),
                                                  @"app_ver_int",
                                                  nil];
+
+            [configRequestParams addEntriesFromDictionary: _appExtParams];
 
             configRequest = MNGetURLRequestWithPostMethod([NSURL URLWithString: configUrl],configRequestParams);
         }
@@ -336,7 +340,7 @@ static BOOL MNDeviceOSVersionIs4OrHigher (void) {
 
         socNetSessionFB = [[MNSocNetSessionFB alloc] initWithGameId: _gameId andDelegate: self];
 
-        _offlinePack = [[MNOfflinePack alloc] initOfflinePackWithGameId: gameId andDelegate: self];
+        _offlinePack = [[MNOfflinePack alloc] initOfflinePackWithGameId: gameId appExtParams: _appExtParams andDelegate: self];
 
 //        pingTimer = [NSTimer scheduledTimerWithTimeInterval: 10.0 target: self selector: @selector(pingTimerFired:) userInfo: nil repeats: YES];
 
@@ -423,6 +427,8 @@ static BOOL MNDeviceOSVersionIs4OrHigher (void) {
     [_gameSecret release];
     [_launchId release];
     [_trackingSystem release];
+
+    [_appExtParams release];
 
     [super dealloc];
 }

@@ -35,7 +35,11 @@ mn_extern_c NSString* MNCreateStringByReplacingPercentEscapesUTF8 (NSString* src
 mn_extern_c NSDictionary* MNCopyDictionaryWithGetRequestParamString (NSString* paramString);
 mn_extern_c NSDictionary* MNCopyDictionaryWithURLRequestParameters (NSURLRequest* request);
 
+mn_extern_c NSDictionary* MNDictionaryFromKeyValueText (NSString* text);
+
 mn_extern_c NSString* MNGetMultiNetConfigURL (void);
+
+mn_extern_c NSDictionary* MNGetAppExtParams (void);
 
 mn_extern_c NSString* MNStringByWrappingWithQuotes (NSString* str);
 mn_extern_c NSString* MNStringWithHTMLSpecCharsEscaped (NSString* string);

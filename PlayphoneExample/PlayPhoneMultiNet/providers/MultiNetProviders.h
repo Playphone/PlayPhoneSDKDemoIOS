@@ -13,4 +13,5 @@
  * @li MNVShopProvider
  * @li MNGameSettingsProvider
  * @li MNServerInfoProvider
+ * @li MNWSProvider
  */

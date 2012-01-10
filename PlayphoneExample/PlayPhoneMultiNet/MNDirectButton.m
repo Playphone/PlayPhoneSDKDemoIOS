@@ -358,10 +358,20 @@ static NSString *MNDirectButtonBundlePath      = @"MNDirectButton.bundle/Images/
         buttonShortSideLength = MAX(buttonImage.size.width,buttonImage.size.height);
     }
     
-    screenTop    = [UIScreen mainScreen].applicationFrame.origin.y;
-    screenLeft   = [UIScreen mainScreen].applicationFrame.origin.x;
-    screenWidth  = [UIScreen mainScreen].applicationFrame.size.width;
-    screenHeight = [UIScreen mainScreen].applicationFrame.size.height;
+    CGRect workingFrame;
+    if ((mnDirectButtonLocation == MNDIRECTBUTTON_TOP    ) || 
+        (mnDirectButtonLocation == MNDIRECTBUTTON_TOPLEFT) ||
+        (mnDirectButtonLocation == MNDIRECTBUTTON_TOPRIGHT)) {
+        workingFrame = [UIScreen mainScreen].applicationFrame;
+    }
+    else {
+        workingFrame = [UIScreen mainScreen].bounds;
+    }
+    
+    screenTop    = workingFrame.origin.y;
+    screenLeft   = workingFrame.origin.x;
+    screenWidth  = workingFrame.size.width;
+    screenHeight = workingFrame.size.height;
     
     width  = buttonLongSideLength;
     height = buttonShortSideLength;

@@ -18,6 +18,7 @@
 -(MNTrackingSystem*) getTrackingSystem;
 -(NSDictionary*)     getTrackingVars;
 -(NSDictionary*)     getAppConfigVars;
+-(NSDictionary*)     getAppExtParams;
 
 -(unsigned int)      getForegroundSwitchCount;
 -(time_t)            getForegroundTime;

@@ -20,6 +20,7 @@
 #import "MNVShopProvider.h"
 #import "MNGameSettingsProvider.h"
 #import "MNServerInfoProvider.h"
+#import "MNWSProvider.h"
 
 static MNAchievementsProvider*    MNDirectAchievementsProvider    = nil;
 static MNClientRobotsProvider*    MNDirectClientRobotsProvider    = nil;
@@ -32,6 +33,7 @@ static MNVItemsProvider*          MNDirectVItemsProvider          = nil;
 static MNVShopProvider*           MNDirectVShopProvider           = nil;
 static MNGameSettingsProvider*    MNDirectGameSettingsProvider    = nil;
 static MNServerInfoProvider*      MNDirectServerInfoProvider      = nil;
+static MNWSProvider*              MNDirectWSProvider              = nil;
 
 @interface MNSessionDirectDelegate: NSObject<MNSessionDelegate,MNUserProfileViewDelegate> {
     @private
@@ -148,6 +150,7 @@ static void releaseProviders (void) {
     [MNDirectVShopProvider release]; MNDirectVShopProvider = nil;
     [MNDirectGameSettingsProvider release]; MNDirectGameSettingsProvider = nil;
     [MNDirectServerInfoProvider release]; MNDirectServerInfoProvider = nil;
+    [MNDirectWSProvider release]; MNDirectWSProvider = nil;
 }
 
 static void initializeProviders (MNSession* session) {
@@ -164,6 +167,7 @@ static void initializeProviders (MNSession* session) {
     MNDirectVShopProvider           = [[MNVShopProvider alloc] initWithSession: session andVItemsProvider: MNDirectVItemsProvider];
     MNDirectGameSettingsProvider    = [[MNGameSettingsProvider alloc] initWithSession: session];
     MNDirectServerInfoProvider      = [[MNServerInfoProvider alloc] initWithSession: session];
+    MNDirectWSProvider              = [[MNWSProvider alloc] initWithSession: session];
 }
 
 @implementation MNDirect
@@ -407,6 +411,10 @@ static void initializeProviders (MNSession* session) {
 
 +(MNServerInfoProvider*) serverInfoProvider {
     return MNDirectServerInfoProvider;
+}
+
++(MNWSProvider*) wsProvider {
+    return MNDirectWSProvider;
 }
 
 @end

@@ -28,58 +28,6 @@ static NSString* MNConfigParamEnterBackgroundTrackerUrl = @"EnterBackgroundTrack
 static NSString* MNConfigParamGameVocabularyVersion = @"GameVocabularyVersion";
 static NSString* MNConfigParamTryFastResumeMode = @"TryFastResumeMode";
 
-static BOOL MNConfigDataParseConfigString (NSString** key, NSString**value, NSString* str) {
-    NSRange range = [str rangeOfString: @"="];
-
-    if (range.location == NSNotFound) {
-        return NO;
-    }
-
-    *key   = [[str substringToIndex: range.location] stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceCharacterSet]];
-    *value = [[str substringFromIndex: range.location + range.length] stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceCharacterSet]];
-
-    return [*key length] > 0;
-}
-
-static NSDictionary* MNConfigDataParseConfig (NSString* config) {
-    NSArray* strings = [config componentsSeparatedByString: @"\n"];
-    NSMutableDictionary* result = [NSMutableDictionary dictionaryWithCapacity: [strings count]];
-    NSUInteger index;
-    NSUInteger count;
-    BOOL ok;
-
-    index = 0;
-    count = [strings count];
-    ok    = YES;
-
-    while (index < count && ok) {
-        NSString* str = [[strings objectAtIndex: index]
-                          stringByTrimmingCharactersInSet:
-                           [NSCharacterSet whitespaceAndNewlineCharacterSet]];
-
-        if ([str length] > 0) {
-            NSString* key;
-            NSString* value;
-
-            if (MNConfigDataParseConfigString(&key,&value,str)) {
-                [result setObject: value forKey: key];
-            }
-            else {
-                ok = NO;
-            }
-        }
-
-        index++;
-    }
-
-    if (ok) {
-        return result;
-    }
-    else {
-        return nil;
-    }
-}
-
 static BOOL MNConfigDataGetParamString (NSString** value, NSDictionary* params, NSString* key) {
     *value = (NSString*)[params objectForKey: key];
 
@@ -222,7 +170,7 @@ static BOOL MNConfigDataGetParamBoolean (BOOL* value, NSDictionary* params, NSSt
     ok = str != nil;
 
     if (ok) {
-        params = MNConfigDataParseConfig(str);
+        params = MNDictionaryFromKeyValueText(str);
 
         ok = params != nil;
     }

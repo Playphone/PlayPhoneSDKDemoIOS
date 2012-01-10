@@ -23,6 +23,8 @@
 #define MNWS_LEADERBOARD_SCOPE_GLOBAL (0)
 #define MNWS_LEADERBOARD_SCOPE_LOCAL  (1)
 
+#define MNWSSNIdPlayPhone (4)
+
 @interface MNWSRequestError : NSObject
 {
 @private
@@ -136,5 +138,6 @@
 -(id) initWithSession:(MNSession*) session;
 -(MNWSRequest*) sendWSRequest:(MNWSRequestContent*) requestContent withDelegate:(id<MNWSRequestDelegate>) delegate;
 -(MNWSRequest*) sendWSRequestAuthorized:(MNWSRequestContent*) requestContent withDelegate:(id<MNWSRequestDelegate>) delegate;
+-(MNWSRequest*) sendWSRequestSmartAuth:(MNWSRequestContent*) requestContent withDelegate:(id<MNWSRequestDelegate>) delegate;
 
 @end

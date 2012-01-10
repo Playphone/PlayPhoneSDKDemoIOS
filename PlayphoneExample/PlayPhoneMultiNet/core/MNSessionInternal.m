@@ -43,6 +43,10 @@
     return nil; //there is no app config vars yet
 }
 
+-(NSDictionary*) getAppExtParams {
+    return _appExtParams;
+}
+
 -(unsigned int) getForegroundSwitchCount {
     return _foregroundSwitchCount;
 }
