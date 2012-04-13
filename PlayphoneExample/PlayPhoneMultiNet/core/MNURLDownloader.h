@@ -35,7 +35,10 @@ NSString* _message;
 NSURLConnection*            _connection;
 id<MNURLDownloaderDelegate> _delegate;
 NSMutableData*              _data;
+NSObject*                   _userData;
 }
+
+@property (nonatomic,retain) NSObject* userData;
 
 -(id) init;
 -(void) loadUrl:(NSURL*) url delegate:(id<MNURLDownloaderDelegate>) delegate;

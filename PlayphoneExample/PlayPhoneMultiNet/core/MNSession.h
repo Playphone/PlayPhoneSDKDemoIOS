@@ -27,6 +27,7 @@
 #import "MNOfflinePack.h"
 #import "MNDelegateArray.h"
 #import "MNAppHostCallInfo.h"
+#import "MNTrackingSystem.h"
 
 @class Facebook;
 @class MNTrackingSystem;
@@ -40,7 +41,7 @@
  *
  * This class is responsible for all interactions with MultiNet server.
  */
-@interface MNSession : NSObject<MNSmartFoxFacadeDelegate,INFSmartFoxISFSEvents,MNSocNetFBDelegate,MNOfflinePackDelegate> {
+@interface MNSession : NSObject<MNSmartFoxFacadeDelegate,INFSmartFoxISFSEvents,MNSocNetFBDelegate,MNOfflinePackDelegate,MNTrackingSystemDelegate> {
 @private
 
 MNDelegateArray* _delegates;
@@ -91,6 +92,8 @@ NSString* _webBaseUrl;
 
 time_t    _launchTime;
 NSString* _launchId;
+NSString* _installId;
+BOOL      _useInstallIdInsteadOfUDID;
 BOOL      _shutdownTracked;
 
 BOOL         _inForeground;
@@ -309,9 +312,16 @@ NSDictionary* _appExtParams;
  * Send application custom "beacon". Beacons are used for application actions usage statistic.
  * @param actionName name of the action
  * @param beaconData "beacon" data
- * @note Under construction
  */
 -(void) sendAppBeacon:(NSString*) actionName beaconData:(NSString*) beaconData;
+
+/**
+ * Send application custom "beacon". Beacons are used for application actions usage statistic.
+ * @param actionName name of the action
+ * @param beaconData "beacon" data
+ * @param beaconCallSeqNumber arbitrary value which will be passed to response handler
+ */
+-(void) sendAppBeacon:(NSString*) actionName beaconData:(NSString*) beaconData beaconCallSeqNumber:(long) beaconCallSeqNumber;
 
 /**
  * Send private message.
@@ -677,6 +687,12 @@ NSDictionary* _appExtParams;
 -(void) mnSessionSocNetLoggedOut:(NSInteger) socNetId;
 
 /**
+ * Tells the delegate that social network access token has been changed.
+ * @param socNetId social network identifier
+ */
+-(void) mnSessionSocNetTokenStatusChanged:(NSInteger) socNetId withData:(MNSocNetAuthTokenChangedEvent*) data;
+
+/**
  * Tells the delegate that device users info changed
  */
 -(void) mnSessionDevUsersInfoChanged;
@@ -746,12 +762,19 @@ NSDictionary* _appExtParams;
 -(void) mnSessionHandleOpenURL:(NSURL*) url;
 
 /**
+ * Tells the delegate that beacon response has been received
+ * @param beaconResponse response information
+ */
+-(void) mnSessionAppBeaconResponseReceived: (MNAppBeaconResponse*) response;
+
+/**
  * Tells the delegate that virtual shop ready status has been changed
  * @param isVShopReady YES if virtual shop is ready to purchase operations, NO - otherwise
  */
 -(void) mnSessionVShopReadyStatusChanged:(BOOL) isVShopReady;
 
 @end
+
 
 @protocol MNSessionSocNetFBDelegate<NSObject>
 -(void) socNetFBLoginOk:(MNSocNetSessionFB*) session;

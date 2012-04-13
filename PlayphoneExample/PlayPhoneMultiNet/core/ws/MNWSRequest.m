@@ -13,6 +13,8 @@
 #import "MNWSXmlTools.h"
 #import "MNWSRequest.h"
 
+#import "MNSessionInternal.h"
+
 #import "MNWSBuddyListItem.h"
 #import "MNWSLeaderboardListItem.h"
 #import "MNWSAnyGameItem.h"
@@ -373,7 +375,7 @@ static NSString* getScopeNameByCode (NSInteger scope) {
 }
 
 -(NSString*) addCurrUserAnyGameLeaderboardLocal:(NSInteger) gameId gameSetId:(NSInteger) gameSetId period:(NSInteger) period {
-    return [self addInfoBlock: [NSString stringWithFormat: @"currentUserAnyGameLeaderboardGlobal%@",getPeriodNameByCode(period)]
+    return [self addInfoBlock: [NSString stringWithFormat: @"currentUserAnyGameLeaderboardLocal%@",getPeriodNameByCode(period)]
                    withParam1: [NSString stringWithFormat: @"%d",gameId]
                     andParam2: [NSString stringWithFormat: @"%d",gameSetId]];
 }
@@ -531,7 +533,7 @@ static NSString* getScopeNameByCode (NSInteger scope) {
     [postData setObject: [NSString stringWithFormat: @"%d",[_session getGameId]] forKey: @"ctx_game_id"];
     [postData setObject: [NSString stringWithFormat: @"%d",[_session getDefaultGameSetId]] forKey: @"ctx_gameset_id"];
     [postData setObject: [NSString stringWithFormat: @"%d", MNDeviceTypeiPhoneiPod] forKey: @"ctx_dev_type"];
-    [postData setObject: MNGetDeviceIdMD5() forKey: @"ctx_dev_id"];
+    [postData setObject: MNStringGetMD5String([_session getUniqueAppId]) forKey: @"ctx_dev_id"];
 
     if (authorized) {
         [postData setObject: [NSString stringWithFormat: @"%lld",[_session getMyUserId]] forKey: @"ctx_user_id"];
@@ -594,9 +596,7 @@ static NSString* getScopeNameByCode (NSInteger scope) {
     while (element != nil) {
         NSString* value = [element stringValue];
 
-        if (value != nil) {
-            [item putValue: value name: [element name]];
-        }
+        [item putValue: (value != nil ? value : @"") name: [element name]];
 
         element = MNWSXmlNodeGetNextSiblingElement(element);
     }

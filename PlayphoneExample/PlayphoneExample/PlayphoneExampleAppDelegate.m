@@ -56,7 +56,7 @@
     [MNDirectButton initWithLocation:MNDIRECTBUTTON_TOPRIGHT];
     [MNDirectButton show];
     
-    [MNDirectPopup init:MNDIRECTPOPUP_WELCOME | MNDIRECTPOPUP_ACHIEVEMENTS | MNDIRECTPOPUP_NEW_HI_SCORES];
+    [MNDirectPopup init:MNDIRECTPOPUP_ALL];
     
     NSURL* url = [launchOptions objectForKey: UIApplicationLaunchOptionsURLKey];
     

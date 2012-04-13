@@ -6,6 +6,8 @@
 //  Copyright 2009 PlayPhone. All rights reserved.
 //
 
+#import <sys/time.h>
+
 #import <CommonCrypto/CommonDigest.h>
 
 #import <UIKit/UIKit.h>
@@ -253,6 +255,22 @@ static NSDictionary* MNReadProperties (void) {
     }
 
     return result;
+}
+
+NSString* MNGenerateUniqueId (void) {
+    struct timeval currentTime;
+
+    gettimeofday(&currentTime,NULL);
+
+    NSString* uniqueId = [NSString stringWithFormat: @"%u:%u:%lld:%ld%ld:%u",
+                          (unsigned int)arc4random(),
+                          (unsigned int)arc4random(),
+                          (long long)time(NULL),
+                          (long)currentTime.tv_sec,
+                          (long)currentTime.tv_usec,
+                          (unsigned int)arc4random()];
+
+    return MNStringGetMD5String(uniqueId);
 }
 
 NSString* MNGetMultiNetConfigURL (void) {
@@ -645,10 +663,6 @@ extern NSString* MNDataGetBase64String (NSData* data) {
     }
 
     return result;
-}
-
-NSString* MNGetDeviceIdMD5(void) {
-    return MNStringGetMD5String([[UIDevice currentDevice] uniqueIdentifier]);
 }
 
 NSString* MNGetAppVersionInternal (void) {

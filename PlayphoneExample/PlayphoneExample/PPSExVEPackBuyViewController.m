@@ -127,14 +127,6 @@
 
 #pragma mark - MNVShopProviderDelegate
 
--(void) showDashboard {
-    [MNDirectUIHelper showDashboard];
-}
-
--(void) hideDashboard {
-    [MNDirectUIHelper hideDashboard];
-}
-
 -(void) onCheckoutVShopPackSuccess:(MNVShopProviderCheckoutVShopPackSuccessInfo *) result {
     PPSExShowAlert(@"Pack purchased successfully",@"Purchase succeeded");
 }

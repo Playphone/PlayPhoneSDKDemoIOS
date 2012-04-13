@@ -20,11 +20,17 @@
 @synthesize bodyText     = _bodyText;
 
 - (void)viewDidLoad {
-    if ([self.headerText length] > 0) {
+    if (self.headerText == nil) {
+        self.headerLabel.text = @"";
+    }
+    else {
         self.headerLabel.text = self.headerText;
     }
     
-    if ([self.bodyText length] > 0) {
+    if (self.headerText == nil) {
+        self.bodyTextView.text = @"";
+    }
+    else {
         self.bodyTextView.text = self.bodyText;
     }
 }

@@ -10,16 +10,20 @@
 #import "MNDelegateArray.h"
 #import "MNDirectUIHelper.h"
 
-static MNDelegateArray     *mnDirectUIHelperDelegates         = nil;
-static UIView              *mnDirectUIHelperMNView            = nil;
-static BOOL                 mnDirectUIHelperAutorotationFlag  = YES;
-static int                  mnDirectUIHelperDashboardStyle    = MN_DASHBOARD_STYLE_POPUP;
-static UIPopoverController *mnDirectUIHelperPopoverController = nil;
+static MNDelegateArray     *mnDirectUIHelperDelegates            = nil;
+static UIWindow            *mnDirectUIHelperParentWindow         = nil;
+static UIWindow            *mnDirectUIHelperKeyWindowStore       = nil;
+static UIView              *mnDirectUIHelperMNView               = nil;
+static BOOL                 mnDirectUIHelperAutorotationFlag     = YES;
+static int                  mnDirectUIHelperDashboardStyle       = MN_DASHBOARD_STYLE_POPUP;
+static UIPopoverController *mnDirectUIHelperPopoverController    = nil;
 static CGAffineTransform    mnViewTransformOriginal;
 static CGRect               mnViewTransformFrame;
 
 #pragma mark -
 #pragma MNDirectUIHelperBgView
+
+#define MNDirectUIHelperShowDashboardDelay (0.05)
 
 #define MNDirectUIHelperPopupInsetX        (10.0f)
 #define MNDirectUIHelperPopupInsetY        (10.0f)
@@ -89,6 +93,7 @@ static float MNDirectUIHelperPopupBorderColor[] = { 0, 0, 0, 0.24f };
 
 +(void) prepareView;
 +(void) releaseView;
++(void) showDashboardInternal;
 
 +(void) refreshOrientationObserver;
 +(void) addOrientationOserver;
@@ -126,17 +131,30 @@ static float MNDirectUIHelperPopupBorderColor[] = { 0, 0, 0, 0.24f };
     if ([MNDirectUIHelper isDashboardVisible]) {
         return;
     }
+    
+    [MNDirectUIHelper performSelector:@selector(showDashboardInternal) withObject:nil afterDelay:MNDirectUIHelperShowDashboardDelay];
+}
+
++(void) showDashboardInternal {
+    if ([MNDirectUIHelper isDashboardVisible]) {
+        return;
+    }
 
     [self prepareView];
 
+    if (mnDirectUIHelperParentWindow == nil) {
+        mnDirectUIHelperParentWindow = [[UIWindow alloc]init];  
+        mnDirectUIHelperParentWindow.frame = [UIScreen mainScreen].bounds;
+        mnDirectUIHelperParentWindow.windowLevel = UIWindowLevelNormal;
+        //mnDirectUIHelperParentWindow.windowLevel = UIWindowLevelAlert;
+    }
+      
     if (mnDirectUIHelperMNView != nil) {
-        UIWindow *parentWindow = [UIApplication sharedApplication].keyWindow;
-        
-        if (parentWindow == nil) {
-            parentWindow = [[UIApplication sharedApplication].windows objectAtIndex:0];
-        }
-        
-        [parentWindow addSubview:mnDirectUIHelperMNView];
+        mnDirectUIHelperKeyWindowStore = [UIApplication sharedApplication].keyWindow;
+
+        [mnDirectUIHelperParentWindow addSubview:mnDirectUIHelperMNView];
+        mnDirectUIHelperParentWindow.hidden = NO;
+        [mnDirectUIHelperParentWindow makeKeyWindow];
         
         [mnDirectUIHelperDelegates beginCall];
         
@@ -147,6 +165,7 @@ static float MNDirectUIHelperPopupBorderColor[] = { 0, 0, 0, 0.24f };
         }
         
         [mnDirectUIHelperDelegates endCall];
+
     }
 }
 +(void) showDashboardInPopoverWithSize:(CGSize) popoverSize fromRect:(CGRect) popoverFromRect {
@@ -195,6 +214,12 @@ static float MNDirectUIHelperPopupBorderColor[] = { 0, 0, 0, 0.24f };
     }
     
     [self releaseView];
+
+    mnDirectUIHelperParentWindow.hidden = YES;
+    
+    if (mnDirectUIHelperKeyWindowStore != nil) {
+        [mnDirectUIHelperKeyWindowStore makeKeyWindow];
+    }
     
     [mnDirectUIHelperDelegates beginCall];
     

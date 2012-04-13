@@ -8,6 +8,7 @@
 
 #import "MNDirect.h"
 #import "MNDirectButton.h"
+#import "MNVShopProvider.h"
 
 static UIWindow               *mnDirectButtonWindow             = nil;
 static UIButton               *mnDirectButton                   = nil;
@@ -19,6 +20,7 @@ static UIInterfaceOrientation  mnDirectButtonOrientationDefault = UIInterfaceOri
 static BOOL                    mnDirectButtonVisible            = NO;
 static id                      mnDirectButtonDelegate           = nil;
 static BOOL                    mnDirectButtonAutohideFlag       = YES;
+static BOOL                    mnDirectButtonVShopAutohideFlag  = YES;
 
 #define MNDirectButtonImageCutGap      (0)
 
@@ -73,6 +75,10 @@ static NSString *MNDirectButtonBundlePath      = @"MNDirectButton.bundle/Images/
 }
 +(void) initWithLocation:(MNDIRECTBUTTON_LOCATION) location andDelegate:(id<MNDirectButtonDelegate>)delegate {
     if (mnDirectButton != nil) {
+        [[MNDirect getSession   ]removeDelegate:(id)self];
+        [[MNDirect getView      ]removeDelegate:(id)self];
+        [[MNDirect vShopProvider]removeDelegate:(id)self];
+
         [mnDirectButton removeFromSuperview];
         [mnDirectButton release];
         mnDirectButton = nil; 
@@ -99,9 +105,12 @@ static NSString *MNDirectButtonBundlePath      = @"MNDirectButton.bundle/Images/
     [mnDirectButton addTarget:self action:@selector(mnDirectButtonOnTap:) forControlEvents:UIControlEventTouchUpInside];
     [mnDirectButtonWindow addSubview:mnDirectButton];
     
-    //[MNDirectUIHelper      addDelegate:self];
-    [[MNDirect getSession] addDelegate:self];
-    [[MNDirect getView   ] addDelegate:self];
+    [[MNDirect getSession]addDelegate:(id)self];
+    [[MNDirect getView   ]addDelegate:(id)self];
+    
+    if (mnDirectButtonVShopAutohideFlag) {
+        [[MNDirect vShopProvider]addDelegate:(id)self];
+    }
     
     [MNDirectButton markMNButtonAsOffline];
     
@@ -172,6 +181,9 @@ static NSString *MNDirectButtonBundlePath      = @"MNDirectButton.bundle/Images/
     return mnDirectButtonAutohideFlag;
 }
 
++(void) setVShopEventAutoHandleEnabled:(BOOL) isEnabled {
+  mnDirectButtonVShopAutohideFlag = isEnabled;
+}
 
 +(void) didRotate:(NSNotification *)notification {
     if (mnDirectButtonAutorotationFlag) {
@@ -197,6 +209,19 @@ static NSString *MNDirectButtonBundlePath      = @"MNDirectButton.bundle/Images/
 +(void) mnUserProfileViewDoGoBack {
     assert(mnDirectButtonDelegate);
 
+    [mnDirectButtonDelegate mnDirectButtonDoHideDashboard];
+    [MNDirectButton performShowLogic];
+}
+
++(void) showDashboard {
+    assert(mnDirectButtonDelegate);
+    
+    [mnDirectButtonDelegate mnDirectButtonDoShowDashboard];
+    [MNDirectButton performShowLogic];
+}
++(void) hideDashboard {
+    assert(mnDirectButtonDelegate);
+    
     [mnDirectButtonDelegate mnDirectButtonDoHideDashboard];
     [MNDirectButton performShowLogic];
 }

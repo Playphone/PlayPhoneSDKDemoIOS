@@ -12,8 +12,11 @@
 typedef enum {
     MNDIRECTPOPUP_WELCOME              = 1 << 0,
     MNDIRECTPOPUP_ACHIEVEMENTS         = 1 << 1,
-    MNDIRECTPOPUP_NEW_HI_SCORES        = 1 << 2
+    MNDIRECTPOPUP_NEW_HI_SCORES        = 1 << 2,
+    MNDIRECTPOPUP_WEB_EVENT            = 1 << 16
  } MNDIRECTPOPUP_ACTION; 
+
+#define MNDIRECTPOPUP_ALL (MNDIRECTPOPUP_WELCOME | MNDIRECTPOPUP_ACHIEVEMENTS | MNDIRECTPOPUP_NEW_HI_SCORES | MNDIRECTPOPUP_WEB_EVENT)
 
 @interface MNDirectPopup : NSObject <MNSessionDelegate,MNAchievementsProviderDelegate,MNMyHiScoresProviderDelegate> {
 }

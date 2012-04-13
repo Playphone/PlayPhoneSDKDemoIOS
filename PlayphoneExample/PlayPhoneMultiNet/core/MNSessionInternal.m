@@ -25,9 +25,22 @@
     return _launchId;
 }
 
+-(NSString*) getInstallId {
+    return _installId;
+}
+
+-(NSString*) getUniqueAppId {
+    if (_useInstallIdInsteadOfUDID) {
+        return _installId;
+    }
+    else {
+        return [[UIDevice currentDevice] uniqueIdentifier];
+    }
+}
+
 -(MNTrackingSystem*) getTrackingSystem {
     if (_trackingSystem == nil) {
-        _trackingSystem = [[MNTrackingSystem alloc] initWithSession: self];
+        _trackingSystem = [[MNTrackingSystem alloc] initWithSession: self andTrackingSystemDelegate: self];
     }
 
     return _trackingSystem;

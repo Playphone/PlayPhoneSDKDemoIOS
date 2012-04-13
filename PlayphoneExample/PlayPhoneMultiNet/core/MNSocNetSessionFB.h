@@ -16,6 +16,7 @@
 @protocol MNSocNetFBDelegate;
 @protocol MNSocNetFBStreamDialogDelegate;
 @protocol MNSocNetFBPermissionDialogDelegate;
+@protocol MNSocNetFBGenericDialogDelegate;
 
 @interface MNSocNetSessionFB : NSObject {
     @private
@@ -37,6 +38,8 @@
 -(BOOL) resumeAndFillErrorMessage:(NSString**) error;
 -(void) logout;
 
+-(void) extendAccessToken;
+
 -(BOOL) isConnected;
 
 -(MNSocNetUserId) getUserId;
@@ -55,13 +58,36 @@
 -(void) showPermissionDialogWithPermission:(NSString*) permission
                                andDelegate:(id<MNSocNetFBPermissionDialogDelegate>) delegate;
 
+-(void) showGenericDialogWithAction:(NSString*) action
+                             params:(NSDictionary*) params
+                        andDelegate:(id<MNSocNetFBGenericDialogDelegate>) delegate;
+
 @end
+
+
+@interface MNSocNetAuthTokenChangedEvent : NSObject {
+@private
+    NSString* _accessToken;
+    NSDate*   _expirationDate;
+    NSString* _errorMessage;
+}
+
+@property (nonatomic,retain) NSString* accessToken;
+@property (nonatomic,retain) NSDate*   expirationDate;
+@property (nonatomic,retain) NSString* errorMessage;
+
+-(id) initWithToken:(NSString*) accessToken andExpirationDate:(NSDate*) expirationDate;
+-(BOOL) isError;
+
+@end
+
 
 @protocol MNSocNetFBDelegate<NSObject>
 -(void) socNetFBLoginOk:(MNSocNetSessionFB*) session;
 -(void) socNetFBLoginCanceled;
 -(void) socNetFBLoginFailed;
 -(void) socNetFBLoggedOut;
+-(void) socNetFBTokenStatusChangedWithData:(MNSocNetAuthTokenChangedEvent*) data;
 @end
 
 @protocol MNSocNetFBStreamDialogDelegate<NSObject>
@@ -74,4 +100,10 @@
 -(void) socNetFBPermissionDialogDidSucceed;
 -(void) socNetFBPermissionDialogDidCancel;
 -(void) socNetFBPermissionDialogDidFailWithError:(NSError*) error;
+@end
+
+@protocol MNSocNetFBGenericDialogDelegate<NSObject>
+-(void) socNetFBGenericDialogDidSucceedWithUrl:(NSURL*) url;
+-(void) socNetFBGenericDialogDidCancelWithUrl:(NSURL*) url;
+-(void) socNetFBGenericDialogDidFailWithError:(NSError*) error;
 @end

@@ -22,6 +22,7 @@
 -(void) onLoginSucceeded;
 -(void) onLoginFailed:(NSString*) error;
 -(void) onConnectionLost;
+-(NSString*) onUniqueAppIdRequired;
 
 -(void) mnConfigLoadStarted;
 -(void) mnConfigDidLoad;
@@ -31,6 +32,18 @@
 @class MNSmartFoxFacadeLoginInfo;
 @class MNSmartFoxFacadeSessionInfo;
 @class MNSmartFoxFacadeConnectActivity;
+
+@interface MNStructuredPassword : NSObject {
+    @private
+
+    NSString* _prefix;
+    NSString* _suffix;
+}
+
+-(id) initWithPrefix:(NSString*) prefix andSuffix:(NSString*) suffix;
+-(NSString*) buildPasswordWithUniqueId:(NSString*) uniqueId;
+
+@end
 
 @interface MNSmartFoxFacade : NSObject<INFSmartFoxISFSEvents,MNConfigDataDelegate> {
     @private
@@ -62,7 +75,7 @@
 -(id) initWithConfigRequest:(NSURLRequest*) configRequest;
 -(void) dealloc;
 -(void) loadConfig;
--(void) loginAs:(NSString*) userLogin withPassword:(NSString*) userPassword
+-(void) loginAs:(NSString*) userLogin withPassword:(MNStructuredPassword*) userPassword
         toZone:(NSString*) zone;
 -(void) logout;
 -(void) relogin;
@@ -71,7 +84,7 @@
 
 -(BOOL) haveLoginInfo;
 -(NSString*) getLoginInfoLogin;
--(void) updateLoginInfoWithLogin:(NSString*) login andPassword:(NSString*) password;
+-(void) updateLoginInfoWithLogin:(NSString*) login andPassword:(MNStructuredPassword*) password;
 
 -(NSString*) getUserNameBySFId:(NSInteger) userSFId;
 

@@ -35,6 +35,8 @@ typedef enum {
 @interface MNDirectButton : NSObject <MNSessionDelegate,MNUserProfileViewDelegate> {
 }
 
++(void) setVShopEventAutoHandleEnabled:(BOOL) isEnabled;
+
 +(void) initWithLocation:(MNDIRECTBUTTON_LOCATION) location;
 +(void) initWithLocation:(MNDIRECTBUTTON_LOCATION) location andDelegate:(id<MNDirectButtonDelegate>)delegate;
 +(void) show;

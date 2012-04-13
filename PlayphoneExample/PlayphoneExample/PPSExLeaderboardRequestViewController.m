@@ -27,8 +27,8 @@
 #define PPSExLeaderboardRequestGameDefValue    (PPSExLeaderboardRequestGameCurrent)
 
 #define PPSExLeaderboardRequestPeriodAllTime   (0)
-#define PPSExLeaderboardRequestPeriodThisMonth (1)
-#define PPSExLeaderboardRequestPeriodThisWeek  (2)
+#define PPSExLeaderboardRequestPeriodThisWeek  (1)
+#define PPSExLeaderboardRequestPeriodThisMonth (2)
 
 #define PPSExLeaderboardRequestPeriodDefValue  (PPSExLeaderboardRequestPeriodAllTime)
 
@@ -329,6 +329,10 @@ static NSString *PPSExLeaderboardRequestResultViewTitle = @"Request Result";
          [leaderboardItem getOutUserPlace].intValue,
          [leaderboardItem getUserNickName],
          [leaderboardItem getOutHiScoreText]];
+    }
+    
+    if ([leaderboardString length] == 0) {
+        leaderboardString = [NSString stringWithString:PPSExLeaderboardEmpty];
     }
 
     self.infoViewController = [[[PPSExInfoPaneViewController alloc]initWithNibName:@"PPSExInfoPaneView" bundle:[NSBundle mainBundle]]autorelease];

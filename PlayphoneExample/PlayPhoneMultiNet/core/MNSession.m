@@ -123,6 +123,8 @@ static NSString* MNPersistentVarUserAllUsersMask = @"user.*";
 static NSString* MNAppCommandSetAppPropertyPrefix = @"set";
 static NSString* MNAppPropertyVarPathFormat       = @"prop.%@";
 
+static NSString* MNAppInstallIdVarName = @"app.install.id";
+
 /* a class extension to declare private methods */
 @interface MNSession ()
 /* MNSmartFoxFacadeDelegate methods */
@@ -207,7 +209,7 @@ static NSString* MNGetStructuredDeviceInfoString (void) {
                                        MNStringReplaceBarWithSpace([timeZone name])];
 }
 
-static NSString* MNStructuredPasswordStringFromParams (NSString* launchId, NSString* loginModel, NSString* gameSecret, NSString* passwordHash, BOOL userDevSetHome) {
+static MNStructuredPassword* MNStructuredPasswordStringFromParams (NSString* launchId, NSString* loginModel, NSString* gameSecret, NSString* passwordHash, BOOL userDevSetHome) {
     NSString* appVersionInternal = MNGetAppVersionInternal();
     NSString* appVersionExternal = MNGetAppVersionExternal();
 
@@ -223,12 +225,15 @@ static NSString* MNStructuredPasswordStringFromParams (NSString* launchId, NSStr
                          launchId,
                          MNStringReplaceBarWithSpace(appVersionInternal),
                          MNStringReplaceBarWithSpace(appVersionExternal)];
+    
+    NSString* prefix = [NSString stringWithFormat: @"%@,%@,%@,%@,%d,",
+                        MNClientAPIVersion,loginModel,passwordHash,gameSecret,MNDeviceTypeiPhoneiPod];
+    NSString* suffix = [NSString stringWithFormat: @",%@,%@,%@",
+                        userDevSetHome ? @"1" : @"0",
+                        MNStringReplaceCommaWithDash(MNGetStructuredDeviceInfoString()),
+                        MNStringReplaceCommaWithDash(appInfo)];
 
-    return [NSString stringWithFormat: @"%@,%@,%@,%@,%d,%@,%@,%@,%@",
-                                       MNClientAPIVersion,loginModel,passwordHash,gameSecret,MNDeviceTypeiPhoneiPod,
-                                       MNGetDeviceIdMD5(),userDevSetHome ? @"1" : @"0",
-                                       MNStringReplaceCommaWithDash(MNGetStructuredDeviceInfoString()),
-                                       MNStringReplaceCommaWithDash(appInfo)];
+    return [[[MNStructuredPassword alloc] initWithPrefix: prefix andSuffix: suffix] autorelease];
 }
 
 static NSString* MNSessionGetNewGuestPassword () {
@@ -236,29 +241,15 @@ static NSString* MNSessionGetNewGuestPassword () {
 
     gettimeofday(&currentTime,NULL);
 
-    NSString* plainPass = [NSString stringWithFormat: @"%@%ld%ld%u%u",
-                           [[UIDevice currentDevice] uniqueIdentifier],
+    NSString* plainPass = [NSString stringWithFormat: @"%u%u%@%ld%ld%u%u",
+                           (unsigned int)arc4random(),
+                           (unsigned int)arc4random(),
                            (long)currentTime.tv_sec,
                            (long)currentTime.tv_usec,
                            (unsigned int)arc4random(),
                            (unsigned int)arc4random()];
 
     return MNStringGetMD5String(plainPass);
-}
-
-static NSString* MNSessionCalcLaunchId () {
-    struct timeval currentTime;
-
-    gettimeofday(&currentTime,NULL);
-
-    NSString* launchId = [NSString stringWithFormat: @"%@:%lld:%ld%ld:%u",
-                          [[UIDevice currentDevice] uniqueIdentifier],
-                          (long long)time(NULL),
-                          (long)currentTime.tv_sec,
-                          (long)currentTime.tv_usec,
-                          (unsigned int)arc4random()];
-
-    return MNStringGetMD5String(launchId);
 }
 
 static NSInteger MNDeviceOSVersionGetMajor (void) {
@@ -281,6 +272,18 @@ static BOOL MNDeviceOSVersionIs4OrHigher (void) {
     return MNDeviceOSVersionGetMajor() >= 4;
 }
 
+static NSString* MNSessionLoadInstallId (MNVarStorage* varStorage, NSString* varStorageFileName) {
+    NSString* installId = [varStorage getValueForVariable: MNAppInstallIdVarName];
+
+    if (installId == nil) {
+        installId = MNGenerateUniqueId();
+
+        [varStorage setValue: installId forVariable: MNAppInstallIdVarName];
+        [varStorage writeToFile: varStorageFileName];
+    }
+
+    return installId;
+}
 
 @implementation MNSession
 
@@ -367,7 +370,9 @@ static BOOL MNDeviceOSVersionIs4OrHigher (void) {
         _trackingSystem = nil;
 
         _launchTime = time(NULL);
-        _launchId   = [MNSessionCalcLaunchId() retain];
+        _launchId   = [MNGenerateUniqueId() retain];
+        _installId  = [MNSessionLoadInstallId(varStorage,[self stringWithVarStorageFileName]) retain];
+        _useInstallIdInsteadOfUDID = NO;
         _shutdownTracked = NO;
 
         _inForeground              = YES;
@@ -426,6 +431,7 @@ static BOOL MNDeviceOSVersionIs4OrHigher (void) {
     [_delegates release];
     [_gameSecret release];
     [_launchId release];
+    [_installId release];
     [_trackingSystem release];
 
     [_appExtParams release];
@@ -535,7 +541,7 @@ static BOOL MNDeviceOSVersionIs4OrHigher (void) {
     smartFoxFacade.reconnectOnNetErrors = newValue;
 }
 
--(BOOL) loginWithLogin:(NSString*) userLogin andStructuredPassword:(NSString*) structuredPassword {
+-(BOOL) loginWithLogin:(NSString*) userLogin andStructuredPassword:(MNStructuredPassword*) structuredPassword {
     if (_status != MN_OFFLINE) {
         if (MNSessionOfflineModeDisabled) {
             [self logout];
@@ -929,6 +935,10 @@ static BOOL MNDeviceOSVersionIs4OrHigher (void) {
 
 -(void) sendAppBeacon:(NSString*) actionName beaconData:(NSString*) beaconData {
     [[self getTrackingSystem] sendBeacon: actionName data: beaconData andSession: self];
+}
+
+-(void) sendAppBeacon:(NSString*) actionName beaconData:(NSString*) beaconData beaconCallSeqNumber:(long) beaconCallSeqNumber {
+    [[self getTrackingSystem] sendBeacon: actionName data: beaconData callSeqNumber: beaconCallSeqNumber andSession: self];
 }
 
 -(void) sendPrivateMessage:(NSString*) message to: (NSInteger) userSFId {
@@ -1493,6 +1503,10 @@ static BOOL MNDeviceOSVersionIs4OrHigher (void) {
     [self performSelector: @selector(notifyLoginFailed:) withObject: error afterDelay: 0];
 }
 
+-(NSString*) onUniqueAppIdRequired {
+    return [self getUniqueAppId];
+}
+
 -(void) mnConfigLoadStarted {
     [_delegates beginCall];
     for (id delegate in _delegates) {
@@ -1505,10 +1519,17 @@ static BOOL MNDeviceOSVersionIs4OrHigher (void) {
 
 -(void) mnConfigDidLoad {
     MNConfigData* configData = smartFoxFacade->configData;
+
+    _useInstallIdInsteadOfUDID = configData.useInstallIdInsteadOfUDID != 0;
+
     MNTrackingSystem* trackingSystem = [self getTrackingSystem];
 
     if (configData.launchTrackerUrl != nil) {
         [trackingSystem trackLaunchWithUrlTemplate: configData.launchTrackerUrl forSession: self];
+    }
+
+    if (configData.installTrackerUrl != nil) {
+        [trackingSystem trackInstallWithUrlTemplate: configData.installTrackerUrl forSession: self];
     }
 
     if (configData.shutdownTrackerUrl != nil) {
@@ -1559,7 +1580,12 @@ static BOOL MNDeviceOSVersionIs4OrHigher (void) {
     
     [_delegates endCall];
 
-    if (_fastSessionResumeEnabled && smartFoxFacade->configData.tryFastResumeMode != 0) {
+    if (_fastSessionResumeEnabled && smartFoxFacade->configData.tryFastResumeMode == 2) {
+        _fastSessionResumeEnabled = NO;
+
+        [self loginAuto];
+    }
+    else if (_fastSessionResumeEnabled && smartFoxFacade->configData.tryFastResumeMode != 0) {
         _fastSessionResumeEnabled = NO;
 
         [self loginWithStoredCredentials];
@@ -1595,6 +1621,21 @@ static BOOL MNDeviceOSVersionIs4OrHigher (void) {
     return startPageURL;
 }
 
+/* MNTrackingSystemDelegate protocol */
+
+-(void) appBeaconDidReceiveResponse:(MNAppBeaconResponse*) response {
+    [_delegates beginCall];
+
+    for (id delegate in _delegates) {
+        if ([delegate respondsToSelector: @selector(mnSessionAppBeaconResponseReceived:)]) {
+            [delegate mnSessionAppBeaconResponseReceived: response];
+        }
+    }
+
+    [_delegates endCall];
+}
+
+/* smartFox event handlers */
 -(void) onConnectionLost {
     synchronousCallCompleted = YES;
 
@@ -2682,6 +2723,18 @@ MNSessionDefineSmartFoxDelegateMethod(onUserCountChange)
     for (id delegate in _delegates) {
         if ([delegate respondsToSelector: @selector(mnSessionSocNetLoggedOut:)]) {
             [delegate mnSessionSocNetLoggedOut: MNSocNetIdFaceBook];
+        }
+    }
+
+    [_delegates endCall];
+}
+
+-(void) socNetFBTokenStatusChangedWithData:(MNSocNetAuthTokenChangedEvent*) data {
+    [_delegates beginCall];
+
+    for (id delegate in _delegates) {
+        if ([delegate respondsToSelector: @selector(mnSessionSocNetTokenStatusChanged:withData:)]) {
+            [delegate mnSessionSocNetTokenStatusChanged: MNSocNetIdFaceBook withData: data];
         }
     }
 

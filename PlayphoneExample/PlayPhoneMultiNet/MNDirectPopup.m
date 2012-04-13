@@ -10,27 +10,35 @@
 #import "MNUIUrlImageView.h"
 #import "MNAchievementsProvider.h"
 #import "MNMyHiScoresProvider.h"
+#import "MNTools.h"
 
 #import "MNDirectPopup.h"
 
 #pragma mark -
 
-static BOOL MNDirectPopupAchievemntsListAutoUpdate = YES;
+static NSString *MNDirectPopupParamsDefCallbackId  = @"";
 
 @interface MNDirectPopupParams : NSObject {
-    NSString *text;
-    UIImage  *defaultImage;
-    NSURL    *imageUrl;
+    NSUInteger popupAction;
+    NSString  *text;
+    UIImage   *defaultImage;
+    NSURL     *imageUrl;
+    NSString  *callbackId;
 }
 
-@property (nonatomic,retain) NSString *text;
-@property (nonatomic,retain) UIImage  *defaultImage;
-@property (nonatomic,retain) NSURL    *imageUrl;
+@property (nonatomic,assign) NSUInteger popupAction;
+@property (nonatomic,retain) NSString  *text;
+@property (nonatomic,retain) UIImage   *defaultImage;
+@property (nonatomic,retain) NSURL     *imageUrl;
+@property (nonatomic,retain) NSString  *callbackId;
 
--(id) initWithText:(NSString*) text defaultImage:(UIImage*) image imageUrl:(NSURL*)url;
+
+-(id) initWithPopupAction:(MNDIRECTPOPUP_ACTION) action text:(NSString*) messageText defaultImage:(UIImage*) image imageUrl:(NSURL*) url;
 -(void) dealloc;
 
 @end
+
+#pragma mark -
 
 @interface MNDirectPopupView : UIView {
     UIImageView      *bgrLeftImageView;
@@ -39,14 +47,16 @@ static BOOL MNDirectPopupAchievemntsListAutoUpdate = YES;
     MNUIUrlImageView *avatarUrlImageView;
     UILabel          *messageLabel;
 
-    NSTimer          *showTimer;
-    NSMutableArray   *paramsArray;
+    NSTimer             *showTimer;
+    NSMutableArray      *paramsArray;
+    MNDirectPopupParams *currentShowParams;
     
     NSUInteger        fixedHeight;
 }
 
 @property (nonatomic,retain) NSTimer                *showTimer;
 @property (nonatomic,retain) NSMutableArray         *paramsArray;
+@property (nonatomic,retain) MNDirectPopupParams    *currentShowParams;
 @property (nonatomic,assign) NSUInteger              fixedHeight;
 
 -(void) showWithParams:(MNDirectPopupParams*) params;
@@ -66,11 +76,26 @@ static BOOL                   mnDirectPopupAutorotationFlag   = YES;
 static UIInterfaceOrientation mnDirectPopupOrientation        = UIDeviceOrientationUnknown;
 static UIInterfaceOrientation mnDirectPopupOrientationDefault = UIInterfaceOrientationPortrait;
 
-static NSString *MNDirectPopupWelcomeMessageFormat = @"Welcome %@";
-static NSString *MNDirectPopupNewHiScoreMessage = @"New Hi Score!";
+static BOOL      MNDirectPopupAchievemntsListAutoUpdate       = YES;
 
-#define MNDirectPopupShowTime                              (5)
+static NSString *MNDirectPopupWelcomeMessageFormat            = @"Welcome %@";
+static NSString *MNDirectPopupNewHiScoreMessage               = @"You achieved a new High Score";
+
+static NSString *MNDirectPopupWebEventName                    = @"web.ui.doPopupShow";
+static NSString *MNDirectPopupWebEventMessgaeParamName        = @"popupMessage";
+static NSString *MNDirectPopupWebEventMessgaeParamImageURL    = @"popupImageUrl";
+
+static NSString *MNDirectPopupOnClickSysEventName             = @"sys.ui.onPopupClick";
+static NSString *MNDirectPopupOnClickSysEventActionParamName  = @"action";
+static NSString *MNDirectPopupOnClickSysEventClickXParamName  = @"clickX";
+static NSString *MNDirectPopupOnClickSysEventClickYParamName  = @"clickY";
+
+
+#define MNDirectPopuClickCoordinateUnavailable             (-1)
+
+#define MNDirectPopupShowTime                              (3)
 #define MNDirectPopupShowHideAnimationDuration             (0.5)
+
 
 @implementation MNDirectPopup
 
@@ -102,17 +127,15 @@ static NSString *MNDirectPopupNewHiScoreMessage = @"New Hi Score!";
     mnDirectPopupOrientation = UIDeviceOrientationUnknown;
     [MNDirectPopup adjustToOrientation:[UIApplication sharedApplication].statusBarOrientation];
     
-    if (actionsBitMask != 0) {
-        mnDirectPopupActiveFlag = YES;
-        [[MNDirect getSession] addDelegate:self];
-    }
+    mnDirectPopupActiveFlag = YES;
+    [[MNDirect getSession] addDelegate:(id)self];
     
     if (actionsBitMask & MNDIRECTPOPUP_ACHIEVEMENTS) {
-        [[MNDirect achievementsProvider] addDelegate:self];
+        [[MNDirect achievementsProvider] addDelegate:(id)self];
     }
     
     if (actionsBitMask & MNDIRECTPOPUP_NEW_HI_SCORES) {
-        [[MNDirect myHiScoresProvider] addDelegate:self];
+        [[MNDirect myHiScoresProvider] addDelegate:(id)self];
     }
     
     [[NSNotificationCenter defaultCenter]addObserver:self
@@ -197,9 +220,10 @@ static NSString *MNDirectPopupNewHiScoreMessage = @"New Hi Score!";
         if (mnDirectPopupActionBitMask & MNDIRECTPOPUP_WELCOME) {
             if (userId != 0) {
                 MNUserInfo *myUserInfo = [[MNDirect getSession]getMyUserInfo];
-                MNDirectPopupParams *params = [[MNDirectPopupParams alloc]initWithText:[NSString stringWithFormat:MNDirectPopupWelcomeMessageFormat,myUserInfo.userName]
-                                                                          defaultImage:[UIImage imageNamed:@"MNDirectPopup.bundle/Images/mndirectpopup_avatar_empty.png"]
-                                                                              imageUrl:[NSURL URLWithString:[myUserInfo getAvatarUrl]]];
+                MNDirectPopupParams *params = [[MNDirectPopupParams alloc]initWithPopupAction:MNDIRECTPOPUP_WELCOME
+                                                                                         text:[NSString stringWithFormat:MNDirectPopupWelcomeMessageFormat,myUserInfo.userName]
+                                                                                 defaultImage:[UIImage imageNamed:@"MNDirectPopup.bundle/Images/mndirectpopup_avatar_empty.png"]
+                                                                                     imageUrl:[NSURL URLWithString:[myUserInfo getAvatarUrl]]];
                 
                 [mnDirectPopupView showWithParams:params];
                 
@@ -223,6 +247,34 @@ static NSString *MNDirectPopupNewHiScoreMessage = @"New Hi Score!";
     }
 }
 
++(void) mnSessionWebEventReceived:(NSString*) eventName withParam:(NSString*) eventParam andCallbackId:(NSString*) callbackId {
+    // Web event can not be disabled
+    //if (mnDirectPopupActionBitMask & MNDIRECTPOPUP_WEB_EVENT) {
+        if ([eventName compare:MNDirectPopupWebEventName] == NSOrderedSame) {
+            NSDictionary* paramsDict = MNCopyDictionaryWithGetRequestParamString(eventParam);
+            
+            NSString *popupText      = [paramsDict valueForKey:MNDirectPopupWebEventMessgaeParamName];
+            NSString *imageUrlString = [paramsDict valueForKey:MNDirectPopupWebEventMessgaeParamImageURL];
+            NSURL    *imageUrl       = [NSURL URLWithString:imageUrlString];
+            
+            if ((popupText != nil) && (imageUrl != nil)) {
+                MNDirectPopupParams *showParams = [[MNDirectPopupParams alloc]initWithPopupAction:MNDIRECTPOPUP_WEB_EVENT
+                                                                                             text:popupText
+                                                                                     defaultImage:nil
+                                                                                         imageUrl:imageUrl];
+                
+                showParams.callbackId = callbackId;
+                
+                [mnDirectPopupView showWithParams:showParams];
+                
+                [showParams release];
+            }
+            
+            [paramsDict release];
+        }
+    //}
+}
+
 #pragma mark MNAchievementsProviderDelegate
 
 +(void) onPlayerAchievementUnlocked:(int) achievementId {
@@ -240,9 +292,10 @@ static NSString *MNDirectPopupNewHiScoreMessage = @"New Hi Score!";
     }
     
     if (achInfo != nil) {
-        MNDirectPopupParams *showParams = [[MNDirectPopupParams alloc]initWithText:achInfo.name
-                                                                      defaultImage:nil
-                                                                          imageUrl:[[MNDirect achievementsProvider] getAchievementImageURL:achievementId]];
+        MNDirectPopupParams *showParams = [[MNDirectPopupParams alloc]initWithPopupAction:MNDIRECTPOPUP_ACHIEVEMENTS
+                                                                                     text:achInfo.name
+                                                                             defaultImage:nil
+                                                                                 imageUrl:[[MNDirect achievementsProvider] getAchievementImageURL:achievementId]];
         [mnDirectPopupView showWithParams:showParams];
     
         [showParams release];
@@ -252,9 +305,10 @@ static NSString *MNDirectPopupNewHiScoreMessage = @"New Hi Score!";
 #pragma mark MNMyHiScoresProvider
 
 +(void) hiScoreUpdated:(NSInteger) newScore gameSetId:(NSInteger) gameSetId periodMask:(unsigned int) periodMask {
-    MNDirectPopupParams *showParams = [[MNDirectPopupParams alloc]initWithText:MNDirectPopupNewHiScoreMessage
-                                                                  defaultImage:[UIImage imageNamed:@"MNDirectPopup.bundle/Images/mndirectpopup_newhiscore.png"]
-                                                                      imageUrl:nil];
+    MNDirectPopupParams *showParams = [[MNDirectPopupParams alloc]initWithPopupAction:MNDIRECTPOPUP_NEW_HI_SCORES
+                                                                                 text:MNDirectPopupNewHiScoreMessage
+                                                                         defaultImage:[UIImage imageNamed:@"MNDirectPopup.bundle/Images/mndirectpopup_newhiscore.png"]
+                                                                             imageUrl:nil];
     [mnDirectPopupView showWithParams:showParams];
     
     [showParams release];
@@ -269,21 +323,28 @@ static NSString *MNDirectPopupNewHiScoreMessage = @"New Hi Score!";
 @synthesize text;
 @synthesize defaultImage;
 @synthesize imageUrl;
+@synthesize popupAction;
+@synthesize callbackId;
 
--(id) initWithText:(NSString*) messageText defaultImage:(UIImage*) image imageUrl:(NSURL*) url {
+-(id) initWithPopupAction:(MNDIRECTPOPUP_ACTION) action text:(NSString*) messageText defaultImage:(UIImage*) image imageUrl:(NSURL*) url {
     if (self = [super init]) {
+        self.popupAction  = action;
         self.text         = messageText;
         self.defaultImage = image;
         self.imageUrl     = url;
+        
+        self.callbackId   = MNDirectPopupParamsDefCallbackId;
     }
     
     return self;
 }
 
 -(void) dealloc {
+    self.popupAction  = -1;
     self.text         = nil;
     self.defaultImage = nil;
     self.imageUrl     = nil;
+    self.callbackId   = nil;
     
     [super dealloc];
 }
@@ -296,6 +357,7 @@ static NSString *MNDirectPopupNewHiScoreMessage = @"New Hi Score!";
 @synthesize showTimer;
 @synthesize paramsArray;
 @synthesize fixedHeight;
+@synthesize currentShowParams;
 
 static NSString *MNDirectPopupSettingsImageXOffset       = @"image-offset-x";
 static NSString *MNDirectPopupSettingsImageYOffset       = @"image-offset-y";
@@ -420,8 +482,10 @@ static NSString *MNDirectPopupSettingsLabelShadowYOffset = @"label-shadow-offset
 
 -(void) dealloc {
     [self.showTimer invalidate];
-    self.showTimer   = nil;
-    self.paramsArray = nil;
+
+    self.currentShowParams = nil;
+    self.showTimer         = nil;
+    self.paramsArray       = nil;
 
     [bgrLeftImageView   removeFromSuperview];
     [bgrImageView       removeFromSuperview];
@@ -468,6 +532,8 @@ static NSString *MNDirectPopupSettingsLabelShadowYOffset = @"label-shadow-offset
 }
 
 -(void) updateWithParams:(MNDirectPopupParams*) params {
+    self.currentShowParams = params;
+    
     avatarUrlImageView.image = params.defaultImage;
     messageLabel.text        = params.text;
     
@@ -513,8 +579,38 @@ static NSString *MNDirectPopupSettingsLabelShadowYOffset = @"label-shadow-offset
 }
 
 -(void) hideAnimationDidStop:(NSString*) animationID finished:(NSNumber*) finished context:(void*) context {
+    self.currentShowParams     = nil;
     mnDirectPopupWindow.hidden = YES;
 }
 
+-(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    for (UITouch *touch in touches) {
+        MNSession *session = [MNDirect getSession];
+        
+        if (session != nil) {
+            CGPoint touchLocation = [touch locationInView:self];
+            NSMutableDictionary *paramsDict = [[NSMutableDictionary alloc]init];
+            
+            [paramsDict setValue:[NSString stringWithFormat:@"0x%02X",self.currentShowParams.popupAction]
+                          forKey:MNDirectPopupOnClickSysEventActionParamName];
+            
+            [paramsDict setValue:[NSString stringWithFormat:@"%d",(int)touchLocation.x]
+                          forKey:MNDirectPopupOnClickSysEventClickXParamName];
+            
+            [paramsDict setValue:[NSString stringWithFormat:@"%d",(int)touchLocation.y]
+                          forKey:MNDirectPopupOnClickSysEventClickYParamName];
+            
+            NSString *paramsString = MNGetRequestStringFromParams(paramsDict);
+            
+            [session postSysEvent:MNDirectPopupOnClickSysEventName
+                        withParam:paramsString
+                    andCallbackId:self.currentShowParams.callbackId];
+            
+            [paramsDict release];
+        }
+    }
+    
+    [super touchesBegan:touches withEvent:event];
+}
 
 @end

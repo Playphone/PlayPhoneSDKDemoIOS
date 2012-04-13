@@ -52,6 +52,12 @@ static void MNVShopWriteLog(NSString* message) {
     return self;
 }
 
+-(void) dealloc {
+    [_transaction release];
+
+    [super dealloc];
+}
+
 @end
 
 
@@ -71,6 +77,12 @@ static void MNVShopWriteLog(NSString* message) {
     }
 
     return self;
+}
+
+-(void) dealloc {
+    [_errorMessage release];
+
+    [super dealloc];
 }
 
 @end

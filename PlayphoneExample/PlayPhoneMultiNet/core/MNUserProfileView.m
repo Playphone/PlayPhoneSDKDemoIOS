@@ -42,8 +42,10 @@ static NSString* MNSessionActionPlayGameURL = @"playgame.php";
 static NSString* MNSessionActionLoginFacebookURL = @"sn_facebook_login.php";
 static NSString* MNSessionActionResumeFacebookURL = @"sn_facebook_resume.php";
 static NSString* MNSessionActionLogoutFacebookURL = @"sn_facebook_logout.php";
+static NSString* MNSessionActionExtendFacebookSessionURL = @"sn_facebook_extend_session.php";
 static NSString* MNSessionActionShowFacebookPublishDialogURL = @"sn_facebook_dialog_publish_show.php";
 static NSString* MNSessionActionShowFacebookPermissionDialogURL = @"sn_facebook_dialog_permission_req_show.php";
+static NSString* MNSessionActionShowFacebookGenericDialogURL = @"sn_facebook_dialog_generic.php";
 static NSString* MNSessionActionImportAddressBookURL = @"do_user_ab_import.php";
 static NSString* MNSessionActionGetAddressBookDataURL = @"get_user_ab_data.php";
 static NSString* MNSessionActionNewBuddyRoomURL = @"newbuddyroom.php";
@@ -173,7 +175,7 @@ static BOOL stringStartsWithFileURLScheme (NSString* str) {
     return [str compare: NSURLFileScheme options: 0 range: NSMakeRange(0,fileURLFileSchemeLen)] == NSOrderedSame;
 }
 
-static NSURLRequest* MNUserProfileViewGetStartRequestOnline (NSString* webServerURL, NSInteger gameId, NSDictionary* appExtParams) {
+static NSURLRequest* MNUserProfileViewGetStartRequestOnline (NSString* webServerURL, NSInteger gameId, NSString* uniqueAppId, NSDictionary* appExtParams) {
     NSString* startURL = [NSString stringWithFormat: MNStartUrlFormat, webServerURL];
     NSString* appVerInternal = MNGetAppVersionInternal();
     NSString* appVerExternal = MNGetAppVersionExternal();
@@ -181,7 +183,7 @@ static NSURLRequest* MNUserProfileViewGetStartRequestOnline (NSString* webServer
     NSMutableDictionary* params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                              [NSString stringWithFormat: @"%d",gameId],
                              @"game_id",
-                             MNGetDeviceIdMD5(),
+                             MNStringGetMD5String(uniqueAppId),
                              @"dev_id",
                              [NSString stringWithFormat: @"%d",MNDeviceTypeiPhoneiPod],
                              @"dev_type",
@@ -200,13 +202,13 @@ static NSURLRequest* MNUserProfileViewGetStartRequestOnline (NSString* webServer
     return MNGetURLRequestWithPostMethod([NSURL URLWithString: startURL],params);
 }
 
-static NSURLRequest* MNUserProfileViewGetStartRequestOffline (NSString* webServerURL, NSInteger gameId, NSDictionary* appExtParams) {
+static NSURLRequest* MNUserProfileViewGetStartRequestOffline (NSString* webServerURL, NSInteger gameId, NSString* uniqueAppId, NSDictionary* appExtParams) {
     NSString* appVerInternal = MNGetAppVersionInternal();
     NSString* appVerExternal = MNGetAppVersionExternal();
     NSMutableString* startURL = [NSMutableString stringWithString: [[NSString stringWithFormat: @"%@/welcome.php.html?game_id=%d&dev_id=%@&dev_type=%d&client_ver=%@&client_locale=%@&app_ver_ext=%@&app_ver_int=%@",
                            webServerURL,
                            gameId,
-                           MNGetDeviceIdMD5(),
+                           MNStringGetMD5String(uniqueAppId),
                            MNDeviceTypeiPhoneiPod,
                            MNClientAPIVersion,
                            [[NSLocale currentLocale] localeIdentifier],
@@ -224,13 +226,13 @@ static NSURLRequest* MNUserProfileViewGetStartRequestOffline (NSString* webServe
     return [NSURLRequest requestWithURL: [NSURL URLWithString: startURL]];
 }
 
-static NSURLRequest* MNUserProfileViewGetStartRequest (NSString* webServerURL, NSInteger gameId, NSDictionary* appExtParams) {
+static NSURLRequest* MNUserProfileViewGetStartRequest (NSString* webServerURL, NSInteger gameId, NSString* uniqueAppId, NSDictionary* appExtParams) {
     if (webServerURL != nil) {
         if (stringStartsWithFileURLScheme(webServerURL)) {
-            return MNUserProfileViewGetStartRequestOffline(webServerURL,gameId,appExtParams);
+            return MNUserProfileViewGetStartRequestOffline(webServerURL,gameId,uniqueAppId,appExtParams);
         }
         else {
-            return MNUserProfileViewGetStartRequestOnline(webServerURL,gameId,appExtParams);
+            return MNUserProfileViewGetStartRequestOnline(webServerURL,gameId,uniqueAppId,appExtParams);
         }
     }
     else {
@@ -428,8 +430,10 @@ static void accumulateVarsList (NSMutableString* javaScriptSrc, NSDictionary* va
 - (void) handleLoginFacebookRequest: (NSDictionary*) request;
 - (void) handleResumeFacebookRequest: (NSDictionary*) request;
 - (void) handleLogoutFacebookRequest: (NSDictionary*) request;
+- (void) handleExtendFacebookSessionRequest: (NSDictionary*) request;
 - (void) handleShowFacebookPublishDialogRequest: (NSDictionary*) request;
 - (void) handleShowFacebookPermissionDialogRequest: (NSDictionary*) request;
+- (void) handleShowFacebookGenericDialogRequest: (NSDictionary*) request;
 - (void) handleImportAddressBookRequest;
 - (void) handleGetAddressBookDataRequest;
 - (void) handleNewBuddyRoomRequest: (NSDictionary*) request;
@@ -526,6 +530,9 @@ static void accumulateVarsList (NSMutableString* javaScriptSrc, NSDictionary* va
     _fbPublishCancelJS     = nil;
     _fbPermissionSuccessJS = nil;
     _fbPermissionCancelJS  = nil;
+    _fbGenericDialogSuccessJS = nil;
+    _fbGenericDialogErrorJS   = nil;
+    _fbGenericDialogCancelJS  = nil;
 
     _delegates = [[MNDelegateArray alloc] init];
     _httpReqQueue = [[MNUIWebViewHttpReqQueue alloc] initWithDelegate: (id)self];
@@ -553,6 +560,9 @@ static void accumulateVarsList (NSMutableString* javaScriptSrc, NSDictionary* va
     [_fbPublishCancelJS     release];
     [_fbPermissionSuccessJS release];
     [_fbPermissionCancelJS  release];
+    [_fbGenericDialogSuccessJS release];
+    [_fbGenericDialogErrorJS   release];
+    [_fbGenericDialogCancelJS  release];
 
     [trackedPluginsStorage release];
     [deviceUsersInfoJSSrc release];
@@ -582,7 +592,9 @@ static void accumulateVarsList (NSMutableString* javaScriptSrc, NSDictionary* va
 }
 
 -(void) loadStartPage {
-    NSURLRequest* startRequest = MNUserProfileViewGetStartRequest(_webServerURL,[_session getGameId],[_session getAppExtParams]);
+    NSURLRequest* startRequest = MNUserProfileViewGetStartRequest
+                                  (_webServerURL,[_session getGameId],
+                                   [_session getUniqueAppId],[_session getAppExtParams]);
 
     if (startRequest != nil) {
         baseHost = [[[startRequest URL] host] copy];
@@ -825,6 +837,9 @@ static NSString* MNWebKitErrorDomain = @"WebKitErrorDomain";
         else if ([actionName isEqualToString: MNSessionActionResumeFacebookURL]) {
             [self handleResumeFacebookRequest: params];
         }
+        else if ([actionName isEqualToString: MNSessionActionExtendFacebookSessionURL]) {
+            [self handleExtendFacebookSessionRequest: params];
+        }
         else if ([actionName isEqualToString: MNSessionActionLogoutFacebookURL]) {
             [self handleLogoutFacebookRequest: params];
         }
@@ -833,6 +848,9 @@ static NSString* MNWebKitErrorDomain = @"WebKitErrorDomain";
         }
         else if ([actionName isEqualToString: MNSessionActionShowFacebookPermissionDialogURL]) {
             [self handleShowFacebookPermissionDialogRequest: params];
+        }
+        else if ([actionName isEqualToString: MNSessionActionShowFacebookGenericDialogURL]) {
+            [self handleShowFacebookGenericDialogRequest: params];
         }
         else if ([actionName isEqualToString: MNSessionActionImportAddressBookURL]) {
             [self handleImportAddressBookRequest];
@@ -2092,6 +2110,10 @@ static UIImage* MNImageCopyScaledCenteredImage(UIImage* srcImage, CGFloat maxDim
     [_session socNetFBLogout];
 }
 
+- (void) handleExtendFacebookSessionRequest: (NSDictionary*) params {
+    [[_session getSocNetSessionFB] extendAccessToken];
+}
+
 - (void) handleShowFacebookPublishDialogRequest: (NSDictionary*) params {
     NSString* messagePromptStr = [params objectForKey: @"message_prompt"];
     NSString* attachmentStr    = [params objectForKey: @"attachment"];
@@ -2123,6 +2145,33 @@ static UIImage* MNImageCopyScaledCenteredImage(UIImage* srcImage, CGFloat maxDim
         [_fbPermissionCancelJS release];  _fbPermissionCancelJS  = [cancelJSStr retain];
 
         [[_session getSocNetSessionFB] showPermissionDialogWithPermission: permissionStr andDelegate: self];
+    }
+}
+
+- (void) handleShowFacebookGenericDialogRequest: (NSDictionary*) params {
+    NSString* actionStr       = [params objectForKey: @"action"];
+    NSString* dialogParamsStr = [params objectForKey: @"params"];
+    NSString* successJSStr    = [params objectForKey: @"mn_callback"];
+    NSString* cancelJSStr     = [params objectForKey: @"mn_cancel"];
+    NSString* errorJSStr      = [params objectForKey: @"mn_error"];
+
+    if (actionStr != nil && dialogParamsStr != nil &&
+        successJSStr != nil && cancelJSStr != nil && errorJSStr != nil) {
+        [_fbGenericDialogSuccessJS release]; _fbGenericDialogSuccessJS = [successJSStr retain];
+        [_fbGenericDialogCancelJS release];  _fbGenericDialogCancelJS  = [cancelJSStr retain];
+        [_fbGenericDialogErrorJS release];   _fbGenericDialogErrorJS   = [errorJSStr retain];
+
+        NSDictionary* dialogParams = MNCopyDictionaryWithGetRequestParamString(dialogParamsStr);
+
+        if (dialogParams == nil) {
+            dialogParams = [[NSDictionary alloc] init];
+        }
+
+        [[_session getSocNetSessionFB] showGenericDialogWithAction: actionStr
+                                                            params: dialogParams
+                                                       andDelegate: self];
+
+        [dialogParams release];
     }
 }
 
@@ -2267,6 +2316,22 @@ static UIImage* MNImageCopyScaledCenteredImage(UIImage* srcImage, CGFloat maxDim
 -(void) mnSessionSocNetLoggedOut:(NSInteger) socNetId {
     if (socNetId == MNSocNetIdFaceBook) {
         [self callJSScript: @"MN_SetSNContextFacebook(null,null);"];
+    }
+}
+
+-(void) mnSessionSocNetTokenStatusChanged:(NSInteger) socNetId withData:(MNSocNetAuthTokenChangedEvent*) data {
+    if (socNetId == MNSocNetIdFaceBook) {
+        NSString* javaScriptSrc = [[NSString alloc] initWithFormat:
+                                   @"MN_SetSNContextFacebook(new MN_SNContextFacebook('%lld',%@,%@,%d),%@);",
+                                   (long long)MNSocNetUserIdUndefined,
+                                   MNStringAsJSString(@""),
+                                   MNStringAsJSString(data.accessToken),
+                                   data.expirationDate != nil ? 1 : 0,
+                                   data.errorMessage];
+
+        [self callJSScript: javaScriptSrc];
+
+        [javaScriptSrc release];
     }
 }
 
@@ -2568,7 +2633,7 @@ static UIImage* MNImageCopyScaledCenteredImage(UIImage* srcImage, CGFloat maxDim
                         MNStringAsJSString([_session getMyUserName]),
                         MNStringAsJSString([_session getMySId]),
                         MNDeviceTypeiPhoneiPod,
-                        MNStringAsJSString(MNGetDeviceIdMD5()),
+                        MNStringAsJSString(MNStringGetMD5String([_session getUniqueAppId])),
                         [self getDeviceUsersInfoJSSrc],
                         MNSocNetIdFaceBook,
                         [fbSession isConnected] ? 10 : ([fbSession didUserStoreCredentials] ? 1 : 0),
@@ -2783,6 +2848,42 @@ static UIImage* MNImageCopyScaledCenteredImage(UIImage* srcImage, CGFloat maxDim
     [_fbPermissionCancelJS  release]; _fbPermissionCancelJS  = nil;
 
     [self callSetErrorMessage: [error localizedDescription]];
+}
+
+-(void) socNetFBGenericDialogClearJSHandlers {
+    [_fbGenericDialogSuccessJS release]; _fbGenericDialogSuccessJS = nil;
+    [_fbGenericDialogCancelJS release]; _fbGenericDialogCancelJS   = nil;
+    [_fbGenericDialogErrorJS release]; _fbGenericDialogErrorJS     = nil;
+}
+
+-(void) socNetFBGenericDialogDidSucceedWithUrl:(NSURL*) url {
+    if (_fbGenericDialogSuccessJS != nil) {
+        [self callJSScript:
+         [_fbGenericDialogSuccessJS stringByReplacingOccurrencesOfString: @"{result_bundle}"
+                                                             withString: MNStringAsJSString([url absoluteString])]];
+    }
+
+    [self socNetFBGenericDialogClearJSHandlers];
+}
+
+-(void) socNetFBGenericDialogDidCancelWithUrl:(NSURL*) url {
+    if (_fbGenericDialogCancelJS != nil) {
+        [self callJSScript:
+         [_fbGenericDialogCancelJS stringByReplacingOccurrencesOfString: @"{cancel_bundle}"
+                                                             withString: MNStringAsJSString([url absoluteString])]];
+    }
+
+    [self socNetFBGenericDialogClearJSHandlers];
+}
+
+-(void) socNetFBGenericDialogDidFailWithError:(NSError*) error {
+    if (_fbGenericDialogErrorJS != nil) {
+        [self callJSScript:
+         [_fbGenericDialogErrorJS stringByReplacingOccurrencesOfString: @"{error_message}"
+                                                             withString: MNStringAsJSString([error localizedDescription])]];
+    }
+
+    [self socNetFBGenericDialogClearJSHandlers];
 }
 
 @end

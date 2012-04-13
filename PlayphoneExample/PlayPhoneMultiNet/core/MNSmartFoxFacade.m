@@ -68,14 +68,14 @@ static NSString* sfReadParamError (NSDictionary *params) {
 @interface MNSmartFoxFacadeLoginInfo: NSObject {
     @private
 
-    NSString* _userLogin;
-    NSString* _userPassword;
-    NSString* _zone;
+    NSString*             _userLogin;
+    MNStructuredPassword* _userPassword;
+    NSString*             _zone;
 }
 
-@property (nonatomic,retain) NSString* userLogin;
-@property (nonatomic,retain) NSString* userPassword;
-@property (nonatomic,retain) NSString* zone;
+@property (nonatomic,retain) NSString*             userLogin;
+@property (nonatomic,retain) MNStructuredPassword* userPassword;
+@property (nonatomic,retain) NSString*             zone;
 
 -(id)   init;
 -(void) dealloc;
@@ -253,6 +253,37 @@ static NSString* sfReadParamError (NSDictionary *params) {
 @end
 
 
+@implementation MNStructuredPassword
+
+-(id) initWithPrefix:(NSString*) prefix andSuffix:(NSString*) suffix {
+    self = [super init];
+
+    if (self != nil) {
+        _prefix = [prefix retain];
+        _suffix = [suffix retain];
+    }
+
+    return self;
+}
+
+-(NSString*) buildPasswordWithUniqueId:(NSString*) uniqueId {
+    NSMutableString* pass = [NSMutableString stringWithString: _prefix];
+
+    [pass appendString: uniqueId];
+    [pass appendString: _suffix];
+
+    return pass;
+}
+
+-(void) dealloc {
+    [_prefix release];
+    [_suffix release];
+
+    [super dealloc];
+}
+@end
+
+
 @implementation MNSmartFoxFacadeLoginInfo
 
 @synthesize userLogin    = _userLogin;
@@ -348,7 +379,7 @@ static NSString* sfReadParamError (NSDictionary *params) {
     return loginInfo.userLogin;
 }
 
--(void) updateLoginInfoWithLogin:(NSString*) login andPassword:(NSString*) password {
+-(void) updateLoginInfoWithLogin:(NSString*) login andPassword:(MNStructuredPassword*) password {
     loginInfo.userLogin    = login;
     loginInfo.userPassword = password;
 }
@@ -398,7 +429,7 @@ static NSString* sfReadParamError (NSDictionary *params) {
     }
 }
 
--(void) loginAs:(NSString*) userLogin withPassword:(NSString*) userPassword
+-(void) loginAs:(NSString*) userLogin withPassword:(MNStructuredPassword*) userPassword
         toZone:(NSString*) zone {
     [connectActivity cancel];
 
@@ -508,7 +539,10 @@ static NSString* sfReadParamError (NSDictionary *params) {
             [connectActivity connectionEstablished];
 
             state = MN_SF_STATE_CONNECTED;
-            [smartFox login: loginInfo.zone name: loginInfo.userLogin pass: loginInfo.userPassword];
+            [smartFox login: loginInfo.zone
+                       name: loginInfo.userLogin
+                       pass: [loginInfo.userPassword buildPasswordWithUniqueId:
+                              MNStringGetMD5String([self.delegate onUniqueAppIdRequired])]];
         }
         else {
             [sessionInfo release]; sessionInfo = nil;

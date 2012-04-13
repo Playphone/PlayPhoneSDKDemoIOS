@@ -827,7 +827,7 @@
     self = [super init];
 
     if (self != nil) {
-        _payload       = payload;
+        _payload       = [payload retain];
         _delegate      = [delegate retain];
         _blockName     = nil;
     }

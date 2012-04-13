@@ -14,8 +14,6 @@
 
 #import "PPSExLeaderboardInfoViewController.h"
 
-static NSString *PPSExLeaderboardEmpty = @"<No data>";
-
 
 @interface PPSExLeaderboardInfoViewController()
 @property (nonatomic,retain) NSString    *requestBlockName;

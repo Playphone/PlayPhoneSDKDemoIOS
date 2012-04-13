@@ -62,6 +62,8 @@ static BOOL httpStatusMeansError (int status) {
 
 @implementation MNURLDownloader
 
+@synthesize userData = _userData;
+
 -(id) init {
     self = [super init];
 
@@ -69,6 +71,7 @@ static BOOL httpStatusMeansError (int status) {
         _connection = nil;
         _delegate   = nil;
         _data       = nil;
+        _userData   = nil;
     }
 
     return self;
@@ -86,6 +89,7 @@ static BOOL httpStatusMeansError (int status) {
 }
 
 -(void) dealloc {
+    [_userData release];
     [self releaseResources];
 
     [super dealloc];

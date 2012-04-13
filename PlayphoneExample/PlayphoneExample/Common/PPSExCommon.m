@@ -12,6 +12,7 @@
 NSString *PPSExUserNotLoggedInString     = @"User is not logged in";
 NSString *PPSExInvalidNumberFormatString = @"Invalid number format";
 NSString *PPSExVirtualItemCurrencyString = @"vI";
+NSString *PPSExLeaderboardEmpty          = @"<No data>";
 
 
 #define PPSExKeyboardHeightPortraitIPhone    (216)

@@ -21,12 +21,15 @@ static NSString* MNConfigParamFacebookAppId = @"FacebookAppId";
 static NSString* MNConfigParamFacebookSSOMode = @"FacebookSSOMode";
 
 static NSString* MNConfigParamLaunchTrackerUrl = @"LaunchTrackerURL";
+static NSString* MNConfigParamInstallTrackerUrl = @"InstallTrackerURL";
 static NSString* MNConfigParamShutdownTrackerUrl = @"ShutdownTrackerURL";
 static NSString* MNConfigParamBeaconTrackerUrl = @"BeaconTrackerURL";
 static NSString* MNConfigParamEnterForegroundTrackerUrl = @"EnterForegroundTrackerURL";
 static NSString* MNConfigParamEnterBackgroundTrackerUrl = @"EnterBackgroundTrackerURL";
 static NSString* MNConfigParamGameVocabularyVersion = @"GameVocabularyVersion";
 static NSString* MNConfigParamTryFastResumeMode = @"TryFastResumeMode";
+static NSString* MNConfigParamAllowReadWiFiMAC = @"AllowReadWiFiMAC";
+static NSString* MNConfigParamUseInstallIdInsteadOfUDID = @"UseInstallIdInsteadOfUDID";
 
 static BOOL MNConfigDataGetParamString (NSString** value, NSDictionary* params, NSString* key) {
     *value = (NSString*)[params objectForKey: key];
@@ -92,12 +95,15 @@ static BOOL MNConfigDataGetParamBoolean (BOOL* value, NSDictionary* params, NSSt
 @synthesize facebookAppId    = _facebookAppId;
 @synthesize facebookSSOMode  = _facebookSSOMode;
 @synthesize launchTrackerUrl = _launchTrackerUrl;
+@synthesize installTrackerUrl = _installTrackerUrl;
 @synthesize shutdownTrackerUrl = _shutdownTrackerUrl;
 @synthesize beaconTrackerUrl = _beaconTrackerUrl;
 @synthesize enterForegroundTrackerUrl = _enterForegroundTrackerUrl;
 @synthesize enterBackgroundTrackerUrl = _enterBackgroundTrackerUrl;
 @synthesize gameVocabularyVersion = _gameVocabularyVersion;
 @synthesize tryFastResumeMode = _tryFastResumeMode;
+@synthesize allowReadWiFiMAC  = _allowReadWiFiMAC;
+@synthesize useInstallIdInsteadOfUDID = _useInstallIdInsteadOfUDID;
 
 -(id) initWithConfigRequest:(NSURLRequest*) configRequest {
     self = [super init];
@@ -120,11 +126,13 @@ static BOOL MNConfigDataGetParamBoolean (BOOL* value, NSDictionary* params, NSSt
     [_facebookAPIKey release]; 
     [_facebookAppId release]; 
     [_launchTrackerUrl release];
+    [_installTrackerUrl release];
     [_shutdownTrackerUrl release];
     [_beaconTrackerUrl release];
     [_enterForegroundTrackerUrl release];
     [_enterBackgroundTrackerUrl release];
     [_gameVocabularyVersion release];
+    [_allowReadWiFiMAC release];
     [_configRequest release];
 
     [super dealloc];
@@ -147,12 +155,15 @@ static BOOL MNConfigDataGetParamBoolean (BOOL* value, NSDictionary* params, NSSt
     self.facebookAppId  = nil;
     self.facebookSSOMode = 0;
     self.launchTrackerUrl = nil;
+    self.installTrackerUrl = nil;
     self.shutdownTrackerUrl = nil;
     self.beaconTrackerUrl = nil;
     self.enterForegroundTrackerUrl = nil;
     self.enterBackgroundTrackerUrl = nil;
     self.gameVocabularyVersion = nil;
     self.tryFastResumeMode = 0;
+    self.allowReadWiFiMAC = nil;
+    self.useInstallIdInsteadOfUDID = 0;
 }
 
 -(void) loadWithDelegate:(id<MNConfigDataDelegate>) delegate {
@@ -233,6 +244,7 @@ static BOOL MNConfigDataGetParamBoolean (BOOL* value, NSDictionary* params, NSSt
         }
 
         self.launchTrackerUrl          = (NSString*)[params objectForKey: MNConfigParamLaunchTrackerUrl];
+        self.installTrackerUrl         = (NSString*)[params objectForKey: MNConfigParamInstallTrackerUrl];
         self.shutdownTrackerUrl        = (NSString*)[params objectForKey: MNConfigParamShutdownTrackerUrl];
         self.beaconTrackerUrl          = (NSString*)[params objectForKey: MNConfigParamBeaconTrackerUrl];
         self.enterForegroundTrackerUrl = (NSString*)[params objectForKey: MNConfigParamEnterForegroundTrackerUrl];
@@ -241,6 +253,12 @@ static BOOL MNConfigDataGetParamBoolean (BOOL* value, NSDictionary* params, NSSt
 
         if (!MNConfigDataGetParamInteger(&_tryFastResumeMode,params,MNConfigParamTryFastResumeMode)) {
             _tryFastResumeMode = 0;
+        }
+
+        self.allowReadWiFiMAC = (NSString*)[params objectForKey: MNConfigParamAllowReadWiFiMAC];
+
+        if (!MNConfigDataGetParamInteger(&_useInstallIdInsteadOfUDID,params,MNConfigParamUseInstallIdInsteadOfUDID)) {
+            _useInstallIdInsteadOfUDID = 0;
         }
 
         _loaded = YES;

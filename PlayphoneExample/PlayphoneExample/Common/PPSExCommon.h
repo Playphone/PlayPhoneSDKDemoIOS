@@ -31,6 +31,7 @@
 
 NSString *PPSExUserNotLoggedInString;
 NSString *PPSExInvalidNumberFormatString;
+NSString *PPSExLeaderboardEmpty;
 
 typedef struct
 {

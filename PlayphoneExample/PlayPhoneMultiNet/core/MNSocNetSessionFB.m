@@ -147,6 +147,74 @@ static NSString* MNSocNetFBExpirationDateDefaultsKey = @"FBExpirationDateKey";
     [tmpDelegate socNetFBStreamDialogDidFailWithError: error];
 }
 
+
+@end
+
+
+@interface MNSocNetFBGenericDialogDelegateWrapper : NSObject<FBDialogDelegate>
+{
+@public
+
+    id<MNSocNetFBGenericDialogDelegate> _delegate;
+}
+
+@property (nonatomic,retain) id<MNSocNetFBGenericDialogDelegate> delegate;
+
+-(id) init;
+-(void) dealloc;
+
+/* FBDialogDelegate */
+- (void)dialogCompleteWithUrl:(NSURL*) url;
+- (void)dialogDidNotCompleteWithUrl:(NSURL*) url;
+- (void)dialog:(FBDialog*)dialog didFailWithError:(NSError *)error;
+
+@end
+
+
+@implementation MNSocNetFBGenericDialogDelegateWrapper
+
+@synthesize delegate = _delegate;
+
+-(id) init {
+    self = [super init];
+
+    if (self != nil) {
+        _delegate = nil;
+    }
+
+    return self;
+}
+
+-(void) dealloc {
+    [_delegate release];
+
+    [super dealloc];
+}
+
+- (void)dialogCompleteWithUrl:(NSURL*) url {
+    id<MNSocNetFBGenericDialogDelegate> tmpDelegate = _delegate;
+
+    self.delegate = nil;
+
+    [tmpDelegate socNetFBGenericDialogDidSucceedWithUrl: url];
+}
+
+- (void)dialogDidNotCompleteWithUrl:(NSURL*) url {
+    id<MNSocNetFBGenericDialogDelegate> tmpDelegate = _delegate;
+
+    self.delegate = nil;
+
+    [tmpDelegate socNetFBGenericDialogDidCancelWithUrl: url];
+}
+
+-(void) dialog:(FBDialog*)dialog didFailWithError:(NSError*)error {
+    id<MNSocNetFBGenericDialogDelegate> tmpDelegate = _delegate;
+
+    self.delegate = nil;
+
+    [tmpDelegate socNetFBGenericDialogDidFailWithError: error];
+}
+
 @end
 
 
@@ -158,8 +226,9 @@ static NSString* MNSocNetFBExpirationDateDefaultsKey = @"FBExpirationDateKey";
     id<MNSocNetFBDelegate> _delegate;
     MNSocNetSessionFB* _session;
 
-    MNSocNetFBStreamDelegateWrapper*     _streamDelegateWrapper;
-    MNSocNetFBPermissionDelegateWrapper* _permissionDelegateWrapper;
+    MNSocNetFBStreamDelegateWrapper*        _streamDelegateWrapper;
+    MNSocNetFBPermissionDelegateWrapper*    _permissionDelegateWrapper;
+    MNSocNetFBGenericDialogDelegateWrapper* _genericDialogDelegateWrapper;
 }
 
 -(id) initWithSocNetSessionFB:(MNSocNetSessionFB*) session andDelegate:(id<MNSocNetFBDelegate>) delegate;
@@ -173,6 +242,10 @@ static NSString* MNSocNetFBExpirationDateDefaultsKey = @"FBExpirationDateKey";
 
 -(void) showPermissionDialogWithPermission:(NSString*) permission
                                andDelegate:(id<MNSocNetFBPermissionDialogDelegate>) delegate;
+
+-(void) showGenericDialogWithAction:(NSString*) action
+                             params:(NSDictionary*) params
+                        andDelegate:(id<MNSocNetFBGenericDialogDelegate>) delegate;
 
 /* FBSessionDelegate protocol*/
 
@@ -192,8 +265,9 @@ static NSString* MNSocNetFBExpirationDateDefaultsKey = @"FBExpirationDateKey";
         _facebook   = nil;
         _delegate   = delegate;
 
-        _streamDelegateWrapper     = [[MNSocNetFBStreamDelegateWrapper alloc] init];
-        _permissionDelegateWrapper = [[MNSocNetFBPermissionDelegateWrapper alloc] init];
+        _streamDelegateWrapper        = [[MNSocNetFBStreamDelegateWrapper alloc] init];
+        _permissionDelegateWrapper    = [[MNSocNetFBPermissionDelegateWrapper alloc] init];
+        _genericDialogDelegateWrapper = [[MNSocNetFBGenericDialogDelegateWrapper alloc] init];
     }
 
     return self;
@@ -203,7 +277,17 @@ static NSString* MNSocNetFBExpirationDateDefaultsKey = @"FBExpirationDateKey";
     [_facebook release];
     [_streamDelegateWrapper release];
     [_permissionDelegateWrapper release];
+    [_genericDialogDelegateWrapper release];
     [super dealloc];
+}
+
+-(void) updateStoredToken:(NSString*) accessToken expiresAt:(NSDate*) expirationDate {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+
+    [defaults setObject: accessToken    forKey: MNSocNetFBAccessTokenDefaultsKey];
+    [defaults setObject: expirationDate forKey: MNSocNetFBExpirationDateDefaultsKey];
+
+    [defaults synchronize];
 }
 
 -(void) showStreamDialogWithPrompt:(NSString*) prompt
@@ -233,13 +317,20 @@ static NSString* MNSocNetFBExpirationDateDefaultsKey = @"FBExpirationDateKey";
     }
 }
 
+-(void) showGenericDialogWithAction:(NSString*) action
+                             params:(NSDictionary*) params
+                        andDelegate:(id<MNSocNetFBGenericDialogDelegate>) delegate {
+    if (_facebook != nil && _genericDialogDelegateWrapper.delegate == nil) {
+        _genericDialogDelegateWrapper.delegate = delegate;
+
+        [_facebook dialog: action
+                andParams: [NSMutableDictionary dictionaryWithDictionary: params]
+              andDelegate: _genericDialogDelegateWrapper];
+    }
+}
+
 - (void)fbDidLogin {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-
-    [defaults setObject:[_facebook accessToken] forKey:MNSocNetFBAccessTokenDefaultsKey];
-    [defaults setObject:[_facebook expirationDate] forKey:MNSocNetFBExpirationDateDefaultsKey];
-
-    [defaults synchronize];
+    [self updateStoredToken: [_facebook accessToken] expiresAt: [_facebook expirationDate]];
 
     [_delegate socNetFBLoginOk: _session];
 }
@@ -262,6 +353,25 @@ static NSString* MNSocNetFBExpirationDateDefaultsKey = @"FBExpirationDateKey";
     else {
         [_delegate socNetFBLoginFailed];
     }
+}
+
+- (void)fbDidExtendToken:(NSString*)accessToken
+               expiresAt:(NSDate*)expirationDate {
+    [self updateStoredToken: accessToken expiresAt: expirationDate];
+
+    MNSocNetAuthTokenChangedEvent* data = [[[MNSocNetAuthTokenChangedEvent alloc]
+                                            initWithToken: _facebook.accessToken
+                                            andExpirationDate: _facebook.expirationDate] autorelease];
+
+    [_delegate socNetFBTokenStatusChangedWithData: data];
+}
+
+- (void)fbSessionInvalidated {
+    MNSocNetAuthTokenChangedEvent* data = [[[MNSocNetAuthTokenChangedEvent alloc]
+                                            initWithToken: nil
+                                            andExpirationDate: nil] autorelease];
+
+    [_delegate socNetFBTokenStatusChangedWithData: data];
 }
 
 @end
@@ -372,6 +482,27 @@ static NSString* getUrlSchemeSuffixByGameId (NSInteger gameId) {
     }
 }
 
+-(void) extendAccessToken {
+    Facebook* fb = _fbSessionWrapper->_facebook;
+
+    if (fb == nil) {
+        NSLog(@"WARNING: extendAccessToken is called before facebook become available");
+
+        return;
+    }
+
+    if ([fb shouldExtendAccessToken]) {
+        [fb extendAccessToken];
+    }
+    else {
+        MNSocNetAuthTokenChangedEvent* data = [[[MNSocNetAuthTokenChangedEvent alloc]
+                                                initWithToken: fb.accessToken
+                                                andExpirationDate: fb.expirationDate] autorelease];
+
+        [_fbSessionWrapper->_delegate socNetFBTokenStatusChangedWithData: data];
+    }
+}
+
 -(BOOL) handleOpenURL:(NSURL*) url {
     if (_fbSessionWrapper->_facebook != nil) {
         return [_fbSessionWrapper->_facebook handleOpenURL: url];
@@ -464,6 +595,45 @@ static NSString* getUrlSchemeSuffixByGameId (NSInteger gameId) {
 -(void) showPermissionDialogWithPermission:(NSString*) permission
                                andDelegate:(id<MNSocNetFBPermissionDialogDelegate>) delegate {
     [_fbSessionWrapper showPermissionDialogWithPermission: permission andDelegate: delegate];
+}
+
+-(void) showGenericDialogWithAction:(NSString*) action
+                             params:(NSDictionary*) params
+                        andDelegate:(id<MNSocNetFBGenericDialogDelegate>) delegate {
+    [_fbSessionWrapper showGenericDialogWithAction:(NSString*) action params: params andDelegate: delegate];
+}
+
+@end
+
+
+@implementation MNSocNetAuthTokenChangedEvent
+
+@synthesize accessToken    = _accessToken;
+@synthesize expirationDate = _expirationDate;
+@synthesize errorMessage   = _errorMessage;
+
+-(id) initWithToken:(NSString*) accessToken andExpirationDate:(NSString*) expirationDate {
+    self = [super init];
+    
+    if (self != nil) {
+        _accessToken    = [accessToken copy];
+        _expirationDate = [expirationDate copy];
+        _errorMessage   = nil;
+    }
+    
+    return self;
+}
+
+-(BOOL) isError {
+    return _errorMessage != nil;
+}
+
+-(void) dealloc {
+    [_accessToken release];
+    [_expirationDate release];
+    [_errorMessage release];
+    
+    [super dealloc];
 }
 
 @end

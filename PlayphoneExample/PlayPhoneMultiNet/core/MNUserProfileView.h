@@ -34,6 +34,7 @@ typedef struct {
                                       UIActionSheetDelegate,
                                       MNSocNetFBStreamDialogDelegate,
                                       MNSocNetFBPermissionDialogDelegate,
+                                      MNSocNetFBGenericDialogDelegate,
                                       MNUIWebViewHttpReqQueueDelegate> {
     @private
 
@@ -69,6 +70,9 @@ typedef struct {
     NSString* _fbPublishCancelJS;
     NSString* _fbPermissionSuccessJS;
     NSString* _fbPermissionCancelJS;
+    NSString* _fbGenericDialogSuccessJS;
+    NSString* _fbGenericDialogErrorJS;
+    NSString* _fbGenericDialogCancelJS;
 
     MNUIWebViewHttpReqQueue* _httpReqQueue;
 }

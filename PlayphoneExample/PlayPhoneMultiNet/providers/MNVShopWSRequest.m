@@ -9,6 +9,7 @@
 
 #import "MNTools.h"
 #import "MNWSXmlTools.h"
+#import "MNSessionInternal.h"
 
 #import "MNVShopWSRequest.h"
 
@@ -173,7 +174,7 @@
     [wsParams setObject: [NSString stringWithFormat: @"%d",[_session getDefaultGameSetId]] forKey: @"ctx_gameset_id"];
     [wsParams setObject: [NSString stringWithFormat: @"%lld",[_session getMyUserId]] forKey: @"ctx_user_id"];
     [wsParams setObject: userSId forKey: @"ctx_user_sid"];
-    [wsParams setObject: MNGetDeviceIdMD5() forKey: @"ctx_dev_id"];
+    [wsParams setObject: MNStringGetMD5String([_session getUniqueAppId]) forKey: @"ctx_dev_id"];
     [wsParams setObject: [NSString stringWithFormat: @"%d", MNDeviceTypeiPhoneiPod] forKey: @"ctx_dev_type"];
     [wsParams setObject: MNClientAPIVersion forKey: @"ctx_client_ver"];
 

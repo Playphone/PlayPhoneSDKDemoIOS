@@ -15,10 +15,13 @@
 @interface MNSession(internal)
 -(time_t)            getLaunchTime;
 -(NSString*)         getLaunchId;
+-(NSString*)         getInstallId;
 -(MNTrackingSystem*) getTrackingSystem;
 -(NSDictionary*)     getTrackingVars;
 -(NSDictionary*)     getAppConfigVars;
 -(NSDictionary*)     getAppExtParams;
+
+-(NSString*)         getUniqueAppId;
 
 -(unsigned int)      getForegroundSwitchCount;
 -(time_t)            getForegroundTime;

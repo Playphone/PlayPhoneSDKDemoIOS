@@ -15,7 +15,7 @@
 }
 
 -(NSNumber*) getCookieKey {
-    return [self getIntegerValue :@"cookie_key"];
+    return [self getIntegerValue :@"cookie_id"];
 }
 
 -(NSString*) getCookieValue {

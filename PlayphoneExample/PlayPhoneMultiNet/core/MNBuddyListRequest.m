@@ -8,6 +8,7 @@
 
 #import "TouchXML.h"
 
+#import "MNSessionInternal.h"
 #import "MNTools.h"
 #import "MNBuddyListRequest.h"
 
@@ -211,7 +212,7 @@ static BOOL getBoolFromDict (NSDictionary* dict, NSString* key, BOOL defValue) {
                             @"ctx_user_id",
                             [_session getMySId],
                             @"ctx_user_sid",
-                            MNGetDeviceIdMD5(),
+                            MNStringGetMD5String([_session getUniqueAppId]),
                             @"ctx_dev_id",
                             [NSString stringWithFormat: @"%d", MNDeviceTypeiPhoneiPod],
                             @"ctx_dev_type",

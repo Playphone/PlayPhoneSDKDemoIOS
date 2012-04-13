@@ -38,6 +38,7 @@ mn_extern_c NSDictionary* MNCopyDictionaryWithURLRequestParameters (NSURLRequest
 mn_extern_c NSDictionary* MNDictionaryFromKeyValueText (NSString* text);
 
 mn_extern_c NSString* MNGetMultiNetConfigURL (void);
+mn_extern_c NSString* MNGenerateUniqueId (void);
 
 mn_extern_c NSDictionary* MNGetAppExtParams (void);
 
@@ -55,8 +56,6 @@ mn_extern_c NSString* MNStringAsJSString(NSString* string);
 mn_extern_c NSString* MNStringGetMD5String (NSString* string);
 
 mn_extern_c NSString* MNDataGetBase64String (NSData* data);
-
-mn_extern_c NSString* MNGetDeviceIdMD5(void);
 
 mn_extern_c NSString* MNGetAppVersionInternal (void);
 mn_extern_c NSString* MNGetAppVersionExternal (void);
