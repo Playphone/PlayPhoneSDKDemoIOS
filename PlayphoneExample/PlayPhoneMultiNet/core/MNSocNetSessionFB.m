@@ -612,15 +612,15 @@ static NSString* getUrlSchemeSuffixByGameId (NSInteger gameId) {
 @synthesize expirationDate = _expirationDate;
 @synthesize errorMessage   = _errorMessage;
 
--(id) initWithToken:(NSString*) accessToken andExpirationDate:(NSString*) expirationDate {
+-(id) initWithToken:(NSString*) accessToken andExpirationDate:(NSDate*) expirationDate {
     self = [super init];
-    
+
     if (self != nil) {
         _accessToken    = [accessToken copy];
         _expirationDate = [expirationDate copy];
         _errorMessage   = nil;
     }
-    
+
     return self;
 }
 
@@ -632,7 +632,7 @@ static NSString* getUrlSchemeSuffixByGameId (NSInteger gameId) {
     [_accessToken release];
     [_expirationDate release];
     [_errorMessage release];
-    
+
     [super dealloc];
 }
 
