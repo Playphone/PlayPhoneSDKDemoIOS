@@ -621,9 +621,11 @@ static void addDynamicVars (NSMutableData* postData, NSArray* vars, NSString* va
 }
 
 -(void) trackShutdownForSession:(MNSession*) session {
-    [_shutdownUrlTemplate sendSimpleRequestWithSession: session];
+    if (_shutdownUrlTemplate != nil) {
+        [_shutdownUrlTemplate sendSimpleRequestWithSession: session];
 
-    runRunLoopOnce();
+        runRunLoopOnce();
+    }
 }
 
 -(void) setBeaconUrlTemplate:(NSString*) urlTemplate forSession:(MNSession*) session {
@@ -657,9 +659,11 @@ static void addDynamicVars (NSMutableData* postData, NSArray* vars, NSString* va
 }
 
 -(void) trackEnterBackgroundForSession:(MNSession*) session {
-    [_enterBackgroundUrlTemplate sendSimpleRequestWithSession: session];
+    if (_enterBackgroundUrlTemplate != nil) {
+        [_enterBackgroundUrlTemplate sendSimpleRequestWithSession: session];
 
-    runRunLoopOnce();
+        runRunLoopOnce();
+    }
 }
 
 -(NSDictionary*) getTrackingVars {
