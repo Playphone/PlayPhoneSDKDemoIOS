@@ -275,9 +275,11 @@ extern int MNZipToolUnzipFile (const char *destPath, const char *srcFileName) {
 
                     index++;
                 }
+
+                free(buffer);
             }
             else {
-                free(buffer);
+                ok = MNZIP_FAIL;
             }
         }
         else {

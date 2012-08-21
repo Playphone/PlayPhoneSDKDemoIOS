@@ -241,7 +241,7 @@ static NSString* MNSessionGetNewGuestPassword () {
 
     gettimeofday(&currentTime,NULL);
 
-    NSString* plainPass = [NSString stringWithFormat: @"%u%u%@%ld%ld%u%u",
+    NSString* plainPass = [NSString stringWithFormat: @"%u%u%ld%ld%u%u",
                            (unsigned int)arc4random(),
                            (unsigned int)arc4random(),
                            (long)currentTime.tv_sec,
